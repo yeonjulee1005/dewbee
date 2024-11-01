@@ -1,0 +1,47 @@
+@use 'fonts' as *;
+@import url("https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/variable/woff2/SUIT-Variable.css");
+
+html {
+  font-family: 'Pretendard Variable', Pretendard, Roboto, -apple-system, BlinkMacSystemFont, system-ui, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+body {
+  // font-family: unset !important;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  height: fit-content;
+  -webkit-touch-callout: none;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-use-select: none;
+  -ms-overflow-style: none;
+}
+
+.layout-enter-active,
+.layout-leave-active,
+.page-enter-active,
+.page-leave-active {
+  transition: all .1s ease-in-out;
+}
+
+.layout-enter-from,
+.layout-leave-to,
+.page-enter-from,
+.page-leave-to {
+  opacity: .3;
+}
