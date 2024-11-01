@@ -86,6 +86,12 @@ export default defineNuxtConfig({
     client: true,
   },
   compatibilityDate: '2024-04-03',
+  nitro: {
+    preset: 'vercel',
+    prerender: {
+      failOnError: false,
+    },
+  },
   vite: {
     build: {
       sourcemap: true,
