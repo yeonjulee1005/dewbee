@@ -5,6 +5,7 @@
 .nitro
 .cache
 dist
+bun.lockb
 
 # Node dependencies
 node_modules
@@ -17,8 +18,11 @@ logs
 .DS_Store
 .fleet
 .idea
+.obsidian
 
 # Local env files
 .env
 .env.*
 !.env.example
+.stylelintcache
+.eslintcache
