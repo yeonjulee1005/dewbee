@@ -22,10 +22,22 @@
         "value-no-vendor-prefix": null,
         "rule-empty-line-before": null,
         "declaration-empty-line-before": "never",
-        "import-notation": "url",
+        "import-notation": "string",
         "at-rule-empty-line-before": "never",
-        "keyframe-block-no-duplicate-selectors": false,
-        "no-descending-specificity": false
+        "keyframe-block-no-duplicate-selectors": null,
+        "no-descending-specificity": null,
+        "scss/at-rule-no-unknown": [
+          true,
+          {
+            "ignoreAtRules": ["use", "theme"]
+          }
+        ],
+        "at-rule-no-unknown": [
+          true,
+          {
+            "ignoreAtRules": ["use", "theme"]
+          }
+        ]
       }
     }
   ]

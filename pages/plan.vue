@@ -2,14 +2,14 @@
 const { t } = useLocale()
 
 useHead({
-  title: t('pageTitle.main'),
+  title: t('pageTitle.plan'),
 })
 </script>
 
 <template>
   <div>
     <h1>
-      DewBee
+      요금제
     </h1>
   </div>
 </template>
