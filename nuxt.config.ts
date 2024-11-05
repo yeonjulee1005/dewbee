@@ -68,7 +68,7 @@ export default defineNuxtConfig({
     fallback: 'light',
   },
   ui: {
-    prefix: 'DB',
+    fonts: false,
   },
   runtimeConfig: {
     public: {

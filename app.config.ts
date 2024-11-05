@@ -1,16 +1,13 @@
 export default defineAppConfig({
+  toaster: {
+    position: 'bottom-right' as const,
+    expand: true,
+    duration: 5000,
+  },
   ui: {
-    gray: 'neutral',
-    notifications: {
-      position: 'top-0 bottom-auto',
-    },
-    variables: {
-      light: {
-        background: 'var(--bg-neutral-200)',
-      },
-      dark: {
-        background: 'var(--bg-neutral-900)',
-      },
+    colors: {
+      primary: 'amber',
+      neutral: 'stone',
     },
   },
 })

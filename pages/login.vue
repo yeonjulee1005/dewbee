@@ -1,0 +1,80 @@
+<script setup lang="ts">
+import { track } from '@vercel/analytics'
+
+const { t } = useLocale()
+const toast = useToast()
+const config = useRuntimeConfig()
+
+const { auth } = useSupabaseClient()
+
+useHead({
+  title: t('pageTitle.login'),
+})
+
+const getUrl = () => {
+  let url = config.public.siteUrl ?? 'http://localhost:5000/'
+  url = url.includes('http') ? url : `https://${url}`
+  url = url.charAt(url.length - 1) === '/' ? url : `${url}/`
+  return url.concat('confirm')
+}
+
+const userLogin = (provider: 'google' | 'github' | 'linkedin_oidc') => {
+  track('Login Provider', { provider })
+  loginOAuth(provider)
+}
+
+const loginOAuth = async (provider: 'google' | 'github' | 'linkedin_oidc') => {
+  const { error } = await auth.signInWithOAuth({
+    provider,
+    options: {
+      redirectTo: getUrl(),
+    },
+  })
+
+  if (error) {
+    toast.add({ title: t('message.loginFailed.title'), description: t('message.loginFailed.description'), color: 'error' })
+    return
+  }
+
+  toast.add({ title: t('message.loginSuccess.title'), description: t('message.loginSuccess.description'), color: 'success' })
+}
+</script>
+
+<template>
+  <div class="h-dvh flex flex-col items-center justify-center gap-y-4">
+    <NuxtImg
+      src="/image/favicon.svg"
+      :height="200"
+      :width="200"
+    />
+    <div class="flex items-center gap-x-2">
+      <AButton
+        button-variant="soft"
+        button-size="xl"
+        color="neutral"
+        use-leading
+        icon-lead-name="i-devicon-google"
+        icon-lead-class="w-8 h-8"
+        @click="userLogin('google')"
+      />
+      <AButton
+        button-variant="soft"
+        button-size="xl"
+        color="neutral"
+        use-leading
+        icon-lead-name="i-devicon-github"
+        icon-lead-class="w-8 h-8"
+        @click="userLogin('github')"
+      />
+      <AButton
+        button-variant="soft"
+        button-size="xl"
+        color="neutral"
+        use-leading
+        icon-lead-name="i-devicon-linkedin"
+        icon-lead-class="w-8 h-8"
+        @click="userLogin('linkedin_oidc')"
+      />
+    </div>
+  </div>
+</template>
