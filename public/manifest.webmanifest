@@ -2,7 +2,7 @@
   "id": "/",
   "name": "DewBee",
   "short_name": "DewBee",
-  "description": "간단소비 관리 서비스",
+  "description": "매주의 목표 소비금액을 손쉽게 관리하세요!",
   "start_url": "/",
   "display_override": [
     "standalone",

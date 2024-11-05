@@ -2,14 +2,14 @@
 const { t } = useLocale()
 
 useHead({
-  title: t('pageTitle.main'),
+  title: t('pageTitle.settings'),
 })
 </script>
 
 <template>
   <div>
     <h1>
-      DewBee
+      설정
     </h1>
   </div>
 </template>
