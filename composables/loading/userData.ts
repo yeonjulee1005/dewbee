@@ -12,7 +12,7 @@ export const useLoadUserData = () => {
     }
 
     const { data, error } = await client
-      .from('profiles')
+      .from('viewProfiles')
       .select('*')
       .eq('id', user.value?.id)
       .single()

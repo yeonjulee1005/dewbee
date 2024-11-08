@@ -4,6 +4,7 @@ const { t } = useLocale()
 const { meta } = useRoute()
 
 const { excuteUserData } = useLoadUserData()
+const { executeFilterData } = useLoadFilterData()
 
 const seoTitle = 'DewBee'
 const seoDescription = '매주의 목표 소비금액을 손쉽게 관리하세요!'
@@ -74,7 +75,10 @@ useSeoMeta({
   twitterImage: seoImage,
 })
 
-await excuteUserData()
+onMounted(async () => {
+  await excuteUserData()
+  await executeFilterData()
+})
 </script>
 
 <template>
