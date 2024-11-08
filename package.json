@@ -19,7 +19,8 @@
     "vercel-build": "NITRO_PRESET=vercel nuxt build",
     "upgrade:force": "nuxt upgrade --force",
     "supabase:login": "yarn supabase login",
-    "supabase:type": "supabase gen types --lang=typescript --project-id biynqxysclkvwrscmupr --schema public > types/supabase.ts"
+    "supabase:type": "supabase gen types --lang=typescript --project-id biynqxysclkvwrscmupr --schema public > types/supabase.ts",
+    "supabase:type-filter": "supabase gen types --lang=typescript --project-id biynqxysclkvwrscmupr --schema filter > types/supabaseFilter.ts"
   },
   "dependencies": {
     "@nuxtjs/seo": "^2.0.0-rc.23",
@@ -41,7 +42,7 @@
     "@nuxtjs/stylelint-module": "^5.2.0",
     "@nuxtjs/supabase": "^1.4.1",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
-    "@pinia/nuxt": "^0.6.0",
+    "@pinia/nuxt": "^0.7.0",
     "@stefanobartoletti/nuxt-social-share": "^1.2.0",
     "@vercel/analytics": "^1.3.2",
     "@vercel/speed-insights": "^1.0.14",

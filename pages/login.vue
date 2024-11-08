@@ -18,12 +18,9 @@ const getUrl = () => {
   return url.concat('confirm')
 }
 
-const userLogin = (provider: 'google' | 'github' | 'linkedin_oidc') => {
+const userLogin = async (provider: 'google' | 'github' | 'linkedin_oidc') => {
   track('Login Provider', { provider })
-  loginOAuth(provider)
-}
 
-const loginOAuth = async (provider: 'google' | 'github' | 'linkedin_oidc') => {
   const { error } = await auth.signInWithOAuth({
     provider,
     options: {
@@ -41,17 +38,23 @@ const loginOAuth = async (provider: 'google' | 'github' | 'linkedin_oidc') => {
 </script>
 
 <template>
-  <div class="h-dvh flex flex-col items-center justify-center gap-y-4">
-    <NuxtImg
-      src="/image/favicon.svg"
-      :height="200"
-      :width="200"
-    />
-    <div class="flex items-center gap-x-2">
+  <div class="h-dvh flex flex-col items-center justify-center gap-y-6">
+    <div class="flex flex-col items-center gap-y-3">
+      <NuxtImg
+        src="/image/favicon.svg"
+        :height="180"
+        :width="180"
+      />
+      <div class="text-2xl font-black">
+        {{ $t('pageTitle.login') }}
+      </div>
+    </div>
+    <div class="flex items-center gap-x-4">
       <AButton
         button-variant="soft"
         button-size="xl"
         color="neutral"
+        button-rounded="rounded-xl"
         use-leading
         icon-lead-name="i-devicon-google"
         icon-lead-class="w-8 h-8"
@@ -61,6 +64,7 @@ const loginOAuth = async (provider: 'google' | 'github' | 'linkedin_oidc') => {
         button-variant="soft"
         button-size="xl"
         color="neutral"
+        button-rounded="rounded-xl"
         use-leading
         icon-lead-name="i-devicon-github"
         icon-lead-class="w-8 h-8"
@@ -70,6 +74,7 @@ const loginOAuth = async (provider: 'google' | 'github' | 'linkedin_oidc') => {
         button-variant="soft"
         button-size="xl"
         color="neutral"
+        button-rounded="rounded-xl"
         use-leading
         icon-lead-name="i-devicon-linkedin"
         icon-lead-class="w-8 h-8"

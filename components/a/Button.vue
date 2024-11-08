@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { AvatarProps } from '@nuxt/ui'
+
 withDefaults(
   defineProps<{
     customClass?: string
@@ -21,6 +23,7 @@ withDefaults(
     imageUrl?: string
     imageSize?: number
     buttonText?: string
+    buttonAvatar?: AvatarProps
   }>(),
   {
     hideTooltip: false,
@@ -44,6 +47,7 @@ withDefaults(
     imageUrl: '',
     imageSize: 30,
     buttonText: '',
+    buttonAvatar: undefined,
   },
 )
 </script>
@@ -56,6 +60,7 @@ withDefaults(
     :block="buttonBlock"
     :truncate="buttonTruncate"
     :padded="buttonPadding"
+    :avatar="buttonAvatar"
     :color="buttonColor"
     :size="buttonSize"
     :type="buttonType"

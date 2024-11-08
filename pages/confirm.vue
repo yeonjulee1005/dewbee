@@ -1,11 +1,13 @@
 <script setup lang="ts">
+const client = useSupabaseClient()
+
 const { t } = useLocale()
 const toast = useToast()
 
 const user = useSupabaseUser()
 
 const { logout } = useFetchComposable()
-const { userData } = storeToRefs(useUserDataStore())
+const { userData, userCoreId } = storeToRefs(useUserDataStore())
 
 const cookieName = useRuntimeConfig().public.supabase.cookieName
 const redirectPath = useCookie(`${cookieName}-redirect-path`, { sameSite: 'lax', secure: true }).value
@@ -18,8 +20,24 @@ definePageMeta({
   layout: 'center',
 })
 
+const loadUserData = async (userId: string) => {
+  const { data, error } = await client
+    .from('viewProfiles')
+    .select('*')
+    .eq('id', userId)
+    .single()
+
+  if (error) {
+    toast.add({ title: error.message, description: 'at fetch userData', color: 'error' })
+  }
+
+  userData.value = data as SerializeObject
+  userCoreId.value = userData.value?.id ?? ''
+}
+
 watch(user, async () => {
   if (!user.value) return
+  await loadUserData(user.value.id)
 
   if (userData.value?.deleted) {
     toast.add({ title: t('message.alreadyWithdrawal.title'), description: t('message.alreadyWithdrawal.description'), color: 'error' })
