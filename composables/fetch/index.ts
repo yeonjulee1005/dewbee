@@ -1,9 +1,9 @@
-// import { createClient } from '@supabase/supabase-js'
-// import type { PostgrestError } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js'
+import type { PostgrestError } from '@supabase/supabase-js'
 
 export const useFetchComposable = () => {
-  // const toast = useToast()
-  // const config = useRuntimeConfig()
+  const toast = useToast()
+  const config = useRuntimeConfig()
   const client = useSupabaseClient()
 
   /**
@@ -72,16 +72,16 @@ export const useFetchComposable = () => {
   //   }
   // }
 
-  // const schemaFetchData = async (schema: string, table: string, queryString: string, customOrder?: string, customAscending?: boolean) => {
-  //   const { data, error }: SerializeObject = await createClient(config.public.supabaseUrl, config.public.supabaseKey, { db: { schema } })
-  //     .from(table)
-  //     .select(queryString)
-  //     .order(customOrder ?? 'index', { ascending: customAscending ?? true })
+  const schemaFetchData = async (schema: string, table: string, queryString: string, customOrder?: string, customAscending?: boolean) => {
+    const { data, error }: SerializeObject = await createClient(config.public.supabaseUrl, config.public.supabaseKey, { db: { schema } })
+      .from(table)
+      .select(queryString)
+      .order(customOrder ?? 'index', { ascending: customAscending ?? true })
 
-  //   errorHandler('fetch schema Data', error)
+    errorHandler('fetch schema Data', error)
 
-  //   return data
-  // }
+    return data
+  }
 
   // const schemaFetchOptionData = async (schema: string, table: string, queryString: string, matchOpt: string, matchOptVal: string | number | boolean, secondMatchOpt?: string, secondMatchOptVal?: string | number | boolean, thirdMatchOpt?: string, thirdMatchOptVal?: string | number | boolean) => {
   //   if (secondMatchOpt && thirdMatchOpt) {
@@ -446,11 +446,11 @@ export const useFetchComposable = () => {
   //   }
   // }
 
-  // const errorHandler = (fetchName: string, error: PostgrestError | null) => {
-  //   if (error) {
-  //     toast.add({ title: error.message, description: `at ${fetchName}`, color: 'rose', timeout: 2000 })
-  //   }
-  // }
+  const errorHandler = (fetchName: string, error: PostgrestError | null) => {
+    if (error) {
+      toast.add({ title: error.message, description: `at ${fetchName}`, color: 'error' })
+    }
+  }
 
   const logout = async () => {
     await client.auth.signOut()
@@ -459,7 +459,7 @@ export const useFetchComposable = () => {
   return {
     // fetchData,
     // orderFetchData,
-    // schemaFetchData,
+    schemaFetchData,
     // schemaFetchOptionData,
     // schemaFetchOptionSortData,
     // schemaFetchOptionSingleData,

@@ -7,14 +7,18 @@ export default {
     settings: 'Settings',
     profile: 'Profile',
     inquiry: 'Inquiry',
+    patchNote: 'Patch Note',
+    copyright: 'Copyright © Dewdew All Rights Reserved.',
   },
   menu: {
+    main: 'Main',
     profile: 'Profile',
     settings: 'Settings',
     weeklySpendTarget: 'Weekly Spend Target',
     startDay: 'Start Day',
-    inquiry: 'Inquiry',
     plan: 'Plan',
+    inquiry: 'Inquiry',
+    patchNote: 'Patch Note',
     alarm: 'Alarm',
     currency: 'Currency',
     theme: {
@@ -31,6 +35,24 @@ export default {
     signin: 'Sign In',
     signout: 'Sign Out',
     withdraw: 'Withdraw',
+  },
+  button: {
+    CYC001: 'Won(₩)',
+    CYC002: 'Dollar($)',
+    CYC003: 'Yen(¥)',
+    SDC001: 'Mon',
+    SDC002: 'Tue',
+    SDC003: 'Wed',
+    SDC004: 'Thu',
+    SDC005: 'Fri',
+    SDC006: 'Sat',
+    SDC007: 'Sun',
+  },
+  settings: {
+    title: {
+      currency: 'Currency',
+      startDate: 'Start Day',
+    },
   },
   message: {
     loginSuccess: {

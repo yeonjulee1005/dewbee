@@ -7,10 +7,17 @@ const { go } = useRouter()
 const { t, locale, setLocale } = useLocale()
 const ccolorMode = useColorMode()
 
+const { userData, userCoreId } = storeToRefs(useUserDataStore())
 const { logout } = useFetchComposable()
 
 const items = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
   [
+    {
+      label: t('menu.main'),
+      icon: 'i-lucide-home',
+      kbds: ['ctrl', 'm'],
+      to: '/',
+    },
     {
       label: t('menu.settings'),
       icon: 'i-lucide-settings-2',
@@ -72,16 +79,22 @@ const items = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
   ],
   [
     {
+      label: t('menu.plan'),
+      icon: 'i-lucide-crown',
+      kbds: ['ctrl', 'p'],
+      to: '/settings/plan',
+    },
+    {
       label: t('menu.inquiry'),
       icon: 'i-lucide-message-circle-more',
       kbds: ['ctrl', 'i'],
       to: '/settings/inquiry',
     },
     {
-      label: t('menu.plan'),
-      icon: 'i-lucide-crown',
-      kbds: ['ctrl', 'p'],
-      to: '/settings/plan',
+      label: t('menu.patchNote'),
+      icon: 'i-lucide-message-circle-more',
+      kbds: ['ctrl', 'n'],
+      to: '/settings/patch',
     },
   ],
 ])
@@ -124,6 +137,9 @@ defineShortcuts({
   ctrl_l: () => {
     navigateTo('/login')
   },
+  ctrl_m: () => {
+    navigateTo('/')
+  },
   ctrl_p: () => {
     navigateTo('/plan')
   },
@@ -132,6 +148,9 @@ defineShortcuts({
   },
   ctrl_t: () => {
     navigateTo('/settings/theme')
+  },
+  ctrl_n: () => {
+    navigateTo('/settings/patch')
   },
   ctrl_meta_p: () => {
     navigateTo('/settings/profile')
@@ -165,6 +184,8 @@ defineShortcuts({
 const logoutProcess = () => {
   items.value.shift()
   items.value.pop()
+  userData.value = null
+  userCoreId.value = ''
   logout()
 }
 
@@ -180,11 +201,17 @@ checkLoginState()
 </script>
 
 <template>
-  <div class="w-full flex justify-end px-3 py-2 ring-2 ring-amber-500">
+  <div class="w-full flex justify-between items-center px-4 py-3">
+    <div
+      class="text-4xl font-black cursor-pointer hover:text-amber-500 transition-all duration-100 ease-in-out"
+      @click="navigateTo('/')"
+    >
+      {{ $t('pageTitle.dewbee') }}
+    </div>
     <UDropdownMenu
       v-model:open="dropdownMenuTrigger"
       :items="items"
-      size="lg"
+      size="xl"
       arrow
       :content="{ side: 'bottom', align: 'start' }"
       class="min-w-48"
@@ -193,9 +220,14 @@ checkLoginState()
         use-leading
         round-button
         :shortcuts-text="['t']"
-        button-rounded="rounded-xl"
+        custom-class="ring-2 cursor-pointer"
+        button-rounded="rounded-full"
+        :image-size="36"
+        :button-avatar="{
+          src: user?.id ? userData?.avatar_url ?? '/image/favicon.svg' : '/image/favicon.svg',
+          size: 'xl',
+        }"
         button-variant="outline"
-        image-url="/image/favicon.svg"
       />
     </UDropdownMenu>
   </div>

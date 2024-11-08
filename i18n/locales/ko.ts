@@ -7,14 +7,18 @@ export default {
     settings: '설정',
     profile: '프로필',
     inquiry: '문의하기',
+    patchNote: '패치노트',
+    copyright: 'Copyright © Dewdew All Rights Reserved.',
   },
   menu: {
+    main: '메인',
     profile: '프로필',
     settings: '설정',
     weeklySpendTarget: '주간지출목표 설정',
     startDay: '시작요일 변경',
-    inquiry: '문의하기',
     plan: '요금제 변경',
+    inquiry: '문의하기',
+    patchNote: '패치노트',
     alarm: '알림 설정',
     currency: '화폐변경',
     theme: {
@@ -31,6 +35,24 @@ export default {
     signin: '로그인',
     signout: '로그아웃',
     withdraw: '탈퇴',
+  },
+  button: {
+    CYC001: '원화(₩)',
+    CYC002: '달러($)',
+    CYC003: '엔화(¥)',
+    SDC001: '월',
+    SDC002: '화',
+    SDC003: '수',
+    SDC004: '목',
+    SDC005: '금',
+    SDC006: '토',
+    SDC007: '일',
+  },
+  settings: {
+    title: {
+      currency: '통화 설정',
+      startDate: '시작요일 설정',
+    },
   },
   message: {
     loginSuccess: {
