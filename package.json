@@ -38,7 +38,7 @@
     "@nuxt/ui": "^3.0.0-alpha.7",
     "@nuxtjs/color-mode": "^3.5.2",
     "@nuxtjs/device": "^3.2.4",
-    "@nuxtjs/i18n": "^8.5.5",
+    "@nuxtjs/i18n": "9.0.0",
     "@nuxtjs/stylelint-module": "^5.2.0",
     "@nuxtjs/supabase": "^1.4.1",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
