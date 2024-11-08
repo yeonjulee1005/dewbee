@@ -85,6 +85,9 @@ export default defineNuxtConfig({
     server: true,
     client: true,
   },
+  future: {
+    compatibilityVersion: 4,
+  },
   compatibilityDate: '2024-04-03',
   nitro: {
     preset: 'vercel',
@@ -114,6 +117,7 @@ export default defineNuxtConfig({
     checker: true,
   },
   i18n: {
+    langDir: 'locales',
     locales: [
       { code: 'ko', file: 'ko.ts' },
       { code: 'en', file: 'en.ts' },
