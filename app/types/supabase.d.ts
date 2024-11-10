@@ -9,6 +9,51 @@ type Json =
 interface Database {
   public: {
     Tables: {
+      dailyResultList: {
+        Row: {
+          created_at: string
+          currency_id: string | null
+          deleted: boolean | null
+          id: string
+          summary_amount: number | null
+          update_user_id: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          currency_id?: string | null
+          deleted?: boolean | null
+          id?: string
+          summary_amount?: number | null
+          update_user_id?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          currency_id?: string | null
+          deleted?: boolean | null
+          id?: string
+          summary_amount?: number | null
+          update_user_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'dailyResultList_update_user_id_fkey'
+            columns: ['update_user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'dailyResultList_update_user_id_fkey'
+            columns: ['update_user_id']
+            isOneToOne: false
+            referencedRelation: 'viewProfiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -16,10 +61,10 @@ interface Database {
           currency_id: string | null
           deleted: boolean | null
           email: string | null
+          end_date_id: string | null
           id: string
           nickname: string | null
           plan_id: string | null
-          start_date_id: string | null
           updated_at: string | null
           weekly_target_amount: number | null
         }
@@ -29,10 +74,10 @@ interface Database {
           currency_id?: string | null
           deleted?: boolean | null
           email?: string | null
+          end_date_id?: string | null
           id?: string
           nickname?: string | null
           plan_id?: string | null
-          start_date_id?: string | null
           updated_at?: string | null
           weekly_target_amount?: number | null
         }
@@ -42,10 +87,10 @@ interface Database {
           currency_id?: string | null
           deleted?: boolean | null
           email?: string | null
+          end_date_id?: string | null
           id?: string
           nickname?: string | null
           plan_id?: string | null
-          start_date_id?: string | null
           updated_at?: string | null
           weekly_target_amount?: number | null
         }
@@ -102,7 +147,9 @@ interface Database {
       weeklyResultList: {
         Row: {
           created_at: string
+          currency_id: string | null
           deleted: boolean | null
+          end_date_id: string | null
           id: string
           is_success: boolean | null
           summary_amount: number | null
@@ -111,7 +158,9 @@ interface Database {
         }
         Insert: {
           created_at?: string
+          currency_id?: string | null
           deleted?: boolean | null
+          end_date_id?: string | null
           id?: string
           is_success?: boolean | null
           summary_amount?: number | null
@@ -120,7 +169,9 @@ interface Database {
         }
         Update: {
           created_at?: string
+          currency_id?: string | null
           deleted?: boolean | null
+          end_date_id?: string | null
           id?: string
           is_success?: boolean | null
           summary_amount?: number | null
@@ -154,12 +205,12 @@ interface Database {
           currency_id: string | null
           deleted: boolean | null
           email: string | null
+          end_date_id: string | null
+          endDate: Json | null
           id: string | null
           nickname: string | null
           plan: Json | null
           plan_id: string | null
-          start_date_id: string | null
-          startDate: Json | null
           updated_at: string | null
           weekly_target_amount: number | null
         }

@@ -45,6 +45,7 @@ watch(user, async () => {
     return navigateTo('/')
   }
 
+  toast.add({ title: t('message.loginSuccess.title'), description: t('message.loginSuccess.description'), color: 'success' })
   useCookie(`${cookieName}-redirect-path`).value = null
   return navigateTo(redirectPath)
 }, {

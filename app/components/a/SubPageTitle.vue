@@ -15,7 +15,7 @@ withDefaults(
       {{ title }}
     </p>
     <USeparator
-      size="lg"
+      size="md"
       :avatar="{ src: '/image/favicon.svg', size: 'lg' }"
     />
   </div>

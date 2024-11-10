@@ -42,6 +42,39 @@ export type FilterDatabase = {
         }
         Relationships: []
       }
+      endDate: {
+        Row: {
+          code: string | null
+          code_name: string | null
+          created_at: string
+          deleted: boolean | null
+          id: string
+          index: number | null
+          update_user_id: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          code?: string | null
+          code_name?: string | null
+          created_at?: string
+          deleted?: boolean | null
+          id?: string
+          index?: number | null
+          update_user_id?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          code?: string | null
+          code_name?: string | null
+          created_at?: string
+          deleted?: boolean | null
+          id?: string
+          index?: number | null
+          update_user_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       plan: {
         Row: {
           code: string | null
@@ -104,39 +137,6 @@ export type FilterDatabase = {
           created_at?: string
           deleted?: boolean | null
           icon_name?: string | null
-          id?: string
-          index?: number | null
-          update_user_id?: string | null
-          updated_at?: string | null
-        }
-        Relationships: []
-      }
-      startDate: {
-        Row: {
-          code: string | null
-          code_name: string | null
-          created_at: string
-          deleted: boolean | null
-          id: string
-          index: number | null
-          update_user_id: string | null
-          updated_at: string | null
-        }
-        Insert: {
-          code?: string | null
-          code_name?: string | null
-          created_at?: string
-          deleted?: boolean | null
-          id?: string
-          index?: number | null
-          update_user_id?: string | null
-          updated_at?: string | null
-        }
-        Update: {
-          code?: string | null
-          code_name?: string | null
-          created_at?: string
-          deleted?: boolean | null
           id?: string
           index?: number | null
           update_user_id?: string | null

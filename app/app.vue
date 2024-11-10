@@ -3,7 +3,7 @@ const appConfig = useAppConfig()
 const { t } = useLocale()
 const { meta } = useRoute()
 
-const { excuteUserData } = useLoadUserData()
+const { executeUpdateData } = useLoadUserData()
 const { executeFilterData } = useLoadFilterData()
 
 const seoTitle = 'DewBee'
@@ -76,7 +76,7 @@ useSeoMeta({
 })
 
 onMounted(async () => {
-  await excuteUserData()
+  await executeUpdateData()
   await executeFilterData()
 })
 </script>
@@ -110,5 +110,9 @@ onMounted(async () => {
   --color-amber-800: #9a3d1a;
   --color-amber-900: #80381c;
   --color-amber-950: #451a0a;
+}
+
+.break-keep {
+  word-break: keep-all;
 }
 </style>

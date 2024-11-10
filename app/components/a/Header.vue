@@ -19,11 +19,19 @@ const items = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
       to: '/',
     },
     {
-      label: t('menu.settings'),
-      icon: 'i-lucide-settings-2',
-      kbds: ['ctrl', 's'],
-      to: '/settings',
+      label: t('menu.inquiry'),
+      icon: 'i-lucide-message-circle-more',
+      kbds: ['ctrl', 'i'],
+      to: '/settings/inquiry',
     },
+    {
+      label: t('menu.patchNote'),
+      icon: 'i-lucide-message-circle-more',
+      kbds: ['ctrl', 'n'],
+      to: '/settings/patch',
+    },
+  ],
+  [
     {
       label: t('menu.theme.label'),
       icon: 'i-lucide-palette',
@@ -77,26 +85,6 @@ const items = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
       ],
     },
   ],
-  [
-    {
-      label: t('menu.plan'),
-      icon: 'i-lucide-crown',
-      kbds: ['ctrl', 'p'],
-      to: '/settings/plan',
-    },
-    {
-      label: t('menu.inquiry'),
-      icon: 'i-lucide-message-circle-more',
-      kbds: ['ctrl', 'i'],
-      to: '/settings/inquiry',
-    },
-    {
-      label: t('menu.patchNote'),
-      icon: 'i-lucide-message-circle-more',
-      kbds: ['ctrl', 'n'],
-      to: '/settings/patch',
-    },
-  ],
 ])
 
 const dropdownMenuTrigger = ref(false)
@@ -110,11 +98,25 @@ const checkLoginState = () => {
       to: '/settings/profile',
     }])
 
-    items.value.push([{
-      label: t('menu.signout'),
-      icon: 'i-lucide-log-out',
-      onSelect: logoutProcess,
-    }])
+    items.value.push([
+      {
+        label: t('menu.plan'),
+        icon: 'i-lucide-crown',
+        kbds: ['ctrl', 'p'],
+        to: '/settings/plan',
+      },
+      {
+        label: t('menu.settings'),
+        icon: 'i-lucide-settings-2',
+        kbds: ['ctrl', 's'],
+        to: '/settings',
+      },
+      {
+        label: t('menu.signout'),
+        icon: 'i-lucide-log-out',
+        onSelect: logoutProcess,
+      },
+    ])
   }
   else {
     items.value.push([{
@@ -201,7 +203,7 @@ checkLoginState()
 </script>
 
 <template>
-  <div class="w-full flex justify-between items-center px-4 py-3">
+  <div class="sticky top-0 left-0 w-full flex justify-between items-center px-4 py-3">
     <div
       class="text-4xl font-black cursor-pointer hover:text-amber-500 transition-all duration-100 ease-in-out"
       @click="navigateTo('/')"
