@@ -19,8 +19,8 @@
     "vercel-build": "NITRO_PRESET=vercel nuxt build",
     "upgrade:force": "nuxt upgrade --force",
     "supabase:login": "yarn supabase login",
-    "supabase:type": "supabase gen types --lang=typescript --project-id biynqxysclkvwrscmupr --schema public > types/supabase.ts",
-    "supabase:type-filter": "supabase gen types --lang=typescript --project-id biynqxysclkvwrscmupr --schema filter > types/supabaseFilter.ts"
+    "supabase:type": "supabase gen types --lang=typescript --project-id biynqxysclkvwrscmupr --schema public > app/types/supabase.ts",
+    "supabase:type-filter": "supabase gen types --lang=typescript --project-id biynqxysclkvwrscmupr --schema filter > app/types/supabaseFilter.ts"
   },
   "dependencies": {
     "@nuxtjs/seo": "^2.0.0-rc.23",
@@ -35,7 +35,7 @@
     "@iconify-json/svg-spinners": "^1.2.1",
     "@nuxt/eslint": "^0.6.1",
     "@nuxt/image": "^1.8.1",
-    "@nuxt/ui": "^3.0.0-alpha.7",
+    "@nuxt/ui": "^3.0.0-alpha.8",
     "@nuxtjs/color-mode": "^3.5.2",
     "@nuxtjs/device": "^3.2.4",
     "@nuxtjs/i18n": "9.0.0",

@@ -32,8 +32,6 @@ const userLogin = async (provider: 'google' | 'github' | 'linkedin_oidc') => {
     toast.add({ title: t('message.loginFailed.title'), description: t('message.loginFailed.description'), color: 'error' })
     return
   }
-
-  toast.add({ title: t('message.loginSuccess.title'), description: t('message.loginSuccess.description'), color: 'success' })
 }
 </script>
 

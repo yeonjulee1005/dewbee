@@ -8,7 +8,10 @@ export default {
     profile: 'Profile',
     inquiry: 'Inquiry',
     patchNote: 'Patch Note',
-    copyright: 'Copyright © Dewdew All Rights Reserved.',
+    copyright: 'Copyright 2024 © Dewdew All Rights Reserved.',
+    businessName: 'Dewdew',
+    businessNumber: 'Business Registration Number: 482-11-01740',
+    businessAddress: 'Jeju-si Ayeon-ro 171, #301',
   },
   menu: {
     main: 'Main',
@@ -37,26 +40,67 @@ export default {
     withdraw: 'Withdraw',
   },
   button: {
-    CYC001: 'Won(₩)',
-    CYC002: 'Dollar($)',
-    CYC003: 'Yen(¥)',
-    SDC001: 'Mon',
-    SDC002: 'Tue',
-    SDC003: 'Wed',
-    SDC004: 'Thu',
-    SDC005: 'Fri',
-    SDC006: 'Sat',
-    SDC007: 'Sun',
+    save: 'Save',
+    clear: 'Clear',
+    help: 'Help',
+  },
+  text: {
+    CYC001: 'KRW (₩)',
+    CYC002: 'USD ($)',
+    CYC003: 'JPY (¥)',
+    EDC001: 'Mon',
+    EDC002: 'Tue',
+    EDC003: 'Wed',
+    EDC004: 'Thu',
+    EDC005: 'Fri',
+    EDC006: 'Sat',
+    EDC007: 'Sun',
+  },
+  currency: {
+    CYC001: '(₩)',
+    CYC002: '($)',
+    CYC003: '(¥)',
+  },
+  date: {
+    EDC001: 'Monday',
+    EDC002: 'Tuesday',
+    EDC003: 'Wednesday',
+    EDC004: 'Thursday',
+    EDC005: 'Friday',
+    EDC006: 'Saturday',
+    EDC007: 'Sunday',
+  },
+  placeholder: {
+    targetAmount: 'Enter the target amount.',
+  },
+  main: {
+    settingValue: 'Can check if you spent less than {amount}{currency} next {endDate}!',
+    require: {
+      category: 'Select a category!',
+      amount: 'Amount is empty!',
+    },
+    target: 'Target.',
+    manual: 'Manual Input',
+    help: [
+      'Weekly spend target, currency, and end date can be set',
+      'in \'Top right menu > Settings\'!',
+    ],
+    notifications: [
+      '[Save] Category and amount must be entered to save!',
+      '[Delete] Please register carefully as once registered, content cannot be deleted!',
+    ],
   },
   settings: {
     title: {
+      targetAmount: 'Weekly Spend Target / {currency}',
       currency: 'Currency',
-      startDate: 'Start Day',
+      endDate: 'End Date',
     },
   },
   message: {
     loginSuccess: {
       title: 'Login Success',
+      targetAmount: 'Target Amount',
       description: 'Login has been completed successfully.',
     },
     loginFailed: {
@@ -67,5 +111,10 @@ export default {
       title: 'Already Withdrawal',
       description: 'Withdrawal users cannot login.',
     },
+    exceedTargetAmount: {
+      title: 'Too much amount!',
+      description: 'You are entering an amount that exceeds this week\'s target spend amount!',
+    },
+    successSpendAmountSave: 'Spend amount has been saved!',
   },
 }
