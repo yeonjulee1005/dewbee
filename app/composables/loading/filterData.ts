@@ -3,7 +3,7 @@ import type { FilterDatabase } from '@/types/supabaseFilter'
 export const useLoadFilterData = () => {
   const { schemaFetchData } = useFetchComposable()
 
-  const { currencyCodeList, planCodeList, spendCategoryCodeList, startDateCodeList } = storeToRefs(useFilterDataStore())
+  const { currencyCodeList, planCodeList, spendCategoryCodeList, endDateCodeList } = storeToRefs(useFilterDataStore())
 
   const { execute: executeCurrencyCodeList } = useAsyncData('currencyCodeList', async () => {
     const result = await schemaFetchData('filter', 'currency', 'id, index, code, code_name', 'index', true)
@@ -32,9 +32,9 @@ export const useLoadFilterData = () => {
     immediate: true,
   })
 
-  const { execute: executeStartDateCodeList } = useAsyncData('startDateCodeList', async () => {
-    const result = await schemaFetchData('filter', 'startDate', 'id, index, code, code_name', 'index', true)
-    startDateCodeList.value = result as FilterDatabase['filter']['Tables']['startDate']['Row'][]
+  const { execute: executeEndDateCodeList } = useAsyncData('endDateCodeList', async () => {
+    const result = await schemaFetchData('filter', 'endDate', 'id, index, code, code_name', 'index', true)
+    endDateCodeList.value = result as FilterDatabase['filter']['Tables']['endDate']['Row'][]
 
     return result ?? []
   }, {
@@ -45,7 +45,7 @@ export const useLoadFilterData = () => {
     await executeCurrencyCodeList()
     await executePlanCodeList()
     await executeSpendCategoryCodeList()
-    await executeStartDateCodeList()
+    await executeEndDateCodeList()
   }
 
   return {

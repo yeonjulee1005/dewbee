@@ -1,15 +1,15 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    currentCurrency?: 'CYC001' | 'CYC002' | 'CYC003'
+    currentEndDate?: 'EDC001' | 'EDC002' | 'EDC003' | 'EDC004' | 'EDC005' | 'EDC006' | 'EDC007'
   }>(),
   {
-    currentCurrency: 'CYC001',
+    currentEndDate: 'EDC001',
   },
 )
 
 defineEmits([
-  'click:currency',
+  'click:end-date',
 ])
 </script>
 
@@ -22,7 +22,7 @@ defineEmits([
   >
     <template #header>
       <p class="text-xl font-bold break-keep">
-        {{ $t('settings.title.currency') }}
+        {{ $t('settings.title.endDate') }}
       </p>
     </template>
     <div class="w-full flex justify-center items-center">
@@ -31,13 +31,13 @@ defineEmits([
         size="xl"
       >
         <AButton
-          v-for="currency in ['CYC001', 'CYC002', 'CYC003']"
-          :key="currency"
-          :button-text="$t(`text.${currency}`)"
-          :button-color="currentCurrency === currency ? 'primary' : 'neutral'"
-          :button-variant="currentCurrency === currency ? 'subtle' : 'outline'"
+          v-for="endDate in ['EDC001', 'EDC002', 'EDC003', 'EDC004', 'EDC005', 'EDC006', 'EDC007']"
+          :key="endDate"
+          :button-text="$t(`text.${endDate}`)"
+          :button-color="currentEndDate === endDate ? 'primary' : 'neutral'"
+          :button-variant="currentEndDate === endDate ? 'subtle' : 'outline'"
           button-size="xl"
-          @click="$emit('click:currency', currency)"
+          @click="$emit('click:end-date', endDate)"
         />
       </UButtonGroup>
     </div>

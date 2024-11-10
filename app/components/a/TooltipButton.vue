@@ -4,6 +4,8 @@ import type { AvatarProps } from '@nuxt/ui'
 withDefaults(
   defineProps<{
     customClass?: string
+    hideTooltip?: boolean
+    tooltipText?: string
     buttonRounded?: string
     buttonDisabled?: boolean
     buttonPadding?: boolean
@@ -25,7 +27,7 @@ withDefaults(
     buttonAvatar?: AvatarProps
   }>(),
   {
-    customClass: 'cursor-pointer',
+    customClass: '',
     hideTooltip: false,
     tooltipText: '',
     buttonRounded: '',
@@ -56,45 +58,56 @@ defineEmits([
 </script>
 
 <template>
-  <UButton
-    :class="customClass"
-    :ui="{ base: buttonRounded ? buttonRounded : 'rounded-md' }"
-    :disabled="buttonDisabled"
-    :block="buttonBlock"
-    :truncate="buttonTruncate"
-    :padded="buttonPadding"
-    :avatar="buttonAvatar"
-    :color="buttonColor"
-    :size="buttonSize"
-    :type="buttonType"
-    :variant="buttonVariant"
-    :label="buttonText"
-    :aria-label="buttonText"
+  <UTooltip
+    :text="tooltipText ? tooltipText : buttonText"
+    :disabled="hideTooltip"
+    :content="{
+      align: 'center',
+      side: 'bottom',
+      sideOffset: 8,
+    }"
   >
-    <template
-      v-if="useLeading"
-      #leading
+    <UButton
+      :class="customClass"
+      :ui="{ base: buttonRounded ? buttonRounded : 'rounded-md' }"
+      :disabled="buttonDisabled"
+      :block="buttonBlock"
+      :truncate="buttonTruncate"
+      :padded="buttonPadding"
+      :avatar="buttonAvatar"
+      :color="buttonColor"
+      :size="buttonSize"
+      :type="buttonType"
+      :variant="buttonVariant"
+      :label="buttonText"
+      :aria-label="buttonText"
+      @click="$emit('click:button')"
     >
-      <Icon
-        v-if="iconLeadName"
-        :name="iconLeadName"
-        :class="iconLeadClass"
-      />
-      <NuxtImg
-        v-if="imageUrl"
-        :src="imageUrl"
-        :width="imageSize"
-      />
-    </template>
-    <template
-      v-if="useTrailing"
-      #trailing
-    >
-      <Icon
-        v-if="iconTrailName"
-        :class="iconTrailClass"
-        :name="iconTrailName"
-      />
-    </template>
-  </UButton>
+      <template
+        v-if="useLeading"
+        #leading
+      >
+        <Icon
+          v-if="iconLeadName"
+          :name="iconLeadName"
+          :class="iconLeadClass"
+        />
+        <NuxtImg
+          v-if="imageUrl"
+          :src="imageUrl"
+          :width="imageSize"
+        />
+      </template>
+      <template
+        v-if="useTrailing"
+        #trailing
+      >
+        <Icon
+          v-if="iconTrailName"
+          :class="iconTrailClass"
+          :name="iconTrailName"
+        />
+      </template>
+    </UButton>
+  </UTooltip>
 </template>
