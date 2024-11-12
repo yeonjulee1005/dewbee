@@ -1,5 +1,4 @@
 <script setup lang="ts">
-const user = useSupabaseUser()
 const { t } = useLocale()
 const toast = useToast()
 
@@ -7,6 +6,7 @@ const { comma } = useUi()
 const { getTimestampzForDay } = useWeekRangeDate()
 
 const { userData } = storeToRefs(useUserDataStore())
+const { pendingUpdateData } = useLoadUserData()
 const { currencyCodeList, spendCategoryCodeList } = storeToRefs(useFilterDataStore())
 
 const { fetchRangeData } = useFetchComposable()
@@ -36,6 +36,8 @@ const { data: spendListData, execute: executeSpendListData } = useAsyncData(asyn
 }, {
   immediate: true,
 })
+
+const computedLoginState = computed(() => userData.value)
 
 const computedSpendSituation = computed(() => {
   let amount = 0
@@ -104,9 +106,12 @@ const clearArithmometer = () => {
 </script>
 
 <template>
-  <div class="w-full h-[calc(100dvh-80px)] pb-2">
+  <div
+    v-if="!pendingUpdateData"
+    class="w-full h-[calc(100dvh-80px)] pb-2"
+  >
     <div
-      v-if="user?.id"
+      v-if="computedLoginState"
       class="h-full overflow-y-scroll flex flex-col items-end gap-y-8 px-6 py-4"
     >
       <MainSetOption
@@ -147,5 +152,14 @@ const clearArithmometer = () => {
         {{ $t('modal.confirmSaveSpend.exceedAmount', { amount: comma(spendAmount - userData?.weekly_target_amount), currency: $t(`currency.${userData?.currency.code}`) }) }}
       </p>
     </ModalConfirm>
+  </div>
+  <div
+    v-else
+    class="flex justify-center items-center h-screen"
+  >
+    <Icon
+      name="i-svg-spinners-pulse-multiple"
+      class="w-28 h-28"
+    />
   </div>
 </template>

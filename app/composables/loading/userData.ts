@@ -6,7 +6,7 @@ export const useLoadUserData = () => {
 
   const { userData, userCoreId } = storeToRefs(useUserDataStore())
 
-  const { refresh: refreshUserData, execute: executeUpdateData } = useAsyncData('storeUserData', async () => {
+  const { refresh: refreshUserData, execute: executeUpdateData, pending: pendingUpdateData } = useAsyncData('storeUserData', async () => {
     if (!user.value?.id) {
       return {}
     }
@@ -32,5 +32,6 @@ export const useLoadUserData = () => {
   return {
     executeUpdateData,
     refreshUserData,
+    pendingUpdateData,
   }
 }
