@@ -79,7 +79,7 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    '/': { prerender: true },
+    '/': { ssr: false },
   },
   sourcemap: {
     server: true,
