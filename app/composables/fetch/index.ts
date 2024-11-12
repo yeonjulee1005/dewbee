@@ -72,6 +72,32 @@ export const useFetchComposable = () => {
   //   }
   // }
 
+  const fetchRangeData = async (table: string, queryString: string, lessOpt: string, lessVal: string | number, greatOpt: string, greatVal: string | number, matchOpt?: string, matchOptVal?: string | number | boolean) => {
+    if (matchOpt && matchOptVal) {
+      const { data, count, error }: SerializeObject = await client
+        .from(table)
+        .select(queryString, { count: 'exact' })
+        .eq('deleted', false)
+        .lte(lessOpt, lessVal)
+        .gte(greatOpt, greatVal)
+        .eq(matchOpt, matchOptVal)
+      errorHandler('fetch range option Data', error)
+
+      return { data, count }
+    }
+    else {
+      const { data, count, error }: SerializeObject = await client
+        .from(table)
+        .select(queryString, { count: 'exact' })
+        .eq('deleted', false)
+        .lte(lessOpt, lessVal)
+        .gte(greatOpt, greatVal)
+      errorHandler('fetch range option Data', error)
+
+      return { data, count }
+    }
+  }
+
   const schemaFetchData = async (schema: string, table: string, queryString: string, customOrder?: string, customAscending?: boolean) => {
     const { data, error }: SerializeObject = await createClient(config.public.supabaseUrl, config.public.supabaseKey, { db: { schema } })
       .from(table)
@@ -214,7 +240,6 @@ export const useFetchComposable = () => {
   //     .select(queryString)
   //     .lt(lessOpt, lessVal)
   //     .gt(greatOpt, greatVal)
-  //     .maybeSingle()
 
   //   errorHandler('fetch schema range single Data', error)
 
@@ -459,6 +484,7 @@ export const useFetchComposable = () => {
   return {
     // fetchData,
     // orderFetchData,
+    fetchRangeData,
     schemaFetchData,
     // schemaFetchOptionData,
     // schemaFetchOptionSortData,

@@ -216,6 +216,36 @@ interface Database {
         }
         Relationships: []
       }
+      viewSpendList: {
+        Row: {
+          amount: number | null
+          created_at: string | null
+          currency: Json | null
+          currency_id: string | null
+          deleted: boolean | null
+          id: string | null
+          spend_category_id: string | null
+          spendCategory: Json | null
+          update_user_id: string | null
+          updated_at: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'spendList_update_user_id_fkey'
+            columns: ['update_user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'spendList_update_user_id_fkey'
+            columns: ['update_user_id']
+            isOneToOne: false
+            referencedRelation: 'viewProfiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
     }
     Functions: {
       [_ in never]: never

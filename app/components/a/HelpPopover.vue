@@ -9,7 +9,10 @@ withDefaults(
     popoverArrow?: boolean
     popoverAlign?: 'start' | 'center' | 'end'
     popoverSide?: 'top' | 'bottom' | 'left' | 'right'
+    customClass?: string
+    useTrailing?: boolean
     buttonVariant?: 'solid' | 'link' | 'outline' | 'soft' | 'subtle' | 'ghost'
+    buttonColor?: 'primary' | 'secondary' | 'neutral' | 'error' | 'success' | 'warning'
   }>(),
   {
     popoverMode: 'hover',
@@ -20,7 +23,10 @@ withDefaults(
     popoverArrow: true,
     popoverAlign: 'start',
     popoverSide: 'bottom',
+    customClass: '',
+    useTrailing: true,
     buttonVariant: 'ghost',
+    buttonColor: 'neutral',
   },
 )
 </script>
@@ -33,10 +39,11 @@ withDefaults(
     :ui="{ content: helpCustomClass }"
   >
     <AButton
-      use-trailing
+      :class="customClass"
+      :use-trailing="useTrailing"
       :button-text="helpLabel"
       :icon-trail-name="helpIcon"
-      button-color="neutral"
+      :button-color="buttonColor"
       :icon-trail-class="iconCustomClass"
       :button-variant="buttonVariant"
     />

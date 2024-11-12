@@ -66,6 +66,9 @@ defineEmits([
       side: 'bottom',
       sideOffset: 8,
     }"
+    :ui="{
+      content: 'text-amber-600 dark:text-amber-400',
+    }"
   >
     <UButton
       :class="customClass"
