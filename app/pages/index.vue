@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const user = useSupabaseUser()
 const { t } = useLocale()
 const toast = useToast()
 
@@ -49,7 +50,7 @@ const computedSpendSituation = computed(() => {
     amount += item.amount ?? 0
   })
 
-  const targetAmount = userData.value.weekly_target_amount
+  const targetAmount = userData.value?.weekly_target_amount
   const percentage = (amount / targetAmount) * 100
 
   if (percentage <= 25) {
@@ -73,7 +74,7 @@ const computedSpendSituation = computed(() => {
 })
 
 const saveSpendAmount = async () => {
-  spendAmount.value > userData.value.weekly_target_amount
+  spendAmount.value > userData.value?.weekly_target_amount
     ? saveConfirmTrigger.value = true
     : saveProcess()
 }
@@ -105,21 +106,21 @@ const clearArithmometer = () => {
 <template>
   <div class="w-full h-[calc(100dvh-80px)] pb-2">
     <div
-      v-if="userData"
+      v-if="user?.id"
       class="h-full overflow-y-scroll flex flex-col items-end gap-y-8 px-6 py-4"
     >
       <MainSetOption
         v-model:situation="computedSpendSituation"
         :spend-count="spendListData?.count ?? 0"
-        :target-amount="userData.weekly_target_amount"
-        :currency-code="userData.currency.code"
-        :end-date-code="userData.endDate.code"
+        :target-amount="userData?.weekly_target_amount"
+        :currency-code="userData?.currency.code"
+        :end-date-code="userData?.endDate.code"
       />
       <MainArithmometerGroup
         v-model:main-spend-category-code="selectSpendCategoryCode"
         v-model:main-spend-amount="spendAmount"
-        :currency-code="userData.currency.code"
-        :target-amount="userData.weekly_target_amount"
+        :currency-code="userData?.currency.code"
+        :target-amount="userData?.weekly_target_amount"
         @save:spend-amount="saveSpendAmount"
       />
       <AFooter />
@@ -143,7 +144,7 @@ const clearArithmometer = () => {
       @click:comfirm="saveProcess"
     >
       <p class="text-right text-lg font-light">
-        {{ $t('modal.confirmSaveSpend.exceedAmount', { amount: comma(spendAmount - userData.weekly_target_amount), currency: $t(`currency.${userData.currency.code}`) }) }}
+        {{ $t('modal.confirmSaveSpend.exceedAmount', { amount: comma(spendAmount - userData?.weekly_target_amount), currency: $t(`currency.${userData?.currency.code}`) }) }}
       </p>
     </ModalConfirm>
   </div>
