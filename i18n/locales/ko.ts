@@ -66,6 +66,14 @@ export default {
     EDC005: '금',
     EDC006: '토',
     EDC007: '일',
+    count: '{count}건',
+  },
+  label: {
+    nickname: '닉네임',
+    category: '카테고리',
+    amount: '금액',
+    createdAt: '결제일',
+    id: '지출 ID',
   },
   currency: {
     CYC001: '(₩)',
@@ -90,7 +98,10 @@ export default {
     step1: {
       label: 'Step1.',
       title: '매주 지출 목표와 지출목표 요일을 설정해요.',
-      description: '고정지출이 아닌, 변동지출을 지출목표로 설정하면 도움이 될거에요!',
+      description: [
+        '고정지출이 아닌, 변동지출을',
+        '지출목표로 설정하면 도움이 될거에요!',
+      ],
     },
     step2: {
       label: 'Step2.',
@@ -100,7 +111,10 @@ export default {
     step3: {
       label: 'Step3.',
       title: '지출목표 달성여부를 확인할 수 있어요.',
-      description: '추가지출이 얼마나 많았는지, 남아있는 여유잔액도 확인 가능해요!',
+      description: [
+        '추가지출이 얼마나 많았는지,',
+        '남아있는 여유잔액도 확인 가능해요!',
+      ],
     },
     login: '로그인 하시면 아래 기능을 이용 가능해요!',
     plan: '기본적인 사항은 무료로 이용이 가능해요.',
@@ -114,7 +128,7 @@ export default {
     },
     setOption: {
       thisWeekend: '이번주 지출은 ',
-      count: '건이 있어요!',
+      records: '이 있어요!',
       currentSpendAmount: '{amount}{currency} 미만으로 지출했는지는,',
       nextWeekend: '다음 주 {endDate}',
       chekable: '에 확인 가능해요!',

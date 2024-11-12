@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { width } = useWindowSize()
+
 withDefaults(
   defineProps<{
     currentEndDate?: 'EDC001' | 'EDC002' | 'EDC003' | 'EDC004' | 'EDC005' | 'EDC006' | 'EDC007'
@@ -25,9 +27,9 @@ defineEmits([
         {{ $t('settings.title.endDate') }}
       </p>
     </template>
-    <div class="w-full flex justify-center items-center">
+    <div class="w-full flex justify-end items-center">
       <UButtonGroup
-        orientation="horizontal"
+        :orientation="width > 340 ? 'horizontal' : 'vertical'"
         size="xl"
       >
         <AButton
