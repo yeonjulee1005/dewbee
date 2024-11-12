@@ -97,7 +97,7 @@ export default defineNuxtConfig({
   },
   vite: {
     build: {
-      sourcemap: true,
+      sourcemap: false,
       cssMinify: true,
       minify: 'terser',
       terserOptions: {

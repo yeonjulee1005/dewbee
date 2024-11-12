@@ -66,6 +66,14 @@ export default {
     EDC005: 'Fri',
     EDC006: 'Sat',
     EDC007: 'Sun',
+    count: '{count}',
+  },
+  label: {
+    nickname: 'Nickname',
+    category: 'Category',
+    amount: 'Amount',
+    createdAt: 'Payment Date',
+    id: 'Spend ID',
   },
   currency: {
     CYC001: '(₩)',
@@ -90,7 +98,10 @@ export default {
     step1: {
       label: 'Step1.',
       title: 'Set your weekly spending target and target day.',
-      description: 'Setting variable expenses rather than fixed expenses as your spending target will be helpful!',
+      description: [
+        'Setting variable expenses rather than',
+        'fixed expenses as your spending target will be helpful!',
+      ],
     },
     step2: {
       label: 'Step2.',
@@ -100,7 +111,10 @@ export default {
     step3: {
       label: 'Step3.',
       title: 'You can check if you achieved your spending target.',
-      description: 'You can check how much additional spending there was and your remaining balance!',
+      description: [
+        'You can check how much additional spending',
+        'there was and your remaining balance!',
+      ],
     },
     login: 'Login to use the below features!',
     plan: 'Basic features are available for free.',
@@ -114,7 +128,7 @@ export default {
     },
     setOption: {
       thisWeekend: 'This week\'s spending is ',
-      count: 'records!',
+      records: 'records!',
       currentSpendAmount: 'You spent less than {amount}{currency},',
       nextWeekend: 'Next week {endDate}',
       chekable: 'Checkable!',
