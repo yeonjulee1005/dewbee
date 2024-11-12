@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
 
-const user = useSupabaseUser()
-
 const { go } = useRouter()
 const { t, locale, setLocale } = useLocale()
 const ccolorMode = useColorMode()
@@ -84,7 +82,7 @@ const items = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
 const dropdownMenuTrigger = ref(false)
 
 const checkLoginState = () => {
-  user.value
+  userData.value
     ? insertLoginMenu()
     : insertLogoutMenu()
 }
@@ -223,6 +221,8 @@ const insertLogoutMenu = () => {
   }])
 }
 
+const computedAvatarUrl = computed(() => userData.value?.avatar_url ?? '/image/favicon.svg')
+
 defineShortcuts(
   extractShortcuts(items.value),
 )
@@ -257,15 +257,13 @@ const logoutProcess = () => {
   logout()
 }
 
-watch(() => user.value, () => {
-  checkLoginState()
-})
-
 watch(() => locale.value, () => {
   go(0)
 })
 
-checkLoginState()
+onMounted(() => {
+  checkLoginState()
+})
 </script>
 
 <template>
@@ -286,7 +284,7 @@ checkLoginState()
         button-rounded="rounded-full"
         :image-size="36"
         :button-avatar="{
-          src: user?.id ? userData?.avatar_url ?? '/image/favicon.svg' : '/image/favicon.svg',
+          src: computedAvatarUrl,
           size: 'xl',
         }"
         button-variant="outline"
