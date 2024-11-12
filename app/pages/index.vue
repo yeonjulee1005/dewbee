@@ -2,9 +2,13 @@
 const { t } = useLocale()
 const toast = useToast()
 
+const { comma } = useUi()
+const { getTimestampzForDay } = useWeekRangeDate()
+
 const { userData } = storeToRefs(useUserDataStore())
 const { currencyCodeList, spendCategoryCodeList } = storeToRefs(useFilterDataStore())
 
+const { fetchRangeData } = useFetchComposable()
 const { upsertData } = useUpdateComposable()
 
 useHead({
@@ -13,8 +17,68 @@ useHead({
 
 const selectSpendCategoryCode = ref('')
 const spendAmount = ref(0)
+const saveConfirmTrigger = ref(false)
+
+const { data: spendListData, execute: executeSpendListData } = useAsyncData(async () => {
+  if (!userData.value) {
+    return { data: [], count: 0 }
+  }
+
+  const endDateTimestampz = getTimestampzForDay(userData.value.endDate.code)?.timestampz ?? ''
+  const weekBeforeTimestampz = getTimestampzForDay(userData.value.endDate.code)?.weekBeforeTimestampz ?? ''
+
+  const response = await fetchRangeData('viewSpendList', '*', 'created_at', endDateTimestampz, 'created_at', weekBeforeTimestampz, 'update_user_id', userData.value.id)
+
+  return response
+    ? response
+    : { data: [], count: 0 }
+}, {
+  immediate: true,
+})
+
+const computedSpendSituation = computed(() => {
+  let amount = 0
+  let color: 'primary' | 'secondary' | 'success' | 'warning' | 'error' = 'secondary'
+  let label = ''
+
+  if (!spendListData.value) {
+    return { color, label: t('main.situation.excellent') }
+  }
+
+  spendListData.value?.data.forEach((item: Database['public']['Views']['viewSpendList']['Row']) => {
+    amount += item.amount ?? 0
+  })
+
+  const targetAmount = userData.value.weekly_target_amount
+  const percentage = (amount / targetAmount) * 100
+
+  if (percentage <= 25) {
+    color = 'secondary'
+    label = t('main.situation.excellent')
+  }
+  else if (percentage <= 50) {
+    color = 'success'
+    label = t('main.situation.good')
+  }
+  else if (percentage <= 75) {
+    color = 'warning'
+    label = t('main.situation.warning')
+  }
+  else {
+    color = 'error'
+    label = t('main.situation.danger')
+  }
+
+  return { color, label }
+})
 
 const saveSpendAmount = async () => {
+  spendAmount.value > userData.value.weekly_target_amount
+    ? saveConfirmTrigger.value = true
+    : saveProcess()
+}
+
+const saveProcess = async () => {
   const payload = {
     amount: spendAmount.value,
     currency_id: currencyCodeList.value.find(item => item.code === userData.value.currency.code)?.id ?? '',
@@ -25,9 +89,7 @@ const saveSpendAmount = async () => {
   const response = await upsertData('spendList', payload)
 
   if (response) {
-    /**
-     * ? 추후에 저장 데이터 리스트 새로고침 기능 추가해야 함 ?
-     */
+    executeSpendListData()
 
     toast.add({ title: t('message.successSpendAmountSave'), color: 'success' })
     clearArithmometer()
@@ -44,9 +106,11 @@ const clearArithmometer = () => {
   <div class="w-full h-[calc(100dvh-80px)] pb-2">
     <div
       v-if="userData"
-      class="h-full overflow-y-scroll flex flex-col gap-y-8 px-5 py-4"
+      class="h-full overflow-y-scroll flex flex-col items-end gap-y-8 px-6 py-4"
     >
       <MainSetOption
+        v-model:situation="computedSpendSituation"
+        :spend-count="spendListData?.count ?? 0"
         :target-amount="userData.weekly_target_amount"
         :currency-code="userData.currency.code"
         :end-date-code="userData.endDate.code"
@@ -60,16 +124,27 @@ const clearArithmometer = () => {
       />
       <AFooter />
     </div>
-    <div v-else>
-      <p class="text-center text-sm">
-        언녕하세요!
-      </p>
-      <p class="text-center text-sm">
-        매주 소비목표 달성도 체크를 함께해요!
-      </p>
-      <p class="text-center text-sm">
-        로그인 후 사용 가능해요!
-      </p>
+    <div
+      v-else
+      class="h-full px-6 flex flex-col justify-center gap-y-6"
+    >
+      <div class="flex flex-col gap-y-10">
+        <MainIntroTitle />
+        <MainIntroLogin />
+        <MainIntroDescriptions />
+        <MainIntroPlan />
+      </div>
+      <AFooter />
     </div>
+    <ModalConfirm
+      v-model:confirm-modal-trigger="saveConfirmTrigger"
+      :title="$t('modal.confirmSaveSpend.title')"
+      :description="$t('modal.confirmSaveSpend.description')"
+      @click:comfirm="saveProcess"
+    >
+      <p class="text-right text-lg font-light">
+        {{ $t('modal.confirmSaveSpend.exceedAmount', { amount: comma(spendAmount - userData.weekly_target_amount), currency: $t(`currency.${userData.currency.code}`) }) }}
+      </p>
+    </ModalConfirm>
   </div>
 </template>

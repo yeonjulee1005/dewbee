@@ -4,13 +4,13 @@ export const useUserDataStore = defineStore('userDataStore', () => {
   /**
    * ! Pinia State !
    *
-   * @param userCoreId 사용자 UID
    * @param userData 사용자 정보
+   * @param userCoreId 사용자 UID
    *
    */
 
-  const userCoreId = ref('')
   const userData = ref()
+  const userCoreId = ref('')
 
   watch(userData, () => {
     if (userData.value) {

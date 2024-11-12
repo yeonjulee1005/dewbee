@@ -29,21 +29,18 @@ const mainSpendAmount = defineModel('mainSpendAmount', {
   default: 0,
 })
 
+const selectCategory = (selectCategoryCode: string) => {
+  if (mainSpendCategoryCode.value === selectCategoryCode) {
+    mainSpendCategoryCode.value = ''
+    return
+  }
+
+  mainSpendCategoryCode.value = selectCategoryCode
+}
+
 const addAmount = (amount: number) => {
   if (mainSpendAmount.value + amount > props.targetAmount) {
-    toast.add({
-      title: t('message.exceedTargetAmount.title'),
-      description: t('message.exceedTargetAmount.description'),
-      color: 'error',
-      actions: [{
-        icon: 'i-lucide-trash',
-        label: t('button.clear'),
-        color: 'error',
-        size: 'lg',
-        variant: 'outline',
-        onClick: () => clearSpendAmount(),
-      }],
-    })
+    exceedTargetAmount()
   }
 
   mainSpendAmount.value += amount
@@ -55,7 +52,28 @@ const subtractAmount = (amount: number) => {
     return
   }
 
+  if (mainSpendAmount.value - amount > props.targetAmount) {
+    exceedTargetAmount()
+    return
+  }
+
   mainSpendAmount.value -= amount
+}
+
+const exceedTargetAmount = () => {
+  toast.add({
+    title: t('message.exceedTargetAmount.title'),
+    description: t('message.exceedTargetAmount.description'),
+    color: 'error',
+    actions: [{
+      icon: 'i-lucide-trash',
+      label: t('button.clear'),
+      color: 'error',
+      size: 'lg',
+      variant: 'outline',
+      onClick: () => clearSpendAmount(),
+    }],
+  })
 }
 
 const clearSpendAmount = () => {
@@ -92,24 +110,27 @@ const computedSpendCategoryName = computed(() => {
             :key="index"
             use-leading
             custom-class="w-fit"
+            button-size="xl"
             :button-color="mainSpendCategoryCode === currency.code ? 'primary' : 'neutral'"
             :button-variant="mainSpendCategoryCode === currency.code ? 'subtle' : 'outline'"
             :icon-lead-name="currency?.icon_name ?? ''"
             icon-lead-class="w-7 h-7"
             :tooltip-text="currency?.code_name ?? ''"
-            @click:button="mainSpendCategoryCode = currency?.code ?? ''"
+            @click:button="selectCategory(currency?.code ?? '')"
           />
         </div>
-        <MainArithmometerDisplay
-          :spend-category-code="mainSpendCategoryCode"
-          :spend-category-name="computedSpendCategoryName"
-          :spend-amount="mainSpendAmount"
-          :currency-code="currencyCode"
-        />
-        <MainArithmometerEmpty
-          :spend-category-code="mainSpendCategoryCode"
-          :spend-amount="mainSpendAmount"
-        />
+        <div class="w-full sm:w-1/2 flex flex-col items-center">
+          <MainArithmometerDisplay
+            :spend-category-code="mainSpendCategoryCode"
+            :spend-category-name="computedSpendCategoryName"
+            :spend-amount="mainSpendAmount"
+            :currency-code="currencyCode"
+          />
+          <MainArithmometerEmpty
+            :spend-category-code="mainSpendCategoryCode"
+            :spend-amount="mainSpendAmount"
+          />
+        </div>
       </div>
     </template>
     <MainArithmometerAmount
@@ -117,6 +138,7 @@ const computedSpendCategoryName = computed(() => {
       :target-amount="targetAmount"
       @add:amount="addAmount"
       @subtract:amount="subtractAmount"
+      @exceed:target-amount="exceedTargetAmount"
     />
     <template #footer>
       <div class="w-full flex justify-end">
@@ -139,7 +161,10 @@ const computedSpendCategoryName = computed(() => {
             @click="() => $emit('save:spend-amount')"
           />
         </div>
-        <ol v-else>
+        <ol
+          v-else
+          class="w-full"
+        >
           <li
             v-for="(text, index) in $tm('main.notifications')"
             :key="index"

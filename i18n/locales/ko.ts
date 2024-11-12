@@ -2,6 +2,9 @@ export default {
   pageTitle: {
     dewbee: 'DewBee',
     main: '메인',
+    realtimeSpend: '실시간 지출내역',
+    dailySpend: '일일별 지출내역',
+    weeklySpend: '주간별 지출내역',
     plan: '요금제',
     login: '로그인',
     settings: '설정',
@@ -24,6 +27,12 @@ export default {
     patchNote: '패치노트',
     alarm: '알림 설정',
     currency: '화폐변경',
+    records: {
+      label: '지출내역',
+      realtime: '실시간 지출',
+      daily: '일일별 지출',
+      weekly: '주간별 지출',
+    },
     theme: {
       label: '테마변경',
       dark: '다크모드',
@@ -42,6 +51,8 @@ export default {
   button: {
     save: '저장',
     clear: '초기화',
+    confirm: '확인',
+    cancel: '취소',
     help: '도움말',
   },
   text: {
@@ -73,14 +84,48 @@ export default {
   placeholder: {
     targetAmount: '지출목표 금액을 입력해주세요.',
   },
+  intro: {
+    title: 'DewBee。',
+    subTitle: '매주 당신의 소비금액을 관리해줄거에요.',
+    step1: {
+      label: 'Step1.',
+      title: '매주 지출 목표와 지출목표 요일을 설정해요.',
+      description: '고정지출이 아닌, 변동지출을 지출목표로 설정하면 도움이 될거에요!',
+    },
+    step2: {
+      label: 'Step2.',
+      title: '알뜰하게 지출한 내역을 등록해요.',
+      description: '카테고리와 금액을 입력하고 저장하면 돼요.',
+    },
+    step3: {
+      label: 'Step3.',
+      title: '지출목표 달성여부를 확인할 수 있어요.',
+      description: '추가지출이 얼마나 많았는지, 남아있는 여유잔액도 확인 가능해요!',
+    },
+    login: '로그인 하시면 아래 기능을 이용 가능해요!',
+    plan: '기본적인 사항은 무료로 이용이 가능해요.',
+  },
   main: {
-    settingValue: '{amount}{currency} 미만으로 지출했는지는, 다음 주 {endDate}에 확인 가능해요!',
+    situation: {
+      excellent: '목표대비 지출이 훌륭해요!',
+      good: '목표대비 지출이 적당해요!',
+      warning: '목표대비 지출이 불안해요!',
+      danger: '목표대비 지출이 위험해요!',
+    },
+    setOption: {
+      thisWeekend: '이번주 지출은 ',
+      count: '건이 있어요!',
+      currentSpendAmount: '{amount}{currency} 미만으로 지출했는지는,',
+      nextWeekend: '다음 주 {endDate}',
+      chekable: '에 확인 가능해요!',
+    },
     require: {
       category: '카테고리를 선택해요!',
       amount: '금액이 비어있어요!',
     },
-    target: 'Target.',
-    manual: '직접입력',
+    target: 'Target。',
+    button: '버튼으로 입력하기',
+    manual: '직접 입력하기',
     help: [
       '주간 지출목표와 화폐, 집계마감요일은',
       '\'우측상단 메뉴 > 설정\' 에서 설정 가능해요!',
@@ -90,11 +135,53 @@ export default {
       '[삭제기능] 한번 등록한 내용은 삭제가 불가능하기 때문에 신중히 등록해주세요!',
     ],
   },
+  plan: {
+    list: [
+      {
+        title: '무료 요금제',
+        description: '대부분의 소비금엑 관리 기능을 사용 가능해요.',
+        fee: {
+          amount: '무료',
+          period: '',
+          vat: '',
+        },
+        features: [
+          '무제한 소비내용 입력',
+          '지난 4주간 주간별 지출내역 조회',
+          '화폐 설정 (₩, $, ¥)',
+          '주간 지출집계 마감요일 설정',
+        ],
+      },
+      {
+        title: 'Pro 요금제',
+        description: '모든 소비금엑 관리 기능을 사용 가능해요.',
+        fee: {
+          amount: '1,400원',
+          period: '월 1회 결제',
+          vat: '(V.A.T 포함)',
+        },
+        features: [
+          '모든 무료플랜 기능',
+          '모든 (실시간/일일/주간) 지출내역 조회',
+          '주간 소비목표 달성여부 기록표 제공',
+          '주간 소비목표 달성여부 공유 카드 제공',
+          '최신기능 미리 사용기능 제공',
+        ],
+      },
+    ],
+  },
   settings: {
     title: {
       targetAmount: '주간지출목표 / {currency}',
       currency: '통화',
       endDate: '집계마감요일',
+    },
+  },
+  modal: {
+    confirmSaveSpend: {
+      title: '저장할 지출금액 확인이 필요해요!',
+      description: '이번주 목표 지출금액을 초과하는 금액을 입력했어요! 그래도 저장하시겠어요?',
+      exceedAmount: '초과금액: {amount}{currency}',
     },
   },
   message: {
