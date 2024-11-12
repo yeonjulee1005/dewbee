@@ -2,6 +2,9 @@ export default {
   pageTitle: {
     dewbee: 'DewBee',
     main: 'Main',
+    realtimeSpend: 'Realtime Spend',
+    dailySpend: 'Daily Spend',
+    weeklySpend: 'Weekly Spend',
     plan: 'Plan',
     login: 'Login',
     settings: 'Settings',
@@ -24,6 +27,12 @@ export default {
     patchNote: 'Patch Note',
     alarm: 'Alarm',
     currency: 'Currency',
+    records: {
+      label: 'Records',
+      realtime: 'Realtime Spend',
+      daily: 'Daily Spend',
+      weekly: 'Weekly Spend',
+    },
     theme: {
       label: 'Theme',
       dark: 'Dark Mode',
@@ -42,6 +51,8 @@ export default {
   button: {
     save: 'Save',
     clear: 'Clear',
+    confirm: 'Confirm',
+    cancel: 'Cancel',
     help: 'Help',
   },
   text: {
@@ -73,14 +84,48 @@ export default {
   placeholder: {
     targetAmount: 'Enter the target amount.',
   },
+  intro: {
+    title: 'DewBee。',
+    subTitle: 'We will help manage your weekly spending.',
+    step1: {
+      label: 'Step1.',
+      title: 'Set your weekly spending target and target day.',
+      description: 'Setting variable expenses rather than fixed expenses as your spending target will be helpful!',
+    },
+    step2: {
+      label: 'Step2.',
+      title: 'Register your thrifty spending records.',
+      description: 'Just enter the category and amount and save!',
+    },
+    step3: {
+      label: 'Step3.',
+      title: 'You can check if you achieved your spending target.',
+      description: 'You can check how much additional spending there was and your remaining balance!',
+    },
+    login: 'Login to use the below features!',
+    plan: 'Basic features are available for free.',
+  },
   main: {
-    settingValue: 'Can check if you spent less than {amount}{currency} next {endDate}!',
+    situation: {
+      excellent: 'Excellent compared to the target!',
+      good: 'Reasonable compared to the target!',
+      warning: 'Risky compared to the target!',
+      danger: 'Dangerous compared to the target!',
+    },
+    setOption: {
+      thisWeekend: 'This week\'s spending is ',
+      count: 'records!',
+      currentSpendAmount: 'You spent less than {amount}{currency},',
+      nextWeekend: 'Next week {endDate}',
+      chekable: 'Checkable!',
+    },
     require: {
       category: 'Select a category!',
       amount: 'Amount is empty!',
     },
-    target: 'Target.',
-    manual: 'Manual Input',
+    target: 'Target。',
+    button: 'Enter with buttons',
+    manual: 'Enter manually',
     help: [
       'Weekly spend target, currency, and end date can be set',
       'in \'Top right menu > Settings\'!',
@@ -90,11 +135,53 @@ export default {
       '[Delete] Please register carefully as once registered, content cannot be deleted!',
     ],
   },
+  plan: {
+    list: [
+      {
+        title: 'Free',
+        description: 'Most spending management features are available.',
+        fee: {
+          amount: 'Free',
+          period: '',
+          vat: '',
+        },
+        features: [
+          'Unlimited spending entry',
+          'View weekly spending history for past 4 weeks',
+          'Currency settings (₩, $, ¥)',
+          'Set weekly spending tally end day',
+        ],
+      },
+      {
+        title: 'Pro',
+        description: 'All spending management features are available.',
+        fee: {
+          amount: '1,400 KRW',
+          period: 'Monthly billing',
+          vat: '(V.A.T included)',
+        },
+        features: [
+          'All Free Plan features',
+          'View all spending history (real-time/daily/weekly)',
+          'Weekly spending target achievement record provided',
+          'Weekly spending target achievement sharing card provided',
+          'Early access to new features',
+        ],
+      },
+    ],
+  },
   settings: {
     title: {
       targetAmount: 'Weekly Spend Target / {currency}',
       currency: 'Currency',
       endDate: 'End Date',
+    },
+  },
+  modal: {
+    confirmSaveSpend: {
+      title: 'Need to confirm spend amount to save!',
+      description: 'You entered an amount that exceeds this week\'s target spend amount! Do you still want to save?',
+      exceedAmount: 'Exceed Amount: {amount}{currency}',
     },
   },
   message: {

@@ -13,26 +13,6 @@ const { logout } = useFetchComposable()
 const items = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
   [
     {
-      label: t('menu.main'),
-      icon: 'i-lucide-home',
-      kbds: ['ctrl', 'm'],
-      to: '/',
-    },
-    {
-      label: t('menu.inquiry'),
-      icon: 'i-lucide-message-circle-more',
-      kbds: ['ctrl', 'i'],
-      to: '/settings/inquiry',
-    },
-    {
-      label: t('menu.patchNote'),
-      icon: 'i-lucide-message-circle-more',
-      kbds: ['ctrl', 'n'],
-      to: '/settings/patch',
-    },
-  ],
-  [
-    {
       label: t('menu.theme.label'),
       icon: 'i-lucide-palette',
       children: [
@@ -85,47 +65,162 @@ const items = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
       ],
     },
   ],
+  [
+    {
+      label: t('menu.inquiry'),
+      icon: 'i-lucide-message-circle-more',
+      kbds: ['ctrl', 'i'],
+      to: '/settings/inquiry',
+    },
+    {
+      label: t('menu.patchNote'),
+      icon: 'i-lucide-message-circle-more',
+      kbds: ['ctrl', 'n'],
+      to: '/settings/patch',
+    },
+  ],
 ])
 
 const dropdownMenuTrigger = ref(false)
 
 const checkLoginState = () => {
-  if (user.value) {
-    items.value.unshift([{
+  user.value
+    ? insertLoginMenu()
+    : insertLogoutMenu()
+}
+
+const insertLoginMenu = () => {
+  userData.value.plan.code !== 'PNC001'
+    ? insertFreePlanMenu()
+    : insertProPlanMenu()
+
+  items.value.push([
+    {
+      label: t('menu.settings'),
+      icon: 'i-lucide-settings-2',
+      kbds: ['ctrl', 's'],
+      to: '/settings',
+    },
+    {
+      label: t('menu.signout'),
+      icon: 'i-lucide-log-out',
+      onSelect: logoutProcess,
+    },
+  ])
+}
+
+const insertFreePlanMenu = () => {
+  items.value.unshift(
+    [{
       label: t('menu.profile'),
       icon: 'i-lucide-user',
       kbds: ['ctrl', 'meta', 'p'],
       to: '/settings/profile',
-    }])
-
-    items.value.push([
+    }],
+    [
+      {
+        label: t('menu.main'),
+        icon: 'i-lucide-home',
+        kbds: ['ctrl', 'm'],
+        to: '/',
+      },
+      {
+        label: t('menu.records.label'),
+        icon: 'i-lucide-dollar-sign',
+        children: [
+          {
+            label: t('menu.records.weekly'),
+            icon: 'i-lucide-calendar',
+            kbds: ['ctrl', 'meta', 'w'],
+            onSelect: () => {
+              navigateTo('/records/weekly')
+            },
+          },
+        ],
+      },
       {
         label: t('menu.plan'),
         icon: 'i-lucide-crown',
         kbds: ['ctrl', 'p'],
         to: '/settings/plan',
       },
+    ],
+  )
+}
+
+const insertProPlanMenu = () => {
+  items.value.unshift(
+    [{
+      label: t('menu.profile'),
+      icon: 'i-lucide-user',
+      kbds: ['ctrl', 'meta', 'p'],
+      to: '/settings/profile',
+    }],
+    [
       {
-        label: t('menu.settings'),
-        icon: 'i-lucide-settings-2',
-        kbds: ['ctrl', 's'],
-        to: '/settings',
+        label: t('menu.main'),
+        icon: 'i-lucide-home',
+        kbds: ['ctrl', 'm'],
+        to: '/',
       },
       {
-        label: t('menu.signout'),
-        icon: 'i-lucide-log-out',
-        onSelect: logoutProcess,
+        label: t('menu.records.label'),
+        icon: 'i-lucide-dollar-sign',
+        children: [
+          {
+            label: t('menu.records.realtime'),
+            icon: 'i-lucide-zap',
+            kbds: ['ctrl', 'meta', 'r'],
+            onSelect: () => {
+              navigateTo('/records/realtime')
+            },
+          },
+          {
+            label: t('menu.records.daily'),
+            icon: 'i-lucide-alarm-clock',
+            kbds: ['ctrl', 'meta', 'd'],
+            onSelect: () => {
+              navigateTo('/records/daily')
+            },
+          },
+          {
+            label: t('menu.records.weekly'),
+            icon: 'i-lucide-calendar',
+            kbds: ['ctrl', 'meta', 'w'],
+            onSelect: () => {
+              navigateTo('/records/weekly')
+            },
+          },
+        ],
       },
-    ])
-  }
-  else {
-    items.value.push([{
-      label: t('menu.signin'),
-      icon: 'i-lucide-log-in',
-      kbds: ['ctrl', 'l'],
-      to: '/login',
-    }])
-  }
+      {
+        label: t('menu.plan'),
+        icon: 'i-lucide-crown',
+        kbds: ['ctrl', 'p'],
+        to: '/settings/plan',
+      },
+    ],
+  )
+}
+
+const insertLogoutMenu = () => {
+  items.value.unshift(
+    [
+      {
+        label: t('menu.main'),
+        icon: 'i-lucide-home',
+        kbds: ['ctrl', 'm'],
+        to: '/',
+      },
+    ],
+  )
+
+  items.value.push([{
+    label: t('menu.signin'),
+    icon: 'i-lucide-log-in',
+    kbds: ['ctrl', 'l'],
+    to: '/login',
+  }])
 }
 
 defineShortcuts(
@@ -133,54 +228,25 @@ defineShortcuts(
 )
 
 defineShortcuts({
-  ctrl_i: () => {
-    navigateTo('/settings/inquiry')
-  },
-  ctrl_l: () => {
-    navigateTo('/login')
-  },
-  ctrl_m: () => {
-    navigateTo('/')
-  },
-  ctrl_p: () => {
-    navigateTo('/plan')
-  },
-  ctrl_s: () => {
-    navigateTo('/settings')
-  },
-  ctrl_t: () => {
-    navigateTo('/settings/theme')
-  },
-  ctrl_n: () => {
-    navigateTo('/settings/patch')
-  },
-  ctrl_meta_p: () => {
-    navigateTo('/settings/profile')
-  },
-  ctrl_meta_l: () => {
-    ccolorMode.preference = 'light'
-  },
-  ctrl_meta_k: () => {
-    ccolorMode.preference = 'dark'
-  },
-  ctrl_meta_s: () => {
-    ccolorMode.preference = 'system'
-  },
-  shift_meta_l: () => {
-    ccolorMode.preference = 'light'
-  },
-  shift_meta_d: () => {
-    ccolorMode.preference = 'dark'
-  },
-  shift_meta_s: () => {
-    ccolorMode.preference = 'system'
-  },
-  shift_meta_k: () => {
-    setLocale('ko')
-  },
-  shift_meta_e: () => {
-    setLocale('en')
-  },
+  ctrl_i: () => navigateTo('/settings/inquiry'),
+  ctrl_l: () => navigateTo('/login'),
+  ctrl_m: () => navigateTo('/'),
+  ctrl_p: () => navigateTo('/plan'),
+  ctrl_s: () => navigateTo('/settings'),
+  ctrl_t: () => navigateTo('/settings/theme'),
+  ctrl_n: () => navigateTo('/settings/patch'),
+  ctrl_meta_e: () => navigateTo('/records/daily'),
+  ctrl_meta_k: () => ccolorMode.preference = 'dark',
+  ctrl_meta_l: () => ccolorMode.preference = 'light',
+  ctrl_meta_p: () => navigateTo('/settings/profile'),
+  ctrl_meta_r: () => navigateTo('/records/realtime'),
+  ctrl_meta_s: () => ccolorMode.preference = 'system',
+  ctrl_meta_w: () => navigateTo('/records/weekly'),
+  shift_meta_l: () => ccolorMode.preference = 'light',
+  shift_meta_d: () => ccolorMode.preference = 'dark',
+  shift_meta_s: () => ccolorMode.preference = 'system',
+  shift_meta_k: () => setLocale('ko'),
+  shift_meta_e: () => setLocale('en'),
 })
 
 const logoutProcess = () => {
@@ -203,13 +269,7 @@ checkLoginState()
 </script>
 
 <template>
-  <div class="sticky top-0 left-0 w-full flex justify-between items-center px-4 py-3">
-    <div
-      class="text-4xl font-black cursor-pointer hover:text-amber-500 transition-all duration-100 ease-in-out"
-      @click="navigateTo('/')"
-    >
-      {{ $t('pageTitle.dewbee') }}
-    </div>
+  <div class="sticky top-0 left-0 w-full flex justify-end items-center px-4 py-3">
     <UDropdownMenu
       v-model:open="dropdownMenuTrigger"
       :items="items"

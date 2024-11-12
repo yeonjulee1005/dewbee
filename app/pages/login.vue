@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { track } from '@vercel/analytics'
 
+const { width } = useWindowSize()
+
 const { t } = useLocale()
 const toast = useToast()
 const config = useRuntimeConfig()
@@ -36,7 +38,7 @@ const userLogin = async (provider: 'google' | 'github' | 'linkedin_oidc') => {
 </script>
 
 <template>
-  <div class="h-dvh flex flex-col items-center justify-center gap-y-6">
+  <div class="h-dvh w-full sm:w-[500px] flex flex-col items-center justify-center gap-y-6 px-6">
     <div class="flex flex-col items-center gap-y-3">
       <NuxtImg
         src="/image/favicon.svg"
@@ -47,7 +49,8 @@ const userLogin = async (provider: 'google' | 'github' | 'linkedin_oidc') => {
         {{ $t('pageTitle.login') }}
       </div>
     </div>
-    <div class="flex items-center gap-x-4">
+    <USeparator />
+    <div class="w-full flex items-center justify-center gap-x-4">
       <AButton
         button-variant="soft"
         button-size="xl"
@@ -56,6 +59,7 @@ const userLogin = async (provider: 'google' | 'github' | 'linkedin_oidc') => {
         use-leading
         icon-lead-name="i-devicon-google"
         icon-lead-class="w-8 h-8"
+        :button-text="width < 768 ? '' : 'Google'"
         @click="userLogin('google')"
       />
       <AButton
@@ -66,6 +70,7 @@ const userLogin = async (provider: 'google' | 'github' | 'linkedin_oidc') => {
         use-leading
         icon-lead-name="i-devicon-github"
         icon-lead-class="w-8 h-8"
+        :button-text="width < 768 ? '' : 'GitHub'"
         @click="userLogin('github')"
       />
       <AButton
@@ -76,6 +81,7 @@ const userLogin = async (provider: 'google' | 'github' | 'linkedin_oidc') => {
         use-leading
         icon-lead-name="i-devicon-linkedin"
         icon-lead-class="w-8 h-8"
+        :button-text="width < 768 ? '' : 'LinkedIn'"
         @click="userLogin('linkedin_oidc')"
       />
     </div>

@@ -33,7 +33,7 @@ withDefaults(
     </span>
     <span
       v-if="spendAmount"
-      class="text-3xl font-semibold break-keep"
+      class="text-2xl font-semibold break-keep"
     >
       {{ comma(spendAmount).concat($t(`currency.${currencyCode}`)) }}
     </span>
