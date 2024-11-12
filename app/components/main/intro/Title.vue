@@ -1,10 +1,14 @@
+<script setup lang="ts">
+const { width } = useWindowSize()
+</script>
+
 <template>
   <div class="flex flex-col gap-y-1.5">
-    <div class="flex items-baseline gap-x-4">
+    <div :class="`flex items-baseline ${width > 340 ? 'gap-x-4' : 'gap-x-2'}`">
       <NuxtImg
         src="/image/favicon.svg"
-        width="100"
-        height="100"
+        :width="width > 340 ? 100 : 50"
+        :height="width > 340 ? 100 : 50"
       />
       <p class="text-5xl font-light text-amber-500">
         {{ $t('intro.title') }}

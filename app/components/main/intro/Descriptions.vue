@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const { width } = useWindowSize()
+</script>
+
 <template>
   <UCard
     :ui="{
@@ -6,7 +10,7 @@
     }"
   >
     <div class="flex flex-col gap-y-4">
-      <div class="flex items-baseline gap-x-2">
+      <div :class="`flex ${width > 340 ? 'flex-row gap-x-2' : 'flex-col gap-y-2'} items-baseline`">
         <AHelpPopover
           :use-trailing="false"
           custom-class="text-2xl"
@@ -14,8 +18,12 @@
           button-variant="ghost"
           :help-label="$t('intro.step1.label')"
         >
-          <p class="text-sm text-amber-600 dark:text-amber-400">
-            {{ $t('intro.step1.description') }}
+          <p
+            v-for="(text, index) in $tm('intro.step1.description')"
+            :key="index"
+            class="text-sm text-amber-600 dark:text-amber-400 break-keep"
+          >
+            {{ $rt(text) }}
           </p>
         </AHelpPopover>
         <p class="text-base">
@@ -23,7 +31,7 @@
         </p>
       </div>
       <USeparator />
-      <div class="flex items-baseline gap-x-2">
+      <div :class="`flex ${width > 340 ? 'flex-row gap-x-2' : 'flex-col gap-y-2'} items-baseline`">
         <AHelpPopover
           :use-trailing="false"
           custom-class="text-2xl"
@@ -31,7 +39,7 @@
           button-variant="ghost"
           :help-label="$t('intro.step2.label')"
         >
-          <p class="text-sm text-amber-600 dark:text-amber-400">
+          <p class="text-sm text-amber-600 dark:text-amber-400 break-keep">
             {{ $t('intro.step2.description') }}
           </p>
         </AHelpPopover>
@@ -40,7 +48,7 @@
         </p>
       </div>
       <USeparator />
-      <div class="flex items-baseline gap-x-2">
+      <div :class="`flex ${width > 340 ? 'flex-row gap-x-2' : 'flex-col gap-y-2'} items-baseline`">
         <AHelpPopover
           :use-trailing="false"
           custom-class="text-2xl"
@@ -48,8 +56,12 @@
           button-variant="ghost"
           :help-label="$t('intro.step3.label')"
         >
-          <p class="text-sm text-amber-600 dark:text-amber-400">
-            {{ $t('intro.step3.description') }}
+          <p
+            v-for="(text, index) in $tm('intro.step3.description')"
+            :key="index"
+            class="text-sm text-amber-600 dark:text-amber-400 break-keep"
+          >
+            {{ $rt(text) }}
           </p>
         </AHelpPopover>
         <p class="text-base">
