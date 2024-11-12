@@ -15,7 +15,7 @@ withDefaults(
   <div v-if="!spendCategoryCode || !spendAmount">
     <div
       v-if="!spendCategoryCode"
-      class="flex items-center gap-x-1.5"
+      class="flex items-center gap-x-1.5 mb-1"
     >
       <Icon
         name="i-lucide-triangle-alert"

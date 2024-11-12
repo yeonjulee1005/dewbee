@@ -49,10 +49,6 @@ withDefaults(
     buttonAvatar: undefined,
   },
 )
-
-defineEmits([
-  'click:button',
-])
 </script>
 
 <template>
