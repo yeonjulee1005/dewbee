@@ -1,16 +1,17 @@
 <script setup lang="ts">
+const { width } = useWindowSize()
 const { tm } = useLocale()
 
 const _list: PlanList[] = tm('plan.list')
 </script>
 
 <template>
-  <div class="w-full flex flex-col md:flex-row gap-4">
+  <div class="w-full flex flex-col md:flex-row gap-6">
     <UCard
       v-for="(list, index) in _list"
       :key="index"
       :ui="{
-        root: 'w-full md:w-1/2 ring-4 ring-amber-500',
+        root: `w-full md:w-1/2 ${index === 0 ? 'ring' : 'ring-4 ring-amber-500'}`,
         body: 'p-4',
       }"
     >
@@ -24,7 +25,7 @@ const _list: PlanList[] = tm('plan.list')
           </p>
         </div>
         <div class="flex items-center gap-x-2">
-          <span class="text-3xl font-black">
+          <span :class="`${width > 340 ? 'text-3xl' : 'text-2xl'} font-black`">
             {{ $rt(list.fee.amount) }}
           </span>
           <div class="flex flex-col">
@@ -44,9 +45,9 @@ const _list: PlanList[] = tm('plan.list')
           >
             <Icon
               name="i-lucide-circle-check-big"
-              class="w-5 h-5 text-amber-500"
+              class="min-w-5 min-h-5 text-amber-500"
             />
-            <span class="text-base text-neutral-400">
+            <span :class="`${width > 340 ? 'text-base' : 'text-sm'} text-neutral-400`">
               {{ $rt(feature) }}
             </span>
           </div>

@@ -72,6 +72,48 @@ export const useFetchComposable = () => {
   //   }
   // }
 
+  const fetchPaginationData = async (table: string, queryString: string, rangeStart: number, rangeEnd: number, matchOpt?: string, matchOptVal?: string | number | boolean, secondMatchOpt?: string, secondMatchOptVal?: string | number | boolean) => {
+    if (matchOpt && secondMatchOpt) {
+      const { data, count, error }: SerializeObject = await client
+        .from(table)
+        .select(queryString, { count: 'exact' })
+        .eq(matchOpt, matchOptVal ?? '')
+        .eq(secondMatchOpt, secondMatchOptVal ?? '')
+        .eq('deleted', false)
+        .order('created_at', { ascending: false })
+        .range(rangeStart, rangeEnd)
+
+      errorHandler('fetch schema range option Data', error)
+
+      return { data, count }
+    }
+    else if (matchOpt) {
+      const { data, count, error }: SerializeObject = await client
+        .from(table)
+        .select(queryString, { count: 'exact' })
+        .eq(matchOpt, matchOptVal ?? '')
+        .eq('deleted', false)
+        .order('created_at', { ascending: false })
+        .range(rangeStart, rangeEnd)
+
+      errorHandler('fetch schema range option Data', error)
+
+      return { data, count }
+    }
+    else {
+      const { data, count, error }: SerializeObject = await client
+        .from(table)
+        .select(queryString, { count: 'exact' })
+        .range(rangeStart, rangeEnd)
+        .eq('deleted', false)
+        .order('created_at', { ascending: false })
+
+      errorHandler('fetch schema range Data', error)
+
+      return { data, count }
+    }
+  }
+
   const fetchRangeData = async (table: string, queryString: string, lessOpt: string, lessVal: string | number, greatOpt: string, greatVal: string | number, matchOpt?: string, matchOptVal?: string | number | boolean) => {
     if (matchOpt && matchOptVal) {
       const { data, count, error }: SerializeObject = await client
@@ -484,6 +526,7 @@ export const useFetchComposable = () => {
   return {
     // fetchData,
     // orderFetchData,
+    fetchPaginationData,
     fetchRangeData,
     schemaFetchData,
     // schemaFetchOptionData,

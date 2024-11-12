@@ -224,6 +224,7 @@ interface Database {
           currency_id: string | null
           deleted: boolean | null
           id: string | null
+          profiles: Json | null
           spend_category_id: string | null
           spendCategory: Json | null
           update_user_id: string | null

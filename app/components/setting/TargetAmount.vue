@@ -20,7 +20,7 @@ const targetAmount = defineModel('targetAmount', {
 })
 
 const computedCurrencyTitle = computed(() => {
-  return t(`button.${props.currentCurrency}`)
+  return t(`text.${props.currentCurrency}`)
 })
 </script>
 
@@ -36,7 +36,7 @@ const computedCurrencyTitle = computed(() => {
         {{ $t('settings.title.targetAmount', { currency: computedCurrencyTitle }) }}
       </p>
     </template>
-    <div class="w-full flex justify-center items-center">
+    <div class="w-full flex justify-end items-center">
       <UButtonGroup>
         <UInput
           v-model="targetAmount"

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { width } = useWindowSize()
+
 withDefaults(
   defineProps<{
     currentCurrency?: 'CYC001' | 'CYC002' | 'CYC003'
@@ -25,9 +27,9 @@ defineEmits([
         {{ $t('settings.title.currency') }}
       </p>
     </template>
-    <div class="w-full flex justify-center items-center">
+    <div class="w-full flex justify-end items-center">
       <UButtonGroup
-        orientation="horizontal"
+        :orientation="width > 340 ? 'horizontal' : 'vertical'"
         size="xl"
       >
         <AButton

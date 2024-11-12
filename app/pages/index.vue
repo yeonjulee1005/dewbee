@@ -132,7 +132,7 @@ const clearArithmometer = () => {
     </div>
     <div
       v-else
-      class="h-full px-6 flex flex-col justify-center gap-y-6"
+      class="h-full px-6 flex flex-col gap-y-6 py-4"
     >
       <div class="flex flex-col gap-y-10">
         <MainIntroTitle />

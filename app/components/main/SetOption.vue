@@ -20,6 +20,7 @@ withDefaults(
 const situationItem = [
   {
     label: t('main.button'),
+    icon: 'i-lucide-check-circle',
     slot: 'button',
   },
 ]
@@ -47,6 +48,8 @@ const computedNormalizedColor = computed(() => {
       return 'amber'
   }
 })
+
+console.log(computedNormalizedColor.value)
 </script>
 
 <template>
@@ -66,22 +69,34 @@ const computedNormalizedColor = computed(() => {
       <template #button>
         <div class="w-fit flex flex-col items-end gap-y-1">
           <div class="flex flex-col items-end my-2">
-            <p class="text-base sm:text-xl text-light break-keep mb-2">
-              {{ $t('main.setOption.thisWeekend') }}
-              <b :class="`text-${computedNormalizedColor}-500`">
-                {{ spendCount }}
-              </b>
-              {{ $t('main.setOption.count') }}
-            </p>
+            <div class="flex items-center gap-x-2 text-base sm:text-xl text-light break-keep mb-2">
+              <span>
+                {{ $t('main.setOption.thisWeekend') }}
+              </span>
+              <UBadge
+                :color="situation.color ?? 'error'"
+                variant="outline"
+                size="lg"
+                :label="$t('text.count', { count: spendCount })"
+              />
+              <span>
+                {{ $t('main.setOption.records') }}
+              </span>
+            </div>
             <p class="text-sm sm:text-lg break-keep leading-6">
               {{ $t('main.setOption.currentSpendAmount', { amount: comma(targetAmount), currency: $t(`currency.${currencyCode}`) }) }}
             </p>
-            <p class="text-sm sm:text-lg break-keep leading-6 mb-2">
-              <b :class="`text-${computedNormalizedColor}-500`">
-                {{ $t('main.setOption.nextWeekend', { endDate: $t(`date.${endDateCode}`) }) }}
-              </b>
-              {{ $t('main.setOption.chekable') }}
-            </p>
+            <div class="flex items-center gap-x-2 text-sm sm:text-lg break-keep leading-6 mb-2">
+              <UBadge
+                :color="situation.color ?? 'error'"
+                variant="outline"
+                size="lg"
+                :label="$t('main.setOption.nextWeekend', { endDate: $t(`date.${endDateCode}`) })"
+              />
+              <span>
+                {{ $t('main.setOption.chekable') }}
+              </span>
+            </div>
             <AHelpPopover
               icon-custom-class="h-5 w-5 text-neutral-600 dark:text-neutral-400"
               :help-label="$t('button.help')"
