@@ -9,5 +9,8 @@ export default defineAppConfig({
       primary: 'amber',
       neutral: 'stone',
     },
+    tooltip: {
+      base: 'h-6 px-2 py-1 text-xs font-normal truncate relative',
+    },
   },
 })

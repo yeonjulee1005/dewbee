@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { format } from 'date-fns'
+import { formatInTimeZone } from 'date-fns-tz'
 import { ko, enUS } from 'date-fns/locale'
 import type { TableColumn } from '@nuxt/ui'
 
@@ -69,10 +69,10 @@ const columns: TableColumn<Realtime>[] = [
     cell: ({ row }) => {
       return h('div', { class: 'min-w-[100px] flex items-center justify-end text-neutral-800 dark:text-neutral-200' }, [
         h('div', { class: 'font-semibold' }, [
-          comma(row.original.amount),
+          comma(row?.original.amount ?? 0),
         ]),
         h('div', { class: 'ml-1 text-xs font-light' }, [
-          t(`currency.${row.original.currency.code}`),
+          t(`currency.${row?.original.currency?.code ?? ''}`),
         ]),
       ])
     },
@@ -126,7 +126,7 @@ const columns: TableColumn<Realtime>[] = [
     },
     cell: ({ row }) => {
       return h('div', { class: 'font-light text-neutral-800 dark:text-neutral-200' }, [
-        format(row.original.created_at, 'yyyy-MM-dd a h:mm', { locale: locale.value === 'ko' ? ko : enUS }),
+        formatInTimeZone(row.original?.created_at ?? '', 'Asia/Seoul', 'yyyy-MM-dd a h:mm', { locale: locale.value === 'ko' ? ko : enUS }),
       ])
     },
   },
@@ -150,7 +150,7 @@ const columns: TableColumn<Realtime>[] = [
     header: t('label.id'),
     cell: ({ row }) => {
       return h('div', { class: 'font-light text-neutral-800 dark:text-neutral-200' }, [
-        '#' + row.original.id.split('-')[0],
+        '#' + (row.original?.id?.split('-')[0] ?? ''),
       ])
     },
   },
@@ -193,26 +193,13 @@ const colorTranslate = (code: string) => {
       title-class="text-2xl font-semibold"
       avatar-size="md"
     />
-    <div class="px-6">
-      <UTable
-        :data="realtimeSpendList"
-        :columns="columns"
-        :loading="pendingRealtimeSpendList"
-        sticky
-        :ui="{
-          th: 'w-fit text-center',
-        }"
-      />
-      <UPagination
-        v-model:page="page"
-        class="flex justify-center mx-2 my-2"
-        color="neutral"
-        variant="subtle"
-        :sibling-count="3"
-        :items-per-page="pageSize"
-        :total="realtimeSpendTotalCount"
-        show-edges
-      />
-    </div>
+    <ASpendTable
+      v-model:current-page="page"
+      :table-data="realtimeSpendList"
+      :table-columns="columns"
+      :pending-table-data="pendingRealtimeSpendList"
+      :page-size="pageSize"
+      :total-count="realtimeSpendTotalCount"
+    />
   </div>
 </template>

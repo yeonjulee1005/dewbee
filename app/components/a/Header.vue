@@ -8,7 +8,7 @@ const ccolorMode = useColorMode()
 const { userData, userCoreId } = storeToRefs(useUserDataStore())
 const { logout } = useFetchComposable()
 
-const items = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
+const menuItems = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
   [
     {
       label: t('menu.theme.label'),
@@ -88,11 +88,11 @@ const checkLoginState = () => {
 }
 
 const insertLoginMenu = () => {
-  userData.value.plan.code !== 'PNC001'
+  userData.value.plan.code === 'PNC001'
     ? insertFreePlanMenu()
     : insertProPlanMenu()
 
-  items.value.push([
+  menuItems.value.push([
     {
       label: t('menu.settings'),
       icon: 'i-lucide-settings-2',
@@ -108,7 +108,7 @@ const insertLoginMenu = () => {
 }
 
 const insertFreePlanMenu = () => {
-  items.value.unshift(
+  menuItems.value.unshift(
     [{
       label: t('menu.profile'),
       icon: 'i-lucide-user',
@@ -140,14 +140,14 @@ const insertFreePlanMenu = () => {
         label: t('menu.plan'),
         icon: 'i-lucide-crown',
         kbds: ['ctrl', 'p'],
-        to: '/settings/plan',
+        to: '/plan',
       },
     ],
   )
 }
 
 const insertProPlanMenu = () => {
-  items.value.unshift(
+  menuItems.value.unshift(
     [{
       label: t('menu.profile'),
       icon: 'i-lucide-user',
@@ -195,14 +195,14 @@ const insertProPlanMenu = () => {
         label: t('menu.plan'),
         icon: 'i-lucide-crown',
         kbds: ['ctrl', 'p'],
-        to: '/settings/plan',
+        to: '/plan',
       },
     ],
   )
 }
 
 const insertLogoutMenu = () => {
-  items.value.unshift(
+  menuItems.value.unshift(
     [
       {
         label: t('menu.main'),
@@ -213,7 +213,7 @@ const insertLogoutMenu = () => {
     ],
   )
 
-  items.value.push([{
+  menuItems.value.push([{
     label: t('menu.signin'),
     icon: 'i-lucide-log-in',
     kbds: ['ctrl', 'l'],
@@ -224,7 +224,7 @@ const insertLogoutMenu = () => {
 const computedAvatarUrl = computed(() => userData.value?.avatar_url ?? '/image/favicon.svg')
 
 defineShortcuts(
-  extractShortcuts(items.value),
+  extractShortcuts(menuItems.value),
 )
 
 defineShortcuts({
@@ -250,8 +250,10 @@ defineShortcuts({
 })
 
 const logoutProcess = () => {
-  items.value.shift()
-  items.value.pop()
+  menuItems.value.splice(0, 2)
+  menuItems.value.pop()
+  insertLogoutMenu()
+
   userData.value = null
   userCoreId.value = ''
   logout()
@@ -270,7 +272,7 @@ onMounted(() => {
   <div class="sticky top-0 left-0 w-full flex justify-end items-center px-4 py-3">
     <UDropdownMenu
       v-model:open="dropdownMenuTrigger"
-      :items="items"
+      :items="menuItems"
       size="xl"
       arrow
       :content="{ side: 'bottom', align: 'start' }"

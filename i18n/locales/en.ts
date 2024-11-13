@@ -72,6 +72,10 @@ export default {
     nickname: 'Nickname',
     category: 'Category',
     amount: 'Amount',
+    dailySummary: 'Daily Spend',
+    weeklySummary: 'Weekly Spend',
+    summaryDate: 'Summary Date',
+    isSuccess: 'Achievement',
     createdAt: 'Payment Date',
     id: 'Spend ID',
   },
@@ -186,9 +190,14 @@ export default {
   },
   settings: {
     title: {
-      targetAmount: 'Weekly Spend Target / {currency}',
       currency: 'Currency',
-      endDate: 'End Date',
+      targetAmount: 'Weekly Spend Target / {currency}',
+      endDate: 'Tally End Day',
+    },
+    description: {
+      currency: 'The currency is automatically set when you register the spend!',
+      targetAmount: 'Weekly spend target is the amount you want to spend for a week as a spare fund!',
+      endDate: 'Weekly spend tally is done before the tally end day!',
     },
   },
   modal: {
