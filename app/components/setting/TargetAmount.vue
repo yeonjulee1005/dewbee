@@ -32,8 +32,11 @@ const computedCurrencyTitle = computed(() => {
     }"
   >
     <template #header>
-      <p class="text-xl font-bold break-keep">
+      <p class="text-xl font-bold break-keep mb-2">
         {{ $t('settings.title.targetAmount', { currency: computedCurrencyTitle }) }}
+      </p>
+      <p class="text-sm font-light break-keep text-neutral-500 dark:text-neutral-400">
+        {{ $t('settings.description.targetAmount') }}
       </p>
     </template>
     <div class="w-full flex justify-end items-center">

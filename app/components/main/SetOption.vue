@@ -31,25 +31,6 @@ const situation = defineModel<{ color: 'primary' | 'secondary' | 'success' | 'wa
     label: '1',
   }),
 })
-
-const computedNormalizedColor = computed(() => {
-  switch (situation.value.color) {
-    case 'primary':
-      return 'amber'
-    case 'secondary':
-      return 'sky'
-    case 'success':
-      return 'green'
-    case 'warning':
-      return 'orange'
-    case 'error':
-      return 'red'
-    default:
-      return 'amber'
-  }
-})
-
-console.log(computedNormalizedColor.value)
 </script>
 
 <template>
