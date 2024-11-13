@@ -72,6 +72,10 @@ export default {
     nickname: '닉네임',
     category: '카테고리',
     amount: '금액',
+    dailySummary: '일일 지출금액',
+    weeklySummary: '주간 지출금액',
+    summaryDate: '집계일',
+    isSuccess: '달성여부',
     createdAt: '결제일',
     id: '지출 ID',
   },
@@ -186,9 +190,14 @@ export default {
   },
   settings: {
     title: {
-      targetAmount: '주간지출목표 / {currency}',
       currency: '통화',
+      targetAmount: '주간지출목표 / {currency}',
       endDate: '집계마감요일',
+    },
+    description: {
+      currency: '지출 등록시 자동으로 설정된 통화로 등록해줘요!',
+      targetAmount: '주간 지출목표는, 여유자금으로 지출하고자 하는 일주일간의 금액이에요!',
+      endDate: '주간 지출집계는, 집계마감요일 전날까지 사용한 일주일간의 금액을 집계해요!',
     },
   },
   modal: {
