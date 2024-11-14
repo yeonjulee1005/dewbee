@@ -1,5 +1,7 @@
 <script setup lang="ts">
-withDefaults(
+const { isMobile } = useDevice()
+
+const props = withDefaults(
   defineProps<{
     popoverMode?: 'hover' | 'click'
     helpCustomClass?: string
@@ -29,11 +31,15 @@ withDefaults(
     buttonColor: 'neutral',
   },
 )
+
+const computedPopoverControl = computed(() => {
+  return isMobile ? 'click' : props.popoverMode
+})
 </script>
 
 <template>
   <UPopover
-    :mode="popoverMode"
+    :mode="computedPopoverControl"
     :arrow="popoverArrow"
     :content="{ align: popoverAlign, side: popoverSide, sideOffset: 4 }"
     :ui="{ content: helpCustomClass }"
