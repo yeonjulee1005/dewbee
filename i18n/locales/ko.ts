@@ -67,6 +67,8 @@ export default {
     EDC006: '토',
     EDC007: '일',
     count: '{count}건',
+    success: '성공 했어요✨',
+    fail: '실패했어요🥲',
   },
   label: {
     nickname: '닉네임',
@@ -74,6 +76,8 @@ export default {
     amount: '금액',
     dailySummary: '일일 지출금액',
     weeklySummary: '주간 지출금액',
+    weeklyTarget: '지출목표',
+    targetBalance: '소비잔액',
     summaryDate: '집계일',
     isSuccess: '달성여부',
     createdAt: '결제일',
@@ -95,6 +99,8 @@ export default {
   },
   placeholder: {
     targetAmount: '지출목표 금액을 입력해주세요.',
+    noSpendRecords: '아직 지출이력이 없어요 🥲',
+    noResultRecords: '아직 집계결과가 없어요 🥲',
   },
   intro: {
     title: 'DewBee。',
