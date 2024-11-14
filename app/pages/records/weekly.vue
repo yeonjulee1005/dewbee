@@ -218,7 +218,7 @@ const columns: TableColumn<WeeklyResult | DailyResult | Realtime>[] = [
   },
   {
     accessorKey: 'id',
-    header: t('label.id'),
+    header: t('label.summaryId'),
     cell: ({ row }) => {
       return h('div', { class: 'flex items-center justify-end font-light text-neutral-800 dark:text-neutral-200' }, [
         '#' + (row.original?.id?.split('-')[0] ?? ''),
