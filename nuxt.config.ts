@@ -36,24 +36,7 @@ export default defineNuxtConfig({
     head: {
       meta: [
         { property: 'Imagetoolbar', content: 'no' },
-        // { name: 'naver-site-verification', content: '158291e2c0440b1ab952cba20d55d36e61766b00' },
-      ],
-      script: [
-        // {
-        //   hid: 'NaverIdLogin',
-        //   src: 'https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js',
-        //   defer: true,
-        // },
-        // {
-        //   hid: 'KakaoMaps',
-        //   src: `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_JAVASCRIPT_API_KEY}&libraries=services`,
-        //   type: 'text/javascript',
-        // },
-        // {
-        //   hid: 'KakaoApis',
-        //   src: 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js',
-        //   type: 'text/javascript',
-        // },
+        { name: 'naver-site-verification', content: '6eb6da4d3753c139c41f5b5cf3ec61c8151e6922' },
       ],
     },
   },
