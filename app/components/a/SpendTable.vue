@@ -6,12 +6,14 @@ withDefaults(
     tableData?: Realtime[] | DailyResult[] | WeeklyResult[]
     tableColumns?: TableColumn<Realtime | DailyResult | WeeklyResult>[]
     pendingTableData?: boolean
+    isRealtime?: boolean
     pageSize?: number
     totalCount?: number
   }>(),
   {
     tableData: () => [],
     pendingTableData: false,
+    isRealtime: false,
     pageSize: 10,
     totalCount: 1,
   },
@@ -33,7 +35,13 @@ const currentPage = defineModel('currentPage', {
       :ui="{
         th: 'w-fit text-center',
       }"
-    />
+    >
+      <template #empty>
+        <p class="text-xl font-light text-neutral-800 dark:text-neutral-200 py-10">
+          {{ isRealtime ? $t('placeholder.noSpendRecords') : $t('placeholder.noResultRecords') }}
+        </p>
+      </template>
+    </UTable>
     <UPagination
       v-model:page="currentPage"
       class="flex justify-center mx-2 my-2"

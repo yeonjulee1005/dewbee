@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { subDays } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import { ko, enUS } from 'date-fns/locale'
 import type { TableColumn } from '@nuxt/ui'
 
 const UAvatar = resolveComponent('UAvatar')
 const UButton = resolveComponent('UButton')
+const UBadge = resolveComponent('UBadge')
 
 const { t, locale } = useLocale()
 const { comma } = useUi()
@@ -46,7 +48,7 @@ const { data: weeklyResultList, pending: pendingWeeklyResultList } = useAsyncDat
   watch: [page, pageSize],
 })
 
-const columns: TableColumn<WeeklyResult>[] = [
+const columns: TableColumn<WeeklyResult | DailyResult | Realtime>[] = [
   {
     accessorKey: 'is_success',
     header: ({ column }) => {
@@ -66,8 +68,14 @@ const columns: TableColumn<WeeklyResult>[] = [
       })
     },
     cell: ({ row }) => {
-      return h('div', { class: 'font-light text-neutral-800 dark:text-neutral-200' }, [
-        row.original.is_success ? 'O' : 'X',
+      return h('div', { class: 'flex items-center justify-end font-light text-neutral-800 dark:text-neutral-200' }, [
+        h(UBadge, {
+          variant: 'subtle',
+          color: (row.original as WeeklyResult).is_success ? 'secondary' : 'error',
+          class: successColorTranslate((row.original as WeeklyResult).is_success ?? false),
+          size: 'lg',
+          label: (row.original as WeeklyResult).is_success ? t('text.success') : t('text.fail'),
+        }),
       ])
     },
   },
@@ -90,9 +98,72 @@ const columns: TableColumn<WeeklyResult>[] = [
       })
     },
     cell: ({ row }) => {
+      const percentage = ((row.original as WeeklyResult).summary_amount ?? 0) / ((row.original as WeeklyResult).weekly_target_amount ?? 0) * 100
+
+      return h('div', { class: `min-w-[100px] flex items-center justify-end ${spendColorTranslate(percentage)}` }, [
+        h('div', { class: 'font-semibold' }, [
+          comma((row.original as WeeklyResult).summary_amount ?? 0),
+        ]),
+        h('div', { class: 'ml-1 text-xs font-light' }, [
+          t(`currency.${row?.original.currency?.code ?? ''}`),
+        ]),
+      ])
+    },
+  },
+  {
+    accessorKey: 'weekly_target_amount',
+    header: ({ column }) => {
+      const isSorted = column.getIsSorted()
+
+      return h(UButton, {
+        color: 'neutral',
+        variant: 'ghost',
+        label: t('label.weeklyTarget'),
+        icon: isSorted
+          ? isSorted === 'asc'
+            ? 'i-lucide-arrow-up-narrow-wide'
+            : 'i-lucide-arrow-down-wide-narrow'
+          : 'i-lucide-arrow-up-down',
+        class: '-mx-2.5',
+        onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+      })
+    },
+    cell: ({ row }) => {
       return h('div', { class: 'min-w-[100px] flex items-center justify-end text-neutral-800 dark:text-neutral-200' }, [
         h('div', { class: 'font-semibold' }, [
-          comma(row?.original.summary_amount ?? 0),
+          comma((row.original as WeeklyResult).weekly_target_amount ?? 0),
+        ]),
+        h('div', { class: 'ml-1 text-xs font-light' }, [
+          t(`currency.${row?.original.currency?.code ?? ''}`),
+        ]),
+      ])
+    },
+  },
+  {
+    accessorKey: 'summary_amount',
+    header: ({ column }) => {
+      const isSorted = column.getIsSorted()
+
+      return h(UButton, {
+        color: 'neutral',
+        variant: 'ghost',
+        label: t('label.targetBalance'),
+        icon: isSorted
+          ? isSorted === 'asc'
+            ? 'i-lucide-arrow-up-narrow-wide'
+            : 'i-lucide-arrow-down-wide-narrow'
+          : 'i-lucide-arrow-up-down',
+        class: '-mx-2.5',
+        onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+      })
+    },
+    cell: ({ row }) => {
+      const gap = ((row?.original as WeeklyResult).weekly_target_amount ?? 0) - ((row?.original as WeeklyResult).summary_amount ?? 0)
+      const percentage = ((row.original as WeeklyResult).summary_amount ?? 0) / ((row.original as WeeklyResult).weekly_target_amount ?? 0) * 100
+
+      return h('div', { class: `min-w-[100px] flex items-center justify-end ${spendColorTranslate(percentage)}` }, [
+        h('div', { class: 'font-semibold' }, [
+          comma(gap),
         ]),
         h('div', { class: 'ml-1 text-xs font-light' }, [
           t(`currency.${row?.original.currency?.code ?? ''}`),
@@ -119,8 +190,14 @@ const columns: TableColumn<WeeklyResult>[] = [
       })
     },
     cell: ({ row }) => {
+      const summaryStartDate = subDays(new Date(row.original?.created_at ?? ''), 7)
+      const summaryEndDate = subDays(new Date(row.original?.created_at ?? ''), 1)
+
+      const summaryDate = formatInTimeZone(summaryStartDate, 'Asia/Seoul', 'yyyy-MM-dd', { locale: locale.value === 'ko' ? ko : enUS })
+        .concat(' ~ ', formatInTimeZone(summaryEndDate, 'Asia/Seoul', 'yyyy-MM-dd', { locale: locale.value === 'ko' ? ko : enUS }))
+
       return h('div', { class: 'flex items-center justify-end font-light text-neutral-800 dark:text-neutral-200' }, [
-        formatInTimeZone(row.original?.created_at ?? '', 'Asia/Seoul', 'yyyy-MM-dd', { locale: locale.value === 'ko' ? ko : enUS }),
+        summaryDate,
       ])
     },
   },
@@ -128,7 +205,7 @@ const columns: TableColumn<WeeklyResult>[] = [
     accessorKey: 'profiles.name',
     header: t('label.nickname'),
     cell: ({ row }) => {
-      return h('div', { class: 'flex items-end gap-3 font-light text-neutral-800 dark:text-neutral-200' }, [
+      return h('div', { class: 'flex items-center justify-end gap-3 font-light text-neutral-800 dark:text-neutral-200' }, [
         h(UAvatar, {
           src: row.original.profiles.avatar_url,
           size: 'sm',
@@ -143,12 +220,34 @@ const columns: TableColumn<WeeklyResult>[] = [
     accessorKey: 'id',
     header: t('label.id'),
     cell: ({ row }) => {
-      return h('div', { class: 'font-light text-neutral-800 dark:text-neutral-200' }, [
+      return h('div', { class: 'flex items-center justify-end font-light text-neutral-800 dark:text-neutral-200' }, [
         '#' + (row.original?.id?.split('-')[0] ?? ''),
       ])
     },
   },
 ]
+
+const spendColorTranslate = (percentage: number) => {
+  switch (true) {
+    case percentage <= 25:
+      return 'text-sky-700 dark:text-sky-300'
+    case percentage <= 50:
+      return 'text-lime-700 dark:text-lime-300'
+    case percentage <= 75:
+      return 'text-orange-700 dark:text-orange-300'
+    default:
+      return 'text-rose-700 dark:text-rose-300'
+  }
+}
+
+const successColorTranslate = (isSuccess: boolean) => {
+  switch (isSuccess) {
+    case true:
+      return 'text-sky-700 dark:text-sky-300'
+    case false:
+      return 'text-rose-700 dark:text-rose-300'
+  }
+}
 </script>
 
 <template>

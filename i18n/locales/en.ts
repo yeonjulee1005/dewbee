@@ -67,6 +67,8 @@ export default {
     EDC006: 'Sat',
     EDC007: 'Sun',
     count: '{count}',
+    success: 'Success!✨',
+    fail: 'Fail🥲',
   },
   label: {
     nickname: 'Nickname',
@@ -74,6 +76,8 @@ export default {
     amount: 'Amount',
     dailySummary: 'Daily Spend',
     weeklySummary: 'Weekly Spend',
+    weeklyTarget: 'Target Amount',
+    targetBalance: 'Balance',
     summaryDate: 'Summary Date',
     isSuccess: 'Achievement',
     createdAt: 'Payment Date',
@@ -95,6 +99,8 @@ export default {
   },
   placeholder: {
     targetAmount: 'Enter the target amount.',
+    noSpendRecords: 'No spend records yet 🥲',
+    noResultRecords: 'No result records yet 🥲',
   },
   intro: {
     title: 'DewBee。',

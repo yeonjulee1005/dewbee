@@ -47,7 +47,7 @@ const { data: realtimeSpendList, pending: pendingRealtimeSpendList } = useAsyncD
   watch: [page, pageSize],
 })
 
-const columns: TableColumn<Realtime>[] = [
+const columns: TableColumn<Realtime | DailyResult | WeeklyResult>[] = [
   {
     accessorKey: 'amount',
     header: ({ column }) => {
@@ -69,7 +69,7 @@ const columns: TableColumn<Realtime>[] = [
     cell: ({ row }) => {
       return h('div', { class: 'min-w-[100px] flex items-center justify-end text-neutral-800 dark:text-neutral-200' }, [
         h('div', { class: 'font-semibold' }, [
-          comma(row?.original.amount ?? 0),
+          comma((row.original as Realtime).amount ?? 0),
         ]),
         h('div', { class: 'ml-1 text-xs font-light' }, [
           t(`currency.${row?.original.currency?.code ?? ''}`),
@@ -98,10 +98,10 @@ const columns: TableColumn<Realtime>[] = [
     cell: ({ row }) => {
       return h('div', { class: 'min-w-[100px] flex items-center justify-end gap-2 font-light text-neutral-800 dark:text-neutral-200' }, [
         h(UBadge, {
-          icon: row.original.spendCategory.icon_name ?? '',
+          icon: (row.original as Realtime).spendCategory.icon_name ?? '',
           variant: 'subtle',
-          class: colorTranslate(row.original.spendCategory.code),
-          label: row.original.spendCategory.code_name,
+          class: colorTranslate((row.original as Realtime).spendCategory.code),
+          label: (row.original as Realtime).spendCategory.code_name,
         }),
       ])
     },
@@ -125,7 +125,7 @@ const columns: TableColumn<Realtime>[] = [
       })
     },
     cell: ({ row }) => {
-      return h('div', { class: 'font-light text-neutral-800 dark:text-neutral-200' }, [
+      return h('div', { class: 'flex items-center justify-end font-light text-neutral-800 dark:text-neutral-200' }, [
         formatInTimeZone(row.original?.created_at ?? '', 'Asia/Seoul', 'yyyy-MM-dd a h:mm', { locale: locale.value === 'ko' ? ko : enUS }),
       ])
     },
@@ -134,7 +134,7 @@ const columns: TableColumn<Realtime>[] = [
     accessorKey: 'profiles.name',
     header: t('label.nickname'),
     cell: ({ row }) => {
-      return h('div', { class: 'flex items-end gap-3 font-light text-neutral-800 dark:text-neutral-200' }, [
+      return h('div', { class: 'flex items-center justify-end gap-3 font-light text-neutral-800 dark:text-neutral-200' }, [
         h(UAvatar, {
           src: row.original.profiles.avatar_url,
           size: 'sm',
@@ -149,7 +149,7 @@ const columns: TableColumn<Realtime>[] = [
     accessorKey: 'id',
     header: t('label.id'),
     cell: ({ row }) => {
-      return h('div', { class: 'font-light text-neutral-800 dark:text-neutral-200' }, [
+      return h('div', { class: 'flex items-center justify-end font-light text-neutral-800 dark:text-neutral-200' }, [
         '#' + (row.original?.id?.split('-')[0] ?? ''),
       ])
     },
@@ -197,6 +197,7 @@ const colorTranslate = (code: string) => {
       v-model:current-page="page"
       :table-data="realtimeSpendList"
       :table-columns="columns"
+      is-realtime
       :pending-table-data="pendingRealtimeSpendList"
       :page-size="pageSize"
       :total-count="realtimeSpendTotalCount"

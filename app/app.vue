@@ -85,7 +85,7 @@ onMounted(async () => {
   <UApp :toaster="appConfig.toaster">
     <NuxtLayout>
       <NuxtLoadingIndicator
-        color="repeating-linear-gradient(to right,#bdbdbd 0%,#cb8a80 100%)"
+        color="repeating-linear-gradient(to right,##feeae2 0%,##dd5825 100%)"
         :height="5"
       />
       <NuxtPage />
