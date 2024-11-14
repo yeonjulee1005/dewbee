@@ -9,10 +9,5 @@ export default defineAppConfig({
       primary: 'amber',
       neutral: 'stone',
     },
-    tooltip: {
-      slots: {
-        base: 'visible [@media(pointer:coarse)]:visible h-6 px-2 py-1 text-xs font-normal truncate relative',
-      },
-    },
   },
 })
