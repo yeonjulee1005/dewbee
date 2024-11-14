@@ -6,7 +6,7 @@ const { meta } = useRoute()
 const { executeUpdateData } = useLoadUserData()
 const { executeFilterData } = useLoadFilterData()
 
-const seoTitle = 'DewBee'
+const seoTitle = t('pageTitle.dewbee')
 const seoDescription = '매주의 목표 소비금액을 손쉽게 관리하세요!'
 const seoUrl = 'https://dewbee.dewdew.world'
 const seoImage = 'https://dewbee.dewdew.world/image/image_og.jpg'
