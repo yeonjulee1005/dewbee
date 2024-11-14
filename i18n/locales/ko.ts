@@ -81,7 +81,8 @@ export default {
     summaryDate: '집계일',
     isSuccess: '달성여부',
     createdAt: '결제일',
-    id: '지출 ID',
+    spendId: '지출 ID',
+    summaryId: '집계 ID',
   },
   currency: {
     CYC001: '(₩)',
