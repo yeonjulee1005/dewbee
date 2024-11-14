@@ -67,7 +67,7 @@ defineEmits([
       sideOffset: 8,
     }"
     :ui="{
-      content: 'text-amber-600 dark:text-amber-400',
+      content: 'visible [@media(pointer:coarse)]:visible h-6 px-2 py-1 text-xs font-normal truncate relative text-amber-600 dark:text-amber-400',
     }"
   >
     <UButton
