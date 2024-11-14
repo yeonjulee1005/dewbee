@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { subDays } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import { ko, enUS } from 'date-fns/locale'
 import type { TableColumn } from '@nuxt/ui'
@@ -46,7 +47,7 @@ const { data: dailyResultList, pending: pendingDailyResultList } = useAsyncData(
   watch: [page, pageSize],
 })
 
-const columns: TableColumn<DailyResult>[] = [
+const columns: TableColumn<DailyResult | WeeklyResult | Realtime>[] = [
   {
     accessorKey: 'summary_amount',
     header: ({ column }) => {
@@ -68,7 +69,7 @@ const columns: TableColumn<DailyResult>[] = [
     cell: ({ row }) => {
       return h('div', { class: 'min-w-[100px] flex items-center justify-end text-neutral-800 dark:text-neutral-200' }, [
         h('div', { class: 'font-semibold' }, [
-          comma(row?.original.summary_amount ?? 0),
+          comma((row.original as DailyResult).summary_amount ?? 0),
         ]),
         h('div', { class: 'ml-1 text-xs font-light' }, [
           t(`currency.${row?.original.currency?.code ?? ''}`),
@@ -95,8 +96,10 @@ const columns: TableColumn<DailyResult>[] = [
       })
     },
     cell: ({ row }) => {
+      const paidDate = subDays(new Date(row.original?.created_at ?? ''), 1)
+
       return h('div', { class: 'flex items-center justify-end font-light text-neutral-800 dark:text-neutral-200' }, [
-        formatInTimeZone(row.original?.created_at ?? '', 'Asia/Seoul', 'yyyy-MM-dd', { locale: locale.value === 'ko' ? ko : enUS }),
+        formatInTimeZone(paidDate, 'Asia/Seoul', 'yyyy-MM-dd', { locale: locale.value === 'ko' ? ko : enUS }),
       ])
     },
   },
@@ -104,7 +107,7 @@ const columns: TableColumn<DailyResult>[] = [
     accessorKey: 'profiles.name',
     header: t('label.nickname'),
     cell: ({ row }) => {
-      return h('div', { class: 'flex items-end gap-3 font-light text-neutral-800 dark:text-neutral-200' }, [
+      return h('div', { class: 'flex items-center justify-end gap-3 font-light text-neutral-800 dark:text-neutral-200' }, [
         h(UAvatar, {
           src: row.original.profiles.avatar_url,
           size: 'sm',
@@ -119,7 +122,7 @@ const columns: TableColumn<DailyResult>[] = [
     accessorKey: 'id',
     header: t('label.id'),
     cell: ({ row }) => {
-      return h('div', { class: 'font-light text-neutral-800 dark:text-neutral-200' }, [
+      return h('div', { class: 'flex items-center justify-end font-light text-neutral-800 dark:text-neutral-200' }, [
         '#' + (row.original?.id?.split('-')[0] ?? ''),
       ])
     },

@@ -155,6 +155,7 @@ interface Database {
           summary_amount: number | null
           update_user_id: string | null
           updated_at: string | null
+          weekly_target_amount: number | null
         }
         Insert: {
           created_at?: string
@@ -166,6 +167,7 @@ interface Database {
           summary_amount?: number | null
           update_user_id?: string | null
           updated_at?: string | null
+          weekly_target_amount?: number | null
         }
         Update: {
           created_at?: string
@@ -177,6 +179,7 @@ interface Database {
           summary_amount?: number | null
           update_user_id?: string | null
           updated_at?: string | null
+          weekly_target_amount?: number | null
         }
         Relationships: [
           {
@@ -197,6 +200,35 @@ interface Database {
       }
     }
     Views: {
+      viewDailyResultList: {
+        Row: {
+          created_at: string | null
+          currency: Json | null
+          currency_id: string | null
+          deleted: boolean | null
+          id: string | null
+          profiles: Json | null
+          summary_amount: number | null
+          update_user_id: string | null
+          updated_at: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'dailyResultList_update_user_id_fkey'
+            columns: ['update_user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'dailyResultList_update_user_id_fkey'
+            columns: ['update_user_id']
+            isOneToOne: false
+            referencedRelation: 'viewProfiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       viewProfiles: {
         Row: {
           avatar_url: string | null
@@ -240,6 +272,39 @@ interface Database {
           },
           {
             foreignKeyName: 'spendList_update_user_id_fkey'
+            columns: ['update_user_id']
+            isOneToOne: false
+            referencedRelation: 'viewProfiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      viewWeeklyResultList: {
+        Row: {
+          created_at: string | null
+          currency: Json | null
+          currency_id: string | null
+          deleted: boolean | null
+          end_date_id: string | null
+          endDate: Json | null
+          id: string | null
+          is_success: boolean | null
+          profiles: Json | null
+          summary_amount: number | null
+          update_user_id: string | null
+          updated_at: string | null
+          weekly_target_amount: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'weeklyResultList_update_user_id_fkey'
+            columns: ['update_user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'weeklyResultList_update_user_id_fkey'
             columns: ['update_user_id']
             isOneToOne: false
             referencedRelation: 'viewProfiles'
