@@ -25,8 +25,8 @@ const { data: spendListData, execute: executeSpendListData } = useAsyncData(asyn
     return { data: [], count: 0 }
   }
 
-  const endDateTimestampz = getTimestampzForDay(userData.value.endDate.code)?.timestampz ?? ''
-  const weekBeforeTimestampz = getTimestampzForDay(userData.value.endDate.code)?.weekBeforeTimestampz ?? ''
+  const endDateTimestampz = (getTimestampzForDay(userData.value.endDate.code)?.timestampz ?? '').concat(' 00:00:00')
+  const weekBeforeTimestampz = (getTimestampzForDay(userData.value.endDate.code)?.weekBeforeTimestampz ?? '').concat(' 00:00:00')
 
   const response = await fetchRangeData('viewSpendList', '*', 'created_at', endDateTimestampz, 'created_at', weekBeforeTimestampz, 'update_user_id', userData.value.id)
 

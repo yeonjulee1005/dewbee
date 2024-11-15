@@ -87,6 +87,9 @@ export default {
     createdAt: 'Payment Date',
     spendId: 'Spend ID',
     summaryId: 'Summary ID',
+    prerelease: 'Beta',
+    release: 'Release',
+    releaseDate: 'Release Date',
   },
   currency: {
     CYC001: '(₩)',
@@ -106,6 +109,7 @@ export default {
     targetAmount: 'Enter the target amount.',
     noSpendRecords: 'No spend records yet 🥲',
     noResultRecords: 'No result records yet 🥲',
+    noPatchNote: 'No patch note yet 🥲',
   },
   intro: {
     title: 'DewBee。',

@@ -87,6 +87,9 @@ export default {
     createdAt: '결제일',
     spendId: '지출 ID',
     summaryId: '집계 ID',
+    prerelease: '베타',
+    release: '릴리즈',
+    releaseDate: '배포일',
   },
   currency: {
     CYC001: '(₩)',
@@ -106,6 +109,7 @@ export default {
     targetAmount: '지출목표 금액을 입력해주세요.',
     noSpendRecords: '아직 지출이력이 없어요 🥲',
     noResultRecords: '아직 집계결과가 없어요 🥲',
+    noPatchNote: '아직 패치노트가 없어요 🥲',
   },
   intro: {
     title: 'DewBee。',
