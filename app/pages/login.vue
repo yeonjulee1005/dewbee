@@ -13,6 +13,29 @@ useHead({
   title: t('pageTitle.login'),
 })
 
+const loginButton = ref<{ provider: 'kakao' | 'google' | 'github' | 'linkedin_oidc', icon: string, text: string }[]>([
+  {
+    provider: 'kakao',
+    icon: 'i-simple-icons-kakaotalk',
+    text: 'Kakao',
+  },
+  {
+    provider: 'google',
+    icon: 'i-devicon-google',
+    text: 'Google',
+  },
+  {
+    provider: 'github',
+    icon: 'i-devicon-github',
+    text: 'GitHub',
+  },
+  {
+    provider: 'linkedin_oidc',
+    icon: 'i-devicon-linkedin',
+    text: 'LinkedIn',
+  },
+])
+
 const getUrl = () => {
   let url = config.public.siteUrl ?? 'http://localhost:5000/'
   url = url.includes('http') ? url : `https://${url}`
@@ -20,8 +43,13 @@ const getUrl = () => {
   return url.concat('confirm')
 }
 
-const userLogin = async (provider: 'google' | 'github' | 'linkedin_oidc') => {
+const userLogin = async (provider: 'kakao' | 'google' | 'github' | 'linkedin_oidc') => {
   track('Login Provider', { provider })
+
+  if (provider === 'google' && navigator.userAgent.indexOf('NAVER(inapp;') === 0) {
+    toast.add({ title: t('message.naverNoUseGoogle'), color: 'info' })
+    return
+  }
 
   const { error } = await auth.signInWithOAuth({
     provider,
@@ -50,40 +78,27 @@ const userLogin = async (provider: 'google' | 'github' | 'linkedin_oidc') => {
       </div>
     </div>
     <USeparator />
-    <div class="w-full flex items-center justify-center gap-x-4">
+    <div class="w-full flex flex-col sm:flex-row items-center justify-center gap-4">
       <AButton
+        v-for="(button, index) in loginButton"
+        :key="index"
+        :custom-class="width < 768 ? 'w-full flex items-center justify-center' : ''"
         button-variant="soft"
         button-size="xl"
         color="neutral"
         button-rounded="rounded-xl"
         use-leading
-        icon-lead-name="i-devicon-google"
+        :icon-lead-name="button.icon"
         icon-lead-class="w-8 h-8"
-        :button-text="width < 768 ? '' : 'Google'"
-        @click="userLogin('google')"
-      />
-      <AButton
-        button-variant="soft"
-        button-size="xl"
-        color="neutral"
-        button-rounded="rounded-xl"
-        use-leading
-        icon-lead-name="i-devicon-github"
-        icon-lead-class="w-8 h-8"
-        :button-text="width < 768 ? '' : 'GitHub'"
-        @click="userLogin('github')"
-      />
-      <AButton
-        button-variant="soft"
-        button-size="xl"
-        color="neutral"
-        button-rounded="rounded-xl"
-        use-leading
-        icon-lead-name="i-devicon-linkedin"
-        icon-lead-class="w-8 h-8"
-        :button-text="width < 768 ? '' : 'LinkedIn'"
-        @click="userLogin('linkedin_oidc')"
+        :button-text="button.text"
+        @click="userLogin(button.provider)"
       />
     </div>
+    <ULink
+      to="/policy"
+      target="_blank"
+    >
+      {{ $t('menu.policy') }}
+    </ULink>
   </div>
 </template>
