@@ -45,6 +45,7 @@ export default defineNuxtConfig({
     '~/assets/scss/style.scss',
   ],
   site: {
+    name: 'DewBee',
     url: process.env.NUXT_PUBLIC_SITE_URL ?? process.env.NUXT_ENV_VERCEL_URL ?? 'http://localhost:5000',
   },
   colorMode: {
@@ -112,6 +113,14 @@ export default defineNuxtConfig({
   image: {
     format: ['svg', 'png', 'jpg', 'jpeg', 'webp'],
   },
+  ogImage: {
+    fonts: [
+      'Source Code Pro',
+    ],
+    defaults: {
+      renderer: 'satori',
+    },
+  },
   pinia: {
     storesDirs: [
       './stores/**',
@@ -130,9 +139,9 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: '/login',
       callback: '/confirm',
-      exclude: [
-        '/',
-      ],
+      // exclude: [
+      //   '/',
+      // ],
     },
     clientOptions: {
       auth: {

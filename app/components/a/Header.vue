@@ -76,6 +76,12 @@ const menuItems = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
       kbds: ['ctrl', 'n'],
       to: '/settings/patch',
     },
+    {
+      label: t('menu.familyService'),
+      icon: 'i-lucide-box',
+      kbds: ['ctrl', 'f'],
+      to: '/family',
+    },
   ],
 ])
 
@@ -228,6 +234,7 @@ defineShortcuts(
 )
 
 defineShortcuts({
+  ctrl_f: () => navigateTo('/family'),
   ctrl_i: () => navigateTo('/settings/inquiry'),
   ctrl_l: () => navigateTo('/login'),
   ctrl_m: () => navigateTo('/'),

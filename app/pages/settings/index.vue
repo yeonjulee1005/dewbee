@@ -65,5 +65,12 @@ const updateProfileData = async (payload: Database['public']['Tables']['profiles
       :current-end-date="currentEndDate"
       @click:end-date="clickEndDateButton"
     />
+    <ULink
+      class="w-full text-right px-6"
+      to="/policy"
+      target="_blank"
+    >
+      {{ $t('menu.policy') }}
+    </ULink>
   </div>
 </template>
