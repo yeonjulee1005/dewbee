@@ -37,6 +37,7 @@ export default defineNuxtConfig({
       meta: [
         { property: 'Imagetoolbar', content: 'no' },
         { name: 'naver-site-verification', content: '6eb6da4d3753c139c41f5b5cf3ec61c8151e6922' },
+        { name: 'google-adsense-account', content: 'ca-pub-9720546940719922' },
       ],
     },
   },
