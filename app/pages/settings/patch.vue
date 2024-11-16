@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Octokit } from 'octokit'
 
+const { width } = useWindowSize()
+
 const { t } = useLocale()
 const config = useRuntimeConfig()
 
@@ -8,7 +10,7 @@ useHead({
   title: t('pageTitle.patchNote'),
 })
 
-const page = ref(1)
+const currentPage = ref(1)
 const pageSize = ref(5)
 
 const octokit = new Octokit({
@@ -27,7 +29,7 @@ const { data: githubReleaseData, execute: executeGithubReleaseData, pending: pen
   const data = await octokit.request('GET /repos/{owner}/{repo}/releases', {
     owner: 'yeonjulee1005',
     repo: 'dewbee',
-    page: page.value,
+    page: currentPage.value,
     per_page: pageSize.value,
     headers: {
       'X-GitHub-Api-Version': '2022-11-28',
@@ -39,7 +41,7 @@ const { data: githubReleaseData, execute: executeGithubReleaseData, pending: pen
     : { releases: [], count: 0 }
 }, {
   immediate: true,
-  watch: [page],
+  watch: [currentPage],
 })
 
 onMounted(() => {
@@ -48,7 +50,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative w-full h-[calc(100dvh-80px)] overflow-y-scroll pb-6">
+  <div class="relative w-full h-[calc(100dvh-80px)] flex flex-col items-center overflow-y-scroll pb-6">
     <ASubPageTitle :title="$t('pageTitle.patchNote')" />
     <div
       v-if="!pendingGithubReleaseData"
@@ -120,15 +122,16 @@ onMounted(() => {
       />
     </div>
     <UPagination
-      v-model:page="page"
-      class="flex justify-center mx-2 my-2"
+      v-model:page="currentPage"
+      class="w-fit flex justify-center mx-2 my-2"
       color="neutral"
       variant="subtle"
-      :sibling-count="3"
+      :sibling-count="1"
+      :size="width < 340 ? 'xs' : 'lg'"
       :items-per-page="pageSize"
-      :total="githubReleaseData?.count ?? 0"
+      :total="githubReleaseData?.count"
       show-edges
-      @update:page="(changedPage: number) => page = changedPage"
+      @update:page="(changedPage: number) => currentPage = changedPage"
     />
   </div>
 </template>

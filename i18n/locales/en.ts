@@ -74,6 +74,7 @@ export default {
     count: '{count}',
     success: 'Success!✨',
     fail: 'Fail🥲',
+    free: 'Free',
   },
   label: {
     nickname: 'Nickname',
@@ -156,7 +157,10 @@ export default {
       ],
     },
     login: 'Login to use the below features!',
-    plan: 'Basic features are available for free.',
+    plan: {
+      description: 'Most features are',
+      descriptionEnd: 'available!',
+    },
   },
   main: {
     situation: {
