@@ -3,7 +3,7 @@ const { t } = useLocale()
 const toast = useToast()
 
 const { comma } = useUi()
-const { getTimestampzForDay } = useWeekRangeDate()
+const { getTimestampzForDay } = useLocalTimezone()
 
 const { userData } = storeToRefs(useUserDataStore())
 const { pendingUpdateData } = useLoadUserData()

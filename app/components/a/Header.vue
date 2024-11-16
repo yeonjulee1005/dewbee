@@ -72,7 +72,7 @@ const menuItems = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
     },
     {
       label: t('menu.patchNote'),
-      icon: 'i-lucide-message-circle-more',
+      icon: 'i-lucide-notebook-pen',
       kbds: ['ctrl', 'n'],
       to: '/settings/patch',
     },

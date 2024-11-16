@@ -1,18 +1,14 @@
 <script setup lang="ts">
 const { width } = useWindowSize()
 
-withDefaults(
-  defineProps<{
-    currentCurrency?: 'CYC001' | 'CYC002' | 'CYC003'
-  }>(),
-  {
-    currentCurrency: 'CYC001',
-  },
-)
-
 defineEmits([
-  'click:currency',
+  'click:currency-save',
 ])
+
+const currentCurrency = defineModel('currentCurrency', {
+  type: String as PropType<'CYC001' | 'CYC002' | 'CYC003'>,
+  default: 'CYC001',
+})
 </script>
 
 <template>
@@ -30,21 +26,30 @@ defineEmits([
         {{ $t('settings.description.currency') }}
       </p>
     </template>
-    <div class="w-full flex justify-end items-center">
+    <div :class="`w-full flex ${width > 400 ? 'flex-row items-center' : 'flex-col'} justify-end gap-3`">
       <UButtonGroup
-        :orientation="width > 340 ? 'horizontal' : 'vertical'"
+        :orientation="width > 400 ? 'horizontal' : 'vertical'"
         size="xl"
       >
         <AButton
           v-for="currency in ['CYC001', 'CYC002', 'CYC003']"
           :key="currency"
+          :custom-class="width > 400 ? '' : 'flex justify-center'"
           :button-text="$t(`text.${currency}`)"
           :button-color="currentCurrency === currency ? 'primary' : 'neutral'"
           :button-variant="currentCurrency === currency ? 'subtle' : 'outline'"
           button-size="xl"
-          @click="$emit('click:currency', currency)"
+          @click="currentCurrency = currency"
         />
       </UButtonGroup>
+      <AButton
+        :custom-class="width > 400 ? '' : 'flex justify-center'"
+        button-size="xl"
+        button-color="primary"
+        button-variant="soft"
+        :button-text="$t('button.save')"
+        @click="$emit('click:currency-save')"
+      />
     </div>
   </UCard>
 </template>

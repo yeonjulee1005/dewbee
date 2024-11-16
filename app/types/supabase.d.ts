@@ -63,6 +63,7 @@ interface Database {
           email: string | null
           end_date_id: string | null
           id: string
+          local_timezone_id: string | null
           nickname: string | null
           plan_id: string | null
           updated_at: string | null
@@ -76,6 +77,7 @@ interface Database {
           email?: string | null
           end_date_id?: string | null
           id?: string
+          local_timezone_id?: string | null
           nickname?: string | null
           plan_id?: string | null
           updated_at?: string | null
@@ -89,6 +91,7 @@ interface Database {
           email?: string | null
           end_date_id?: string | null
           id?: string
+          local_timezone_id?: string | null
           nickname?: string | null
           plan_id?: string | null
           updated_at?: string | null
@@ -240,6 +243,8 @@ interface Database {
           end_date_id: string | null
           endDate: Json | null
           id: string | null
+          local_timezone_id: string | null
+          localTimezome: Json | null
           nickname: string | null
           plan: Json | null
           plan_id: string | null

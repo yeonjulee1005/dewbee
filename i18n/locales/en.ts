@@ -70,6 +70,7 @@ export default {
     EDC005: 'Fri',
     EDC006: 'Sat',
     EDC007: 'Sun',
+    utc: 'UTC {offset}:00',
     count: '{count}',
     success: 'Success!✨',
     fail: 'Fail🥲',
@@ -105,11 +106,26 @@ export default {
     EDC006: 'Saturday',
     EDC007: 'Sunday',
   },
+  timezone: {
+    LTZ001: 'Asia/Seoul',
+    LTZ002: 'Asia/Tokyo',
+    LTZ003: 'America/New_York',
+    LTZ004: 'America/Chicago',
+    LTZ005: 'America/Denver',
+    LTZ006: 'America/Los_Angeles',
+    LTZ007: 'America/Anchorage',
+    LTZ008: 'America/Hawaii',
+    LTZ009: 'Europe/London',
+    LTZ010: 'Europe/Paris',
+    LTZ011: 'Asia/Bangkok',
+    LTZ012: 'Australia/Melbourne',
+  },
   placeholder: {
     targetAmount: 'Enter the target amount.',
     noSpendRecords: 'No spend records yet 🥲',
     noResultRecords: 'No result records yet 🥲',
     noPatchNote: 'No patch note yet 🥲',
+    noSearch: 'No "{search}" found 🥲',
   },
   intro: {
     title: 'DewBee。',
@@ -208,11 +224,13 @@ export default {
       currency: 'Currency',
       targetAmount: 'Weekly Spend Target / {currency}',
       endDate: 'Tally End Day',
+      localTimezone: 'Local Timezone',
     },
     description: {
       currency: 'The currency is automatically set when you register the spend!',
       targetAmount: 'Weekly spend target is the amount you want to spend for a week as a spare fund!',
       endDate: 'Weekly spend tally is done before the tally end day!',
+      localTimezone: 'Local timezone is the timezone used for tallying spend records! Changing it will affect all tally records.',
     },
   },
   modal: {
@@ -242,5 +260,9 @@ export default {
       description: 'You are entering an amount that exceeds this week\'s target spend amount!',
     },
     successSpendAmountSave: 'Spend amount has been saved!',
+    successSaveSettings: {
+      title: '설정을 저장했어요!',
+      description: '저장한 설정: {setting}',
+    },
   },
 }

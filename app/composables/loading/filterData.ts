@@ -3,7 +3,13 @@ import type { FilterDatabase } from '@/types/supabaseFilter'
 export const useLoadFilterData = () => {
   const { schemaFetchData } = useFetchComposable()
 
-  const { currencyCodeList, planCodeList, spendCategoryCodeList, endDateCodeList } = storeToRefs(useFilterDataStore())
+  const {
+    currencyCodeList,
+    planCodeList,
+    spendCategoryCodeList,
+    endDateCodeList,
+    localTimezone,
+  } = storeToRefs(useFilterDataStore())
 
   const { execute: executeCurrencyCodeList } = useAsyncData('currencyCodeList', async () => {
     const result = await schemaFetchData('filter', 'currency', 'id, index, code, code_name', 'index', true)
@@ -41,11 +47,21 @@ export const useLoadFilterData = () => {
     immediate: true,
   })
 
+  const { execute: executeLocalTimezone } = useAsyncData('localTimezone', async () => {
+    const result = await schemaFetchData('filter', 'localTimezone', 'id, index, code, code_name, utc_offset, icon', 'index', true)
+    localTimezone.value = result as FilterDatabase['filter']['Tables']['localTimezone']['Row'][]
+
+    return result ?? []
+  }, {
+    immediate: true,
+  })
+
   const executeFilterData = async () => {
     await executeCurrencyCodeList()
     await executePlanCodeList()
     await executeSpendCategoryCodeList()
     await executeEndDateCodeList()
+    await executeLocalTimezone()
   }
 
   return {

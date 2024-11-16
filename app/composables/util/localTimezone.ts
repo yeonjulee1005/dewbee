@@ -1,4 +1,4 @@
-export const useWeekRangeDate = () => {
+export const useLocalTimezone = () => {
   const getTimestampzForDay = (dayCode: string) => {
     const dayMap: Record<string, number> = {
       EDC001: 1,
@@ -11,19 +11,24 @@ export const useWeekRangeDate = () => {
     }
 
     const targetDay = dayMap[dayCode as keyof typeof dayMap]
+
     if (targetDay === undefined) {
       return null
     }
 
     const today = new Date()
     const currentDay = today.getDay()
-    let diff = (targetDay - currentDay + 7) % 7
+
+    let diff = (targetDay - currentDay + 6) % 7
+
+    console.log('diff', diff)
 
     if (diff === 0) {
       diff = 7
     }
 
     const targetDate = new Date(today)
+
     targetDate.setDate(today.getDate() + diff)
 
     const timestampz = targetDate.toISOString().split('T')[0]

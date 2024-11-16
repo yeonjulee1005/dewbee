@@ -75,6 +75,45 @@ export type FilterDatabase = {
         }
         Relationships: []
       }
+      localTimezone: {
+        Row: {
+          code: string | null
+          code_name: string | null
+          created_at: string
+          deleted: boolean | null
+          icon: string | null
+          id: string
+          index: number | null
+          update_user_id: string | null
+          updated_at: string | null
+          utc_offset: number | null
+        }
+        Insert: {
+          code?: string | null
+          code_name?: string | null
+          created_at?: string
+          deleted?: boolean | null
+          icon?: string | null
+          id?: string
+          index?: number | null
+          update_user_id?: string | null
+          updated_at?: string | null
+          utc_offset?: number | null
+        }
+        Update: {
+          code?: string | null
+          code_name?: string | null
+          created_at?: string
+          deleted?: boolean | null
+          icon?: string | null
+          id?: string
+          index?: number | null
+          update_user_id?: string | null
+          updated_at?: string | null
+          utc_offset?: number | null
+        }
+        Relationships: []
+      }
       plan: {
         Row: {
           code: string | null

@@ -70,6 +70,7 @@ export default {
     EDC005: '금',
     EDC006: '토',
     EDC007: '일',
+    utc: 'UTC {offset}:00',
     count: '{count}건',
     success: '성공 했어요✨',
     fail: '실패했어요🥲',
@@ -105,11 +106,26 @@ export default {
     EDC006: '토요일',
     EDC007: '일요일',
   },
+  timezone: {
+    LTZ001: '아시아/서울',
+    LTZ002: '아시아/도쿄',
+    LTZ003: '미국/뉴욕',
+    LTZ004: '미국/시카고',
+    LTZ005: '미국/덴버',
+    LTZ006: '미국/로스앤젤레스',
+    LTZ007: '미국/알레스카',
+    LTZ008: '미국/하와이',
+    LTZ009: '유럽/런던',
+    LTZ010: '유럽/파리',
+    LTZ011: '아시아/방콕',
+    LTZ012: '아시아/멜버른',
+  },
   placeholder: {
     targetAmount: '지출목표 금액을 입력해주세요.',
     noSpendRecords: '아직 지출이력이 없어요 🥲',
     noResultRecords: '아직 집계결과가 없어요 🥲',
     noPatchNote: '아직 패치노트가 없어요 🥲',
+    noSearch: '검색하신 "{search}" 는 없네요 🥲',
   },
   intro: {
     title: 'DewBee。',
@@ -208,11 +224,13 @@ export default {
       currency: '통화',
       targetAmount: '주간지출목표 / {currency}',
       endDate: '집계마감요일',
+      localTimezone: '표준시 설정',
     },
     description: {
       currency: '지출 등록시 자동으로 설정된 통화로 등록해줘요!',
       targetAmount: '주간 지출목표는, 여유자금으로 지출하고자 하는 일주일간의 금액이에요!',
       endDate: '주간 지출집계는, 집계마감요일 전날까지 사용한 일주일간의 금액을 집계해요!',
+      localTimezone: '표준시는 지출내역 집계 시 사용돼요! 변경하면 모든 집계 내역에 영향을 주게 돼요.',
     },
   },
   modal: {
@@ -241,5 +259,9 @@ export default {
       description: '이번주 목표 지출금액을 초과하는 금액을 입력하시고 있어요!',
     },
     successSpendAmountSave: '사용내역을 저장했어요!',
+    successSaveSettings: {
+      title: '설정을 저장했어요!',
+      description: '저장한 설정: {setting}',
+    },
   },
 }
