@@ -119,18 +119,12 @@ const computedSpendCategoryName = computed(() => {
             @click:button="selectCategory(currency?.code ?? '')"
           />
         </div>
-        <div class="w-full sm:w-1/2 flex flex-col items-center">
-          <MainArithmometerDisplay
-            :spend-category-code="mainSpendCategoryCode"
-            :spend-category-name="computedSpendCategoryName"
-            :spend-amount="mainSpendAmount"
-            :currency-code="currencyCode"
-          />
-          <MainArithmometerEmpty
-            :spend-category-code="mainSpendCategoryCode"
-            :spend-amount="mainSpendAmount"
-          />
-        </div>
+        <MainArithmometerDisplay
+          :spend-category-code="mainSpendCategoryCode"
+          :spend-category-name="computedSpendCategoryName"
+          :spend-amount="mainSpendAmount"
+          :currency-code="currencyCode"
+        />
       </div>
     </template>
     <MainArithmometerAmount
@@ -144,7 +138,7 @@ const computedSpendCategoryName = computed(() => {
       <div class="w-full flex justify-end">
         <div
           v-if="mainSpendCategoryCode && mainSpendAmount"
-          class="flex gap-x-2"
+          class="h-12 flex gap-x-2"
         >
           <AButton
             button-size="xl"

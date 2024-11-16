@@ -2,7 +2,24 @@
 const { width } = useWindowSize()
 const { tm } = useLocale()
 
+const props = withDefaults(
+  defineProps<{
+    clickable?: boolean
+  }>(),
+  {
+    clickable: false,
+  },
+)
+
 const _list: PlanList[] = tm('plan.list')
+
+const moveToPlanPage = (index: number) => {
+  if (!props.clickable) {
+    return
+  }
+
+  navigateTo({ path: '/plan', query: { option: index === 0 ? 'free' : 'pro' } })
+}
 </script>
 
 <template>
@@ -11,9 +28,10 @@ const _list: PlanList[] = tm('plan.list')
       v-for="(list, index) in _list"
       :key="index"
       :ui="{
-        root: `w-full md:w-1/2 ${index === 0 ? 'ring' : 'ring-4 ring-amber-500'}`,
+        root: `w-full md:w-1/2 ${index === 0 ? 'ring' : 'ring-4 ring-amber-500'} ${index === 0 ? 'hover:ring-2' : 'hover:ring-amber-600 hover:dark:ring-amber-400'} ${clickable ? 'cursor-pointer' : ''} transition-all duration-200 ease-in-out`,
         body: 'p-4',
       }"
+      @click="moveToPlanPage(index)"
     >
       <div class="flex flex-col gap-y-4">
         <div class="flex flex-col gap-y-0.5">

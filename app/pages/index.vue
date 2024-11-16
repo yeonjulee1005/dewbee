@@ -108,11 +108,11 @@ const clearArithmometer = () => {
 <template>
   <div
     v-if="!pendingUpdateData"
-    class="w-full h-[calc(100dvh-80px)] pb-2"
+    class="w-full h-fit pb-2"
   >
     <div
       v-if="computedLoginState"
-      class="h-full overflow-y-scroll flex flex-col items-end gap-y-8 px-6 py-4"
+      class="h-fit flex flex-col items-end gap-y-8 px-6 py-4"
     >
       <MainSetOption
         v-model:situation="computedSpendSituation"
@@ -132,7 +132,7 @@ const clearArithmometer = () => {
     </div>
     <div
       v-else
-      class="h-full px-6 flex flex-col gap-y-6 py-4"
+      class="h-fit flex flex-col gap-y-6 px-6 py-4"
     >
       <div class="flex flex-col gap-y-10">
         <MainIntroTitle />
