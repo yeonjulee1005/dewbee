@@ -58,7 +58,7 @@ const updateProfileData = async (payload: Database['public']['Tables']['profiles
 </script>
 
 <template>
-  <div class="w-full h-full flex flex-col justify-center items-center gap-y-8">
+  <div class="relative h-fit flex flex-col justify-center items-center gap-y-8 pb-6">
     <ASubPageTitle :title="$t('pageTitle.settings')" />
     <SettingCurrency
       v-model:current-currency="currentCurrency"
