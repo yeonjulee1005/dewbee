@@ -35,3 +35,12 @@ type WeeklyResult = Database['public']['Views']['viewWeeklyResultList']['Row'] &
   currency: FilterDatabase['filter']['Tables']['currency']['Row']
   endDate: FilterDatabase['filter']['Tables']['endDate']['Row']
 }
+
+/**
+ * ! Settings !
+ */
+
+type LocalTimezone = FilterDatabase['filter']['Tables']['localTimezone']['Row'] & {
+  label: string
+  value: string
+}
