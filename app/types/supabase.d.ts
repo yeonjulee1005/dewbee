@@ -64,6 +64,7 @@ interface Database {
           end_date_id: string | null
           id: string
           local_timezone_id: string | null
+          memo: string | null
           nickname: string | null
           plan_id: string | null
           updated_at: string | null
@@ -78,6 +79,7 @@ interface Database {
           end_date_id?: string | null
           id?: string
           local_timezone_id?: string | null
+          memo?: string | null
           nickname?: string | null
           plan_id?: string | null
           updated_at?: string | null
@@ -92,6 +94,7 @@ interface Database {
           end_date_id?: string | null
           id?: string
           local_timezone_id?: string | null
+          memo?: string | null
           nickname?: string | null
           plan_id?: string | null
           updated_at?: string | null

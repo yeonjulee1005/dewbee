@@ -60,6 +60,7 @@
     "supabase": "^1.207.9",
     "typescript": "^5.6.3",
     "vite-plugin-eslint2": "^5.0.1",
-    "vue-dompurify-html": "^5.1.0"
+    "vue-dompurify-html": "^5.1.0",
+    "yup": "^1.4.0"
   }
 }

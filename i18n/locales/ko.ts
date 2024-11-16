@@ -77,6 +77,8 @@ export default {
   },
   label: {
     nickname: '닉네임',
+    avatar: '아바타',
+    memo: '메모',
     category: '카테고리',
     amount: '금액',
     dailySummary: '일일 지출금액',
@@ -121,6 +123,8 @@ export default {
     LTZ012: '아시아/멜버른',
   },
   placeholder: {
+    nickname: '닉네임을 입력해주세요.',
+    memo: '메모를 입력해주세요.',
     targetAmount: '지출목표 금액을 입력해주세요.',
     noSpendRecords: '아직 지출이력이 없어요 🥲',
     noResultRecords: '아직 집계결과가 없어요 🥲',
@@ -240,6 +244,13 @@ export default {
       exceedAmount: '초과금액: {amount}{currency}',
     },
   },
+  validate: {
+    imageUploadFormat: '이미지 형식이 올바르지 않아요!',
+    imageUploadSize: '이미지 업로드 크기는 5MB 이하로 업로드 가능해요!',
+    requiredNickname: '닉네임을 입력해주세요!',
+    requiredAvatar: '아바타 이미지를 등록해주세요!',
+    requiredMemo: '메모를 입력해주세요!',
+  },
   message: {
     loginSuccess: {
       title: '로그인 성공',
@@ -254,6 +265,8 @@ export default {
       title: '이미 탈퇴된 사용자입니다.',
       description: '탈퇴된 사용자는 로그인할 수 없습니다.',
     },
+    successImageUpload: '이미지 업로드에 성공했어요!',
+    successSaveProfile: '프로필을 저장했어요!',
     exceedTargetAmount: {
       title: '너무 많은 금액을 입력하셨어요!',
       description: '이번주 목표 지출금액을 초과하는 금액을 입력하시고 있어요!',

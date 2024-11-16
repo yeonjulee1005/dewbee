@@ -77,6 +77,8 @@ export default {
   },
   label: {
     nickname: 'Nickname',
+    avatar: 'Avatar',
+    memo: 'Memo',
     category: 'Category',
     amount: 'Amount',
     dailySummary: 'Daily Spend',
@@ -121,6 +123,8 @@ export default {
     LTZ012: 'Australia/Melbourne',
   },
   placeholder: {
+    nickname: 'Enter your nickname.',
+    memo: 'Enter your memo.',
     targetAmount: 'Enter the target amount.',
     noSpendRecords: 'No spend records yet 🥲',
     noResultRecords: 'No result records yet 🥲',
@@ -240,6 +244,13 @@ export default {
       exceedAmount: 'Exceed Amount: {amount}{currency}',
     },
   },
+  validate: {
+    imageUploadFormat: 'Image format is incorrect!',
+    imageUploadSize: 'Image upload size is 5MB or less!',
+    requiredNickname: 'Please enter your nickname!',
+    requiredAvatar: 'Please register your avatar image!',
+    requiredMemo: 'Please enter your memo!',
+  },
   message: {
     loginSuccess: {
       title: 'Login Success',
@@ -255,6 +266,8 @@ export default {
       title: 'Already Withdrawal',
       description: 'Withdrawal users cannot login.',
     },
+    successImageUpload: 'Image upload has been completed successfully!',
+    successSaveProfile: 'Profile has been saved!',
     exceedTargetAmount: {
       title: 'Too much amount!',
       description: 'You are entering an amount that exceeds this week\'s target spend amount!',
