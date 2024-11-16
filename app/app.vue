@@ -76,10 +76,10 @@ useSeoMeta({
   twitterImage: seoImage,
 })
 
-onMounted(async () => {
-  await executeUpdateData()
-  await executeFilterData()
-})
+if (import.meta.server) {
+  executeUpdateData()
+  executeFilterData()
+}
 </script>
 
 <template>

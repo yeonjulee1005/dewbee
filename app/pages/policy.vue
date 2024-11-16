@@ -268,7 +268,7 @@ const tradeTerms = ref({
             {{ itemContent }}
           </li>
         </ol>
-        <p
+        <div
           v-for="(itemSubContent, subContentIndex) in item.subContent"
           :key="subContentIndex"
           class="flex flex-col text-sm font-light break-keep ml-4"
@@ -283,7 +283,7 @@ const tradeTerms = ref({
               {{ subContentDetail }}
             </li>
           </ol>
-        </p>
+        </div>
       </div>
     </div>
   </div>

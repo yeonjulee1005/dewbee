@@ -72,7 +72,7 @@ const menuItems = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
     },
     {
       label: t('menu.patchNote'),
-      icon: 'i-lucide-message-circle-more',
+      icon: 'i-lucide-notebook-pen',
       kbds: ['ctrl', 'n'],
       to: '/settings/patch',
     },
@@ -276,7 +276,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="sticky top-0 left-0 w-full flex justify-end items-center px-4 py-3">
+  <div class="sticky top-0 left-0 w-full flex justify-end items-center px-4 py-3 z-10">
     <UDropdownMenu
       v-model:open="dropdownMenuTrigger"
       :items="menuItems"
