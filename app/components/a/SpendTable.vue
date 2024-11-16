@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { TableColumn } from '@nuxt/ui'
 
+const { width } = useWindowSize()
+
 withDefaults(
   defineProps<{
     tableData?: Realtime[] | DailyResult[] | WeeklyResult[]
@@ -26,8 +28,9 @@ const currentPage = defineModel('currentPage', {
 </script>
 
 <template>
-  <div class="px-6">
+  <div class="h-fit flex flex-col items-center px-6">
     <UTable
+      class="w-full"
       :data="tableData"
       :columns="tableColumns"
       :loading="pendingTableData"
@@ -44,13 +47,16 @@ const currentPage = defineModel('currentPage', {
     </UTable>
     <UPagination
       v-model:page="currentPage"
-      class="flex justify-center mx-2 my-2"
+      class="w-fit flex justify-center mx-2 my-2"
       color="neutral"
       variant="subtle"
-      :sibling-count="3"
+      :sibling-count="1"
+      :size="width < 340 ? 'xs' : 'lg'"
+      showo-edge
       :items-per-page="pageSize"
       :total="totalCount"
       show-edges
+      @update:page="(changedPage: number) => currentPage = changedPage"
     />
   </div>
 </template>

@@ -98,29 +98,30 @@ const insertLoginMenu = () => {
     ? insertFreePlanMenu()
     : insertProPlanMenu()
 
-  menuItems.value.push([
-    {
-      label: t('menu.settings'),
-      icon: 'i-lucide-settings-2',
-      kbds: ['ctrl', 's'],
-      to: '/settings',
-    },
-    {
-      label: t('menu.signout'),
-      icon: 'i-lucide-log-out',
-      onSelect: logoutProcess,
-    },
-  ])
-}
-
-const insertFreePlanMenu = () => {
-  menuItems.value.unshift(
+  menuItems.value.push(
     [{
       label: t('menu.profile'),
       icon: 'i-lucide-user',
       kbds: ['ctrl', 'meta', 'p'],
       to: '/settings/profile',
     }],
+    [
+      {
+        label: t('menu.settings'),
+        icon: 'i-lucide-settings-2',
+        kbds: ['ctrl', 's'],
+        to: '/settings',
+      },
+      {
+        label: t('menu.signout'),
+        icon: 'i-lucide-log-out',
+        onSelect: logoutProcess,
+      },
+    ])
+}
+
+const insertFreePlanMenu = () => {
+  menuItems.value.unshift(
     [
       {
         label: t('menu.main'),
@@ -154,12 +155,6 @@ const insertFreePlanMenu = () => {
 
 const insertProPlanMenu = () => {
   menuItems.value.unshift(
-    [{
-      label: t('menu.profile'),
-      icon: 'i-lucide-user',
-      kbds: ['ctrl', 'meta', 'p'],
-      to: '/settings/profile',
-    }],
     [
       {
         label: t('menu.main'),

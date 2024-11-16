@@ -49,8 +49,6 @@ const initFormData = () => {
   formData.nickname = userData.value?.nickname ?? ''
   formData.avatar_url = userData.value?.avatar_url ?? ''
   formData.memo = userData.value?.memo ?? ''
-
-  // 나중에 여러 사람들이 경재할 수 있는 게시판도 생성하면 좋겠다.
 }
 
 const handleFileChange = (event: Event) => {

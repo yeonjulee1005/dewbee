@@ -4,7 +4,7 @@ const { width } = useWindowSize()
 
 <template>
   <div class="flex flex-col gap-y-1.5">
-    <div :class="`flex items-baseline ${width > 340 ? 'gap-x-4' : 'gap-x-2'}`">
+    <div :class="`flex items-baseline ${width > 340 ? 'flex-row gap-2' : 'flex-col gap-2'}`">
       <NuxtImg
         src="/image/favicon.svg"
         :width="width > 340 ? 100 : 50"

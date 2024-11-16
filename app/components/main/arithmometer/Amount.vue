@@ -22,11 +22,21 @@ const mainSpendAmount = defineModel('mainSpendAmount', {
   default: 0,
 })
 
-const accordionItem = [
+const selectKeypadAccordion = ref('0')
+
+const keypadAccordion = [
   {
     label: t('main.button'),
     icon: 'i-lucide-banknote',
     slot: 'button',
+  },
+]
+
+const manualAccordion = [
+  {
+    label: t('main.manual'),
+    icon: 'i-lucide-keyboard',
+    slot: 'manual',
   },
 ]
 
@@ -59,7 +69,8 @@ const updateInput = (value: number) => {
 <template>
   <div class="w-full flex flex-col items-end gap-y-4">
     <UAccordion
-      :items="accordionItem"
+      v-model="selectKeypadAccordion"
+      :items="keypadAccordion"
       :ui="{ root: 'w-full flex justify-start', header: 'w-fit' }"
     >
       <template #button>
@@ -90,28 +101,27 @@ const updateInput = (value: number) => {
         </div>
       </template>
     </UAccordion>
-    <div class="w-full flex items-center justify-between gap-x-2">
-      <div class="flex items-center gap-x-1.5">
-        <Icon
-          name="i-lucide-keyboard"
-          class="w-5 h-5"
-        />
-        <p class="text-sm">
-          {{ $t('main.manual') }}
-        </p>
-      </div>
-      <UInput
-        v-model="mainSpendAmount"
-        type="number"
-        :min="0"
-        :max="1000000000"
-        :step="1000"
-        size="xl"
-        :ui="{
-          base: 'text-right',
-        }"
-        @update:model-value="(value: string | number) => updateInput(value as number)"
-      />
-    </div>
+    <UAccordion
+      :items="manualAccordion"
+      :ui="{ header: 'w-fit' }"
+    >
+      <template #manual>
+        <div class="w-full flex justify-end gap-4">
+          <UInput
+            v-model="mainSpendAmount"
+            class="w-full max-w-[300px]"
+            type="number"
+            :min="0"
+            :max="1000000000"
+            :step="1000"
+            size="xl"
+            :ui="{
+              base: 'text-right',
+            }"
+            @update:model-value="(value: string | number) => updateInput(value as number)"
+          />
+        </div>
+      </template>
+    </UAccordion>
   </div>
 </template>
