@@ -39,11 +39,11 @@ const computedCurrencyTitle = computed(() => {
         {{ $t('settings.description.targetAmount') }}
       </p>
     </template>
-    <div class="w-full flex justify-end items-center">
+    <div class="w-full flex justify-end items-center gap-3">
       <UButtonGroup>
         <UInput
           v-model="targetAmount"
-          variant="subtle"
+          variant="outline"
           highlight
           size="xl"
           type="number"
@@ -61,18 +61,18 @@ const computedCurrencyTitle = computed(() => {
           icon-lead-name="i-lucide-x"
           icon-lead-class="w-4 h-4"
           button-size="xl"
-          button-color="neutral"
-          button-variant="outline"
+          button-color="primary"
+          button-variant="soft"
           @click="targetAmount = 0"
         />
-        <AButton
-          button-size="xl"
-          button-color="neutral"
-          button-variant="subtle"
-          :button-text="$t('button.save')"
-          @click="$emit('click:save')"
-        />
       </UButtonGroup>
+      <AButton
+        button-size="xl"
+        button-color="primary"
+        button-variant="soft"
+        :button-text="$t('button.save')"
+        @click="$emit('click:save')"
+      />
     </div>
   </UCard>
 </template>

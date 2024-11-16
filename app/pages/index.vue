@@ -3,7 +3,7 @@ const { t } = useLocale()
 const toast = useToast()
 
 const { comma } = useUi()
-const { getTimestampzForDay } = useWeekRangeDate()
+const { getWeeklyTimestampz } = useLocalTimezone()
 
 const { userData } = storeToRefs(useUserDataStore())
 const { pendingUpdateData } = useLoadUserData()
@@ -25,10 +25,10 @@ const { data: spendListData, execute: executeSpendListData } = useAsyncData(asyn
     return { data: [], count: 0 }
   }
 
-  const endDateTimestampz = getTimestampzForDay(userData.value.endDate.code)?.timestampz ?? ''
-  const weekBeforeTimestampz = getTimestampzForDay(userData.value.endDate.code)?.weekBeforeTimestampz ?? ''
+  const startDateTimestampz = getWeeklyTimestampz(userData.value.endDate.code)?.gteDate ?? ''
+  const endDateTimestampz = getWeeklyTimestampz(userData.value.endDate.code)?.lteDate ?? ''
 
-  const response = await fetchRangeData('viewSpendList', '*', 'created_at', endDateTimestampz, 'created_at', weekBeforeTimestampz, 'update_user_id', userData.value.id)
+  const response = await fetchRangeData('viewSpendList', '*', 'created_at', endDateTimestampz, 'created_at', startDateTimestampz, 'update_user_id', userData.value.id)
 
   return response
     ? response

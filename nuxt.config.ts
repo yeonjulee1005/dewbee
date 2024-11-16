@@ -61,6 +61,7 @@ export default defineNuxtConfig({
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL ?? process.env.NUXT_ENV_VERCEL_URL ?? 'http://localhost:5000',
       supabaseUrl: process.env.SUPABASE_URL ?? '',
       supabaseKey: process.env.SUPABASE_KEY ?? '',
+      githubAccessToken: process.env.GITHUB_ACCESS_TOKEN ?? '',
     },
   },
   routeRules: {
