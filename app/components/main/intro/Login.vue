@@ -6,7 +6,7 @@
     }"
     @click="navigateTo('/login')"
   >
-    <p class="text-center text-base font-light">
+    <p class="w-full text-center text-xl font-light break-keep">
       {{ $t('intro.login') }}
     </p>
   </UCard>
