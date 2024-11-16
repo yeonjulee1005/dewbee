@@ -1,5 +1,7 @@
 export const useLocalTimezone = () => {
-  const getTimestampzForDay = (dayCode: string) => {
+  const { currentLocalTimezoneOffset } = storeToRefs(useUserDataStore())
+
+  const getWeeklyTimestampz = (dayCode: string) => {
     const dayMap: Record<string, number> = {
       EDC001: 1,
       EDC002: 2,
@@ -17,30 +19,36 @@ export const useLocalTimezone = () => {
     }
 
     const today = new Date()
-    const currentDay = today.getDay()
+    const currentDay = today.getUTCDay()
 
-    let diff = (targetDay - currentDay + 6) % 7
-
-    console.log('diff', diff)
+    let diff = (targetDay - currentDay + 7) % 7
 
     if (diff === 0) {
       diff = 7
     }
 
-    const targetDate = new Date(today)
-
+    const targetDate = new Date()
     targetDate.setDate(today.getDate() + diff)
-
-    const timestampz = targetDate.toISOString().split('T')[0]
 
     const weekBeforeDate = new Date(targetDate)
     weekBeforeDate.setDate(targetDate.getDate() - 7)
-    const weekBeforeTimestampz = weekBeforeDate.toISOString().split('T')[0]
 
-    return { timestampz, weekBeforeTimestampz }
+    const startTimestampz = weekBeforeDate.toISOString().split('T')[0] + 'T00:00:00.000Z'
+    const endTimestampz = targetDate.toISOString().split('T')[0] + 'T00:00:00.000Z'
+
+    const gteDate = adjustTimezone(startTimestampz, currentLocalTimezoneOffset.value)
+    const lteDate = adjustTimezone(endTimestampz, currentLocalTimezoneOffset.value)
+
+    return { gteDate, lteDate }
+  }
+
+  const adjustTimezone = (dateString: string, offset: number) => {
+    const date = new Date(dateString)
+    date.setHours(date.getHours() - offset)
+    return date.toISOString().replace('T', ' ').split('.')[0]
   }
 
   return {
-    getTimestampzForDay,
+    getWeeklyTimestampz,
   }
 }

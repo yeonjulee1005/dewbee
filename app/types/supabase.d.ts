@@ -244,7 +244,7 @@ interface Database {
           endDate: Json | null
           id: string | null
           local_timezone_id: string | null
-          localTimezome: Json | null
+          localTimezone: Json | null
           nickname: string | null
           plan: Json | null
           plan_id: string | null
