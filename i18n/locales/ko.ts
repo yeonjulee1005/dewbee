@@ -247,6 +247,10 @@ export default {
     },
   },
   modal: {
+    confirmLogin: {
+      title: '로그인이 필요해요!',
+      description: '로그인페이지로 이동할까요?',
+    },
     confirmSaveSpend: {
       title: '저장할 지출금액 확인이 필요해요!',
       description: '이번주 목표 지출금액을 초과하는 금액을 입력했어요! 그래도 저장하시겠어요?',

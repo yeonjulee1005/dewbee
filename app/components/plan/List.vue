@@ -11,6 +11,10 @@ const props = withDefaults(
   },
 )
 
+const emit = defineEmits([
+  'click:plan',
+])
+
 const _list: PlanList[] = tm('plan.list')
 
 const moveToPlanPage = (index: number) => {
@@ -18,7 +22,7 @@ const moveToPlanPage = (index: number) => {
     return
   }
 
-  navigateTo({ path: '/plan', query: { option: index === 0 ? 'free' : 'pro' } })
+  emit('click:plan', index === 0 ? 'free' : 'pro')
 }
 </script>
 

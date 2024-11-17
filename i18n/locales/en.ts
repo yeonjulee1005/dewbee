@@ -247,6 +247,10 @@ export default {
     },
   },
   modal: {
+    confirmLogin: {
+      title: 'Login is required!',
+      description: 'Do you want to move to the login page?',
+    },
     confirmSaveSpend: {
       title: 'Need to confirm spend amount to save!',
       description: 'You entered an amount that exceeds this week\'s target spend amount! Do you still want to save?',
