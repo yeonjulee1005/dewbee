@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
 
+const ccolorMode = useColorMode()
 const { go } = useRouter()
 const { t, locale, setLocale } = useLocale()
-const ccolorMode = useColorMode()
+const { url } = useImageStorage()
 
 const { userData, userCoreId } = storeToRefs(useUserDataStore())
 const { logout } = useFetchComposable()
@@ -222,7 +223,7 @@ const insertLogoutMenu = () => {
   }])
 }
 
-const computedAvatarUrl = computed(() => userData.value?.avatar_url ?? '/image/favicon.svg')
+const computedAvatarUrl = computed(() => userData.value?.avatar_url ?? url(true, '/assets/dewbee_logo.svg'))
 
 defineShortcuts(
   extractShortcuts(menuItems.value),

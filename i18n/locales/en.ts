@@ -11,8 +11,7 @@ export default {
     profile: 'Profile',
     inquiry: 'Inquiry',
     patchNote: 'Patch Note',
-    familyService: 'Dewdew Family Service',
-    copyright: 'Copyright 2024 © Dewdew All Rights Reserved.',
+    familyService: 'Family Service',
     businessName: 'Dewdew',
     businessNumber: 'Business Registration Number: 482-11-01740',
     businessAddress: 'Jeju-si Ayeon-ro 171, #301',
@@ -227,6 +226,9 @@ export default {
       },
     ],
   },
+  family: {
+    description: 'We will help improve the quality of life with various services! 😉',
+  },
   settings: {
     title: {
       currency: 'Currency',
@@ -238,7 +240,10 @@ export default {
       currency: 'The currency is automatically set when you register the spend!',
       targetAmount: 'Weekly spend target is the amount you want to spend for a week as a spare fund!',
       endDate: 'Weekly spend tally is done before the tally end day!',
-      localTimezone: 'Local timezone is the timezone used for tallying spend records! Changing it will affect all tally records.',
+      localTimezone: [
+        'Local timezone is used for tallying spend records!',
+        'Changing it will affect all tally records.',
+      ],
     },
   },
   modal: {

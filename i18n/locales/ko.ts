@@ -11,8 +11,7 @@ export default {
     profile: '프로필',
     inquiry: '문의하기',
     patchNote: '패치노트',
-    familyService: 'Dewdew 자매품',
-    copyright: 'Copyright 2024 © Dewdew All Rights Reserved.',
+    familyService: '패밀리 서비스',
     businessName: '듀듀',
     businessNumber: '사업자등록번호: 482-11-01740',
     businessAddress: '제주시 아연로 171, 301호',
@@ -227,6 +226,9 @@ export default {
       },
     ],
   },
+  family: {
+    description: '다양한 서비스로 삶의 질을 올려드릴게요! 😉',
+  },
   settings: {
     title: {
       currency: '통화',
@@ -238,7 +240,10 @@ export default {
       currency: '지출 등록시 자동으로 설정된 통화로 등록해줘요!',
       targetAmount: '주간 지출목표는, 여유자금으로 지출하고자 하는 일주일간의 금액이에요!',
       endDate: '주간 지출집계는, 집계마감요일 전날까지 사용한 일주일간의 금액을 집계해요!',
-      localTimezone: '표준시는 지출내역 집계 시 사용돼요! 변경하면 모든 집계 내역에 영향을 주게 돼요.',
+      localTimezone: [
+        '표준시는 지출내역 집계 시 사용돼요!',
+        '변경하면 모든 집계 내역에 영향을 주게 돼요.',
+      ],
     },
   },
   modal: {

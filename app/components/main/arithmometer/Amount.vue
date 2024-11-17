@@ -1,6 +1,7 @@
 <script setup lang="ts">
+const { width } = useWindowSize()
+
 const { t } = useLocale()
-const { comma } = useUi()
 
 const props = withDefaults(
   defineProps<{
@@ -40,21 +41,32 @@ const manualAccordion = [
   },
 ]
 
-const computedCalculatorButton = computed(() => {
-  if (props.targetAmount <= 1000) {
-    return [1, 5, 10, 50, 100, 500]
-  }
-  else if (props.targetAmount <= 10000) {
-    return [10, 50, 100, 500, 1000, 5000]
+const smallCalculatorButton = ref([1, 5, 10, 50])
+const computedMediumCalculatorButton = computed(() => {
+  return props.targetAmount <= 1000
+    ? [100, 500]
+    : [100, 500, 1000, 5000]
+})
+const computedLargeCalculatorButton = computed(() => {
+  if (props.targetAmount <= 10000) {
+    return []
   }
   else if (props.targetAmount <= 100000) {
-    return [10, 50, 100, 500, 1000, 5000, 10000, 50000]
-  }
-  else if (props.targetAmount <= 1000000) {
-    return [10, 50, 100, 500, 1000, 5000, 10000, 50000, 100000, 500000]
+    return [10000, 50000]
   }
   else {
-    return [10, 50, 100, 500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000]
+    return [10000, 50000, 100000]
+  }
+})
+const computedExtraLargeCalculatorButton = computed(() => {
+  if (props.targetAmount <= 100000) {
+    return []
+  }
+  else if (props.targetAmount <= 1000000) {
+    return [500000]
+  }
+  else {
+    return [500000, 1000000, 5000000]
   }
 })
 
@@ -71,31 +83,37 @@ const updateInput = (value: number) => {
     <UAccordion
       v-model="selectKeypadAccordion"
       :items="keypadAccordion"
-      :ui="{ root: 'w-full flex justify-start', header: 'w-fit' }"
+      :ui="{ root: 'w-full flex justify-start', header: 'w-fit', item: 'w-full' }"
     >
       <template #button>
-        <div class="w-full flex flex-col gap-y-3">
-          <div class="flex flex-wrap gap-2">
-            <UButtonGroup
-              v-for="(button, index) in computedCalculatorButton"
-              :key="index"
-              button-size="xl"
-            >
-              <AButton
-                button-size="xl"
-                button-variant="subtle"
-                button-color="secondary"
-                :button-text="'+'.concat(comma(button).toString())"
-                @click="() => $emit('add:amount', button)"
-              />
-              <AButton
-                button-size="xl"
-                button-variant="outline"
-                button-color="neutral"
-                :button-text="'-'.concat(comma(button).toString())"
-                @click="() => $emit('subtract:amount', button)"
-              />
-            </UButtonGroup>
+        <div class="w-full flex flex-col gap-y-4">
+          <div :class="`grid ${width < 320 ? 'grid-cols-1' : 'grid-cols-2'} sm:grid-cols-4 gap-3`">
+            <MainArithmometerCalculatorButton
+              :calculator-button="smallCalculatorButton"
+              @click:add="() => $emit('add:amount', $event)"
+              @click:subtract="() => $emit('subtract:amount', $event)"
+            />
+          </div>
+          <div :class="`grid ${width < 420 ? 'grid-cols-1' : 'grid-cols-2'} md:grid-cols-4 gap-3`">
+            <MainArithmometerCalculatorButton
+              :calculator-button="computedMediumCalculatorButton"
+              @click:add="() => $emit('add:amount', $event)"
+              @click:subtract="() => $emit('subtract:amount', $event)"
+            />
+          </div>
+          <div :class="`grid ${width < 460 ? 'grid-cols-1' : 'grid-cols-2'} md:grid-cols-3 gap-3`">
+            <MainArithmometerCalculatorButton
+              :calculator-button="computedLargeCalculatorButton"
+              @click:add="() => $emit('add:amount', $event)"
+              @click:subtract="() => $emit('subtract:amount', $event)"
+            />
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <MainArithmometerCalculatorButton
+              :calculator-button="computedExtraLargeCalculatorButton"
+              @click:add="() => $emit('add:amount', $event)"
+              @click:subtract="() => $emit('subtract:amount', $event)"
+            />
           </div>
           <USeparator />
         </div>

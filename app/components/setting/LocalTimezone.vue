@@ -56,8 +56,12 @@ const calculateUtcOffset = (offset: number) => {
       <p class="text-xl font-bold break-keep mb-2">
         {{ $t('settings.title.localTimezone') }}
       </p>
-      <p class="text-sm font-light break-keep text-neutral-500 dark:text-neutral-400">
-        {{ $t('settings.description.localTimezone') }}
+      <p
+        v-for="(text, index) in $tm('settings.description.localTimezone')"
+        :key="index"
+        class="text-sm font-light break-keep text-neutral-500 dark:text-neutral-400"
+      >
+        {{ $rt(text) }}
       </p>
     </template>
     <div :class="`w-full flex ${width > 400 ? 'flex-row items-center' : 'flex-col'} justify-end gap-3`">
