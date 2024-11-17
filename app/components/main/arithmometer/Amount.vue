@@ -90,29 +90,29 @@ const updateInput = (value: number) => {
           <div :class="`grid ${width < 320 ? 'grid-cols-1' : 'grid-cols-2'} sm:grid-cols-4 gap-3`">
             <MainArithmometerCalculatorButton
               :calculator-button="smallCalculatorButton"
-              @click:add="() => $emit('add:amount', $event)"
-              @click:subtract="() => $emit('subtract:amount', $event)"
+              @click:add="(amount: number) => $emit('add:amount', amount)"
+              @click:subtract="(amount: number) => $emit('subtract:amount', amount)"
             />
           </div>
           <div :class="`grid ${width < 420 ? 'grid-cols-1' : 'grid-cols-2'} md:grid-cols-4 gap-3`">
             <MainArithmometerCalculatorButton
               :calculator-button="computedMediumCalculatorButton"
-              @click:add="() => $emit('add:amount', $event)"
-              @click:subtract="() => $emit('subtract:amount', $event)"
+              @click:add="(amount: number) => $emit('add:amount', amount)"
+              @click:subtract="(amount: number) => $emit('subtract:amount', amount)"
             />
           </div>
           <div :class="`grid ${width < 460 ? 'grid-cols-1' : 'grid-cols-2'} md:grid-cols-3 gap-3`">
             <MainArithmometerCalculatorButton
               :calculator-button="computedLargeCalculatorButton"
-              @click:add="() => $emit('add:amount', $event)"
-              @click:subtract="() => $emit('subtract:amount', $event)"
+              @click:add="(amount: number) => $emit('add:amount', amount)"
+              @click:subtract="(amount: number) => $emit('subtract:amount', amount)"
             />
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
             <MainArithmometerCalculatorButton
               :calculator-button="computedExtraLargeCalculatorButton"
-              @click:add="() => $emit('add:amount', $event)"
-              @click:subtract="() => $emit('subtract:amount', $event)"
+              @click:add="(amount: number) => $emit('add:amount', amount)"
+              @click:subtract="(amount: number) => $emit('subtract:amount', amount)"
             />
           </div>
           <USeparator />

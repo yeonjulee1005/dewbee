@@ -43,9 +43,10 @@ const computedSpendSituation = computed(() => {
   let amount = 0
   let color: 'primary' | 'secondary' | 'success' | 'warning' | 'error' = 'secondary'
   let label = ''
+  let icon = 'i-lucide-check-circle'
 
   if (!spendListData.value) {
-    return { color, label: t('main.situation.excellent') }
+    return { color, label: t('main.situation.excellent'), icon }
   }
 
   spendListData.value?.data.forEach((item: Database['public']['Views']['viewSpendList']['Row']) => {
@@ -58,21 +59,25 @@ const computedSpendSituation = computed(() => {
   if (percentage <= 25) {
     color = 'secondary'
     label = t('main.situation.excellent')
+    icon = 'i-fluent-emoji-high-contrast-grinning-squinting-face'
   }
   else if (percentage <= 50) {
     color = 'success'
     label = t('main.situation.good')
+    icon = 'i-fluent-emoji-high-contrast-kissing-face-with-closed-eyes'
   }
   else if (percentage <= 75) {
     color = 'warning'
     label = t('main.situation.warning')
+    icon = 'i-fluent-emoji-high-contrast-grinning-face-with-sweat'
   }
   else {
     color = 'error'
     label = t('main.situation.danger')
+    icon = 'i-fluent-emoji-high-contrast-crying-face'
   }
 
-  return { color, label }
+  return { color, label, icon }
 })
 
 const saveSpendAmount = async () => {
