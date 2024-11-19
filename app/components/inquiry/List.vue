@@ -1,11 +1,17 @@
 <script setup lang="ts">
+import type { BoardDatabase } from '@/types/supabaseBoard'
+
 const { width } = useWindowSize()
+
+type MemberInquiry = BoardDatabase['board']['Views']['viewInquiryChannel']['Row']
+  & { adminProfiles: Database['public']['Views']['viewProfiles']['Row'] }
+  & { requestUserProfiles: Database['public']['Views']['viewProfiles']['Row'] }
 
 const props = withDefaults(defineProps<{
   listType?: 'adminGuest' | 'adminMember' | 'member' | undefined
   listPending?: boolean
   listData?: {
-    list: any[]
+    list: BoardDatabase['board']['Tables']['guestInquiry']['Row'] [] | MemberInquiry[]
     count: number
   }
   pageSize?: number
@@ -63,12 +69,56 @@ const clickList = (list: any) => {
         }"
         @click="clickList(list)"
       >
-        <p class="text-lg font-semibold">
-          {{ list.email }}
-        </p>
-        <p class="w-full text-sm font-light text-neutral-500 dark:text-neutral-400 break-words">
-          {{ list.message }}
-        </p>
+        <div
+          v-if="listType === 'adminGuest'"
+          class="w-full flex flex-col gap-y-2"
+        >
+          <p class="text-lg font-semibold">
+            {{ $t('inquiry.label.email', { email: (list as BoardDatabase['board']['Tables']['guestInquiry']['Row'])?.email }) }}
+          </p>
+          <p class="w-full text-sm font-light text-neutral-500 dark:text-neutral-400 break-words">
+            {{ (list as BoardDatabase['board']['Tables']['guestInquiry']['Row'])?.message }}
+          </p>
+        </div>
+        <div
+          v-if="listType !== 'adminGuest'"
+          class="w-full flex justify-between"
+        >
+          <div class="flex items-center gap-x-4">
+            <UAvatarGroup size="lg">
+              <UChip
+                :show="(list as MemberInquiry).admin_new_message ?? false"
+                inset
+                color="secondary"
+              >
+                <UAvatar
+                  :src="(list as MemberInquiry)?.adminProfiles.avatar_url ?? ''"
+                  :alt="(list as MemberInquiry)?.adminProfiles.nickname ?? ''"
+                />
+              </UChip>
+              <UChip
+                :show="(list as MemberInquiry).request_new_message ?? false"
+                inset
+                color="success"
+              >
+                <UAvatar
+                  :src="(list as MemberInquiry)?.requestUserProfiles.avatar_url ?? ''"
+                  :alt="(list as MemberInquiry)?.requestUserProfiles.nickname ?? ''"
+                />
+              </UChip>
+            </UAvatarGroup>
+            <p class="text-lg font-semibold text-neutral-500 dark:text-neutral-400 break-words">
+              {{ $t('inquiry.label.channelName', { channelName: (list as MemberInquiry).channel_code }) }}
+            </p>
+          </div>
+          <div class="flex items-center gap-x-2">
+            <UBadge
+              :label="(list as MemberInquiry).activated ? $t('text.inquiring') : $t('text.inquiryCompleted')"
+              variant="outline"
+              size="lg"
+            />
+          </div>
+        </div>
         <ANuxtTime :date-time="list.created_at" />
       </UCard>
     </div>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { BoardDatabase } from '@/types/supabaseBoard'
+
 const { t } = useLocale()
 const toast = useToast()
 
@@ -90,25 +92,25 @@ const clickInquiryButton = async () => {
   const response = await schemaUpsertData('board', 'inquiryChannel', { request_user_id: user.value?.id })
 
   if (response) {
-    await schemaUpdateData('board', 'inquiryChannel', { channel_code: response[0].id.split('-')[0].toUpperCase() }, response[0].id)
+    const channelCode = response[0].id.split('-')[0].toUpperCase()
+
+    await schemaUpdateData('board', 'inquiryChannel', { channel_code: channelCode }, response[0].id)
     toast.add({ title: t('message.successInquiryChannelCreated'), color: 'success' })
-    executeUserInquiryList()
+    navigateTo({ path: '/inquiry/chat', query: { channelCode } })
   }
 }
 
-const replyInquiry = (list: any) => {
-  console.log('메일 문의 하기')
-  console.log(list)
+const replyInquiry = (list: BoardDatabase['board']['Tables']['guestInquiry']['Row']) => {
+  const email = list.email
+  const subject = encodeURIComponent('[Dewbee] 문의 답변입니다!')
+  const body = encodeURIComponent(`문의 내용: \r\n ${list.message ?? ''}`)
+
+  const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`
+  window.open(gmailLink, '_blank')
 }
 
-const moveToInquiryChatAdmin = (list: any) => {
-  console.log('문의 채팅으로 이동 관리자모드')
-  console.log(list)
-}
-
-const moveToInquiryChatMember = (list: any) => {
-  console.log('문의 채팅으로 이동 회원모드')
-  console.log(list)
+const moveToInquiryChat = (list: BoardDatabase['board']['Views']['viewInquiryChannel']['Row']) => {
+  navigateTo({ path: '/inquiry/chat', query: { channelCode: list.channel_code } })
 }
 
 onMounted(async () => {
@@ -159,7 +161,7 @@ onMounted(async () => {
             :list-pending="pendingMemberInquiryList"
             :list-data="memberInquiryData"
             :page-size="memberInquiryPageSize"
-            @move:chat-admin="moveToInquiryChatAdmin"
+            @move:chat-admin="moveToInquiryChat"
           />
         </template>
       </UTabs>
@@ -170,7 +172,7 @@ onMounted(async () => {
         :list-pending="pendingUserInquiryList"
         :list-data="userInquiryData"
         :page-size="userInquiryPageSize"
-        @move:chat-member="moveToInquiryChatMember"
+        @move:chat-member="moveToInquiryChat"
       />
     </div>
     <InquiryGuestWrite v-else />

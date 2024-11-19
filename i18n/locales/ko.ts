@@ -57,6 +57,7 @@ export default {
     confirm: '확인',
     cancel: '취소',
     help: '도움말',
+    send: '보내기',
     inquiry: '문의하기',
     leaveInquiry: '문의 남기기',
   },
@@ -76,6 +77,8 @@ export default {
     success: '성공 했어요✨',
     fail: '실패했어요🥲',
     free: '무료',
+    inquiring: '문의중',
+    inquiryCompleted: '문의완료',
   },
   label: {
     nickname: '닉네임',
@@ -241,6 +244,14 @@ export default {
       '궁금하신 사항은 문의사항으로 남겨주세요!',
       '친절하게 답변을 보내드릴게요 🧡',
     ],
+    notification: [
+      '[안내사항] 문의사항을 남겨주시면 답변드릴게요!',
+      '문의종료는 "/문의종료" 또는 "/close" 명령어를 사용해주세요!',
+    ],
+    label: {
+      email: '이메일: {email}',
+      channelName: '채널명: {channelName}',
+    },
   },
   settings: {
     title: {
@@ -307,6 +318,7 @@ export default {
       description: '이메일로 답변을 보내드릴게요!',
     },
     successInquiryChannelCreated: '문의 채팅방을 생성했어요!',
+    successInquiryClosed: '문의 채팅방을 종료했어요!',
     successSaveSettings: {
       title: '설정을 저장했어요!',
       description: '저장한 설정: {setting}',

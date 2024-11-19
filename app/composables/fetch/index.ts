@@ -218,18 +218,18 @@ export const useFetchComposable = () => {
   //   }
   // }
 
-  // const schemaFetchOptionSingleData = async (schema: string, table: string, queryString: string, matchOpt: string, matchOptVal: string | number | boolean) => {
-  //   const { data, error }: SerializeObject = await createClient(config.public.supabaseUrl, config.public.supabaseKey, { db: { schema } })
-  //     .from(table)
-  //     .select(queryString)
-  //     .eq(matchOpt, matchOptVal)
-  //     .eq('deleted', false)
-  //     .maybeSingle()
+  const schemaFetchOptionSingleData = async (schema: string, table: string, queryString: string, matchOpt: string, matchOptVal: string | number | boolean) => {
+    const { data, error }: SerializeObject = await createClient(config.public.supabaseUrl, config.public.supabaseKey, { db: { schema } })
+      .from(table)
+      .select(queryString)
+      .eq(matchOpt, matchOptVal)
+      .eq('deleted', false)
+      .maybeSingle()
 
-  //   errorHandler('fetch schema option single Data', error)
+    errorHandler('fetch schema option single Data', error)
 
-  //   return data
-  // }
+    return data
+  }
 
   // const schemaFetchOptionExceptionData = async (schema: string, table: string, queryString: string, exceptionOpt: string, exceptionOptVal: string | number | boolean, matchOpt: string, matchOptVal: string | number | boolean, secondMatchOpt: string, secondMatchOptVal: string | number | boolean, thirdMatchOpt?: string, thirdMatchOptVal?: string | number | boolean, fourthMatchOpt?: string, fourthMatchOptVal?: string | number | boolean) => {
   //   if (fourthMatchOpt && thirdMatchOpt) {
@@ -531,7 +531,7 @@ export const useFetchComposable = () => {
     schemaFetchData,
     // schemaFetchOptionData,
     // schemaFetchOptionSortData,
-    // schemaFetchOptionSingleData,
+    schemaFetchOptionSingleData,
     // schemaFetchOptionExceptionData,
     // schemaFetchOptionRangeSingleData,
     schemaFetchRangeData,

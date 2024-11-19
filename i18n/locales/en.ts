@@ -57,6 +57,7 @@ export default {
     confirm: 'Confirm',
     cancel: 'Cancel',
     help: 'Help',
+    send: 'Send',
     inquiry: 'Inquiry',
     leaveInquiry: 'Leave Inquiry',
   },
@@ -76,6 +77,8 @@ export default {
     success: 'Success!✨',
     fail: 'Fail🥲',
     free: 'Free',
+    inquiring: 'Inquiry',
+    inquiryCompleted: 'Completed',
   },
   label: {
     nickname: 'Nickname',
@@ -241,6 +244,14 @@ export default {
       'Please leave your inquiry!',
       'We will reply courteously!',
     ],
+    notification: [
+      '[Notification] Please leave your inquiry!',
+      'To end the inquiry, use the "/inquiry end" or "/close" command!',
+    ],
+    label: {
+      email: 'Email: {email}',
+      channelName: 'Channel Name: {channelName}',
+    },
   },
   settings: {
     title: {
@@ -307,7 +318,8 @@ export default {
       title: 'Inquiry has been left!',
       description: 'We will reply by email!',
     },
-    successInquiryChannelCreated: '문의 채팅방을 생성했어요!',
+    successInquiryChannelCreated: 'Inquiry chatroom has been created!',
+    successInquiryClosed: 'Inquiry chatroom has been closed!',
     successSaveSettings: {
       title: 'Settings have been saved!',
       description: 'Saved settings: {setting}',
