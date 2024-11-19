@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { width } = useWindowSize()
+const { windowSize } = storeToRefs(useWindowStore())
 </script>
 
 <template>
@@ -10,7 +10,7 @@ const { width } = useWindowSize()
     }"
   >
     <div class="flex flex-col gap-y-4">
-      <div :class="`flex ${width > 340 ? 'flex-row gap-x-2' : 'flex-col gap-y-2'} items-baseline`">
+      <div :class="`flex ${windowSize > 340 ? 'flex-row gap-x-2' : 'flex-col gap-y-2'} items-baseline`">
         <AHelpPopover
           :use-trailing="false"
           custom-class="text-2xl"
@@ -31,7 +31,7 @@ const { width } = useWindowSize()
         </p>
       </div>
       <USeparator />
-      <div :class="`flex ${width > 340 ? 'flex-row gap-x-2' : 'flex-col gap-y-2'} items-baseline`">
+      <div :class="`flex ${windowSize > 340 ? 'flex-row gap-x-2' : 'flex-col gap-y-2'} items-baseline`">
         <AHelpPopover
           :use-trailing="false"
           custom-class="text-2xl"
@@ -48,7 +48,7 @@ const { width } = useWindowSize()
         </p>
       </div>
       <USeparator />
-      <div :class="`flex ${width > 340 ? 'flex-row gap-x-2' : 'flex-col gap-y-2'} items-baseline`">
+      <div :class="`flex ${windowSize > 340 ? 'flex-row gap-x-2' : 'flex-col gap-y-2'} items-baseline`">
         <AHelpPopover
           :use-trailing="false"
           custom-class="text-2xl"

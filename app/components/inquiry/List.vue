@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { BoardDatabase } from '@/types/supabaseBoard'
 
-const { width } = useWindowSize()
+const { windowSize } = storeToRefs(useWindowStore())
 
 type MemberInquiry = BoardDatabase['board']['Views']['viewInquiryChannel']['Row']
   & { adminProfiles: Database['public']['Views']['viewProfiles']['Row'] }
@@ -64,7 +64,7 @@ const clickList = (list: any) => {
         v-for="(list, index) in listData?.list"
         :key="index"
         :ui="{
-          root: 'cursor-pointer ring ring-neutral-400 dark:ring-neutral-600 hover:ring-2 hover:ring-sky-400 dark:hover:ring-sky-600 transition-all duration-200 ease-in-out',
+          root: `${!(list as MemberInquiry).activated ? 'opacity-70' : 'ring-neutral-400 dark:ring-neutral-600 hover:ring-2 hover:ring-sky-400 dark:hover:ring-sky-600 transition-all duration-200 ease-in-out'} cursor-pointer ring`,
           body: 'flex flex-col gap-y-2 p-4',
         }"
         @click="clickList(list)"
@@ -115,6 +115,7 @@ const clickList = (list: any) => {
             <UBadge
               :label="(list as MemberInquiry).activated ? $t('text.inquiring') : $t('text.inquiryCompleted')"
               variant="outline"
+              :color="(list as MemberInquiry).activated ? 'secondary' : 'neutral'"
               size="lg"
             />
           </div>
@@ -128,7 +129,7 @@ const clickList = (list: any) => {
       color="neutral"
       variant="subtle"
       :sibling-count="1"
-      :size="width < 340 ? 'xs' : 'lg'"
+      :size="windowSize < 340 ? 'xs' : 'lg'"
       showo-edge
       :items-per-page="pageSize"
       :total="listData?.count"

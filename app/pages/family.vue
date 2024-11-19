@@ -1,8 +1,9 @@
 <script setup lang="ts">
-const { width } = useWindowSize()
 const { t } = useLocale()
 
 const { url } = useImageStorage()
+
+const { windowSize } = storeToRefs(useWindowStore())
 
 useHead({
   title: t('pageTitle.familyService'),
@@ -20,14 +21,14 @@ useHead({
         <NuxtImg
           class="rounded-full ring-4 ring-amber-400/50"
           :src="url(true, '/assets/dewbee_logo.svg')"
-          :width="width > 340 ? 240 : 160"
-          :height="width > 340 ? 240 : 160"
+          :width="windowSize > 340 ? 240 : 160"
+          :height="windowSize > 340 ? 240 : 160"
         />
         <NuxtImg
           class="rounded-full ring-4 ring-emerald-400/50"
           :src="url(true, '/assets/dewdew_world_logo.png')"
-          :width="width > 340 ? 240 : 160"
-          :height="width > 340 ? 240 : 160"
+          :width="windowSize > 340 ? 240 : 160"
+          :height="windowSize > 340 ? 240 : 160"
         />
       </div>
     </div>

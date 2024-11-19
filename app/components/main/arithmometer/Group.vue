@@ -1,9 +1,8 @@
 <script setup lang="ts">
-const { width } = useWindowSize()
-
 const { t } = useLocale()
 const toast = useToast()
 
+const { windowSize } = storeToRefs(useWindowStore())
 const { spendCategoryCodeList } = storeToRefs(useFilterDataStore())
 
 const props = withDefaults(
@@ -116,7 +115,7 @@ const computedSpendCategoryName = computed(() => {
             :button-color="mainSpendCategoryCode === currency.code ? 'primary' : 'neutral'"
             :button-variant="mainSpendCategoryCode === currency.code ? 'subtle' : 'outline'"
             :icon-lead-name="currency?.icon_name ?? ''"
-            :icon-lead-class="width > 340 ? 'w-11 h-11' : 'w-7 h-7'"
+            :icon-lead-class="windowSize > 340 ? 'w-11 h-11' : 'w-7 h-7'"
             :tooltip-text="currency?.code_name ?? ''"
             @click:button="selectCategory(currency?.code ?? '')"
           />

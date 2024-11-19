@@ -1,6 +1,7 @@
 <script setup lang="ts">
-const { width } = useWindowSize()
 const { tm } = useLocale()
+
+const { windowSize } = storeToRefs(useWindowStore())
 
 const props = withDefaults(
   defineProps<{
@@ -47,7 +48,7 @@ const moveToPlanPage = (index: number) => {
           </p>
         </div>
         <div class="flex items-center gap-x-2">
-          <span :class="`${width > 340 ? 'text-3xl' : 'text-2xl'} font-black`">
+          <span :class="`${windowSize > 340 ? 'text-3xl' : 'text-2xl'} font-black`">
             {{ $rt(list.fee.amount) }}
           </span>
           <div class="flex flex-col">
@@ -69,7 +70,7 @@ const moveToPlanPage = (index: number) => {
               name="i-lucide-circle-check-big"
               class="min-w-5 min-h-5 text-amber-500"
             />
-            <span :class="`${width > 340 ? 'text-base' : 'text-sm'} text-neutral-400`">
+            <span :class="`${windowSize > 340 ? 'text-base' : 'text-sm'} text-neutral-400`">
               {{ $rt(feature) }}
             </span>
           </div>
