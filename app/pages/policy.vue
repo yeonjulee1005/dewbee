@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const { t } = useLocale()
 
+const { url } = useImageStorage()
+
 useHead({
   title: t('pageTitle.policy'),
 })
@@ -242,7 +244,7 @@ const tradeTerms = ref({
   <div class="w-dvw lg:w-[500px] flex flex-col gap-y-8 py-4 px-8">
     <NuxtImg
       class="w-40 cursor-pointer"
-      src="/image/favicon.svg"
+      :src="url(true, '/assets/dewbee_logo.svg')"
     />
     <div class="flex flex-col gap-y-4">
       <h3 class="text-2xl font-bold break-keep">

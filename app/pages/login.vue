@@ -6,6 +6,7 @@ const { width } = useWindowSize()
 const { t } = useLocale()
 const toast = useToast()
 const config = useRuntimeConfig()
+const { url } = useImageStorage()
 
 const { auth } = useSupabaseClient()
 
@@ -69,7 +70,7 @@ const userLogin = async (provider: 'kakao' | 'google' | 'github' | 'linkedin_oid
   <div class="h-dvh w-full sm:w-[500px] flex flex-col items-center justify-center gap-y-6 px-6">
     <div class="flex flex-col items-center gap-y-3">
       <NuxtImg
-        src="/image/favicon.svg"
+        :src="url(true, '/assets/dewbee_logo.svg')"
         :height="180"
         :width="180"
       />

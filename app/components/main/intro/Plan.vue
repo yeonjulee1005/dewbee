@@ -14,6 +14,9 @@
       </p>
       <USeparator />
     </div>
-    <PlanList clickable />
+    <PlanList
+      clickable
+      @click:plan="(option: string) => navigateTo({ path: '/plan', query: { option } })"
+    />
   </div>
 </template>

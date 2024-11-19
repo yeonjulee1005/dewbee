@@ -1,5 +1,12 @@
 <script setup lang="ts">
-const { width } = useWindowSize()
+withDefaults(
+  defineProps<{
+    windowWidth?: number
+  }>(),
+  {
+    windowWidth: 0,
+  },
+)
 
 defineEmits([
   'click:end-date',
@@ -27,15 +34,15 @@ const currentEndDate = defineModel('currentEndDate', {
         {{ $t('settings.description.endDate') }}
       </p>
     </template>
-    <div :class="`w-full flex ${width > 400 ? 'flex-row items-center' : 'flex-col'} justify-end gap-3`">
+    <div :class="`w-full flex ${windowWidth > 400 ? 'flex-row items-center' : 'flex-col'} justify-end gap-3`">
       <UButtonGroup
-        :orientation="width > 400 ? 'horizontal' : 'vertical'"
+        :orientation="windowWidth > 400 ? 'horizontal' : 'vertical'"
         size="xl"
       >
         <AButton
           v-for="endDate in ['EDC001', 'EDC002', 'EDC003', 'EDC004', 'EDC005', 'EDC006', 'EDC007']"
           :key="endDate"
-          :custom-class="width > 400 ? '' : 'flex justify-center'"
+          :custom-class="windowWidth > 400 ? '' : 'flex justify-center'"
           :button-text="$t(`text.${endDate}`)"
           :button-color="currentEndDate === endDate ? 'primary' : 'neutral'"
           :button-variant="currentEndDate === endDate ? 'subtle' : 'outline'"
@@ -44,7 +51,7 @@ const currentEndDate = defineModel('currentEndDate', {
         />
       </UButtonGroup>
       <AButton
-        :custom-class="width > 400 ? '' : 'flex justify-center'"
+        :custom-class="windowWidth > 400 ? '' : 'flex justify-center'"
         button-size="xl"
         button-color="primary"
         button-variant="soft"

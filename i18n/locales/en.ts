@@ -11,8 +11,7 @@ export default {
     profile: 'Profile',
     inquiry: 'Inquiry',
     patchNote: 'Patch Note',
-    familyService: 'Dewdew Family Service',
-    copyright: 'Copyright 2024 © Dewdew All Rights Reserved.',
+    familyService: 'Family Service',
     businessName: 'Dewdew',
     businessNumber: 'Business Registration Number: 482-11-01740',
     businessAddress: 'Jeju-si Ayeon-ro 171, #301',
@@ -58,6 +57,9 @@ export default {
     confirm: 'Confirm',
     cancel: 'Cancel',
     help: 'Help',
+    send: 'Send',
+    inquiry: 'Inquiry',
+    leaveInquiry: 'Leave Inquiry',
   },
   text: {
     CYC001: 'KRW (₩)',
@@ -75,10 +77,14 @@ export default {
     success: 'Success!✨',
     fail: 'Fail🥲',
     free: 'Free',
+    inquiring: 'Inquiry',
+    inquiryCompleted: 'Completed',
   },
   label: {
     nickname: 'Nickname',
     avatar: 'Avatar',
+    email: 'Email',
+    message: 'Message',
     memo: 'Memo',
     category: 'Category',
     amount: 'Amount',
@@ -125,12 +131,15 @@ export default {
   },
   placeholder: {
     nickname: 'Enter your nickname.',
+    email: 'Enter your email.',
+    message: 'Enter your inquiry.',
     memo: 'Enter your memo.',
     targetAmount: 'Enter the target amount.',
     noSpendRecords: 'No spend records yet 🥲',
     noResultRecords: 'No result records yet 🥲',
     noPatchNote: 'No patch note yet 🥲',
     noSearch: 'No "{search}" found 🥲',
+    noInquiry: 'No inquiry history!',
   },
   intro: {
     title: 'DewBee。',
@@ -227,6 +236,23 @@ export default {
       },
     ],
   },
+  family: {
+    description: 'We will help improve the quality of life with various services! 😉',
+  },
+  inquiry: {
+    guestTitle: [
+      'Please leave your inquiry!',
+      'We will reply courteously!',
+    ],
+    notification: [
+      '[Notification] Please leave your inquiry!',
+      'To end the inquiry, use the "/inquiry end" or "/close" command!',
+    ],
+    label: {
+      email: 'Email: {email}',
+      channelName: 'Channel Name: {channelName}',
+    },
+  },
   settings: {
     title: {
       currency: 'Currency',
@@ -238,10 +264,17 @@ export default {
       currency: 'The currency is automatically set when you register the spend!',
       targetAmount: 'Weekly spend target is the amount you want to spend for a week as a spare fund!',
       endDate: 'Weekly spend tally is done before the tally end day!',
-      localTimezone: 'Local timezone is the timezone used for tallying spend records! Changing it will affect all tally records.',
+      localTimezone: [
+        'Local timezone is used for tallying spend records!',
+        'Changing it will affect all tally records.',
+      ],
     },
   },
   modal: {
+    confirmLogin: {
+      title: 'Login is required!',
+      description: 'Do you want to move to the login page?',
+    },
     confirmSaveSpend: {
       title: 'Need to confirm spend amount to save!',
       description: 'You entered an amount that exceeds this week\'s target spend amount! Do you still want to save?',
@@ -254,6 +287,10 @@ export default {
     requiredNickname: 'Please enter your nickname!',
     requiredAvatar: 'Please register your avatar image!',
     requiredMemo: 'Please enter your memo!',
+    requiredEmail: 'Please enter your email!',
+    formatEmail: 'Email format is incorrect!',
+    requiredMessage: 'Please enter your inquiry!',
+    lengthMessage: 'Inquiry must be at least 100 characters!',
   },
   message: {
     loginSuccess: {
@@ -277,9 +314,15 @@ export default {
       description: 'You are entering an amount that exceeds this week\'s target spend amount!',
     },
     successSpendAmountSave: 'Spend amount has been saved!',
+    successLeaveGuestInquiry: {
+      title: 'Inquiry has been left!',
+      description: 'We will reply by email!',
+    },
+    successInquiryChannelCreated: 'Inquiry chatroom has been created!',
+    successInquiryClosed: 'Inquiry chatroom has been closed!',
     successSaveSettings: {
-      title: '설정을 저장했어요!',
-      description: '저장한 설정: {setting}',
+      title: 'Settings have been saved!',
+      description: 'Saved settings: {setting}',
     },
   },
 }

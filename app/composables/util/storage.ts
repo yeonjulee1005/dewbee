@@ -1,6 +1,8 @@
 export const useImageStorage = () => {
+  const config = useRuntimeConfig()
+
   const url = (isPublic: boolean, imageUrl: string) => {
-    return 'https://owrwvdpqjpkkasucpduh.supabase.co/storage/v1/object'
+    return `${config.public.supabaseUrl}/storage/v1/object`
       .concat(isPublic ? '/public' : '/auth')
       .concat(imageUrl)
   }

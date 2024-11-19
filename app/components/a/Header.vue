@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
 
+const config = useRuntimeConfig()
+const { fullPath } = useRoute()
+const ccolorMode = useColorMode()
 const { go } = useRouter()
 const { t, locale, setLocale } = useLocale()
-const ccolorMode = useColorMode()
+const { url } = useImageStorage()
 
 const { userData, userCoreId } = storeToRefs(useUserDataStore())
 const { logout } = useFetchComposable()
+
+useCookie(`${config.public.supabase.cookieName}-redirect-path`).value = fullPath
 
 const menuItems = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
   [
@@ -68,7 +73,7 @@ const menuItems = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
       label: t('menu.inquiry'),
       icon: 'i-lucide-message-circle-more',
       kbds: ['ctrl', 'i'],
-      to: '/settings/inquiry',
+      to: '/inquiry',
     },
     {
       label: t('menu.patchNote'),
@@ -99,13 +104,13 @@ const insertLoginMenu = () => {
     : insertProPlanMenu()
 
   menuItems.value.push(
-    [{
-      label: t('menu.profile'),
-      icon: 'i-lucide-user',
-      kbds: ['ctrl', 'meta', 'p'],
-      to: '/settings/profile',
-    }],
     [
+      {
+        label: t('menu.profile'),
+        icon: 'i-lucide-user',
+        kbds: ['ctrl', 'meta', 'p'],
+        to: '/settings/profile',
+      },
       {
         label: t('menu.settings'),
         icon: 'i-lucide-settings-2',
@@ -222,7 +227,7 @@ const insertLogoutMenu = () => {
   }])
 }
 
-const computedAvatarUrl = computed(() => userData.value?.avatar_url ?? '/image/favicon.svg')
+const computedAvatarUrl = computed(() => userData.value?.avatar_url ?? url(true, '/assets/dewbee_logo.svg'))
 
 defineShortcuts(
   extractShortcuts(menuItems.value),
@@ -230,7 +235,7 @@ defineShortcuts(
 
 defineShortcuts({
   ctrl_f: () => navigateTo('/family'),
-  ctrl_i: () => navigateTo('/settings/inquiry'),
+  ctrl_i: () => navigateTo('/inquiry'),
   ctrl_l: () => navigateTo('/login'),
   ctrl_m: () => navigateTo('/'),
   ctrl_p: () => navigateTo('/plan'),

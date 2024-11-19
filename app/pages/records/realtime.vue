@@ -24,7 +24,6 @@ definePageMeta({
 
 const page = ref(1)
 const pageSize = ref(10)
-const realtimeSpendTotalCount = ref(1)
 
 const pageCalc = (page: number, pageCount: number, firstRange: boolean): number => {
   return firstRange
@@ -32,18 +31,14 @@ const pageCalc = (page: number, pageCount: number, firstRange: boolean): number 
     : (page * pageCount) - 1
 }
 
-const { data: realtimeSpendList, pending: pendingRealtimeSpendList } = useAsyncData(async () => {
+const { data: realtimeSpendData, pending: pendingRealtimeSpendData } = await useAsyncData(async () => {
   const { data: response, count } = await fetchPaginationData('viewSpendList', '*', pageCalc(page.value, pageSize.value, true), pageCalc(page.value, pageSize.value, false), 'update_user_id', userData.value?.id ?? '')
 
-  count
-    ? realtimeSpendTotalCount.value = count
-    : realtimeSpendTotalCount.value = 1
-
   return response
-    ? response
-    : []
+    ? { list: response, count }
+    : { list: [], count: 0 }
 }, {
-  lazy: true,
+  immediate: true,
   watch: [page, pageSize],
 })
 
@@ -195,12 +190,12 @@ const colorTranslate = (code: string) => {
     />
     <ASpendTable
       v-model:current-page="page"
-      :table-data="realtimeSpendList"
+      :table-data="realtimeSpendData?.list"
       :table-columns="columns"
       is-realtime
-      :pending-table-data="pendingRealtimeSpendList"
+      :pending-table-data="pendingRealtimeSpendData"
       :page-size="pageSize"
-      :total-count="realtimeSpendTotalCount"
+      :total-count="realtimeSpendData?.count"
     />
   </div>
 </template>
