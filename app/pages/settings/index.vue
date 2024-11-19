@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { FilterDatabase } from '@/types/supabaseFilter'
 
+const { width } = useWindowSize()
+
 const { t } = useLocale()
 const toast = useToast()
 
@@ -17,6 +19,8 @@ useHead({
 definePageMeta({
   middleware: 'auth',
 })
+
+const windowWidth = ref(0)
 
 const currentTargetAmount = ref(userData.value?.weekly_target_amount)
 const currentCurrency = ref(userData.value?.currency?.code)
@@ -55,6 +59,12 @@ const updateProfileData = async (payload: Database['public']['Tables']['profiles
 
   toast.add({ title: t('message.successSaveSettings.title'), description: t('message.successSaveSettings.description', { setting: settingCategoryText }), color: 'success' })
 }
+
+watchEffect(() => {
+  if (import.meta.client) {
+    windowWidth.value = width.value
+  }
+})
 </script>
 
 <template>
@@ -62,6 +72,7 @@ const updateProfileData = async (payload: Database['public']['Tables']['profiles
     <ASubPageTitle :title="$t('pageTitle.settings')" />
     <SettingCurrency
       v-model:current-currency="currentCurrency"
+      :window-width="windowWidth"
       @click:currency-save="clickCurrencyButton"
     />
     <SettingTargetAmount
@@ -71,10 +82,12 @@ const updateProfileData = async (payload: Database['public']['Tables']['profiles
     />
     <SettingEndDate
       v-model:current-end-date="currentEndDate"
+      :window-width="windowWidth"
       @click:save="clickEndDateButton"
     />
     <SettingLocalTimezone
       v-model:current-local-timezone-id="currentLocalTimezoneId"
+      :window-width="windowWidth"
       @click:save="updateTimezone"
     />
     <ULink

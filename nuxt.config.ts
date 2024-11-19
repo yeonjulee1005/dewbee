@@ -62,6 +62,7 @@ export default defineNuxtConfig({
       supabaseUrl: process.env.SUPABASE_URL ?? '',
       supabaseKey: process.env.SUPABASE_KEY ?? '',
       githubAccessToken: process.env.GITHUB_ACCESS_TOKEN ?? '',
+      adminUid: process.env.ADMIN_UID ?? '',
     },
   },
   routeRules: {

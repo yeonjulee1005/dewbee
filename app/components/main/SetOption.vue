@@ -1,5 +1,4 @@
 <script setup lang="ts">
-const { t } = useLocale()
 const { comma } = useUi()
 
 withDefaults(
@@ -19,17 +18,29 @@ withDefaults(
 
 const situationItem = [
   {
-    label: t('main.button'),
-    icon: 'i-lucide-check-circle',
     slot: 'button',
   },
 ]
 
-const situation = defineModel<{ color: 'primary' | 'secondary' | 'success' | 'warning' | 'error', label: string }>('situation', {
+const situation = defineModel<SpendSituation>('situation', {
   default: () => ({
     color: 'secondary',
     label: '1',
+    icon: 'i-lucide-check-circle',
   }),
+})
+
+const computedAccordionIconColor = computed(() => {
+  switch (situation.value.color) {
+    case 'secondary':
+      return 'text-blue-400'
+    case 'success':
+      return 'text-green-400'
+    case 'warning':
+      return 'text-yellow-400'
+    default:
+      return 'text-red-400'
+  }
 })
 </script>
 
@@ -37,10 +48,17 @@ const situation = defineModel<{ color: 'primary' | 'secondary' | 'success' | 'wa
   <div class="w-full flex flex-col items-end gap-y-4">
     <UAccordion
       :items="situationItem"
-      :ui="{ root: 'w-full flex justify-end', header: 'w-full flex flex-col items-end' }"
+      :ui="{ root: 'w-full flex justify-end', header: 'w-full flex-col items-end' }"
     >
+      <template #leading>
+        <Icon
+          :name="situation.icon"
+          :class="`w-10 h-10 ${computedAccordionIconColor}`"
+        />
+      </template>
       <template #default>
         <UBadge
+          class="ml-1.5"
           :color="situation.color ?? 'error'"
           variant="subtle"
           size="lg"
