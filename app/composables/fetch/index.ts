@@ -288,7 +288,7 @@ export const useFetchComposable = () => {
   //   return data
   // }
 
-  const schemaFetchRangeData = async (schema: string, table: string, queryString: string, rangeStart: number, rangeEnd: number, matchOpt?: string, matchOptVal?: string | number | boolean, secondMatchOpt?: string, secondMatchOptVal?: string | number | boolean) => {
+  const schemaFetchRangeData = async (schema: string, table: string, queryString: string, rangeStart: number, rangeEnd: number, customOrder?: string, customAscending?: boolean, matchOpt?: string, matchOptVal?: string | number | boolean, secondMatchOpt?: string, secondMatchOptVal?: string | number | boolean) => {
     if (matchOpt && secondMatchOpt) {
       const { data, count, error }: SerializeObject = await createClient(config.public.supabaseUrl, config.public.supabaseKey, { db: { schema } })
         .from(table)
@@ -297,6 +297,7 @@ export const useFetchComposable = () => {
         .eq(secondMatchOpt, secondMatchOptVal)
         .eq('deleted', false)
         .range(rangeStart, rangeEnd)
+        .order(customOrder ?? 'index', { ascending: customAscending ?? true })
 
       errorHandler('fetch schema range option Data', error)
 
@@ -309,6 +310,7 @@ export const useFetchComposable = () => {
         .eq(matchOpt, matchOptVal)
         .eq('deleted', false)
         .range(rangeStart, rangeEnd)
+        .order(customOrder ?? 'index', { ascending: customAscending ?? true })
 
       errorHandler('fetch schema range option Data', error)
 
@@ -320,6 +322,7 @@ export const useFetchComposable = () => {
         .select(queryString, { count: 'exact' })
         .range(rangeStart, rangeEnd)
         .eq('deleted', false)
+        .order(customOrder ?? 'index', { ascending: customAscending ?? true })
 
       errorHandler('fetch schema range Data', error)
 

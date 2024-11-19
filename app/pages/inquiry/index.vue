@@ -48,7 +48,7 @@ const { data: guestInquiryData, execute: executeGuestInquiryList, pending: pendi
     return { list: [], count: 0 }
   }
 
-  const { data: response, count } = await schemaFetchRangeData('board', 'guestInquiry', '*', pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true), pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false))
+  const { data: response, count } = await schemaFetchRangeData('board', 'guestInquiry', '*', pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true), pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false), 'activated', false)
 
   return response
     ? { list: response, count }
@@ -63,7 +63,7 @@ const { data: memberInquiryData, execute: executeMemberInquiryList, pending: pen
     return { list: [], count: 0 }
   }
 
-  const { data: response, count } = await schemaFetchRangeData('board', 'viewInquiryChannel', '*', pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true), pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false))
+  const { data: response, count } = await schemaFetchRangeData('board', 'viewInquiryChannel', '*', pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true), pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false), 'activated', false)
 
   return response
     ? { list: response, count }
@@ -78,7 +78,7 @@ const { data: userInquiryData, execute: executeUserInquiryList, pending: pending
     return { list: [], count: 0 }
   }
 
-  const { data: response, count } = await schemaFetchRangeData('board', 'viewInquiryChannel', '*', pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true), pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false), 'request_user_id', user.value?.id)
+  const { data: response, count } = await schemaFetchRangeData('board', 'viewInquiryChannel', '*', pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true), pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false), 'activated', false, 'request_user_id', user.value?.id)
 
   return response
     ? { list: response, count }

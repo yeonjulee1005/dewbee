@@ -91,7 +91,7 @@ const columns: TableColumn<Realtime | DailyResult | WeeklyResult>[] = [
       })
     },
     cell: ({ row }) => {
-      return h('div', { class: 'min-w-[100px] flex items-center justify-end gap-2 font-light text-neutral-800 dark:text-neutral-200' }, [
+      return h('div', { class: 'min-w-[100px] flex items-center justify-center gap-2 font-light text-neutral-800 dark:text-neutral-200' }, [
         h(UBadge, {
           icon: (row.original as Realtime).spendCategory.icon_name ?? '',
           variant: 'subtle',
