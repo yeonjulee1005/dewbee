@@ -45,7 +45,7 @@ const enterInquiryChat = async (inquiryChannelId: string, requestUserId: string)
 
   const updateData = {
     userType: isAdmin ? 'admin' : 'request',
-    messageField: isAdmin ? 'admin_new_message' : 'request_new_message',
+    messageField: isAdmin ? 'request_new_message' : 'admin_new_message',
   }
 
   userType.value = updateData.userType
@@ -92,6 +92,10 @@ const sendMessage = async () => {
 
   if (response) {
     await refreshInquiryChatData()
+
+    userType.value === 'admin'
+      ? await schemaUpdateData('board', 'inquiryChannel', { admin_new_message: true }, inquiryChatData.value?.id)
+      : await schemaUpdateData('board', 'inquiryChannel', { request_new_message: true }, inquiryChatData.value?.id)
 
     if (isCloseMessage) {
       await schemaUpdateData('board', 'inquiryChannel', { activated: false }, inquiryChatData.value?.id)

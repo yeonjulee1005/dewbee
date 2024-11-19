@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { width } = useWindowSize()
-
 const { t } = useLocale()
+
+const { windowSize } = storeToRefs(useWindowStore())
 
 const props = withDefaults(
   defineProps<{
@@ -87,21 +87,21 @@ const updateInput = (value: number) => {
     >
       <template #button>
         <div class="w-full flex flex-col gap-y-4">
-          <div :class="`grid ${width < 320 ? 'grid-cols-1' : 'grid-cols-2'} sm:grid-cols-4 gap-3`">
+          <div :class="`grid ${windowSize < 320 ? 'grid-cols-1' : 'grid-cols-2'} sm:grid-cols-4 gap-3`">
             <MainArithmometerCalculatorButton
               :calculator-button="smallCalculatorButton"
               @click:add="(amount: number) => $emit('add:amount', amount)"
               @click:subtract="(amount: number) => $emit('subtract:amount', amount)"
             />
           </div>
-          <div :class="`grid ${width < 420 ? 'grid-cols-1' : 'grid-cols-2'} md:grid-cols-4 gap-3`">
+          <div :class="`grid ${windowSize < 420 ? 'grid-cols-1' : 'grid-cols-2'} md:grid-cols-4 gap-3`">
             <MainArithmometerCalculatorButton
               :calculator-button="computedMediumCalculatorButton"
               @click:add="(amount: number) => $emit('add:amount', amount)"
               @click:subtract="(amount: number) => $emit('subtract:amount', amount)"
             />
           </div>
-          <div :class="`grid ${width < 460 ? 'grid-cols-1' : 'grid-cols-2'} md:grid-cols-3 gap-3`">
+          <div :class="`grid ${windowSize < 460 ? 'grid-cols-1' : 'grid-cols-2'} md:grid-cols-3 gap-3`">
             <MainArithmometerCalculatorButton
               :calculator-button="computedLargeCalculatorButton"
               @click:add="(amount: number) => $emit('add:amount', amount)"

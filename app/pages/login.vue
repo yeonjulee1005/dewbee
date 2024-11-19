@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { track } from '@vercel/analytics'
 
-const { width } = useWindowSize()
+const { auth } = useSupabaseClient()
 
 const { t } = useLocale()
 const toast = useToast()
 const config = useRuntimeConfig()
 const { url } = useImageStorage()
 
-const { auth } = useSupabaseClient()
+const { windowSize } = storeToRefs(useWindowStore())
 
 useHead({
   title: t('pageTitle.login'),
@@ -83,7 +83,7 @@ const userLogin = async (provider: 'kakao' | 'google' | 'github' | 'linkedin_oid
       <AButton
         v-for="(button, index) in loginButton"
         :key="index"
-        :custom-class="width < 768 ? 'w-full flex items-center justify-center' : ''"
+        :custom-class="windowSize < 768 ? 'w-full flex items-center justify-center' : ''"
         button-variant="soft"
         button-size="xl"
         color="neutral"
