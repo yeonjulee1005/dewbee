@@ -1,7 +1,11 @@
 <script setup lang="ts">
 const appConfig = useAppConfig()
+const { width } = useWindowSize()
+
 const { t } = useLocale()
 const { meta } = useRoute()
+
+const { windowSize } = storeToRefs(useWindowStore())
 
 const { executeUpdateData } = useLoadUserData()
 const { executeFilterData } = useLoadFilterData()
@@ -80,6 +84,12 @@ if (import.meta.server) {
   executeUpdateData()
   executeFilterData()
 }
+
+watchEffect(() => {
+  if (import.meta.client) {
+    windowSize.value = width.value
+  }
+})
 </script>
 
 <template>

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { Octokit } from 'octokit'
 
-const { width } = useWindowSize()
-
 const { t } = useLocale()
 const config = useRuntimeConfig()
+
+const { windowSize } = storeToRefs(useWindowStore())
 
 useHead({
   title: t('pageTitle.patchNote'),
@@ -44,6 +44,15 @@ const { data: githubReleaseData, execute: executeGithubReleaseData, pending: pen
   watch: [currentPage],
 })
 
+const parseMarkdown = (body: string) => {
+  return body
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/^\s*---\s*$/gm, '<hr>')
+    .replace(/^\d+\.\s(.+)$/gm, '<li>$1</li>')
+    .replace(/^\s*-\s(.+)$/gm, '<li>$1</li>')
+    .replace(/(?:\r\n|\r|\n)/g, '<br>')
+}
+
 onMounted(() => {
   executeGithubReleaseData()
 })
@@ -60,7 +69,7 @@ onMounted(() => {
         v-for="release in githubReleaseData?.releases"
         v-show="githubReleaseData?.releases"
         :key="release.id"
-        class="w-full ring-1 ring-neutral-200 dark:ring-neutral-800 rounded-lg px-6 py-4 cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-200 ease-in-out"
+        class="w-full ring-1 ring-neutral-200 dark:ring-neutral-800 rounded-lg px-6 py-4 cursor-pointer hover:ring-2 hover:ring-sky-500 transition-all duration-200 ease-in-out"
         @click="navigateTo(release.html_url, { external: true, open: { target: 'blank' } })"
       >
         <div class="flex items-center gap-x-2">
@@ -87,13 +96,10 @@ onMounted(() => {
           </div>
         </div>
         <div class="w-full mt-5">
-          <p
-            v-for="(body, index) in release.body?.split('\r\n')"
-            :key="index"
-            class="text-sm text-neutral-500 dark:text-neutral-400 leading-6"
-          >
-            {{ body }}
-          </p>
+          <div
+            v-dompurify-html="parseMarkdown(release.body ?? '')"
+            class="markdown-template text-sm leading-5"
+          />
         </div>
         <div class="w-full flex justify-end gap-x-2">
           <UBadge
@@ -127,7 +133,7 @@ onMounted(() => {
       color="neutral"
       variant="subtle"
       :sibling-count="1"
-      :size="width < 340 ? 'xs' : 'lg'"
+      :size="windowSize < 340 ? 'xs' : 'lg'"
       :items-per-page="pageSize"
       :total="githubReleaseData?.count"
       show-edges
@@ -135,3 +141,37 @@ onMounted(() => {
     />
   </div>
 </template>
+
+<style lang="scss" scoped>
+.markdown-template {
+  ::v-deep(code) {
+    border: 1px solid #f99670;
+    font-weight: 700;
+    border-radius: 6px;
+    padding: 1.5px 4px;
+  }
+  ::v-deep(ul),
+  ::v-deep(ol) {
+    padding: 0 10px;
+  }
+  ::v-deep(ol) {
+    list-style-type: decimal;
+  }
+  ::v-deep(li) {
+    margin: 8px 0 0 16px;
+    height: fit-content;
+    list-style-type: disc;
+  }
+  ::v-deep(br) {
+    display: none;
+  }
+  ::v-deep(hr) {
+    width: 65%;
+    margin: 20px 0;
+    border: none;
+    height: 20px; // 원하는 높이로 조정
+    background-image: var(--zigzag-pattern);
+    background-repeat: repeat-x;
+  }
+}
+</style>

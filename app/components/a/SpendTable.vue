@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TableColumn } from '@nuxt/ui'
 
-const { width } = useWindowSize()
+const { windowSize } = storeToRefs(useWindowStore())
 
 withDefaults(
   defineProps<{
@@ -51,7 +51,7 @@ const currentPage = defineModel('currentPage', {
       color="neutral"
       variant="subtle"
       :sibling-count="1"
-      :size="width < 340 ? 'xs' : 'lg'"
+      :size="windowSize < 340 ? 'xs' : 'lg'"
       showo-edge
       :items-per-page="pageSize"
       :total="totalCount"
