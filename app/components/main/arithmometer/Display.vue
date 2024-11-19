@@ -27,13 +27,13 @@ withDefaults(
     </span>
     <span
       v-if="spendCategoryName && spendCategoryCode"
-      class="text-lg font-light text-amber-600 dark:text-amber-400 mt-1 mb-2"
+      class="text-lg font-light text-amber-600 dark:text-amber-400 mt-1"
     >
       {{ spendCategoryName }}
     </span>
     <div
       v-else
-      class="flex items-center justify-end gap-x-1.5 mt-1 mb-2"
+      class="flex items-center justify-end gap-x-1.5 mt-1"
     >
       <Icon
         name="i-lucide-triangle-alert"

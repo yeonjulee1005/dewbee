@@ -2,19 +2,34 @@
 withDefaults(defineProps<{
   title?: string
   description?: string
+  useClose?: boolean
+  preventClose?: boolean
 }>(), {
   title: '',
   description: '',
+  useClose: true,
+  preventClose: false,
 })
 
-defineEmits([
+const emit = defineEmits([
   'click:comfirm',
+  'click:cancel',
 ])
 
 const confirmModalTrigger = defineModel('confirmModalTrigger', {
   type: Boolean,
   default: false,
 })
+
+const clickConfirm = () => {
+  confirmModalTrigger.value = false
+  emit('click:comfirm')
+}
+
+const clickCancel = () => {
+  confirmModalTrigger.value = false
+  emit('click:cancel')
+}
 </script>
 
 <template>
@@ -22,9 +37,11 @@ const confirmModalTrigger = defineModel('confirmModalTrigger', {
     v-model:open="confirmModalTrigger"
     :title="title"
     :description="description"
+    :prevent-close="preventClose"
     :close="{
       color: 'primary',
       variant: 'outline',
+      class: useClose ? '' : 'hidden',
     }"
     :ui="{
       title: 'text-lg',
@@ -41,13 +58,13 @@ const confirmModalTrigger = defineModel('confirmModalTrigger', {
           button-variant="subtle"
           button-size="lg"
           :button-text="$t('button.confirm')"
-          @click="$emit('click:comfirm')"
+          @click="clickConfirm"
         />
         <AButton
           button-color="neutral"
           button-size="lg"
           :button-text="$t('button.cancel')"
-          @click="confirmModalTrigger = false"
+          @click="clickCancel"
         />
       </div>
     </template>

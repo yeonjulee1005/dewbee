@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { url } = useImageStorage()
+
 withDefaults(
   defineProps<{
     title?: string
@@ -20,7 +22,7 @@ withDefaults(
     </p>
     <USeparator
       size="md"
-      :avatar="{ src: '/image/favicon.svg', size: avatarSize }"
+      :avatar="{ src: url(true, '/assets/dewbee_logo.svg'), size: avatarSize }"
     />
   </div>
 </template>

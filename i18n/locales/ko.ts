@@ -11,8 +11,7 @@ export default {
     profile: '프로필',
     inquiry: '문의하기',
     patchNote: '패치노트',
-    familyService: 'Dewdew 자매품',
-    copyright: 'Copyright 2024 © Dewdew All Rights Reserved.',
+    familyService: '패밀리 서비스',
     businessName: '듀듀',
     businessNumber: '사업자등록번호: 482-11-01740',
     businessAddress: '제주시 아연로 171, 301호',
@@ -58,6 +57,9 @@ export default {
     confirm: '확인',
     cancel: '취소',
     help: '도움말',
+    send: '보내기',
+    inquiry: '문의하기',
+    leaveInquiry: '문의 남기기',
   },
   text: {
     CYC001: '원화 (₩)',
@@ -75,10 +77,14 @@ export default {
     success: '성공 했어요✨',
     fail: '실패했어요🥲',
     free: '무료',
+    inquiring: '문의중',
+    inquiryCompleted: '문의완료',
   },
   label: {
     nickname: '닉네임',
     avatar: '아바타',
+    email: '이메일',
+    message: '문의사항',
     memo: '메모',
     category: '카테고리',
     amount: '금액',
@@ -125,12 +131,15 @@ export default {
   },
   placeholder: {
     nickname: '닉네임을 입력해주세요.',
+    email: '이메일을 입력해주세요.',
+    message: '문의사항을 입력해주세요.',
     memo: '메모를 입력해주세요.',
     targetAmount: '지출목표 금액을 입력해주세요.',
     noSpendRecords: '아직 지출이력이 없어요 🥲',
     noResultRecords: '아직 집계결과가 없어요 🥲',
     noPatchNote: '아직 패치노트가 없어요 🥲',
     noSearch: '검색하신 "{search}" 는 없네요 🥲',
+    noInquiry: '문의 내역이 없어요!',
   },
   intro: {
     title: 'DewBee。',
@@ -227,6 +236,23 @@ export default {
       },
     ],
   },
+  family: {
+    description: '다양한 서비스로 삶의 질을 올려드릴게요! 😉',
+  },
+  inquiry: {
+    guestTitle: [
+      '궁금하신 사항은 문의사항으로 남겨주세요!',
+      '친절하게 답변을 보내드릴게요 🧡',
+    ],
+    notification: [
+      '[안내사항] 문의사항을 남겨주시면 답변드릴게요!',
+      '문의종료는 "/문의종료" 또는 "/close" 명령어를 사용해주세요!',
+    ],
+    label: {
+      email: '이메일: {email}',
+      channelName: '채널명: {channelName}',
+    },
+  },
   settings: {
     title: {
       currency: '통화',
@@ -238,10 +264,17 @@ export default {
       currency: '지출 등록시 자동으로 설정된 통화로 등록해줘요!',
       targetAmount: '주간 지출목표는, 여유자금으로 지출하고자 하는 일주일간의 금액이에요!',
       endDate: '주간 지출집계는, 집계마감요일 전날까지 사용한 일주일간의 금액을 집계해요!',
-      localTimezone: '표준시는 지출내역 집계 시 사용돼요! 변경하면 모든 집계 내역에 영향을 주게 돼요.',
+      localTimezone: [
+        '표준시는 지출내역 집계 시 사용돼요!',
+        '변경하면 모든 집계 내역에 영향을 주게 돼요.',
+      ],
     },
   },
   modal: {
+    confirmLogin: {
+      title: '로그인이 필요해요!',
+      description: '로그인페이지로 이동할까요?',
+    },
     confirmSaveSpend: {
       title: '저장할 지출금액 확인이 필요해요!',
       description: '이번주 목표 지출금액을 초과하는 금액을 입력했어요! 그래도 저장하시겠어요?',
@@ -254,6 +287,10 @@ export default {
     requiredNickname: '닉네임을 입력해주세요!',
     requiredAvatar: '아바타 이미지를 등록해주세요!',
     requiredMemo: '메모를 입력해주세요!',
+    requiredEmail: '이메일을 입력해주세요!',
+    formatEmail: '이메일 형식이 올바르지 않아요!',
+    requiredMessage: '문의사항을 입력해주세요!',
+    lengthMessage: '문의사항은 최소 100자 이상 입력해주세요!',
   },
   message: {
     loginSuccess: {
@@ -276,6 +313,12 @@ export default {
       description: '이번주 목표 지출금액을 초과하는 금액을 입력하시고 있어요!',
     },
     successSpendAmountSave: '사용내역을 저장했어요!',
+    successLeaveGuestInquiry: {
+      title: '문의사항을 남겼어요!',
+      description: '이메일로 답변을 보내드릴게요!',
+    },
+    successInquiryChannelCreated: '문의 채팅방을 생성했어요!',
+    successInquiryClosed: '문의 채팅방을 종료했어요!',
     successSaveSettings: {
       title: '설정을 저장했어요!',
       description: '저장한 설정: {setting}',

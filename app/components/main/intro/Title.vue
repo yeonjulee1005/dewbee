@@ -1,12 +1,13 @@
 <script setup lang="ts">
 const { width } = useWindowSize()
+const { url } = useImageStorage()
 </script>
 
 <template>
   <div class="flex flex-col gap-y-1.5">
     <div :class="`flex items-baseline ${width > 340 ? 'flex-row gap-2' : 'flex-col gap-2'}`">
       <NuxtImg
-        src="/image/favicon.svg"
+        :src="url(true, '/assets/dewbee_logo.svg')"
         :width="width > 340 ? 100 : 50"
         :height="width > 340 ? 100 : 50"
       />
