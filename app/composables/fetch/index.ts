@@ -288,44 +288,44 @@ export const useFetchComposable = () => {
   //   return data
   // }
 
-  // const schemaFetchRangeData = async (schema: string, table: string, queryString: string, rangeStart: number, rangeEnd: number, matchOpt?: string, matchOptVal?: string | number | boolean, secondMatchOpt?: string, secondMatchOptVal?: string | number | boolean) => {
-  //   if (matchOpt && secondMatchOpt) {
-  //     const { data, count, error }: SerializeObject = await createClient(config.public.supabaseUrl, config.public.supabaseKey, { db: { schema } })
-  //       .from(table)
-  //       .select(queryString, { count: 'exact' })
-  //       .eq(matchOpt, matchOptVal)
-  //       .eq(secondMatchOpt, secondMatchOptVal)
-  //       .eq('deleted', false)
-  //       .range(rangeStart, rangeEnd)
+  const schemaFetchRangeData = async (schema: string, table: string, queryString: string, rangeStart: number, rangeEnd: number, matchOpt?: string, matchOptVal?: string | number | boolean, secondMatchOpt?: string, secondMatchOptVal?: string | number | boolean) => {
+    if (matchOpt && secondMatchOpt) {
+      const { data, count, error }: SerializeObject = await createClient(config.public.supabaseUrl, config.public.supabaseKey, { db: { schema } })
+        .from(table)
+        .select(queryString, { count: 'exact' })
+        .eq(matchOpt, matchOptVal)
+        .eq(secondMatchOpt, secondMatchOptVal)
+        .eq('deleted', false)
+        .range(rangeStart, rangeEnd)
 
-  //     errorHandler('fetch schema range option Data', error)
+      errorHandler('fetch schema range option Data', error)
 
-  //     return { data, count }
-  //   }
-  //   else if (matchOpt) {
-  //     const { data, count, error }: SerializeObject = await createClient(config.public.supabaseUrl, config.public.supabaseKey, { db: { schema } })
-  //       .from(table)
-  //       .select(queryString, { count: 'exact' })
-  //       .eq(matchOpt, matchOptVal)
-  //       .eq('deleted', false)
-  //       .range(rangeStart, rangeEnd)
+      return { data, count }
+    }
+    else if (matchOpt) {
+      const { data, count, error }: SerializeObject = await createClient(config.public.supabaseUrl, config.public.supabaseKey, { db: { schema } })
+        .from(table)
+        .select(queryString, { count: 'exact' })
+        .eq(matchOpt, matchOptVal)
+        .eq('deleted', false)
+        .range(rangeStart, rangeEnd)
 
-  //     errorHandler('fetch schema range option Data', error)
+      errorHandler('fetch schema range option Data', error)
 
-  //     return { data, count }
-  //   }
-  //   else {
-  //     const { data, error }: SerializeObject = await createClient(config.public.supabaseUrl, config.public.supabaseKey, { db: { schema } })
-  //       .from(table)
-  //       .select(queryString)
-  //       .range(rangeStart, rangeEnd)
-  //       .eq('deleted', false)
+      return { data, count }
+    }
+    else {
+      const { data, count, error }: SerializeObject = await createClient(config.public.supabaseUrl, config.public.supabaseKey, { db: { schema } })
+        .from(table)
+        .select(queryString, { count: 'exact' })
+        .range(rangeStart, rangeEnd)
+        .eq('deleted', false)
 
-  //     errorHandler('fetch schema range Data', error)
+      errorHandler('fetch schema range Data', error)
 
-  //     return data
-  //   }
-  // }
+      return { data, count }
+    }
+  }
 
   // const schemaFetchMultipleData = async (schema: string, table: string, queryString: string, option: string, multipleVal: string[]) => {
   //   const { data, error }: SerializeObject = await createClient(config.public.supabaseUrl, config.public.supabaseKey, { db: { schema } })
@@ -534,7 +534,7 @@ export const useFetchComposable = () => {
     // schemaFetchOptionSingleData,
     // schemaFetchOptionExceptionData,
     // schemaFetchOptionRangeSingleData,
-    // schemaFetchRangeData,
+    schemaFetchRangeData,
     // schemaFetchMultipleData,
     // fetchColumnArrayData,
     // fetchCountOnlyData,

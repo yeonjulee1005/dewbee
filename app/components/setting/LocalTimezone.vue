@@ -2,15 +2,16 @@
 import type { FilterDatabase } from '@/types/supabaseFilter'
 
 const { locale } = useLocale()
-const { width } = useWindowSize()
 
 const { localTimezone } = storeToRefs(useFilterDataStore())
 
 withDefaults(
   defineProps<{
+    windowWidth?: number
     timezoneList?: FilterDatabase['filter']['Tables']['localTimezone']['Row'][]
   }>(),
   {
+    windowWidth: 0,
     timezoneList: () => [],
   },
 )
@@ -64,7 +65,7 @@ const calculateUtcOffset = (offset: number) => {
         {{ $rt(text) }}
       </p>
     </template>
-    <div :class="`w-full flex ${width > 400 ? 'flex-row items-center' : 'flex-col'} justify-end gap-3`">
+    <div :class="`w-full flex ${windowWidth > 400 ? 'flex-row items-center' : 'flex-col'} justify-end gap-3`">
       <USelectMenu
         v-model="selectedLocalTimezone"
         :items="computedTimezoneList"
@@ -97,7 +98,7 @@ const calculateUtcOffset = (offset: number) => {
         </template>
       </USelectMenu>
       <AButton
-        :custom-class="width > 400 ? '' : 'flex justify-center'"
+        :custom-class="windowWidth > 400 ? '' : 'flex justify-center'"
         button-size="xl"
         button-color="primary"
         button-variant="soft"

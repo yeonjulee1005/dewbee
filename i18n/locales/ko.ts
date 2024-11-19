@@ -57,6 +57,8 @@ export default {
     confirm: '확인',
     cancel: '취소',
     help: '도움말',
+    inquiry: '문의하기',
+    leaveInquiry: '문의 남기기',
   },
   text: {
     CYC001: '원화 (₩)',
@@ -78,6 +80,8 @@ export default {
   label: {
     nickname: '닉네임',
     avatar: '아바타',
+    email: '이메일',
+    message: '문의사항',
     memo: '메모',
     category: '카테고리',
     amount: '금액',
@@ -124,12 +128,15 @@ export default {
   },
   placeholder: {
     nickname: '닉네임을 입력해주세요.',
+    email: '이메일을 입력해주세요.',
+    message: '문의사항을 입력해주세요.',
     memo: '메모를 입력해주세요.',
     targetAmount: '지출목표 금액을 입력해주세요.',
     noSpendRecords: '아직 지출이력이 없어요 🥲',
     noResultRecords: '아직 집계결과가 없어요 🥲',
     noPatchNote: '아직 패치노트가 없어요 🥲',
     noSearch: '검색하신 "{search}" 는 없네요 🥲',
+    noInquiry: '문의 내역이 없어요!',
   },
   intro: {
     title: 'DewBee。',
@@ -229,6 +236,12 @@ export default {
   family: {
     description: '다양한 서비스로 삶의 질을 올려드릴게요! 😉',
   },
+  inquiry: {
+    guestTitle: [
+      '궁금하신 사항은 문의사항으로 남겨주세요!',
+      '친절하게 답변을 보내드릴게요 🧡',
+    ],
+  },
   settings: {
     title: {
       currency: '통화',
@@ -263,6 +276,10 @@ export default {
     requiredNickname: '닉네임을 입력해주세요!',
     requiredAvatar: '아바타 이미지를 등록해주세요!',
     requiredMemo: '메모를 입력해주세요!',
+    requiredEmail: '이메일을 입력해주세요!',
+    formatEmail: '이메일 형식이 올바르지 않아요!',
+    requiredMessage: '문의사항을 입력해주세요!',
+    lengthMessage: '문의사항은 최소 100자 이상 입력해주세요!',
   },
   message: {
     loginSuccess: {
@@ -285,6 +302,11 @@ export default {
       description: '이번주 목표 지출금액을 초과하는 금액을 입력하시고 있어요!',
     },
     successSpendAmountSave: '사용내역을 저장했어요!',
+    successLeaveGuestInquiry: {
+      title: '문의사항을 남겼어요!',
+      description: '이메일로 답변을 보내드릴게요!',
+    },
+    successInquiryChannelCreated: '문의 채팅방을 생성했어요!',
     successSaveSettings: {
       title: '설정을 저장했어요!',
       description: '저장한 설정: {setting}',

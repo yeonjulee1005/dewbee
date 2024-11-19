@@ -1,5 +1,12 @@
 <script setup lang="ts">
-const { width } = useWindowSize()
+withDefaults(
+  defineProps<{
+    windowWidth?: number
+  }>(),
+  {
+    windowWidth: 0,
+  },
+)
 
 defineEmits([
   'click:currency-save',
@@ -26,15 +33,15 @@ const currentCurrency = defineModel('currentCurrency', {
         {{ $t('settings.description.currency') }}
       </p>
     </template>
-    <div :class="`w-full flex ${width > 400 ? 'flex-row items-center' : 'flex-col'} justify-end gap-3`">
+    <div :class="`w-full flex ${windowWidth > 400 ? 'flex-row items-center' : 'flex-col'} justify-end gap-3`">
       <UButtonGroup
-        :orientation="width > 400 ? 'horizontal' : 'vertical'"
+        :orientation="windowWidth > 400 ? 'horizontal' : 'vertical'"
         size="xl"
       >
         <AButton
           v-for="currency in ['CYC001', 'CYC002', 'CYC003']"
           :key="currency"
-          :custom-class="width > 400 ? '' : 'flex justify-center'"
+          :custom-class="windowWidth > 400 ? '' : 'flex justify-center'"
           :button-text="$t(`text.${currency}`)"
           :button-color="currentCurrency === currency ? 'primary' : 'neutral'"
           :button-variant="currentCurrency === currency ? 'subtle' : 'outline'"
@@ -43,7 +50,7 @@ const currentCurrency = defineModel('currentCurrency', {
         />
       </UButtonGroup>
       <AButton
-        :custom-class="width > 400 ? '' : 'flex justify-center'"
+        :custom-class="windowWidth > 400 ? '' : 'flex justify-center'"
         button-size="xl"
         button-color="primary"
         button-variant="soft"

@@ -20,7 +20,8 @@
     "upgrade:force": "nuxt upgrade --force",
     "supabase:login": "yarn supabase login",
     "supabase:type": "supabase gen types --lang=typescript --project-id biynqxysclkvwrscmupr --schema public > app/types/supabase.ts",
-    "supabase:type-filter": "supabase gen types --lang=typescript --project-id biynqxysclkvwrscmupr --schema filter > app/types/supabaseFilter.ts"
+    "supabase:type-filter": "supabase gen types --lang=typescript --project-id biynqxysclkvwrscmupr --schema filter > app/types/supabaseFilter.ts",
+    "supabase:type-board": "supabase gen types --lang=typescript --project-id biynqxysclkvwrscmupr --schema board > app/types/supabaseBoard.ts"
   },
   "dependencies": {
     "@nuxtjs/seo": "^2.0.0-rc.23",

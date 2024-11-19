@@ -57,6 +57,8 @@ export default {
     confirm: 'Confirm',
     cancel: 'Cancel',
     help: 'Help',
+    inquiry: 'Inquiry',
+    leaveInquiry: 'Leave Inquiry',
   },
   text: {
     CYC001: 'KRW (₩)',
@@ -78,6 +80,8 @@ export default {
   label: {
     nickname: 'Nickname',
     avatar: 'Avatar',
+    email: 'Email',
+    message: 'Message',
     memo: 'Memo',
     category: 'Category',
     amount: 'Amount',
@@ -124,12 +128,15 @@ export default {
   },
   placeholder: {
     nickname: 'Enter your nickname.',
+    email: 'Enter your email.',
+    message: 'Enter your inquiry.',
     memo: 'Enter your memo.',
     targetAmount: 'Enter the target amount.',
     noSpendRecords: 'No spend records yet 🥲',
     noResultRecords: 'No result records yet 🥲',
     noPatchNote: 'No patch note yet 🥲',
     noSearch: 'No "{search}" found 🥲',
+    noInquiry: 'No inquiry history!',
   },
   intro: {
     title: 'DewBee。',
@@ -229,6 +236,12 @@ export default {
   family: {
     description: 'We will help improve the quality of life with various services! 😉',
   },
+  inquiry: {
+    guestTitle: [
+      'Please leave your inquiry!',
+      'We will reply courteously!',
+    ],
+  },
   settings: {
     title: {
       currency: 'Currency',
@@ -263,6 +276,10 @@ export default {
     requiredNickname: 'Please enter your nickname!',
     requiredAvatar: 'Please register your avatar image!',
     requiredMemo: 'Please enter your memo!',
+    requiredEmail: 'Please enter your email!',
+    formatEmail: 'Email format is incorrect!',
+    requiredMessage: 'Please enter your inquiry!',
+    lengthMessage: 'Inquiry must be at least 100 characters!',
   },
   message: {
     loginSuccess: {
@@ -286,9 +303,14 @@ export default {
       description: 'You are entering an amount that exceeds this week\'s target spend amount!',
     },
     successSpendAmountSave: 'Spend amount has been saved!',
+    successLeaveGuestInquiry: {
+      title: 'Inquiry has been left!',
+      description: 'We will reply by email!',
+    },
+    successInquiryChannelCreated: '문의 채팅방을 생성했어요!',
     successSaveSettings: {
-      title: '설정을 저장했어요!',
-      description: '저장한 설정: {setting}',
+      title: 'Settings have been saved!',
+      description: 'Saved settings: {setting}',
     },
   },
 }

@@ -1,4 +1,7 @@
 <script setup lang="ts">
+const config = useRuntimeConfig()
+
+const { fullPath } = useRoute()
 const { t } = useLocale()
 const toast = useToast()
 
@@ -11,6 +14,8 @@ const { currencyCodeList, spendCategoryCodeList } = storeToRefs(useFilterDataSto
 
 const { fetchRangeData } = useFetchComposable()
 const { upsertData } = useUpdateComposable()
+
+useCookie(`${config.public.supabase.cookieName}-redirect-path`).value = fullPath
 
 useHead({
   title: t('pageTitle.main'),

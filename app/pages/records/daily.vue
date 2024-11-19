@@ -24,7 +24,6 @@ definePageMeta({
 
 const page = ref(1)
 const pageSize = ref(10)
-const dailyResultTotalCount = ref(1)
 
 const pageCalc = (page: number, pageCount: number, firstRange: boolean): number => {
   return firstRange
@@ -32,18 +31,14 @@ const pageCalc = (page: number, pageCount: number, firstRange: boolean): number 
     : (page * pageCount) - 1
 }
 
-const { data: dailyResultList, pending: pendingDailyResultList } = useAsyncData(async () => {
+const { data: dailyResultData, pending: pendingDailyResultData } = await useAsyncData(async () => {
   const { data: response, count } = await fetchPaginationData('viewDailyResultList', '*', pageCalc(page.value, pageSize.value, true), pageCalc(page.value, pageSize.value, false), 'update_user_id', userData.value?.id ?? '')
 
-  count
-    ? dailyResultTotalCount.value = count
-    : dailyResultTotalCount.value = 1
-
   return response
-    ? response
-    : []
+    ? { list: response, count }
+    : { list: [], count: 0 }
 }, {
-  lazy: true,
+  immediate: true,
   watch: [page, pageSize],
 })
 
@@ -139,11 +134,11 @@ const columns: TableColumn<DailyResult | WeeklyResult | Realtime>[] = [
     />
     <ASpendTable
       v-model:current-page="page"
-      :table-data="dailyResultList"
+      :table-data="dailyResultData?.list"
       :table-columns="columns"
-      :pending-table-data="pendingDailyResultList"
+      :pending-table-data="pendingDailyResultData"
       :page-size="pageSize"
-      :total-count="dailyResultTotalCount"
+      :total-count="dailyResultData?.count"
     />
   </div>
 </template>

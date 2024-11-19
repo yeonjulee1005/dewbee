@@ -35,7 +35,7 @@ const formData = reactive({
 
 const maxMemoLength = ref(200)
 
-const submitNickname = async (event: FormSubmitEvent<Schema>) => {
+const submitUpdateProfile = async (event: FormSubmitEvent<Schema>) => {
   if (!event.isTrusted) {
     return
   }
@@ -109,7 +109,7 @@ onMounted(() => {
           :schema="schema"
           :state="formData"
           class="w-full mt-2 space-y-8"
-          @submit="submitNickname"
+          @submit="submitUpdateProfile"
         >
           <UFormField
             name="nickname"
