@@ -11,6 +11,7 @@ withDefaults(
     isRealtime?: boolean
     pageSize?: number
     totalCount?: number
+    usePagination?: boolean
   }>(),
   {
     tableData: () => [],
@@ -18,6 +19,7 @@ withDefaults(
     isRealtime: false,
     pageSize: 10,
     totalCount: 1,
+    usePagination: true,
   },
 )
 
@@ -46,6 +48,7 @@ const currentPage = defineModel('currentPage', {
       </template>
     </UTable>
     <UPagination
+      v-if="usePagination"
       v-model:page="currentPage"
       class="w-fit flex justify-center mx-2 my-2"
       color="neutral"

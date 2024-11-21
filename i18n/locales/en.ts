@@ -201,6 +201,9 @@ export default {
       '[Delete] Please register carefully as once registered, content cannot be deleted!',
     ],
   },
+  records: {
+    needProPlan: 'Pro plan is required to view all spending history!',
+  },
   plan: {
     list: [
       {
@@ -215,7 +218,9 @@ export default {
           'Unlimited spending entry',
           'View weekly spending history for past 4 weeks',
           'Currency settings (₩, $, ¥)',
-          'Set weekly spending tally end day',
+          'Set weekly spending tally day',
+          'Set standard time for tally records',
+          'Provide patch notes',
         ],
       },
       {

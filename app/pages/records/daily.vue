@@ -7,7 +7,7 @@ import type { TableColumn } from '@nuxt/ui'
 const UAvatar = resolveComponent('UAvatar')
 const UButton = resolveComponent('UButton')
 
-const { t, locale } = useLocale()
+const { t, locale } = useCustomLocale()
 const { comma } = useUi()
 
 const { userData } = storeToRefs(useUserDataStore())

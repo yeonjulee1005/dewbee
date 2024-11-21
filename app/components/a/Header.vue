@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
 
+const user = useSupabaseUser()
+
 const config = useRuntimeConfig()
 const { fullPath } = useRoute()
 const ccolorMode = useColorMode()
 const { go } = useRouter()
-const { t, locale, setLocale } = useLocale()
+const { t, locale, setLocale } = useCustomLocale()
 const { url } = useImageStorage()
 
 const { userData, userCoreId } = storeToRefs(useUserDataStore())
@@ -93,7 +95,7 @@ const menuItems = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
 const dropdownMenuTrigger = ref(false)
 
 const checkLoginState = () => {
-  userData.value
+  user.value
     ? insertLoginMenu()
     : insertLogoutMenu()
 }

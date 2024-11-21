@@ -2,7 +2,7 @@
 import { object, string, type InferType } from 'yup'
 import type { FormSubmitEvent } from '#ui/types'
 
-const { t } = useLocale()
+const { t } = useCustomLocale()
 const toast = useToast()
 
 const { userData } = storeToRefs(useUserDataStore())

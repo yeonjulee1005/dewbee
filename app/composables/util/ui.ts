@@ -1,5 +1,5 @@
 export const useUi = () => {
-  const { t } = useLocale()
+  const { t } = useCustomLocale()
 
   const genUid = () => {
     return (new Date().getTime() + Math.random().toString(36).substring(2, 16))

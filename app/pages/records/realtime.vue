@@ -7,7 +7,7 @@ const UAvatar = resolveComponent('UAvatar')
 const UButton = resolveComponent('UButton')
 const UBadge = resolveComponent('UBadge')
 
-const { t, locale } = useLocale()
+const { t, locale } = useCustomLocale()
 const { comma } = useUi()
 
 const { userData } = storeToRefs(useUserDataStore())
@@ -179,6 +179,14 @@ const colorTranslate = (code: string) => {
       return 'text-neutral-700 dark:text-neutral-300'
   }
 }
+
+const lastChartLabel = ref<string[]>([])
+const chartValues = ref<number[]>([])
+
+realtimeSpendData.value?.list.forEach((item: Realtime) => {
+  lastChartLabel.value.unshift(formatInTimeZone(item.created_at ?? '', 'Asia/Seoul', 'yyyy-MM-dd a h:mm', { locale: locale.value === 'ko' ? ko : enUS }))
+  chartValues.value.unshift(item.amount ?? 0)
+})
 </script>
 
 <template>
@@ -196,6 +204,10 @@ const colorTranslate = (code: string) => {
       :pending-table-data="pendingRealtimeSpendData"
       :page-size="pageSize"
       :total-count="realtimeSpendData?.count"
+    />
+    <ChartSmoothLine
+      :latest-chart-label="lastChartLabel"
+      :chart-value="chartValues"
     />
   </div>
 </template>

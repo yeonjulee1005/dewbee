@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const client = useSupabaseClient()
 
-const { t } = useLocale()
+const { t } = useCustomLocale()
 const toast = useToast()
 
 const user = useSupabaseUser()

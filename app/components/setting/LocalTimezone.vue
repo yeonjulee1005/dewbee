@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FilterDatabase } from '@/types/supabaseFilter'
 
-const { locale } = useLocale()
+const { locale } = useCustomLocale()
 
 const { localTimezone } = storeToRefs(useFilterDataStore())
 
