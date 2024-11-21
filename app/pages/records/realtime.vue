@@ -7,7 +7,7 @@ const UAvatar = resolveComponent('UAvatar')
 const UButton = resolveComponent('UButton')
 const UBadge = resolveComponent('UBadge')
 
-const { t, locale } = useLocale()
+const { t, locale } = useCustomLocale()
 const { comma } = useUi()
 
 const { userData } = storeToRefs(useUserDataStore())
@@ -31,7 +31,7 @@ const pageCalc = (page: number, pageCount: number, firstRange: boolean): number 
     : (page * pageCount) - 1
 }
 
-const { data: realtimeSpendData, pending: pendingRealtimeSpendData } = await useAsyncData(async () => {
+const { data: realtimeSpendData, pending: pendingRealtimeSpendData } = await useAsyncData('realtimeSpendData', async () => {
   const { data: response, count } = await fetchPaginationData('viewSpendList', '*', pageCalc(page.value, pageSize.value, true), pageCalc(page.value, pageSize.value, false), 'update_user_id', userData.value?.id ?? '')
 
   return response

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { BoardDatabase } from '@/types/supabaseBoard'
 
-const { t } = useLocale()
+const { t } = useCustomLocale()
 const toast = useToast()
 
 const config = useRuntimeConfig()

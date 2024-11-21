@@ -5,6 +5,7 @@ export default {
     realtimeSpend: 'Realtime Spend',
     dailySpend: 'Daily Spend',
     weeklySpend: 'Weekly Spend',
+    statistics: 'Statistics',
     plan: 'Plan',
     login: 'Login',
     settings: 'Settings',
@@ -35,6 +36,7 @@ export default {
       realtime: 'Realtime Spend',
       daily: 'Daily Spend',
       weekly: 'Weekly Spend',
+      statistics: 'Statistics',
     },
     theme: {
       label: 'Theme',
@@ -79,6 +81,9 @@ export default {
     free: 'Free',
     inquiring: 'Inquiry',
     inquiryCompleted: 'Completed',
+    daysAgo: '{days} days ago',
+    monthsAgo: '{months} months ago',
+    yearsAgo: '{years} years ago',
   },
   label: {
     nickname: 'Nickname',
@@ -201,6 +206,9 @@ export default {
       '[Delete] Please register carefully as once registered, content cannot be deleted!',
     ],
   },
+  records: {
+    needProPlan: 'Pro plan is required to view all spending history!',
+  },
   plan: {
     list: [
       {
@@ -215,7 +223,9 @@ export default {
           'Unlimited spending entry',
           'View weekly spending history for past 4 weeks',
           'Currency settings (₩, $, ¥)',
-          'Set weekly spending tally end day',
+          'Set weekly spending tally day',
+          'Set standard time for tally records',
+          'Provide patch notes',
         ],
       },
       {
