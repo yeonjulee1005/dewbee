@@ -1,5 +1,8 @@
+import { formatInTimeZone } from 'date-fns-tz'
+import { ko, enUS } from 'date-fns/locale'
+
 export const useUi = () => {
-  const { t } = useLocale()
+  const { t, locale } = useCustomLocale()
 
   const genUid = () => {
     return (new Date().getTime() + Math.random().toString(36).substring(2, 16))
@@ -14,63 +17,12 @@ export const useUi = () => {
   const hyphenRegex = /[^-]+/g
   const englishOnlyRegex = /^[a-zA-Z]+$/
 
-  const snsValidate = (sns: string, link: string) => {
-    switch (sns) {
-      case 'instagram' :
-        if (link && !link.includes('instagram.com/')) {
-          return t('validate.formatInstagram')
-        }
-        break
-      case 'youtube' :
-        if (link && !link.includes('youtube.com/')) {
-          return t('validate.formatYoutube')
-        }
-        break
-      case 'x' :
-        if (link && !link.includes('x.com/')) {
-          return t('validate.formatX')
-        }
-        break
-      case 'kakao' :
-        if (link && !link.includes('open.kakao.com/me/')) {
-          return t('validate.formatKakao')
-        }
-        break
-      case 'tiktok' :
-        if (link && !link.includes('tiktok.com/')) {
-          return t('validate.formatTiktok')
-        }
-        break
-      case 'other' :
-        if (link && !link.includes('http')) {
-          return t('validate.formatOther')
-        }
-        break
-    }
-  }
-
   const uncommaRegex = /(\d)(?=(?:\d{3})+(?!\d))/g
   const commaRegex = /[^\d]+/g
   const hyperLinkRegex = /(mailto:[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)|(((?:https?)|(?:ftp)):\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gm
   const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|playlist\?|watch\?v=|watch\?.+(?:&|&#38;);v=))([a-zA-Z0-9\-_]{11})?(?:(?:\?|&|&#38;)index=((?:\d){1,3}))?(?:(?:\?|&|&#38;)?list=([a-zA-Z\-_0-9]{34}))?(?:\S+)?/g
   const emailRegex = /^([0-9a-zA-Z_.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/
-
-  const digitsRoundUp = (value: number, method: string, digits: number) => {
-    let result = 0
-    switch (method) {
-      case 'round' :
-        result = Math.round(value * digits) / digits
-        break
-      case 'ceil' :
-        result = Math.ceil(value * digits) / digits
-        break
-      case 'floor' :
-        result = Math.floor(value * digits) / digits
-        break
-    }
-    return result
-  }
 
   const checkHyperLink = (link: string) => {
     const regLink = /(mailto:[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)|(((?:https?)|(?:ftp)):\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gm
@@ -89,6 +41,22 @@ export const useUi = () => {
   const checkEmail = (email: string) => {
     const regEmail = /^([0-9a-zA-Z_.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/
     return regEmail.test(email)
+  }
+
+  const digitsRoundUp = (value: number, method: string, digits: number) => {
+    let result = 0
+    switch (method) {
+      case 'round' :
+        result = Math.round(value * digits) / digits
+        break
+      case 'ceil' :
+        result = Math.ceil(value * digits) / digits
+        break
+      case 'floor' :
+        result = Math.floor(value * digits) / digits
+        break
+    }
+    return result
   }
 
   const diffDate = (created: string, current: string) => {
@@ -125,24 +93,29 @@ export const useUi = () => {
     return sortedArr1.every((item, index) => item.code === sortedArr2[index].code)
   }
 
-  const getBusinessStatus = (businessStartTime: string, businessEndTime: string) => {
-    const currentTime = new Date().getHours()
-    const currentMinute = new Date().getMinutes()
+  const transformChartDate = (date: string | undefined) => {
+    if (!date) return ''
 
-    const startHour = parseInt(businessStartTime.split(':')[0] ?? '0')
-    const startMinute = parseInt(businessStartTime.split(':')[1] ?? '0')
-    const endHour = parseInt(businessEndTime.split(':')[0] ?? '0')
-    const endMinute = parseInt(businessEndTime.split(':')[1] ?? '0')
+    const targetDate = new Date(date)
+    const today = new Date()
 
-    if (currentTime >= startHour && currentTime <= endHour) {
-      if (currentTime === startHour && currentMinute < startMinute) {
-        return '현재 영업중입니다.'
-      }
-      else if (currentTime === endHour && currentMinute < endMinute) {
-        return '현재 영업중입니다.'
+    const diffTime = today.getTime() - targetDate.getTime()
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+
+    if (today.toDateString() === targetDate.toDateString()) {
+      return formatInTimeZone(date, 'Asia/Seoul', 'a h:mm', { locale: locale.value === 'ko' ? ko : enUS })
+    }
+    else if (diffDays < 30) {
+      return t('text.daysAgo', { days: diffDays })
+    }
+    else {
+      const diffMonths = (today.getFullYear() - targetDate.getFullYear()) * 12 + (today.getMonth() - targetDate.getMonth())
+      if (diffMonths < 12) {
+        return t('text.monthsAgo', { months: diffMonths })
       }
       else {
-        return '현재 영업시간이 아닙니다.'
+        const diffYears = today.getFullYear() - targetDate.getFullYear()
+        return t('text.yearsAgo', { years: diffYears })
       }
     }
   }
@@ -161,18 +134,17 @@ export const useUi = () => {
     youtubeRegex,
     emailRegex,
     passwordRegex,
-    snsValidate,
-    digitsRoundUp,
     checkHyperLink,
     checkYoutubeLink,
     checkNumber,
     checkEmail,
+    digitsRoundUp,
     diffDate,
     nextMonth,
     getTimeZone,
     generateNumberArray,
     generateYearArray,
     checkArrayEqual,
-    getBusinessStatus,
+    transformChartDate,
   }
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { tm } = useLocale()
+const { tm } = useCustomLocale()
 
 const { windowSize } = storeToRefs(useWindowStore())
 

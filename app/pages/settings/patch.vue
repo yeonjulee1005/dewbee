@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Octokit } from 'octokit'
 
-const { t } = useLocale()
+const { t } = useCustomLocale()
 const config = useRuntimeConfig()
 
 const { windowSize } = storeToRefs(useWindowStore())

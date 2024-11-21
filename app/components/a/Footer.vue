@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { t } = useLocale()
+const { t } = useCustomLocale()
 
 const computedBusinessInfo = computed(() => {
   return t('pageTitle.businessName').concat(' | ', t('pageTitle.businessNumber')).concat(' | ', t('pageTitle.businessAddress'))

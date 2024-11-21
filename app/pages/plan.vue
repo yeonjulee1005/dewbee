@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const user = useSupabaseUser()
 
-const { t } = useLocale()
+const { t } = useCustomLocale()
 
 useHead({
   title: t('pageTitle.plan'),

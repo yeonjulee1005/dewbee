@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FilterDatabase } from '@/types/supabaseFilter'
 
-const { t } = useLocale()
+const { t } = useCustomLocale()
 const toast = useToast()
 
 const { windowSize } = storeToRefs(useWindowStore())
