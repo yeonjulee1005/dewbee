@@ -197,6 +197,14 @@ const insertProPlanMenu = () => {
               navigateTo('/records/weekly')
             },
           },
+          {
+            label: t('menu.records.statistics'),
+            icon: 'i-lucide-chart-spline',
+            kbds: ['ctrl', 'meta', 's'],
+            onSelect: () => {
+              navigateTo('/records/statistics')
+            },
+          },
         ],
       },
       {
@@ -251,6 +259,7 @@ defineShortcuts({
   ctrl_meta_r: () => navigateTo('/records/realtime'),
   ctrl_meta_s: () => ccolorMode.preference = 'system',
   ctrl_meta_w: () => navigateTo('/records/weekly'),
+  ctrl_meta_z: () => navigateTo('/records/statistics'),
   shift_meta_l: () => ccolorMode.preference = 'light',
   shift_meta_d: () => ccolorMode.preference = 'dark',
   shift_meta_s: () => ccolorMode.preference = 'system',

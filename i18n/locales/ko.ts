@@ -5,6 +5,7 @@ export default {
     realtimeSpend: '실시간 지출내역',
     dailySpend: '일일별 지출내역',
     weeklySpend: '주간별 지출내역',
+    statistics: '집계 통계',
     plan: '요금제',
     login: '로그인',
     settings: '설정',
@@ -35,6 +36,7 @@ export default {
       realtime: '실시간 지출',
       daily: '일일별 지출',
       weekly: '주간별 지출',
+      statistics: '집계 통계',
     },
     theme: {
       label: '테마변경',
@@ -79,6 +81,9 @@ export default {
     free: '무료',
     inquiring: '문의중',
     inquiryCompleted: '문의완료',
+    daysAgo: '{days}일전',
+    monthsAgo: '{months}달전',
+    yearsAgo: '{years}년전',
   },
   label: {
     nickname: '닉네임',

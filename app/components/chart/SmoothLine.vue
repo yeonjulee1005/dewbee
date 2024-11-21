@@ -10,7 +10,7 @@ import {
   Tooltip,
 } from 'chart.js'
 
-const { comma } = useUi()
+const { comma, transformChartDate } = useUi()
 
 const props = withDefaults(
   defineProps<{
@@ -41,6 +41,18 @@ const data = {
 const options = {
   responsive: true,
   maintainAspectRatio: false,
+  plugins: {
+    tooltip: {
+      callbacks: {
+        title: (tooltipItem: any[]) => {
+          return transformChartDate(tooltipItem[0].label)
+        },
+        label: (tooltipItem: any) => {
+          return comma(tooltipItem.raw as number).concat('원')
+        },
+      },
+    },
+  },
   scales: {
     x: {
       offset: true,
@@ -50,6 +62,14 @@ const options = {
       },
       ticks: {
         padding: 10,
+        callback: (tickValue: string | number, index: number, ticks: any[]) => {
+          if (index === 0) {
+            return transformChartDate(data.labels[0])
+          }
+          if (index === ticks.length - 1) {
+            return transformChartDate(data.labels[index])
+          }
+        },
       },
     },
     y: {
@@ -63,7 +83,7 @@ const options = {
       },
       ticks: {
         font: {
-          size: 18,
+          size: 16,
           family: 'Source Code Pro',
         },
         padding: 10,
@@ -89,7 +109,7 @@ ChartJS.register(
 </script>
 
 <template>
-  <div class="w-full h-[200px]">
+  <div class="w-full h-fit px-6">
     <Line
       :data="data"
       :options="options"

@@ -31,7 +31,7 @@ const pageCalc = (page: number, pageCount: number, firstRange: boolean): number 
     : (page * pageCount) - 1
 }
 
-const { data: dailyResultData, pending: pendingDailyResultData } = await useAsyncData(async () => {
+const { data: dailyResultData, pending: pendingDailyResultData } = await useAsyncData('dailyResultData', async () => {
   const { data: response, count } = await fetchPaginationData('viewDailyResultList', '*', pageCalc(page.value, pageSize.value, true), pageCalc(page.value, pageSize.value, false), 'update_user_id', userData.value?.id ?? '')
 
   return response

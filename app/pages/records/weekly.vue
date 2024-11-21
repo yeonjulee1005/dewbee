@@ -34,7 +34,7 @@ const pageCalc = (page: number, pageCount: number, firstRange: boolean): number 
     : (page * pageCount) - 1
 }
 
-const { data: weeklyResultData, pending: pendingWeeklyResultData } = await useAsyncData(async () => {
+const { data: weeklyResultData, pending: pendingWeeklyResultData } = await useAsyncData('weeklyResultData', async () => {
   const { data: response, count } = await fetchPaginationData('viewWeeklyResultList', '*', pageCalc(page.value, pageSize.value, true), isProPlan ? pageCalc(page.value, pageSize.value, false) : 3, 'update_user_id', userData.value?.id ?? '')
 
   return response

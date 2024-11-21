@@ -5,6 +5,7 @@ export default {
     realtimeSpend: 'Realtime Spend',
     dailySpend: 'Daily Spend',
     weeklySpend: 'Weekly Spend',
+    statistics: 'Statistics',
     plan: 'Plan',
     login: 'Login',
     settings: 'Settings',
@@ -35,6 +36,7 @@ export default {
       realtime: 'Realtime Spend',
       daily: 'Daily Spend',
       weekly: 'Weekly Spend',
+      statistics: 'Statistics',
     },
     theme: {
       label: 'Theme',
@@ -79,6 +81,9 @@ export default {
     free: 'Free',
     inquiring: 'Inquiry',
     inquiryCompleted: 'Completed',
+    daysAgo: '{days} days ago',
+    monthsAgo: '{months} months ago',
+    yearsAgo: '{years} years ago',
   },
   label: {
     nickname: 'Nickname',
