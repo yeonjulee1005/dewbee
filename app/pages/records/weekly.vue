@@ -8,7 +8,7 @@ const UAvatar = resolveComponent('UAvatar')
 const UButton = resolveComponent('UButton')
 const UBadge = resolveComponent('UBadge')
 
-const { t, locale } = useLocale()
+const { t, locale } = useCustomLocale()
 const { comma } = useUi()
 
 const { userData } = storeToRefs(useUserDataStore())
@@ -26,17 +26,19 @@ definePageMeta({
 const page = ref(1)
 const pageSize = ref(10)
 
+const isProPlan = userData.value.plan.code === 'PNC002'
+
 const pageCalc = (page: number, pageCount: number, firstRange: boolean): number => {
   return firstRange
     ? (page - 1) * pageCount
     : (page * pageCount) - 1
 }
 
-const { data: weeklyResultData, pending: pendingWeeklyResultData } = await useAsyncData(async () => {
-  const { data: response, count } = await fetchPaginationData('viewWeeklyResultList', '*', pageCalc(page.value, pageSize.value, true), pageCalc(page.value, pageSize.value, false), 'update_user_id', userData.value?.id ?? '')
+const { data: weeklyResultData, pending: pendingWeeklyResultData } = await useAsyncData('weeklyResultData', async () => {
+  const { data: response, count } = await fetchPaginationData('viewWeeklyResultList', '*', pageCalc(page.value, pageSize.value, true), isProPlan ? pageCalc(page.value, pageSize.value, false) : 3, 'update_user_id', userData.value?.id ?? '')
 
   return response
-    ? { list: response, count }
+    ? { list: response, count: isProPlan ? count : 3 }
     : { list: [], count: 0 }
 }, {
   immediate: true,
@@ -252,6 +254,12 @@ const successColorTranslate = (isSuccess: boolean) => {
       title-class="text-2xl font-semibold"
       avatar-size="md"
     />
+    <p
+      v-if="!isProPlan"
+      class="text-xl font-light text-amber-700 dark:text-amber-300 px-6"
+    >
+      {{ $t('records.needProPlan') }}
+    </p>
     <ASpendTable
       v-model:current-page="page"
       :table-data="weeklyResultData?.list"
@@ -259,6 +267,7 @@ const successColorTranslate = (isSuccess: boolean) => {
       :pending-table-data="pendingWeeklyResultData"
       :page-size="pageSize"
       :total-count="weeklyResultData?.count"
+      :use-pagination="isProPlan"
     />
   </div>
 </template>

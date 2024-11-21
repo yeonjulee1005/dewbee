@@ -2,7 +2,7 @@
 const appConfig = useAppConfig()
 const { width } = useWindowSize()
 
-const { t } = useLocale()
+const { t } = useCustomLocale()
 const { meta } = useRoute()
 
 const { windowSize } = storeToRefs(useWindowStore())

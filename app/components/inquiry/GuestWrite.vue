@@ -3,7 +3,7 @@ import { object, string, type InferType } from 'yup'
 import type { FormSubmitEvent } from '#ui/types'
 
 const toast = useToast()
-const { t } = useLocale()
+const { t } = useCustomLocale()
 
 const { emailRegex } = useUi()
 

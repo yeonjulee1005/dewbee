@@ -5,6 +5,7 @@ export default {
     realtimeSpend: '실시간 지출내역',
     dailySpend: '일일별 지출내역',
     weeklySpend: '주간별 지출내역',
+    statistics: '집계 통계',
     plan: '요금제',
     login: '로그인',
     settings: '설정',
@@ -35,6 +36,7 @@ export default {
       realtime: '실시간 지출',
       daily: '일일별 지출',
       weekly: '주간별 지출',
+      statistics: '집계 통계',
     },
     theme: {
       label: '테마변경',
@@ -79,6 +81,9 @@ export default {
     free: '무료',
     inquiring: '문의중',
     inquiryCompleted: '문의완료',
+    daysAgo: '{days}일전',
+    monthsAgo: '{months}달전',
+    yearsAgo: '{years}년전',
   },
   label: {
     nickname: '닉네임',
@@ -201,6 +206,9 @@ export default {
       '[삭제기능] 한번 등록한 내용은 삭제가 불가능하기 때문에 신중히 등록해주세요!',
     ],
   },
+  records: {
+    needProPlan: 'Pro 요금제를 이용하면 모든 지출내역 조회가 가능해요!',
+  },
   plan: {
     list: [
       {
@@ -215,7 +223,9 @@ export default {
           '무제한 소비내용 입력',
           '지난 4주간 주간별 지출내역 조회',
           '화폐 설정 (₩, $, ¥)',
-          '주간 지출집계 마감요일 설정',
+          '주간 지출집계 요일 설정',
+          '집계기준 표준시간 설정 기능',
+          '패치노트 제공',
         ],
       },
       {

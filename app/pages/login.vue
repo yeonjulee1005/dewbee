@@ -3,7 +3,7 @@ import { track } from '@vercel/analytics'
 
 const { auth } = useSupabaseClient()
 
-const { t } = useLocale()
+const { t } = useCustomLocale()
 const toast = useToast()
 const config = useRuntimeConfig()
 const { url } = useImageStorage()

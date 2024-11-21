@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
 
+const user = useSupabaseUser()
+
 const config = useRuntimeConfig()
 const { fullPath } = useRoute()
 const ccolorMode = useColorMode()
 const { go } = useRouter()
-const { t, locale, setLocale } = useLocale()
+const { t, locale, setLocale } = useCustomLocale()
 const { url } = useImageStorage()
 
 const { userData, userCoreId } = storeToRefs(useUserDataStore())
@@ -93,7 +95,7 @@ const menuItems = ref<DropdownMenuItem[] | DropdownMenuItem[][]>([
 const dropdownMenuTrigger = ref(false)
 
 const checkLoginState = () => {
-  userData.value
+  user.value
     ? insertLoginMenu()
     : insertLogoutMenu()
 }
@@ -195,6 +197,14 @@ const insertProPlanMenu = () => {
               navigateTo('/records/weekly')
             },
           },
+          {
+            label: t('menu.records.statistics'),
+            icon: 'i-lucide-chart-spline',
+            kbds: ['ctrl', 'meta', 's'],
+            onSelect: () => {
+              navigateTo('/records/statistics')
+            },
+          },
         ],
       },
       {
@@ -249,6 +259,7 @@ defineShortcuts({
   ctrl_meta_r: () => navigateTo('/records/realtime'),
   ctrl_meta_s: () => ccolorMode.preference = 'system',
   ctrl_meta_w: () => navigateTo('/records/weekly'),
+  ctrl_meta_z: () => navigateTo('/records/statistics'),
   shift_meta_l: () => ccolorMode.preference = 'light',
   shift_meta_d: () => ccolorMode.preference = 'dark',
   shift_meta_s: () => ccolorMode.preference = 'system',

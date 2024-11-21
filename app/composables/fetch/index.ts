@@ -72,6 +72,18 @@ export const useFetchComposable = () => {
   //   }
   // }
 
+  const orderFetchData = async (table: string, queryString: string, orderType: string, orderValue: boolean, matchOpt?: string, matchOptVal?: string | number | boolean) => {
+    const { data, error } = await client
+      .from(table)
+      .select(queryString)
+      .eq(matchOpt ?? '', matchOptVal ?? '')
+      .order(orderType, { ascending: orderValue })
+
+    errorHandler('fetch Option Order Data', error)
+
+    return data
+  }
+
   const fetchPaginationData = async (table: string, queryString: string, rangeStart: number, rangeEnd: number, matchOpt?: string, matchOptVal?: string | number | boolean, secondMatchOpt?: string, secondMatchOptVal?: string | number | boolean) => {
     if (matchOpt && secondMatchOpt) {
       const { data, count, error }: SerializeObject = await client
@@ -529,6 +541,7 @@ export const useFetchComposable = () => {
   return {
     // fetchData,
     // orderFetchData,
+    orderFetchData,
     fetchPaginationData,
     fetchRangeData,
     schemaFetchData,

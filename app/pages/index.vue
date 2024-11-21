@@ -2,7 +2,7 @@
 const config = useRuntimeConfig()
 
 const { fullPath } = useRoute()
-const { t } = useLocale()
+const { t } = useCustomLocale()
 const toast = useToast()
 
 const { comma } = useUi()
