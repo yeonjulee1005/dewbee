@@ -120,6 +120,40 @@ export const useUi = () => {
     }
   }
 
+  const convertCurrency = async (amount: number, amountCurrency: string, userCurrency: string) => {
+    const resUsd: any = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json')
+    const usdData = await resUsd.json()
+    const resKrw: any = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/krw.json')
+    const krwData = await resKrw.json()
+    const resJpy: any = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/jpy.json')
+    const jpyData = await resJpy.json()
+
+    const usdToKrw = usdData.usd.krw
+    const usdToJpy = usdData.usd.jpy
+
+    const krwToUsd = krwData.krw.usd
+    const krwToJpy = krwData.krw.jpy
+
+    const jpyToUsd = jpyData.jpy.usd
+    const jpyToKrw = jpyData.jpy.krw
+
+    if (amountCurrency === 'CYC001') {
+      if (userCurrency === 'CYC002') return { amount: parseFloat((amount * krwToUsd).toFixed(2)), currencyCode: 'CYC002' }
+      else if (userCurrency === 'CYC003') return { amount: parseFloat((amount * krwToJpy).toFixed(2)), currencyCode: 'CYC003' }
+      else return { amount, currencyCode: 'CYC001' }
+    }
+    if (amountCurrency === 'CYC002') {
+      if (userCurrency === 'CYC001') return { amount: parseFloat((amount * usdToKrw).toFixed(2)), currencyCode: 'CYC001' }
+      else if (userCurrency === 'CYC003') return { amount: parseFloat((amount * usdToJpy).toFixed(2)), currencyCode: 'CYC003' }
+      else return { amount, currencyCode: 'CYC002' }
+    }
+    else {
+      if (userCurrency === 'CYC002') return { amount: parseFloat((amount * jpyToUsd).toFixed(2)), currencyCode: 'CYC002' }
+      else if (userCurrency === 'CYC001') return { amount: parseFloat((amount * jpyToKrw).toFixed(2)), currencyCode: 'CYC001' }
+      else return { amount, currencyCode: 'CYC003' }
+    }
+  }
+
   return {
     genUid,
     comma,
@@ -146,5 +180,6 @@ export const useUi = () => {
     generateYearArray,
     checkArrayEqual,
     transformChartDate,
+    convertCurrency,
   }
 }

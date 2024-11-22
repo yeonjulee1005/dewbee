@@ -126,7 +126,7 @@ export const useFetchComposable = () => {
     }
   }
 
-  const fetchRangeData = async (table: string, queryString: string, lessOpt: string, lessVal: string | number, greatOpt: string, greatVal: string | number, matchOpt?: string, matchOptVal?: string | number | boolean) => {
+  const fetchRangeData = async (table: string, queryString: string, lessOpt: string, lessVal: string | number, greatOpt: string, greatVal: string | number, ascending?: boolean, matchOpt?: string, matchOptVal?: string | number | boolean) => {
     if (matchOpt && matchOptVal) {
       const { data, count, error }: SerializeObject = await client
         .from(table)
@@ -135,6 +135,7 @@ export const useFetchComposable = () => {
         .lte(lessOpt, lessVal)
         .gte(greatOpt, greatVal)
         .eq(matchOpt, matchOptVal)
+        .order('created_at', { ascending: ascending ?? true })
       errorHandler('fetch range option Data', error)
 
       return { data, count }
@@ -146,6 +147,7 @@ export const useFetchComposable = () => {
         .eq('deleted', false)
         .lte(lessOpt, lessVal)
         .gte(greatOpt, greatVal)
+        .order('created_at', { ascending: ascending ?? true })
       errorHandler('fetch range option Data', error)
 
       return { data, count }
