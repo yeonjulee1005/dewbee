@@ -84,6 +84,7 @@ export default {
     daysAgo: '{days} days ago',
     monthsAgo: '{months} months ago',
     yearsAgo: '{years} years ago',
+    noSpend: 'No spend',
   },
   label: {
     nickname: 'Nickname',
@@ -208,6 +209,11 @@ export default {
   },
   records: {
     needProPlan: 'Pro plan is required to view all spending history!',
+  },
+  statistics: {
+    realtime: 'Realtime Spend',
+    daily: 'Daily Spend (Tally Date Basis)',
+    weekly: 'Weekly Spend (Tally Date Basis)',
   },
   plan: {
     list: [
