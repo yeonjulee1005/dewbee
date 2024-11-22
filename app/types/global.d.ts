@@ -54,3 +54,18 @@ type LocalTimezone = FilterDatabase['filter']['Tables']['localTimezone']['Row'] 
   label: string
   value: string
 }
+
+type LineChartData = {
+  labels: string[]
+  datasets: {
+    data: number[]
+    label: string
+    borderWidth: number
+    borderColor: string
+    tension: number
+    pointRadius: number
+    pointHitRadius: number
+    pointBackgroundColor: string
+    fill: boolean
+  }[]
+}
