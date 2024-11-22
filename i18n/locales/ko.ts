@@ -84,6 +84,7 @@ export default {
     daysAgo: '{days}일전',
     monthsAgo: '{months}달전',
     yearsAgo: '{years}년전',
+    noSpend: '지출없음',
   },
   label: {
     nickname: '닉네임',
@@ -208,6 +209,11 @@ export default {
   },
   records: {
     needProPlan: 'Pro 요금제를 이용하면 모든 지출내역 조회가 가능해요!',
+  },
+  statistics: {
+    realtime: '실시간 지출내역',
+    daily: '일간 집계내역 (집계일 기준)',
+    weekly: '주간 집계내역 (집계일 기준)',
   },
   plan: {
     list: [
