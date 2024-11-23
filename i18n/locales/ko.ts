@@ -171,7 +171,7 @@ export default {
         '남아있는 여유잔액도 확인 가능해요!',
       ],
     },
-    login: '로그인 하시면 아래 기능을 이용 가능해요!',
+    login: '로그인 하러가기',
     plan: {
       description: '대부분의 기능은',
       descriptionEnd: '로 이용할 수 있어요!',
@@ -183,6 +183,7 @@ export default {
       good: '목표대비 지출이 적당해요!',
       warning: '목표대비 지출이 불안해요!',
       danger: '목표대비 지출이 위험해요!',
+      over: '목표대비 지출이 초과되었어요!',
     },
     setOption: {
       thisWeekend: '이번주 지출은 ',
@@ -195,6 +196,7 @@ export default {
       category: '카테고리를 선택해요!',
       amount: '금액이 비어있어요!',
     },
+    arithmometer: '지출금액 입력기',
     target: 'Target。',
     button: '버튼으로 입력하기',
     manual: '직접 입력하기',

@@ -84,7 +84,7 @@ export const useFetchComposable = () => {
     return data
   }
 
-  const fetchPaginationData = async (table: string, queryString: string, rangeStart: number, rangeEnd: number, matchOpt?: string, matchOptVal?: string | number | boolean, secondMatchOpt?: string, secondMatchOptVal?: string | number | boolean) => {
+  const fetchPaginationData = async (table: string, queryString: string, rangeStart: number, rangeEnd: number, matchOpt?: string, matchOptVal?: string | number | boolean, secondMatchOpt?: string, secondMatchOptVal?: string | number | boolean, customOrder?: string, customAscending?: boolean) => {
     if (matchOpt && secondMatchOpt) {
       const { data, count, error }: SerializeObject = await client
         .from(table)
@@ -92,7 +92,7 @@ export const useFetchComposable = () => {
         .eq(matchOpt, matchOptVal ?? '')
         .eq(secondMatchOpt, secondMatchOptVal ?? '')
         .eq('deleted', false)
-        .order('created_at', { ascending: false })
+        .order(customOrder ?? 'created_at', { ascending: customAscending ?? false })
         .range(rangeStart, rangeEnd)
 
       errorHandler('fetch schema range option Data', error)
@@ -105,7 +105,7 @@ export const useFetchComposable = () => {
         .select(queryString, { count: 'exact' })
         .eq(matchOpt, matchOptVal ?? '')
         .eq('deleted', false)
-        .order('created_at', { ascending: false })
+        .order(customOrder ?? 'created_at', { ascending: customAscending ?? false })
         .range(rangeStart, rangeEnd)
 
       errorHandler('fetch schema range option Data', error)
@@ -118,7 +118,7 @@ export const useFetchComposable = () => {
         .select(queryString, { count: 'exact' })
         .range(rangeStart, rangeEnd)
         .eq('deleted', false)
-        .order('created_at', { ascending: false })
+        .order(customOrder ?? 'created_at', { ascending: customAscending ?? false })
 
       errorHandler('fetch schema range Data', error)
 

@@ -39,40 +39,34 @@ const computedCurrencyTitle = computed(() => {
         {{ $t('settings.description.targetAmount') }}
       </p>
     </template>
-    <div class="w-full flex justify-end items-center gap-3">
-      <UButtonGroup>
-        <UInput
-          v-model="targetAmount"
-          variant="outline"
-          highlight
-          size="xl"
-          type="number"
-          :step="1000"
-          :min="0"
-          :placeholder="$t('placeholder.targetAmount')"
-          :ui="{
-            base: 'text-right',
-            trailing: 'pl-2 pr-2 end-2',
-          }"
-        />
+    <div class="w-full flex sm:flex-row flex-col justify-end items-center gap-3">
+      <UInputNumber
+        v-model="targetAmount"
+        class="w-full"
+        size="xl"
+        :min="0"
+        :step="1000"
+        :placeholder="$t('placeholder.targetAmount')"
+      />
+      <div class="w-full sm:w-auto flex gap-3">
         <AButton
           v-if="targetAmount !== 0"
-          use-leading
-          icon-lead-name="i-lucide-x"
-          icon-lead-class="w-4 h-4"
+          button-block
+          button-size="xl"
+          button-color="neutral"
+          button-variant="outline"
+          :button-text="$t('button.clear')"
+          @click="targetAmount = 0"
+        />
+        <AButton
+          button-block
           button-size="xl"
           button-color="primary"
           button-variant="soft"
-          @click="targetAmount = 0"
+          :button-text="$t('button.save')"
+          @click="$emit('click:save')"
         />
-      </UButtonGroup>
-      <AButton
-        button-size="xl"
-        button-color="primary"
-        button-variant="soft"
-        :button-text="$t('button.save')"
-        @click="$emit('click:save')"
-      />
+      </div>
     </div>
   </UCard>
 </template>
