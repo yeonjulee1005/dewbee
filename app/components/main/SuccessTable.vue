@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { subDays } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import { ko, enUS } from 'date-fns/locale'
 import type { TableColumn } from '@nuxt/ui'
@@ -29,7 +30,7 @@ const columns: TableColumn<WeeklyResult>[] = [
       return h(UButton, {
         color: 'neutral',
         variant: 'ghost',
-        label: t('label.createdAt'),
+        label: t('label.spendRangeDate'),
         icon: isSorted
           ? isSorted === 'asc'
             ? 'i-lucide-arrow-up-narrow-wide'
@@ -40,8 +41,14 @@ const columns: TableColumn<WeeklyResult>[] = [
       })
     },
     cell: ({ row }) => {
+      const summaryStartDate = subDays(new Date(row.original?.created_at ?? ''), 7)
+      const summaryEndDate = subDays(new Date(row.original?.created_at ?? ''), 1)
+
+      const summaryDate = formatInTimeZone(summaryStartDate, 'Asia/Seoul', 'yy.MM.dd', { locale: locale.value === 'ko' ? ko : enUS })
+        .concat(' ~ ', formatInTimeZone(summaryEndDate, 'Asia/Seoul', 'yy.MM.dd', { locale: locale.value === 'ko' ? ko : enUS }))
+
       return h('div', { class: 'flex items-center justify-center font-light text-neutral-800 dark:text-neutral-200' }, [
-        formatInTimeZone(row.original?.created_at ?? '', 'Asia/Seoul', 'yyyy-MM-dd a h:mm', { locale: locale.value === 'ko' ? ko : enUS }),
+        summaryDate,
       ])
     },
   },
@@ -78,10 +85,10 @@ const columns: TableColumn<WeeklyResult>[] = [
     },
     cell: ({ row }) => {
       return h('div', { class: 'min-w-[100px] flex items-center justify-end text-neutral-800 dark:text-neutral-200' }, [
-        h('div', { class: 'font-semibold' }, [
+        h('span', { class: 'font-semibold' }, [
           comma((row.original.weekly_target_amount ?? 0) - (row.original.summary_amount ?? 0)),
         ]),
-        h('div', { class: 'ml-1 text-xs font-light' }, [
+        h('span', { class: 'ml-1 text-xs font-light' }, [
           t(`currency.${row?.original.currency?.code ?? ''}`),
         ]),
       ])

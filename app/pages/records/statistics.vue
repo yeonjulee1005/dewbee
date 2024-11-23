@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { subMonths, subDays } from 'date-fns'
+import { subMonths } from 'date-fns'
 
 const { t } = useCustomLocale()
 
@@ -69,8 +69,6 @@ const { data: statisticsDailyResultData } = await useAsyncData('statisticsDailyR
 
   if (response) {
     response.forEach((item: DailyResult) => {
-      const previousDay = subDays(new Date(item.created_at ?? ''), 1).toISOString()
-
       switch (item.currency.code) {
         case 'CYC001':
           chartKrwValues.value.unshift(item.summary_amount ?? 0)
@@ -89,7 +87,7 @@ const { data: statisticsDailyResultData } = await useAsyncData('statisticsDailyR
           break
       }
 
-      chartDateLabel.value.unshift(previousDay)
+      chartDateLabel.value.unshift(item.created_at ?? '')
       chartValuesUnit.value.unshift(item.currency.code ?? '')
     })
   }

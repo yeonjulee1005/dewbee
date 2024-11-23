@@ -39,6 +39,14 @@ export default defineNuxtConfig({
         { name: 'naver-site-verification', content: '6eb6da4d3753c139c41f5b5cf3ec61c8151e6922' },
         { name: 'google-adsense-account', content: 'ca-pub-9720546940719922' },
       ],
+      script: [
+        {
+          hid: 'google-adsense',
+          src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9720546940719922',
+          crossorigin: 'anonymous',
+          defer: true,
+        },
+      ],
     },
   },
   css: [
@@ -62,6 +70,8 @@ export default defineNuxtConfig({
       supabaseUrl: process.env.SUPABASE_URL ?? '',
       supabaseKey: process.env.SUPABASE_KEY ?? '',
       githubAccessToken: process.env.GITHUB_ACCESS_TOKEN ?? '',
+      paypalClientId: process.env.PAYPAL_CLIENT_ID ?? '',
+      paypalSecret: process.env.PAYPAL_SECRET ?? '',
       adminUid: process.env.ADMIN_UID ?? '',
     },
   },

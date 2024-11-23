@@ -146,6 +146,11 @@ const clearArithmometer = () => {
         :currency-code="userData?.currency.code"
         :end-date-code="userData?.endDate.code"
       />
+      <!-- v-if="userData?.plan.code === 'PNC002'" -->
+      <MainSuccessTable
+        :table-data="mainWeeklyResultList"
+        :pending-table-data="pendingMainWeeklyResultList"
+      />
       <MainArithmometerGroup
         v-model:main-spend-category-code="selectSpendCategoryCode"
         v-model:main-spend-amount="spendAmount"
@@ -154,10 +159,6 @@ const clearArithmometer = () => {
         :currency-code="userData?.currency.code"
         :target-amount="userData?.weekly_target_amount"
         @save:spend-amount="saveSpendAmount"
-      />
-      <MainSuccessTable
-        :table-data="mainWeeklyResultList"
-        :pending-table-data="pendingMainWeeklyResultList"
       />
       <AFooter />
     </div>
@@ -168,7 +169,7 @@ const clearArithmometer = () => {
       <div class="flex flex-col gap-y-6">
         <MainIntroTitle />
         <MainIntroDescriptions />
-        <MainIntroPlan />
+        <!-- <MainIntroPlan /> -->
       </div>
       <AFooter />
     </div>

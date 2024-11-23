@@ -1,8 +1,11 @@
+import { differenceInDays } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import { ko, enUS } from 'date-fns/locale'
 
 export const useUi = () => {
   const { t, locale } = useCustomLocale()
+
+  const { userData } = storeToRefs(useUserDataStore())
 
   const genUid = () => {
     return (new Date().getTime() + Math.random().toString(36).substring(2, 16))
@@ -99,11 +102,13 @@ export const useUi = () => {
     const targetDate = new Date(date)
     const today = new Date()
 
-    const diffTime = today.getTime() - targetDate.getTime()
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+    const offset = userData.value.localTimezone.utc_offset || 0
+    targetDate.setHours(targetDate.getHours() - offset)
+
+    const diffDays = differenceInDays(today, targetDate)
 
     if (today.toDateString() === targetDate.toDateString()) {
-      return formatInTimeZone(date, 'Asia/Seoul', 'a h:mm', { locale: locale.value === 'ko' ? ko : enUS })
+      return formatInTimeZone(date, 'Asia/Seoul', 'MMM d a h:mm', { locale: locale.value === 'ko' ? ko : enUS })
     }
     else if (diffDays < 30) {
       return t('text.daysAgo', { days: diffDays })

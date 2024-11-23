@@ -101,9 +101,10 @@ const checkLoginState = () => {
 }
 
 const insertLoginMenu = () => {
-  userData.value.plan.code === 'PNC001'
-    ? insertFreePlanMenu()
-    : insertProPlanMenu()
+  insertProPlanMenu()
+  // userData.value.plan.code === 'PNC001'
+  //   ? insertFreePlanMenu()
+  //   : insertProPlanMenu()
 
   menuItems.value.push(
     [
@@ -127,38 +128,38 @@ const insertLoginMenu = () => {
     ])
 }
 
-const insertFreePlanMenu = () => {
-  menuItems.value.unshift(
-    [
-      {
-        label: t('menu.main'),
-        icon: 'i-lucide-home',
-        kbds: ['ctrl', 'm'],
-        to: '/',
-      },
-      {
-        label: t('menu.records.label'),
-        icon: 'i-lucide-dollar-sign',
-        children: [
-          {
-            label: t('menu.records.weekly'),
-            icon: 'i-lucide-calendar',
-            kbds: ['ctrl', 'meta', 'w'],
-            onSelect: () => {
-              navigateTo('/records/weekly')
-            },
-          },
-        ],
-      },
-      {
-        label: t('menu.plan'),
-        icon: 'i-lucide-crown',
-        kbds: ['ctrl', 'p'],
-        to: '/plan',
-      },
-    ],
-  )
-}
+// const insertFreePlanMenu = () => {
+//   menuItems.value.unshift(
+//     [
+//       {
+//         label: t('menu.main'),
+//         icon: 'i-lucide-home',
+//         kbds: ['ctrl', 'm'],
+//         to: '/',
+//       },
+//       {
+//         label: t('menu.records.label'),
+//         icon: 'i-lucide-dollar-sign',
+//         children: [
+//           {
+//             label: t('menu.records.weekly'),
+//             icon: 'i-lucide-calendar',
+//             kbds: ['ctrl', 'meta', 'w'],
+//             onSelect: () => {
+//               navigateTo('/records/weekly')
+//             },
+//           },
+//         ],
+//       },
+//       // {
+//       //   label: t('menu.plan'),
+//       //   icon: 'i-lucide-crown',
+//       //   kbds: ['ctrl', 'p'],
+//       //   to: '/plan',
+//       // },
+//     ],
+//   )
+// }
 
 const insertProPlanMenu = () => {
   menuItems.value.unshift(
@@ -207,12 +208,12 @@ const insertProPlanMenu = () => {
           },
         ],
       },
-      {
-        label: t('menu.plan'),
-        icon: 'i-lucide-crown',
-        kbds: ['ctrl', 'p'],
-        to: '/plan',
-      },
+      // {
+      //   label: t('menu.plan'),
+      //   icon: 'i-lucide-crown',
+      //   kbds: ['ctrl', 'p'],
+      //   to: '/plan',
+      // },
     ],
   )
 }
@@ -248,7 +249,7 @@ defineShortcuts({
   ctrl_i: () => navigateTo('/inquiry'),
   ctrl_l: () => navigateTo('/login'),
   ctrl_m: () => navigateTo('/'),
-  ctrl_p: () => navigateTo('/plan'),
+  // ctrl_p: () => navigateTo('/plan'),
   ctrl_s: () => navigateTo('/settings'),
   ctrl_t: () => navigateTo('/settings/theme'),
   ctrl_n: () => navigateTo('/settings/patch'),
