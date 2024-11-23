@@ -1,8 +1,6 @@
 import type { FilterDatabase } from '@/types/supabaseFilter'
 
 export const useLoadFilterData = () => {
-  const { schemaFetchData } = useFetchComposable()
-
   const {
     currencyCodeList,
     planCodeList,
@@ -12,46 +10,66 @@ export const useLoadFilterData = () => {
   } = storeToRefs(useFilterDataStore())
 
   const { execute: executeCurrencyCodeList } = useAsyncData('currencyCodeList', async () => {
-    const result = await schemaFetchData('filter', 'currency', 'id, index, code, code_name', 'index', true)
-    currencyCodeList.value = result as FilterDatabase['filter']['Tables']['currency']['Row'][]
+    const { data } = await useFetch('/api/codeLists', {
+      query: {
+        tableName: 'currency',
+      },
+      headers: useRequestHeaders(['cookie']),
+    })
 
-    return result ?? []
+    currencyCodeList.value = data as unknown as FilterDatabase['filter']['Tables']['currency']['Row'][]
   }, {
     immediate: true,
   })
 
   const { execute: executePlanCodeList } = useAsyncData('planCodeList', async () => {
-    const result = await schemaFetchData('filter', 'plan', 'id, index, code, code_name', 'index', true)
-    planCodeList.value = result as FilterDatabase['filter']['Tables']['plan']['Row'][]
+    const { data } = await useFetch('/api/codeLists', {
+      query: {
+        tableName: 'plan',
+      },
+      headers: useRequestHeaders(['cookie']),
+    })
 
-    return result ?? []
+    planCodeList.value = data as unknown as FilterDatabase['filter']['Tables']['plan']['Row'][]
   }, {
     immediate: true,
   })
 
   const { execute: executeSpendCategoryCodeList } = useAsyncData('spendCategoryCodeList', async () => {
-    const result = await schemaFetchData('filter', 'spendCategory', 'id, index, code, code_name, icon_name', 'index', true)
-    spendCategoryCodeList.value = result as FilterDatabase['filter']['Tables']['spendCategory']['Row'][]
+    const { data } = await useFetch('/api/codeLists', {
+      query: {
+        tableName: 'spendCategory',
+      },
+      headers: useRequestHeaders(['cookie']),
+    })
 
-    return result ?? []
+    spendCategoryCodeList.value = data as unknown as FilterDatabase['filter']['Tables']['spendCategory']['Row'][]
   }, {
     immediate: true,
   })
 
   const { execute: executeEndDateCodeList } = useAsyncData('endDateCodeList', async () => {
-    const result = await schemaFetchData('filter', 'endDate', 'id, index, code, code_name', 'index', true)
-    endDateCodeList.value = result as FilterDatabase['filter']['Tables']['endDate']['Row'][]
+    const { data } = await useFetch('/api/codeLists', {
+      query: {
+        tableName: 'endDate',
+      },
+      headers: useRequestHeaders(['cookie']),
+    })
 
-    return result ?? []
+    endDateCodeList.value = data as unknown as FilterDatabase['filter']['Tables']['endDate']['Row'][]
   }, {
     immediate: true,
   })
 
   const { execute: executeLocalTimezone } = useAsyncData('localTimezone', async () => {
-    const result = await schemaFetchData('filter', 'localTimezone', 'id, index, code, code_name, utc_offset, icon', 'index', true)
-    localTimezone.value = result as FilterDatabase['filter']['Tables']['localTimezone']['Row'][]
+    const { data } = await useFetch('/api/codeLists', {
+      query: {
+        tableName: 'localTimezone',
+      },
+      headers: useRequestHeaders(['cookie']),
+    })
 
-    return result ?? []
+    localTimezone.value = data as unknown as FilterDatabase['filter']['Tables']['localTimezone']['Row'][]
   }, {
     immediate: true,
   })

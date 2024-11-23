@@ -1,13 +1,11 @@
 <script setup lang="ts">
-const client = useSupabaseClient()
-
 const { t } = useCustomLocale()
 const toast = useToast()
 
 const user = useSupabaseUser()
 
 const { logout } = useFetchComposable()
-const { userData, userCoreId } = storeToRefs(useUserDataStore())
+const { userData, userCoreId, currentLocalTimezoneOffset } = storeToRefs(useUserDataStore())
 
 const cookieName = useRuntimeConfig().public.supabase.cookieName
 const redirectPath = useCookie(`${cookieName}-redirect-path`, { sameSite: 'lax', secure: true }).value
@@ -20,24 +18,19 @@ definePageMeta({
   layout: 'center',
 })
 
-const loadUserData = async (userId: string) => {
-  const { data, error } = await client
-    .from('viewProfiles')
-    .select('*')
-    .eq('id', userId)
-    .single()
+const loadUserData = async () => {
+  const { data } = await useFetch('/api/profiles', {
+    headers: useRequestHeaders(['cookie']),
+  })
 
-  if (error) {
-    toast.add({ title: error.message, description: 'at fetch userData', color: 'error' })
-  }
-
-  userData.value = data as SerializeObject
+  userData.value = data.value as unknown as Database['public']['Tables']['profiles']['Row']
   userCoreId.value = userData.value?.id ?? ''
+  currentLocalTimezoneOffset.value = userData.value?.localTimezone.utc_offset ?? 0
 }
 
 watch(user, async () => {
   if (!user.value) return
-  await loadUserData(user.value.id)
+  await loadUserData()
 
   if (userData.value?.deleted) {
     toast.add({ title: t('message.alreadyWithdrawal.title'), description: t('message.alreadyWithdrawal.description'), color: 'error' })

@@ -14,7 +14,7 @@ import {
 const { t } = useCustomLocale()
 const { comma, transformChartDate } = useUi()
 
-const { userData } = storeToRefs(useUserDataStore())
+// const { userData } = storeToRefs(useUserDataStore())
 
 const props = withDefaults(
   defineProps<{
@@ -80,30 +80,30 @@ const options = {
       },
     },
     y: {
-      grid: {
-        display: false,
-        lineWidth: 0,
-      },
-      border: {
-        display: false,
-      },
-      ticks: {
-        font: {
-          size: 16,
-          family: 'Source Code Pro',
-        },
-        padding: 10,
-        callback: (tickValue: string | number, index: number, ticks: any[]) => {
-          if (index === ticks.length - 1) {
-            return comma(tickValue as number).concat(t(`currency.${userData.value?.currency.code ?? 'CYC001'}`))
-          }
-          if (tickValue === 0) {
-            return '0'.concat(t(`currency.${userData.value?.currency.code ?? 'CYC001'}`))
-          }
-          return ''
-        },
-      },
-      // display: false,
+      // grid: {
+      //   display: false,
+      //   lineWidth: 0,
+      // },
+      // border: {
+      //   display: false,
+      // },
+      // ticks: {
+      //   font: {
+      //     size: 16,
+      //     family: 'Source Code Pro',
+      //   },
+      //   padding: 10,
+      //   callback: (tickValue: string | number, index: number, ticks: any[]) => {
+      //     if (index === ticks.length - 1) {
+      //       return comma(tickValue as number).concat(t(`currency.${userData.value?.currency.code ?? 'CYC001'}`))
+      //     }
+      //     if (tickValue === 0) {
+      //       return '0'.concat(t(`currency.${userData.value?.currency.code ?? 'CYC001'}`))
+      //     }
+      //     return ''
+      //   },
+      // },
+      display: false,
     },
     y1: {
       display: false,

@@ -1,28 +1,20 @@
 export const useLoadUserData = () => {
   const user = useSupabaseUser()
-  const client = useSupabaseClient()
 
-  const toast = useToast()
-
-  const { userData, userCoreId } = storeToRefs(useUserDataStore())
+  const { userData, userCoreId, currentLocalTimezoneOffset } = storeToRefs(useUserDataStore())
 
   const { refresh: refreshUserData, execute: executeUpdateData, pending: pendingUpdateData } = useAsyncData('storeUserData', async () => {
     if (!user.value?.id) {
       return {}
     }
 
-    const { data, error } = await client
-      .from('viewProfiles')
-      .select('*')
-      .eq('id', user.value?.id)
-      .single()
+    const { data } = await useFetch('/api/profiles', {
+      headers: useRequestHeaders(['cookie']),
+    })
 
-    if (error) {
-      toast.add({ title: error.message, description: 'at fetch userData', color: 'error' })
-    }
-
-    userData.value = data as SerializeObject
+    userData.value = data.value as unknown as Database['public']['Tables']['profiles']['Row']
     userCoreId.value = userData.value?.id ?? ''
+    currentLocalTimezoneOffset.value = userData.value?.localTimezone.utc_offset ?? 0
 
     return data
   }, {
