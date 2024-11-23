@@ -128,38 +128,38 @@ const insertLoginMenu = () => {
     ])
 }
 
-const insertFreePlanMenu = () => {
-  menuItems.value.unshift(
-    [
-      {
-        label: t('menu.main'),
-        icon: 'i-lucide-home',
-        kbds: ['ctrl', 'm'],
-        to: '/',
-      },
-      {
-        label: t('menu.records.label'),
-        icon: 'i-lucide-dollar-sign',
-        children: [
-          {
-            label: t('menu.records.weekly'),
-            icon: 'i-lucide-calendar',
-            kbds: ['ctrl', 'meta', 'w'],
-            onSelect: () => {
-              navigateTo('/records/weekly')
-            },
-          },
-        ],
-      },
-      // {
-      //   label: t('menu.plan'),
-      //   icon: 'i-lucide-crown',
-      //   kbds: ['ctrl', 'p'],
-      //   to: '/plan',
-      // },
-    ],
-  )
-}
+// const insertFreePlanMenu = () => {
+//   menuItems.value.unshift(
+//     [
+//       {
+//         label: t('menu.main'),
+//         icon: 'i-lucide-home',
+//         kbds: ['ctrl', 'm'],
+//         to: '/',
+//       },
+//       {
+//         label: t('menu.records.label'),
+//         icon: 'i-lucide-dollar-sign',
+//         children: [
+//           {
+//             label: t('menu.records.weekly'),
+//             icon: 'i-lucide-calendar',
+//             kbds: ['ctrl', 'meta', 'w'],
+//             onSelect: () => {
+//               navigateTo('/records/weekly')
+//             },
+//           },
+//         ],
+//       },
+//       // {
+//       //   label: t('menu.plan'),
+//       //   icon: 'i-lucide-crown',
+//       //   kbds: ['ctrl', 'p'],
+//       //   to: '/plan',
+//       // },
+//     ],
+//   )
+// }
 
 const insertProPlanMenu = () => {
   menuItems.value.unshift(
