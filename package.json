@@ -44,6 +44,7 @@
     "@nuxtjs/i18n": "9.0.0",
     "@nuxtjs/stylelint-module": "^5.2.0",
     "@nuxtjs/supabase": "^1.4.1",
+    "@paypal/paypal-js": "^8.1.2",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
     "@pinia/nuxt": "^0.7.0",
     "@stefanobartoletti/nuxt-social-share": "^1.2.0",

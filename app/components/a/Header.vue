@@ -101,9 +101,10 @@ const checkLoginState = () => {
 }
 
 const insertLoginMenu = () => {
-  userData.value.plan.code === 'PNC001'
-    ? insertFreePlanMenu()
-    : insertProPlanMenu()
+  insertProPlanMenu()
+  // userData.value.plan.code === 'PNC001'
+  //   ? insertFreePlanMenu()
+  //   : insertProPlanMenu()
 
   menuItems.value.push(
     [
@@ -150,12 +151,12 @@ const insertFreePlanMenu = () => {
           },
         ],
       },
-      {
-        label: t('menu.plan'),
-        icon: 'i-lucide-crown',
-        kbds: ['ctrl', 'p'],
-        to: '/plan',
-      },
+      // {
+      //   label: t('menu.plan'),
+      //   icon: 'i-lucide-crown',
+      //   kbds: ['ctrl', 'p'],
+      //   to: '/plan',
+      // },
     ],
   )
 }
@@ -207,12 +208,12 @@ const insertProPlanMenu = () => {
           },
         ],
       },
-      {
-        label: t('menu.plan'),
-        icon: 'i-lucide-crown',
-        kbds: ['ctrl', 'p'],
-        to: '/plan',
-      },
+      // {
+      //   label: t('menu.plan'),
+      //   icon: 'i-lucide-crown',
+      //   kbds: ['ctrl', 'p'],
+      //   to: '/plan',
+      // },
     ],
   )
 }
@@ -248,7 +249,7 @@ defineShortcuts({
   ctrl_i: () => navigateTo('/inquiry'),
   ctrl_l: () => navigateTo('/login'),
   ctrl_m: () => navigateTo('/'),
-  ctrl_p: () => navigateTo('/plan'),
+  // ctrl_p: () => navigateTo('/plan'),
   ctrl_s: () => navigateTo('/settings'),
   ctrl_t: () => navigateTo('/settings/theme'),
   ctrl_n: () => navigateTo('/settings/patch'),

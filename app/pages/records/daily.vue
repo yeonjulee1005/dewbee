@@ -63,10 +63,10 @@ const columns: TableColumn<DailyResult | WeeklyResult | Realtime>[] = [
     },
     cell: ({ row }) => {
       return h('div', { class: 'min-w-[100px] flex items-center justify-end text-neutral-800 dark:text-neutral-200' }, [
-        h('div', { class: 'font-semibold' }, [
+        h('span', { class: 'font-semibold' }, [
           comma((row.original as DailyResult).summary_amount ?? 0),
         ]),
-        h('div', { class: 'ml-1 text-xs font-light' }, [
+        h('span', { class: 'ml-1 text-xs font-light' }, [
           t(`currency.${row?.original.currency?.code ?? ''}`),
         ]),
       ])
