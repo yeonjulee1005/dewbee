@@ -13,9 +13,6 @@ export default {
     inquiry: '문의하기',
     patchNote: '패치노트',
     familyService: '패밀리 서비스',
-    businessName: '듀듀',
-    businessNumber: '사업자등록번호: 482-11-01740',
-    businessAddress: '제주시 아연로 171, 301호',
     policy: '개인정보 처리방침',
   },
   menu: {

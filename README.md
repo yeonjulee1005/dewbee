@@ -1,9 +1,6 @@
 ![Dewbee](./.github/assets/dewbee_logo.png)
 
 # DewBee.
-[![npm version][npm-version-src]][npm-version-href]
-[![License][license-src]][license-href]
-[![Nuxt][nuxt-src]][nuxt-href]
 
 > [!NOTE]
 > 해당 프로젝트는 무료로 사용이 가능해요.
