@@ -23,10 +23,10 @@ const dewdew = ref({
     <p class="break-keep">
       {{ computedBusinessInfo }}
     </p>
-    <p class="break-keep mt-1">
+    <p class="break-keep mt-0.5">
       {{ copyright }}
     </p>
-    <div class="flex justify-end items-center gap-x-4">
+    <div class="flex justify-end items-center gap-x-4 mt-0.5">
       <ULink
         :to="dewdewWorld.url"
         external

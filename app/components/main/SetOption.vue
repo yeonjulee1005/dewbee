@@ -38,6 +38,8 @@ const computedAccordionIconColor = computed(() => {
       return 'text-green-400'
     case 'warning':
       return 'text-yellow-400'
+    case 'primary':
+      return 'text-amber-400'
     default:
       return 'text-red-400'
   }
@@ -48,12 +50,12 @@ const computedAccordionIconColor = computed(() => {
   <div class="w-full flex flex-col items-end gap-y-4">
     <UAccordion
       :items="situationItem"
-      :ui="{ root: 'w-full flex justify-end', header: 'w-full flex-col items-end' }"
+      :ui="{ root: 'w-full flex justify-end', header: 'w-full flex-col items-end', trailingIcon: 'size-8' }"
     >
       <template #leading>
-        <Icon
+        <LazyIcon
           :name="situation.icon"
-          :class="`w-10 h-10 ${computedAccordionIconColor}`"
+          :class="`w-8 h-8 ${computedAccordionIconColor}`"
         />
       </template>
       <template #default>

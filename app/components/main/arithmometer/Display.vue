@@ -39,7 +39,7 @@ withDefaults(
         name="i-lucide-triangle-alert"
         class="w-5 h-5 text-red-600 dark:text-red-400"
       />
-      <span class="text-lg font-light break-keep text-red-600 dark:text-red-400">
+      <span class="text-lg break-keep text-red-600 dark:text-red-400">
         {{ $t('main.require.category') }}
       </span>
     </div>
@@ -57,7 +57,7 @@ withDefaults(
         name="i-lucide-triangle-alert"
         class="w-5 h-5 text-red-600 dark:text-red-400"
       />
-      <span class="text-lg font-light break-keep text-red-600 dark:text-red-400">
+      <span class="text-lg break-keep text-red-600 dark:text-red-400">
         {{ $t('main.require.amount') }}
       </span>
     </div>

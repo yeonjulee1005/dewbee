@@ -23,7 +23,7 @@ definePageMeta({
 })
 
 const page = ref(1)
-const pageSize = ref(10)
+const pageSize = ref(7)
 
 const pageCalc = (page: number, pageCount: number, firstRange: boolean): number => {
   return firstRange

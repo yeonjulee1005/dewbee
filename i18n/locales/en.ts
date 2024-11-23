@@ -171,7 +171,7 @@ export default {
         'there was and your remaining balance!',
       ],
     },
-    login: 'Login to use the below features!',
+    login: 'Go to Login',
     plan: {
       description: 'Most features are',
       descriptionEnd: 'available!',
@@ -183,6 +183,7 @@ export default {
       good: 'Reasonable compared to the target!',
       warning: 'Risky compared to the target!',
       danger: 'Dangerous compared to the target!',
+      over: 'Exceeded the target!',
     },
     setOption: {
       thisWeekend: 'This week\'s spending is ',
@@ -195,6 +196,7 @@ export default {
       category: 'Select a category!',
       amount: 'Amount is empty!',
     },
+    arithmometer: 'Arithmometer',
     target: 'Target。',
     button: 'Enter with buttons',
     manual: 'Enter manually',

@@ -104,28 +104,39 @@ const computedSpendCategoryName = computed(() => {
     }"
   >
     <template #header>
-      <div class="w-full flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
-        <div class="grid justify-items-center grid-cols-4 sm:grid-cols-3 gap-3">
-          <ATooltipButton
-            v-for="(currency, index) in spendCategoryCodeList"
-            :key="index"
-            use-leading
-            custom-class="w-fit"
-            button-size="xl"
-            :button-color="mainSpendCategoryCode === currency.code ? 'primary' : 'neutral'"
-            :button-variant="mainSpendCategoryCode === currency.code ? 'subtle' : 'outline'"
-            :icon-lead-name="currency?.icon_name ?? ''"
-            :icon-lead-class="windowSize > 340 ? 'w-11 h-11' : 'w-7 h-7'"
-            :tooltip-text="currency?.code_name ?? ''"
-            @click:button="selectCategory(currency?.code ?? '')"
+      <div class="flex flex-col gap-y-8">
+        <div class="flex items-center gap-x-2">
+          <Icon
+            name="i-lucide-calculator"
+            class="w-6 h-6"
+          />
+          <p class="text-xl font-bold">
+            {{ $t('main.arithmometer') }}
+          </p>
+        </div>
+        <div class="w-full flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
+          <div class="grid justify-items-center grid-cols-4 sm:grid-cols-3 gap-3">
+            <ATooltipButton
+              v-for="(currency, index) in spendCategoryCodeList"
+              :key="index"
+              use-leading
+              custom-class="w-fit"
+              button-size="xl"
+              :button-color="mainSpendCategoryCode === currency.code ? 'primary' : 'neutral'"
+              :button-variant="mainSpendCategoryCode === currency.code ? 'subtle' : 'outline'"
+              :icon-lead-name="currency?.icon_name ?? ''"
+              :icon-lead-class="windowSize > 340 ? 'w-11 h-11' : 'w-7 h-7'"
+              :tooltip-text="currency?.code_name ?? ''"
+              @click:button="selectCategory(currency?.code ?? '')"
+            />
+          </div>
+          <MainArithmometerDisplay
+            :spend-category-code="mainSpendCategoryCode"
+            :spend-category-name="computedSpendCategoryName"
+            :spend-amount="mainSpendAmount"
+            :currency-code="currencyCode"
           />
         </div>
-        <MainArithmometerDisplay
-          :spend-category-code="mainSpendCategoryCode"
-          :spend-category-name="computedSpendCategoryName"
-          :spend-amount="mainSpendAmount"
-          :currency-code="currencyCode"
-        />
       </div>
     </template>
     <MainArithmometerAmount
@@ -139,7 +150,7 @@ const computedSpendCategoryName = computed(() => {
       <div class="w-full flex justify-end">
         <div
           v-if="mainSpendCategoryCode && mainSpendAmount"
-          class="h-12 flex gap-x-2"
+          class="h-12 flex gap-x-3"
         >
           <AButton
             button-size="xl"
