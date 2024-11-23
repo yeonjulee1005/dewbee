@@ -26,7 +26,8 @@ definePageMeta({
 const page = ref(1)
 const pageSize = ref(7)
 
-const isProPlan = userData.value.plan.code === 'PNC002'
+// const isProPlan = userData.value.plan.code === 'PNC002'
+const isProPlan = true
 
 const pageCalc = (page: number, pageCount: number, firstRange: boolean): number => {
   return firstRange
@@ -98,10 +99,10 @@ const columns: TableColumn<WeeklyResult | DailyResult | Realtime>[] = [
       const percentage = ((row.original as WeeklyResult).summary_amount ?? 0) / ((row.original as WeeklyResult).weekly_target_amount ?? 0) * 100
 
       return h('div', { class: `min-w-[100px] flex items-center justify-end ${spendColorTranslate(percentage)}` }, [
-        h('div', { class: 'font-semibold' }, [
+        h('span', { class: 'font-semibold' }, [
           comma((row.original as WeeklyResult).summary_amount ?? 0),
         ]),
-        h('div', { class: 'ml-1 text-xs font-light' }, [
+        h('span', { class: 'ml-1 text-xs font-light' }, [
           t(`currency.${row?.original.currency?.code ?? ''}`),
         ]),
       ])
@@ -127,10 +128,10 @@ const columns: TableColumn<WeeklyResult | DailyResult | Realtime>[] = [
     },
     cell: ({ row }) => {
       return h('div', { class: 'min-w-[100px] flex items-center justify-end text-neutral-800 dark:text-neutral-200' }, [
-        h('div', { class: 'font-semibold' }, [
+        h('span', { class: 'font-semibold' }, [
           comma((row.original as WeeklyResult).weekly_target_amount ?? 0),
         ]),
-        h('div', { class: 'ml-1 text-xs font-light' }, [
+        h('span', { class: 'ml-1 text-xs font-light' }, [
           t(`currency.${row?.original.currency?.code ?? ''}`),
         ]),
       ])
@@ -159,10 +160,10 @@ const columns: TableColumn<WeeklyResult | DailyResult | Realtime>[] = [
       const percentage = ((row.original as WeeklyResult).summary_amount ?? 0) / ((row.original as WeeklyResult).weekly_target_amount ?? 0) * 100
 
       return h('div', { class: `min-w-[100px] flex items-center justify-end ${spendColorTranslate(percentage)}` }, [
-        h('div', { class: 'font-semibold' }, [
+        h('span', { class: 'font-semibold' }, [
           comma(gap),
         ]),
-        h('div', { class: 'ml-1 text-xs font-light' }, [
+        h('span', { class: 'ml-1 text-xs font-light' }, [
           t(`currency.${row?.original.currency?.code ?? ''}`),
         ]),
       ])
@@ -176,7 +177,7 @@ const columns: TableColumn<WeeklyResult | DailyResult | Realtime>[] = [
       return h(UButton, {
         color: 'neutral',
         variant: 'ghost',
-        label: t('label.summaryDate'),
+        label: t('label.spendRangeDate'),
         icon: isSorted
           ? isSorted === 'asc'
             ? 'i-lucide-arrow-up-narrow-wide'
@@ -190,8 +191,8 @@ const columns: TableColumn<WeeklyResult | DailyResult | Realtime>[] = [
       const summaryStartDate = subDays(new Date(row.original?.created_at ?? ''), 7)
       const summaryEndDate = subDays(new Date(row.original?.created_at ?? ''), 1)
 
-      const summaryDate = formatInTimeZone(summaryStartDate, 'Asia/Seoul', 'yyyy-MM-dd', { locale: locale.value === 'ko' ? ko : enUS })
-        .concat(' ~ ', formatInTimeZone(summaryEndDate, 'Asia/Seoul', 'yyyy-MM-dd', { locale: locale.value === 'ko' ? ko : enUS }))
+      const summaryDate = formatInTimeZone(summaryStartDate, 'Asia/Seoul', 'yy.MM.dd', { locale: locale.value === 'ko' ? ko : enUS })
+        .concat(' ~ ', formatInTimeZone(summaryEndDate, 'Asia/Seoul', 'yy.MM.dd', { locale: locale.value === 'ko' ? ko : enUS }))
 
       return h('div', { class: 'flex items-center justify-end font-light text-neutral-800 dark:text-neutral-200' }, [
         summaryDate,

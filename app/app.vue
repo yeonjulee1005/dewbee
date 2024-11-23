@@ -14,7 +14,7 @@ const seoTitle = 'DewBEE - 주간 여유자금 관리 및 소비 내역 체크 �
 const seoDescription = 'DewBEE는 여유자금을 효율적으로 관리하고 소비 내역을 주간 단위로 기록할 수 있는 개인 재무 관리 서비스입니다. 소비 습관을 개선하고 지출 패턴을 분석하여 더 나은 자산 관리를 도와줍니다.'
 const seoKeywords = '여유자금 관리, 소비 내역 체크, 소비 습관 개선, 자금 관리 서비스, 주간 소비 기록, 가계부 앱, 재무 관리 도구, 지출 관리, 소비 패턴 분석, 자산 관리, budget management, spending tracker, expense tracking, weekly budget, financial planning, money management app, personal finance, expense monitoring, spending habits, financial insights'
 const seoUrl = 'https://dewbee.dewdew.world'
-const seoImage = 'https://dewbee.dewdew.world/image/image_og.jpg'
+const seoImage = 'https://dewbee.dewdew.world/image/image_og.png'
 
 useHead({
   titleTemplate: (title?: string | undefined): string | null => {
