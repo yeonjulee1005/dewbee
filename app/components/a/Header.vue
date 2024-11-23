@@ -307,6 +307,7 @@ onMounted(() => {
         :button-avatar="{
           src: computedAvatarUrl,
           size: 'xl',
+          alt: 'Avatar',
         }"
         button-variant="outline"
       />
