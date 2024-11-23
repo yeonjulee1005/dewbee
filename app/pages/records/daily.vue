@@ -10,10 +10,6 @@ const UButton = resolveComponent('UButton')
 const { t, locale } = useCustomLocale()
 const { comma } = useUi()
 
-const { userData } = storeToRefs(useUserDataStore())
-
-const { fetchPaginationData } = useFetchComposable()
-
 useHead({
   title: t('pageTitle.dailySpend'),
 })
@@ -31,14 +27,22 @@ const pageCalc = (page: number, pageCount: number, firstRange: boolean): number 
     : (page * pageCount) - 1
 }
 
-const { data: dailyResultData, pending: pendingDailyResultData } = await useAsyncData('dailyResultData', async () => {
-  const { data: response, count } = await fetchPaginationData('viewDailyResultList', '*', pageCalc(page.value, pageSize.value, true), pageCalc(page.value, pageSize.value, false), 'update_user_id', userData.value?.id ?? '')
+const { data: dailyResultData, pending: pendingDailyResultData } = useLazyAsyncData('dailyResultData', async () => {
+  const { data }: SerializeObject = await useFetch('/api/pagination', {
+    query: {
+      tableName: 'viewDailyResultList',
+      startPage: pageCalc(page.value, pageSize.value, true),
+      endPage: pageCalc(page.value, pageSize.value, false),
+    },
+    headers: useRequestHeaders(['cookie']),
+  })
 
-  return response
-    ? { list: response, count }
+  return data.value && data.value.data && data.value.count
+    ? { list: data.value.data, count: data.value.count }
     : { list: [], count: 0 }
 }, {
-  immediate: true,
+  dedupe: 'defer',
+  deep: true,
   watch: [page, pageSize],
 })
 

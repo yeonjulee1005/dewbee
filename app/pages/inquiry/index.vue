@@ -6,7 +6,6 @@ const toast = useToast()
 
 const config = useRuntimeConfig()
 
-const { schemaFetchRangeData } = useFetchComposable()
 const { schemaUpsertData, schemaUpdateData } = useUpdateComposable()
 
 const user = useSupabaseUser()
@@ -48,10 +47,20 @@ const { data: guestInquiryData, execute: executeGuestInquiryList, pending: pendi
     return { list: [], count: 0 }
   }
 
-  const { data: response, count } = await schemaFetchRangeData('board', 'guestInquiry', '*', pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true), pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false), 'activated', false)
+  const { data }: SerializeObject = await useFetch('/api/pagination/guest', {
+    query: {
+      schema: 'board',
+      tableName: 'guestInquiry',
+      startPage: pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true),
+      endPage: pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false),
+      ascending: 'activated',
+      isAscending: false,
+    },
+    headers: useRequestHeaders(['cookie']),
+  })
 
-  return response
-    ? { list: response, count }
+  return data.value
+    ? { list: data.value.data, count: data.value.count }
     : { list: [], count: 0 }
 }, {
   immediate: true,
@@ -63,10 +72,20 @@ const { data: memberInquiryData, execute: executeMemberInquiryList, pending: pen
     return { list: [], count: 0 }
   }
 
-  const { data: response, count } = await schemaFetchRangeData('board', 'viewInquiryChannel', '*', pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true), pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false), 'activated', false)
+  const { data }: SerializeObject = await useFetch('/api/pagination/guest', {
+    query: {
+      schema: 'board',
+      tableName: 'viewInquiryChannel',
+      startPage: pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true),
+      endPage: pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false),
+      ascending: 'activated',
+      isAscending: false,
+    },
+    headers: useRequestHeaders(['cookie']),
+  })
 
-  return response
-    ? { list: response, count }
+  return data.value
+    ? { list: data.value.data, count: data.value.count }
     : { list: [], count: 0 }
 }, {
   immediate: true,
@@ -78,10 +97,21 @@ const { data: userInquiryData, execute: executeUserInquiryList, pending: pending
     return { list: [], count: 0 }
   }
 
-  const { data: response, count } = await schemaFetchRangeData('board', 'viewInquiryChannel', '*', pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true), pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false), 'activated', false, 'request_user_id', user.value?.id)
+  const { data }: SerializeObject = await useFetch('/api/pagination', {
+    query: {
+      schema: 'board',
+      tableName: 'viewInquiryChannel',
+      startPage: pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true),
+      endPage: pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false),
+      matchOpt: 'request_user_id',
+      ascending: 'activated',
+      isAscending: false,
+    },
+    headers: useRequestHeaders(['cookie']),
+  })
 
-  return response
-    ? { list: response, count }
+  return data.value
+    ? { list: data.value.data, count: data.value.count }
     : { list: [], count: 0 }
 }, {
   immediate: true,

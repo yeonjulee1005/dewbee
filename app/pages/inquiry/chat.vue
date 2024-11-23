@@ -7,7 +7,6 @@ const { query } = useRoute()
 
 const channelCode = query.channelCode as string
 
-const { schemaFetchOptionSingleData } = useFetchComposable()
 const { schemaUpsertData, schemaUpdateData } = useUpdateComposable()
 
 const { userData } = storeToRefs(useUserDataStore())
@@ -27,14 +26,22 @@ const message = ref('')
 const composingTrigger = ref(false)
 
 const { data: inquiryChatData, refresh: refreshInquiryChatData } = useAsyncData('inquiryChatData', async () => {
-  const response = await schemaFetchOptionSingleData('board', 'viewInquiryChannel', '*', 'channel_code', channelCode)
+  const { data }: SerializeObject = await useFetch('/api/chat', {
+    query: {
+      schema: 'board',
+      tableName: 'viewInquiryChannel',
+      matchOpt: 'channel_code',
+      matchOptVal: channelCode,
+    },
+    headers: useRequestHeaders(['cookie']),
+  })
 
-  if (response) {
-    enterInquiryChat(response.id, response.request_user_id)
+  if (data.value) {
+    enterInquiryChat(data.value.id, data.value.request_user_id)
   }
 
-  return response
-    ? response
+  return data.value
+    ? data.value
     : null
 }, {
   immediate: true,
