@@ -23,12 +23,14 @@ useHead({
           :src="url(true, '/assets/dewbee_logo.svg')"
           :width="windowSize > 340 ? 240 : 160"
           :height="windowSize > 340 ? 240 : 160"
+          alt="DewBee Logo"
         />
         <NuxtImg
           class="rounded-full ring-4 ring-emerald-400/50"
           :src="url(true, '/assets/dewdew_world_logo.png')"
           :width="windowSize > 340 ? 240 : 160"
           :height="windowSize > 340 ? 240 : 160"
+          alt="Dewdew World Logo"
         />
       </div>
     </div>

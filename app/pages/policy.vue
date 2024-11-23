@@ -245,6 +245,7 @@ const tradeTerms = ref({
     <NuxtImg
       class="w-40 cursor-pointer"
       :src="url(true, '/assets/dewbee_logo.svg')"
+      alt="DewBee Logo"
     />
     <div class="flex flex-col gap-y-4">
       <h3 class="text-2xl font-bold break-keep">
