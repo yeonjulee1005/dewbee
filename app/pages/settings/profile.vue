@@ -138,6 +138,7 @@ onMounted(() => {
               preload
               width="140"
               height="140"
+              alt="Avatar"
               @click="imageInputs?.click()"
             />
             <USkeleton

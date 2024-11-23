@@ -169,7 +169,6 @@ const clearArithmometer = () => {
       <div class="flex flex-col gap-y-6">
         <MainIntroTitle />
         <MainIntroDescriptions />
-        <!-- <MainIntroPlan /> -->
       </div>
       <AFooter />
     </div>

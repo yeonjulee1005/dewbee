@@ -169,7 +169,7 @@ onMounted(() => {
     width: 65%;
     margin: 20px 0;
     border: none;
-    height: 20px; // 원하는 높이로 조정
+    height: 20px;
     background-image: var(--zigzag-pattern);
     background-repeat: repeat-x;
   }

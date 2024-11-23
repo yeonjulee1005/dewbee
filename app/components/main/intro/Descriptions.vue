@@ -82,6 +82,7 @@ const { windowSize } = storeToRefs(useWindowStore())
         class="rounded-full ring-4 ring-amber-500"
         :width="windowSize > 340 ? 300 : 160"
         :height="windowSize > 340 ? 300 : 160"
+        alt="DewBEE Logo"
       />
     </div>
   </div>

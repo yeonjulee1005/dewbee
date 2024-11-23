@@ -13,9 +13,6 @@ export default {
     inquiry: 'Inquiry',
     patchNote: 'Patch Note',
     familyService: 'Family Service',
-    businessName: 'Dewdew',
-    businessNumber: 'Business Registration Number: 482-11-01740',
-    businessAddress: 'Jeju-si Ayeon-ro 171, #301',
     policy: 'Privacy Policy',
   },
   menu: {

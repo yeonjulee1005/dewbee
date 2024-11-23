@@ -1,16 +1,11 @@
 <script setup lang="ts">
-// import { loadScript } from '@paypal/paypal-js'
-
 const user = useSupabaseUser()
 
-// const config = useRuntimeConfig()
 const { t } = useCustomLocale()
 
 useHead({
   title: t('pageTitle.plan'),
 })
-
-// const paypal = ref()
 
 const loginModalTrigger = ref(false)
 
@@ -27,43 +22,7 @@ const clickPlan = async (option: string) => {
   if (option === 'free') {
     return
   }
-
-  // console.log(option)
 }
-
-// const loadPaypalScript = async () => {
-//   try {
-//     paypal.value = await loadScript({
-//       clientId: config.public.paypalClientId,
-//       currency: 'USD',
-//       components: ['buttons', 'marks', 'messages'],
-//     })
-
-//     renderPaypalButton()
-//   }
-//   catch (error) {
-//     console.error('failed to load the PayPal JS SDK script', error)
-//   }
-// }
-
-// const renderPaypalButton = () => {
-//   if (!paypal.value) return
-
-//   paypal.value.Buttons({
-//     message: {
-//       amount: 1,
-//       align: 'center',
-//       position: 'top',
-//     },
-//     style: {
-//       layout: 'vertical',
-//       color: 'blue',
-//       borderRadius: 8,
-//     },
-//   }).render('#paypal-button-container')
-// }
-
-// await loadPaypalScript()
 </script>
 
 <template>
@@ -78,10 +37,6 @@ const clickPlan = async (option: string) => {
         clickable
         @click:plan="clickPlan"
       />
-      <!-- <div
-        id="paypal-button-container"
-        class="w-full h-fit"
-      /> -->
     </div>
     <ModalConfirm
       v-model:confirm-modal-trigger="loginModalTrigger"
