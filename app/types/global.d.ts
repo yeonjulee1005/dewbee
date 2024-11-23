@@ -41,7 +41,7 @@ type WeeklyResult = Database['public']['Views']['viewWeeklyResultList']['Row'] &
  */
 
 interface SpendSituation {
-  color: 'secondary' | 'success' | 'warning' | 'error'
+  color: 'secondary' | 'success' | 'warning' | 'primary' | 'error'
   label: string
   icon: string
 }

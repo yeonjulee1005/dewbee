@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full flex flex-col gap-y-6">
-    <div class="flex flex-col gap-y-1.5">
+  <div class="w-full flex flex-col gap-y-6 mt-6">
+    <div class="flex flex-col gap-y-4">
       <p class="text-xl font-light break-keep">
         <span>
           {{ $t('intro.plan.description') }}

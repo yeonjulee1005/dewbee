@@ -24,7 +24,7 @@ definePageMeta({
 })
 
 const page = ref(1)
-const pageSize = ref(10)
+const pageSize = ref(7)
 
 const isProPlan = userData.value.plan.code === 'PNC002'
 
