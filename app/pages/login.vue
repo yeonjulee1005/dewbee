@@ -73,6 +73,7 @@ const userLogin = async (provider: 'kakao' | 'google' | 'github' | 'linkedin_oid
         :src="url(true, '/assets/dewbee_logo.svg')"
         :height="180"
         :width="180"
+        alt="DewBee Logo"
       />
       <div class="text-2xl font-black">
         {{ $t('pageTitle.login') }}
