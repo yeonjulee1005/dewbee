@@ -83,7 +83,7 @@ const updateInput = (value: number) => {
     <UAccordion
       v-model="selectKeypadAccordion"
       :items="keypadAccordion"
-      :ui="{ root: 'w-full flex justify-start', header: 'w-fit', item: 'w-full' }"
+      :ui="{ root: 'w-full flex justify-start', header: 'w-fit', item: 'w-full', label: 'text-xl', leadingIcon: 'size-6', trailingIcon: 'size-6' }"
     >
       <template #button>
         <div class="w-full flex flex-col gap-y-4">
@@ -121,21 +121,16 @@ const updateInput = (value: number) => {
     </UAccordion>
     <UAccordion
       :items="manualAccordion"
-      :ui="{ header: 'w-fit' }"
+      :ui="{ header: 'w-fit', label: 'text-xl', leadingIcon: 'size-6', trailingIcon: 'size-6' }"
     >
       <template #manual>
-        <div class="w-full flex justify-end gap-4">
-          <UInput
+        <div class="w-full flex justify-end">
+          <UInputNumber
             v-model="mainSpendAmount"
-            class="w-full max-w-[300px]"
-            type="number"
             :min="0"
             :max="1000000000"
             :step="1000"
             size="xl"
-            :ui="{
-              base: 'text-right',
-            }"
             @update:model-value="(value: string | number) => updateInput(value as number)"
           />
         </div>

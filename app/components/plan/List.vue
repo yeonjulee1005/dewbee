@@ -33,7 +33,7 @@ const moveToPlanPage = (index: number) => {
       v-for="(list, index) in _list"
       :key="index"
       :ui="{
-        root: `w-full md:w-1/2 ${index === 0 ? 'ring' : 'ring-4 ring-amber-500'} ${index === 0 ? 'hover:ring-2' : 'hover:ring-amber-600 hover:dark:ring-amber-400'} ${clickable ? 'cursor-pointer' : ''} transition-all duration-200 ease-in-out`,
+        root: `w-full md:w-1/2 ${index === 0 ? 'ring' : 'ring-4 ring-amber-500'} ${index === 0 ? 'hover:ring-2 hover:ring-amber-500' : 'hover:ring-amber-600 hover:dark:ring-amber-400'} ${clickable ? 'cursor-pointer' : ''} transition-all duration-200 ease-in-out`,
         body: 'p-4',
       }"
       @click="moveToPlanPage(index)"

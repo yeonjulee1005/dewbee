@@ -17,7 +17,7 @@ withDefaults(
     tableData: () => [],
     pendingTableData: false,
     isRealtime: false,
-    pageSize: 10,
+    pageSize: 7,
     totalCount: 1,
     usePagination: true,
   },

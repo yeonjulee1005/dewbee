@@ -12,7 +12,7 @@ const { userData } = storeToRefs(useUserDataStore())
 const { pendingUpdateData } = useLoadUserData()
 const { currencyCodeList, spendCategoryCodeList } = storeToRefs(useFilterDataStore())
 
-const { fetchRangeData } = useFetchComposable()
+const { fetchRangeData, fetchPaginationData } = useFetchComposable()
 const { upsertData } = useUpdateComposable()
 
 useCookie(`${config.public.supabase.cookieName}-redirect-path`).value = fullPath
@@ -25,7 +25,7 @@ const selectSpendCategoryCode = ref('')
 const spendAmount = ref(0)
 const saveConfirmTrigger = ref(false)
 
-const { data: spendListData, execute: executeSpendListData } = useAsyncData(async () => {
+const { data: mainSpendList, execute: executeSpendListData } = useAsyncData('mainSpendList', async () => {
   if (!userData.value) {
     return { data: [], count: 0 }
   }
@@ -33,11 +33,21 @@ const { data: spendListData, execute: executeSpendListData } = useAsyncData(asyn
   const startDateTimestampz = getWeeklyTimestampz(userData.value.endDate.code)?.gteDate ?? ''
   const endDateTimestampz = getWeeklyTimestampz(userData.value.endDate.code)?.lteDate ?? ''
 
-  const response = await fetchRangeData('viewSpendList', '*', 'created_at', endDateTimestampz, 'created_at', startDateTimestampz, 'update_user_id', userData.value.id)
+  const response = await fetchRangeData('viewSpendList', '*', 'created_at', endDateTimestampz, 'created_at', startDateTimestampz, true, 'update_user_id', userData.value.id)
 
   return response
     ? response
     : { data: [], count: 0 }
+}, {
+  immediate: true,
+})
+
+const { data: mainWeeklyResultList, pending: pendingMainWeeklyResultList } = useAsyncData('mainWeeklyResultList', async () => {
+  const response = await fetchPaginationData('viewWeeklyResultList', '*', 0, 3, 'update_user_id', userData.value.id)
+
+  return response
+    ? response.data
+    : []
 }, {
   immediate: true,
 })
@@ -50,11 +60,11 @@ const computedSpendSituation = computed(() => {
   let label = ''
   let icon = 'i-lucide-check-circle'
 
-  if (!spendListData.value) {
+  if (!mainSpendList.value) {
     return { color, label: t('main.situation.excellent'), icon }
   }
 
-  spendListData.value?.data.forEach((item: Database['public']['Views']['viewSpendList']['Row']) => {
+  mainSpendList.value?.data.forEach((item: Database['public']['Views']['viewSpendList']['Row']) => {
     amount += item.amount ?? 0
   })
 
@@ -76,10 +86,15 @@ const computedSpendSituation = computed(() => {
     label = t('main.situation.warning')
     icon = 'i-fluent-emoji-high-contrast-grinning-face-with-sweat'
   }
-  else {
-    color = 'error'
+  else if (percentage <= 100) {
+    color = 'primary'
     label = t('main.situation.danger')
     icon = 'i-fluent-emoji-high-contrast-crying-face'
+  }
+  else {
+    color = 'error'
+    label = t('main.situation.over')
+    icon = 'i-fluent-emoji-high-contrast-face-screaming-in-fear'
   }
 
   return { color, label, icon }
@@ -126,7 +141,7 @@ const clearArithmometer = () => {
     >
       <MainSetOption
         v-model:situation="computedSpendSituation"
-        :spend-count="spendListData?.count ?? 0"
+        :spend-count="mainSpendList?.count ?? 0"
         :target-amount="userData?.weekly_target_amount"
         :currency-code="userData?.currency.code"
         :end-date-code="userData?.endDate.code"
@@ -134,9 +149,15 @@ const clearArithmometer = () => {
       <MainArithmometerGroup
         v-model:main-spend-category-code="selectSpendCategoryCode"
         v-model:main-spend-amount="spendAmount"
+        :weekly-result-list="mainWeeklyResultList"
+        :pending-weekly-result-list="pendingMainWeeklyResultList"
         :currency-code="userData?.currency.code"
         :target-amount="userData?.weekly_target_amount"
         @save:spend-amount="saveSpendAmount"
+      />
+      <MainSuccessTable
+        :table-data="mainWeeklyResultList"
+        :pending-table-data="pendingMainWeeklyResultList"
       />
       <AFooter />
     </div>
@@ -144,9 +165,8 @@ const clearArithmometer = () => {
       v-else
       class="h-fit flex flex-col gap-y-6 px-6 py-4"
     >
-      <div class="flex flex-col gap-y-10">
+      <div class="flex flex-col gap-y-6">
         <MainIntroTitle />
-        <MainIntroLogin />
         <MainIntroDescriptions />
         <MainIntroPlan />
       </div>
