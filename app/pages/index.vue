@@ -52,7 +52,7 @@ const { data: mainSpendList, execute: executeSpendListData } = useLazyAsyncData(
   deep: true,
 })
 
-const { data: mainWeeklyResultList, pending: pendingMainWeeklyResultList } = useLazyAsyncData('mainWeeklyResultList', async () => {
+const { data: mainWeeklyResultList, pending: pendingMainWeeklyResultList, execute: executeMainWeeklyResultListData } = useLazyAsyncData('mainWeeklyResultList', async () => {
   if (!userData.value) {
     return []
   }
@@ -103,6 +103,11 @@ const clearArithmometer = () => {
   spendAmount.value = 0
   selectSpendCategoryCode.value = ''
 }
+
+onMounted(() => {
+  executeSpendListData()
+  executeMainWeeklyResultListData()
+})
 </script>
 
 <template>
