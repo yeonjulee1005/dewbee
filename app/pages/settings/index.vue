@@ -13,6 +13,7 @@ const { updateData } = useUpdateComposable()
 
 useHead({
   title: t('pageTitle.settings'),
+  meta: [{ name: 'description', content: t('pageDescription.settings') }],
 })
 
 definePageMeta({

@@ -8,6 +8,7 @@ const { windowSize } = storeToRefs(useWindowStore())
 
 useHead({
   title: t('pageTitle.patchNote'),
+  meta: [{ name: 'description', content: t('pageDescription.patchNote') }],
 })
 
 const currentPage = ref(1)

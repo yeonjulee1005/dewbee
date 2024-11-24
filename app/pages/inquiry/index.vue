@@ -12,6 +12,7 @@ const user = useSupabaseUser()
 
 useHead({
   title: t('pageTitle.inquiry'),
+  meta: [{ name: 'description', content: t('pageDescription.inquiry') }],
 })
 
 const inquiryTabs = ref([
