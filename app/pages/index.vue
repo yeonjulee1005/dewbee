@@ -11,7 +11,7 @@ const { comma } = useUi()
 const { getWeeklyTimestampz } = useLocalTimezone()
 
 const { userData } = storeToRefs(useUserDataStore())
-const { pendingUpdateData } = useLoadUserData()
+const { pendingUpdateData, executeUpdateData } = useLoadUserData()
 const { currencyCodeList, spendCategoryCodeList } = storeToRefs(useFilterDataStore())
 
 const { upsertData } = useUpdateComposable()
@@ -21,6 +21,10 @@ useCookie(`${config.public.supabase.cookieName}-redirect-path`).value = fullPath
 useHead({
   title: t('pageTitle.main'),
 })
+
+if (user.value?.id && !userData.value) {
+  executeUpdateData()
+}
 
 const selectSpendCategoryCode = ref('')
 const spendAmount = ref(0)
@@ -110,13 +114,13 @@ const clearArithmometer = () => {
       v-if="user?.id"
       class="h-fit flex flex-col items-end gap-y-8 px-6 py-4"
     >
-      <MainSetOption
+      <LazyMainSetOption
         :spend-list="mainSpendList?.data ?? []"
         :spend-count="mainSpendList?.count ?? 0"
         @execute:spend-list="executeSpendListData"
       />
       <!-- v-if="userData?.plan.code === 'PNC002'" -->
-      <MainSuccessTable
+      <LazyMainSuccessTable
         :table-data="mainWeeklyResultList"
         :pending-table-data="pendingMainWeeklyResultList"
       />
