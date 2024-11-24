@@ -5,6 +5,7 @@ const { url } = useImageStorage()
 
 useHead({
   title: t('pageTitle.policy'),
+  meta: [{ name: 'description', content: t('pageDescription.policy') }],
 })
 
 definePageMeta({
