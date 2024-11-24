@@ -10,10 +10,6 @@ const UBadge = resolveComponent('UBadge')
 const { t, locale } = useCustomLocale()
 const { comma } = useUi()
 
-const { userData } = storeToRefs(useUserDataStore())
-
-const { fetchPaginationData } = useFetchComposable()
-
 useHead({
   title: t('pageTitle.realtimeSpend'),
 })
@@ -31,14 +27,22 @@ const pageCalc = (page: number, pageCount: number, firstRange: boolean): number 
     : (page * pageCount) - 1
 }
 
-const { data: realtimeSpendData, pending: pendingRealtimeSpendData } = await useAsyncData('realtimeSpendData', async () => {
-  const { data: response, count } = await fetchPaginationData('viewSpendList', '*', pageCalc(page.value, pageSize.value, true), pageCalc(page.value, pageSize.value, false), 'update_user_id', userData.value?.id ?? '')
+const { data: realtimeSpendData, pending: pendingRealtimeSpendData } = useLazyAsyncData('realtimeSpendData', async () => {
+  const { data }: SerializeObject = await useFetch('/api/pagination', {
+    query: {
+      tableName: 'viewSpendList',
+      startPage: pageCalc(page.value, pageSize.value, true),
+      endPage: pageCalc(page.value, pageSize.value, false),
+    },
+    headers: useRequestHeaders(['cookie']),
+  })
 
-  return response
-    ? { list: response, count }
+  return data.value && data.value.data && data.value.count
+    ? { list: data.value.data, count: data.value.count }
     : { list: [], count: 0 }
 }, {
-  immediate: true,
+  dedupe: 'defer',
+  deep: true,
   watch: [page, pageSize],
 })
 

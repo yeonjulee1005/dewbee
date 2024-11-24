@@ -35,54 +35,54 @@ useHead({
   },
 })
 
-useServerHead({
-  meta: () => [
-    { name: 'charset', content: 'utf-16' },
-    { name: 'format-detection', content: 'telephone=no' },
-    { name: 'viewport', content: 'width=device-width, initial-scale=1, user-scalable=yes' },
-    { name: 'title', content: seoTitle },
-    { name: 'author', content: 'Dewdew' },
-    { name: 'theme-color', content: '#fdc6b1' },
-    { name: 'msapplication-TileColor', content: '#fdc6b1' },
-    { name: 'naver-site-verification', content: '6eb6da4d3753c139c41f5b5cf3ec61c8151e6922' },
-    { name: 'google-adsense-account', content: 'ca-pub-9720546940719922' },
-    { property: 'imagetoolbar', content: 'no' },
-    { property: 'og:url', content: seoUrl },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:image:width', content: '1200' },
-    { property: 'og:image:height', content: '630' },
-    { property: 'og:title', content: (meta.title as string) || seoTitle },
-    { name: 'description', content: (meta.description as string) || seoDescription },
-    { property: 'og:description', content: (meta.description as string) || seoDescription },
-    { property: 'og:image', content: seoImage, key: 'og:image' },
-    { property: 'og:image:type', content: 'image/png' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: seoTitle },
-    { name: 'twitter:description', content: seoDescription },
-    { name: 'twitter:image', content: seoImage },
-    { name: 'twitter:site', content: '@dewdew' },
-    { name: 'twitter:creator', content: '@dewdew' },
-  ],
-  link: [
-    { rel: 'canonical', href: seoUrl },
-    { rel: 'manifest', href: '/manifest.webmanifest' },
-    { rel: 'apple-touch-icon', sizes: '180x180', href: '/image/apple-touch-icon.png' },
-    { rel: 'icon', type: 'image/svg+xml', href: '/image/favicon.svg' },
-    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-    { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/image/favicon-96x96.png' },
-    { rel: 'alternate', type: 'application/rss+xml', href: '/rss.xml' },
-  ],
-  script: [
-    {
-      hid: 'google-adsense',
-      src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9720546940719922',
-      crossorigin: 'anonymous',
-      defer: true,
-    },
-  ],
-})
-
 if (import.meta.server) {
+  useServerHead({
+    meta: () => [
+      { name: 'charset', content: 'utf-16' },
+      { name: 'format-detection', content: 'telephone=no' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1, user-scalable=yes' },
+      { name: 'title', content: seoTitle },
+      { name: 'author', content: 'Dewdew' },
+      { name: 'theme-color', content: '#fdc6b1' },
+      { name: 'msapplication-TileColor', content: '#fdc6b1' },
+      { name: 'naver-site-verification', content: '6eb6da4d3753c139c41f5b5cf3ec61c8151e6922' },
+      { name: 'google-adsense-account', content: 'ca-pub-9720546940719922' },
+      { property: 'imagetoolbar', content: 'no' },
+      { property: 'og:url', content: seoUrl },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:title', content: (meta.title as string) || seoTitle },
+      { name: 'description', content: (meta.description as string) || seoDescription },
+      { property: 'og:description', content: (meta.description as string) || seoDescription },
+      { property: 'og:image', content: seoImage, key: 'og:image' },
+      { property: 'og:image:type', content: 'image/png' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: seoTitle },
+      { name: 'twitter:description', content: seoDescription },
+      { name: 'twitter:image', content: seoImage },
+      { name: 'twitter:site', content: '@dewdew' },
+      { name: 'twitter:creator', content: '@dewdew' },
+    ],
+    link: [
+      { rel: 'canonical', href: seoUrl },
+      { rel: 'manifest', href: '/manifest.webmanifest' },
+      { rel: 'apple-touch-icon', sizes: '180x180', href: '/image/apple-touch-icon.png' },
+      { rel: 'icon', type: 'image/svg+xml', href: '/image/favicon.svg' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/image/favicon-96x96.png' },
+      { rel: 'alternate', type: 'application/rss+xml', href: '/rss.xml' },
+    ],
+    script: [
+      {
+        hid: 'google-adsense',
+        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9720546940719922',
+        crossorigin: 'anonymous',
+        defer: true,
+      },
+    ],
+  })
+
   executeUpdateData()
   executeFilterData()
 }

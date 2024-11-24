@@ -11,10 +11,6 @@ const UBadge = resolveComponent('UBadge')
 const { t, locale } = useCustomLocale()
 const { comma } = useUi()
 
-const { userData } = storeToRefs(useUserDataStore())
-
-const { fetchPaginationData } = useFetchComposable()
-
 useHead({
   title: t('pageTitle.weeklySpend'),
 })
@@ -35,14 +31,22 @@ const pageCalc = (page: number, pageCount: number, firstRange: boolean): number 
     : (page * pageCount) - 1
 }
 
-const { data: weeklyResultData, pending: pendingWeeklyResultData } = await useAsyncData('weeklyResultData', async () => {
-  const { data: response, count } = await fetchPaginationData('viewWeeklyResultList', '*', pageCalc(page.value, pageSize.value, true), isProPlan ? pageCalc(page.value, pageSize.value, false) : 3, 'update_user_id', userData.value?.id ?? '')
+const { data: weeklyResultData, pending: pendingWeeklyResultData } = useLazyAsyncData('weeklyResultData', async () => {
+  const { data }: SerializeObject = await useFetch('/api/pagination', {
+    query: {
+      tableName: 'viewWeeklyResultList',
+      startPage: pageCalc(page.value, pageSize.value, true),
+      endPage: isProPlan ? pageCalc(page.value, pageSize.value, false) : 3,
+    },
+    headers: useRequestHeaders(['cookie']),
+  })
 
-  return response
-    ? { list: response, count: isProPlan ? count : 3 }
+  return data.value && data.value.data && data.value.count
+    ? { list: data.value.data, count: data.value.count }
     : { list: [], count: 0 }
 }, {
-  immediate: true,
+  dedupe: 'defer',
+  deep: true,
   watch: [page, pageSize],
 })
 

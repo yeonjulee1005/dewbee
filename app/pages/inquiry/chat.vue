@@ -7,7 +7,6 @@ const { query } = useRoute()
 
 const channelCode = query.channelCode as string
 
-const { schemaFetchOptionSingleData } = useFetchComposable()
 const { schemaUpsertData, schemaUpdateData } = useUpdateComposable()
 
 const { userData } = storeToRefs(useUserDataStore())
@@ -26,15 +25,23 @@ const userType = ref('')
 const message = ref('')
 const composingTrigger = ref(false)
 
-const { data: inquiryChatData, refresh: refreshInquiryChatData } = useAsyncData('inquiryChatData', async () => {
-  const response = await schemaFetchOptionSingleData('board', 'viewInquiryChannel', '*', 'channel_code', channelCode)
+const { data: inquiryChatData, refresh: refreshInquiryChatData, pending: pendingInquiryChatData } = useAsyncData('inquiryChatData', async () => {
+  const { data }: SerializeObject = await useFetch('/api/chat', {
+    query: {
+      schema: 'board',
+      tableName: 'viewInquiryChannel',
+      matchOpt: 'channel_code',
+      matchOptVal: channelCode,
+    },
+    headers: useRequestHeaders(['cookie']),
+  })
 
-  if (response) {
-    enterInquiryChat(response.id, response.request_user_id)
+  if (data.value) {
+    enterInquiryChat(data.value.id, data.value.request_user_id)
   }
 
-  return response
-    ? response
+  return data.value
+    ? data.value
     : null
 }, {
   immediate: true,
@@ -144,6 +151,7 @@ onMounted(async () => {
       </p>
     </UCard>
     <div
+      v-if="!pendingInquiryChatData"
       ref="chatContainerRef"
       class="w-full h-fit overflow-y-scroll flex flex-col items-center gap-y-10 py-4 pb-20"
     >
@@ -158,6 +166,15 @@ onMounted(async () => {
           :created-at="chatList.created_at"
         />
       </div>
+    </div>
+    <div
+      v-else
+      class="flex justify-center items-center min-h-[300px]"
+    >
+      <Icon
+        name="i-svg-spinners-pulse-multiple"
+        class="w-28 h-28"
+      />
     </div>
     <UTextarea
       v-if="inquiryChatData?.activated || userData?.id === config.public.adminUid"

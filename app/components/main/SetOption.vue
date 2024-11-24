@@ -1,20 +1,23 @@
 <script setup lang="ts">
+const { t } = useCustomLocale()
 const { comma } = useUi()
 
-withDefaults(
+const { userData } = storeToRefs(useUserDataStore())
+
+const props = withDefaults(
   defineProps<{
+    spendList?: Database['public']['Views']['viewSpendList']['Row'][]
     spendCount?: number
-    targetAmount?: number
-    currencyCode?: 'CYC001' | 'CYC002' | 'CYC003'
-    endDateCode?: 'EDC001' | 'EDC002' | 'EDC003' | 'EDC004' | 'EDC005' | 'EDC006' | 'EDC007'
   }>(),
   {
+    spendList: () => [],
     spendCount: 0,
-    targetAmount: 0,
-    currencyCode: 'CYC001',
-    endDateCode: 'EDC001',
   },
 )
+
+const emit = defineEmits([
+  'execute:spend-list',
+])
 
 const situationItem = [
   {
@@ -22,27 +25,56 @@ const situationItem = [
   },
 ]
 
-const situation = defineModel<SpendSituation>('situation', {
-  default: () => ({
-    color: 'secondary',
-    label: '1',
-    icon: 'i-lucide-check-circle',
-  }),
-})
+const computedSpendSituation = computed(() => {
+  let amount = 0
+  let theme: 'primary' | 'secondary' | 'success' | 'warning' | 'error' = 'secondary'
+  let color = 'text-blue-400'
+  let label = t('main.situation.excellent')
+  let icon = 'i-lucide-check-circle'
 
-const computedAccordionIconColor = computed(() => {
-  switch (situation.value.color) {
-    case 'secondary':
-      return 'text-blue-400'
-    case 'success':
-      return 'text-green-400'
-    case 'warning':
-      return 'text-yellow-400'
-    case 'primary':
-      return 'text-amber-400'
-    default:
-      return 'text-red-400'
+  if (!props.spendList.length) {
+    emit('execute:spend-list')
   }
+
+  props.spendList.forEach((item: Database['public']['Views']['viewSpendList']['Row']) => {
+    amount += item.amount ?? 0
+  })
+
+  const targetAmount = userData.value?.weekly_target_amount
+  const percentage = (amount / targetAmount) * 100
+
+  if (percentage <= 25) {
+    theme = 'secondary'
+    color = 'text-blue-400'
+    label = t('main.situation.excellent')
+    icon = 'i-fluent-emoji-high-contrast-grinning-squinting-face'
+  }
+  else if (percentage <= 50) {
+    theme = 'success'
+    color = 'text-green-400'
+    label = t('main.situation.good')
+    icon = 'i-fluent-emoji-high-contrast-kissing-face-with-closed-eyes'
+  }
+  else if (percentage <= 75) {
+    theme = 'warning'
+    color = 'text-yellow-400'
+    label = t('main.situation.warning')
+    icon = 'i-fluent-emoji-high-contrast-grinning-face-with-sweat'
+  }
+  else if (percentage <= 100) {
+    theme = 'primary'
+    color = 'text-amber-400'
+    label = t('main.situation.danger')
+    icon = 'i-fluent-emoji-high-contrast-crying-face'
+  }
+  else {
+    theme = 'error'
+    color = 'text-red-400'
+    label = t('main.situation.over')
+    icon = 'i-fluent-emoji-high-contrast-face-screaming-in-fear'
+  }
+
+  return { theme, color, label, icon }
 })
 </script>
 
@@ -53,18 +85,18 @@ const computedAccordionIconColor = computed(() => {
       :ui="{ root: 'w-full flex justify-end', header: 'w-full flex-col items-end', trailingIcon: 'size-8' }"
     >
       <template #leading>
-        <LazyIcon
-          :name="situation.icon"
-          :class="`w-8 h-8 ${computedAccordionIconColor}`"
+        <Icon
+          :name="computedSpendSituation.icon"
+          :class="`w-8 h-8 ${computedSpendSituation.color}`"
         />
       </template>
       <template #default>
         <UBadge
           class="ml-1.5"
-          :color="situation.color ?? 'error'"
+          :color="computedSpendSituation.theme ?? 'error'"
           variant="subtle"
           size="lg"
-          :label="situation.label"
+          :label="computedSpendSituation.label"
         />
       </template>
       <template #button>
@@ -75,7 +107,7 @@ const computedAccordionIconColor = computed(() => {
                 {{ $t('main.setOption.thisWeekend') }}
               </span>
               <UBadge
-                :color="situation.color ?? 'error'"
+                :color="computedSpendSituation.theme ?? 'error'"
                 variant="outline"
                 size="lg"
                 :label="$t('text.count', { count: spendCount })"
@@ -85,14 +117,14 @@ const computedAccordionIconColor = computed(() => {
               </span>
             </div>
             <p class="text-sm sm:text-lg break-keep leading-6">
-              {{ $t('main.setOption.currentSpendAmount', { amount: comma(targetAmount), currency: $t(`currency.${currencyCode}`) }) }}
+              {{ $t('main.setOption.currentSpendAmount', { amount: comma(userData?.weekly_target_amount ?? 0), currency: $t(`currency.${userData?.currency?.code}`) }) }}
             </p>
             <div class="flex items-center gap-x-2 text-sm sm:text-lg break-keep leading-6 mb-2">
               <UBadge
-                :color="situation.color ?? 'error'"
+                :color="computedSpendSituation.theme ?? 'error'"
                 variant="outline"
                 size="lg"
-                :label="$t('main.setOption.nextWeekend', { endDate: $t(`date.${endDateCode}`) })"
+                :label="$t('main.setOption.nextWeekend', { endDate: $t(`date.${userData?.endDate.code}`) })"
               />
               <span>
                 {{ $t('main.setOption.chekable') }}
