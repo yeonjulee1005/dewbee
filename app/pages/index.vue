@@ -52,7 +52,7 @@ const { data: mainSpendList, execute: executeSpendListData } = useLazyAsyncData(
   deep: true,
 })
 
-const { data: mainWeeklyResultList, pending: pendingMainWeeklyResultList, execute: executeMainWeeklyResultListData } = useLazyAsyncData('mainWeeklyResultList', async () => {
+const { data: mainWeeklyResultList, pending: pendingMainWeeklyResultList } = useLazyAsyncData('mainWeeklyResultList', async () => {
   if (!userData.value) {
     return []
   }
@@ -103,9 +103,6 @@ const clearArithmometer = () => {
   spendAmount.value = 0
   selectSpendCategoryCode.value = ''
 }
-
-executeSpendListData()
-executeMainWeeklyResultListData()
 </script>
 
 <template>
@@ -117,13 +114,13 @@ executeMainWeeklyResultListData()
       v-if="user?.id"
       class="h-fit flex flex-col items-end gap-y-8 px-6 py-4"
     >
-      <MainSetOption
+      <LazyMainSetOption
         :spend-list="mainSpendList?.data ?? []"
         :spend-count="mainSpendList?.count ?? 0"
         @execute:spend-list="executeSpendListData"
       />
       <!-- v-if="userData?.plan.code === 'PNC002'" -->
-      <MainSuccessTable
+      <LazyMainSuccessTable
         :table-data="mainWeeklyResultList"
         :pending-table-data="pendingMainWeeklyResultList"
       />
