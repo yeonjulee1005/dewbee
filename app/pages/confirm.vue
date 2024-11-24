@@ -3,9 +3,10 @@ const { t } = useCustomLocale()
 const toast = useToast()
 
 const user = useSupabaseUser()
+const { executeUpdateData } = useLoadUserData()
 
 const { logout } = useFetchComposable()
-const { userData, userCoreId, currentLocalTimezoneOffset } = storeToRefs(useUserDataStore())
+const { userData } = storeToRefs(useUserDataStore())
 
 const cookieName = useRuntimeConfig().public.supabase.cookieName
 const redirectPath = useCookie(`${cookieName}-redirect-path`, { sameSite: 'lax', secure: true }).value
@@ -18,29 +19,20 @@ definePageMeta({
   layout: 'center',
 })
 
-const loadUserData = async () => {
-  const { data } = await useFetch('/api/profiles', {
-    headers: useRequestHeaders(['cookie']),
-  })
-
-  userData.value = data.value as unknown as Database['public']['Tables']['profiles']['Row']
-  userCoreId.value = userData.value?.id ?? ''
-  currentLocalTimezoneOffset.value = userData.value?.localTimezone.utc_offset ?? 0
-}
-
 watch(user, async () => {
-  if (!user.value) return
-  await loadUserData()
+  if (user.value) {
+    await executeUpdateData()
 
-  if (userData.value?.deleted) {
-    toast.add({ title: t('message.alreadyWithdrawal.title'), description: t('message.alreadyWithdrawal.description'), color: 'error' })
-    await logout()
-    return navigateTo('/')
+    if (userData.value?.deleted) {
+      toast.add({ title: t('message.alreadyWithdrawal.title'), description: t('message.alreadyWithdrawal.description'), color: 'error' })
+      await logout()
+      return navigateTo('/')
+    }
+
+    toast.add({ title: t('message.loginSuccess.title'), description: t('message.loginSuccess.description'), color: 'success' })
+    useCookie(`${cookieName}-redirect-path`).value = null
+    return navigateTo(redirectPath)
   }
-
-  toast.add({ title: t('message.loginSuccess.title'), description: t('message.loginSuccess.description'), color: 'success' })
-  useCookie(`${cookieName}-redirect-path`).value = null
-  return navigateTo(redirectPath)
 }, {
   immediate: true,
 })
