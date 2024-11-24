@@ -104,10 +104,8 @@ const clearArithmometer = () => {
   selectSpendCategoryCode.value = ''
 }
 
-onMounted(() => {
-  executeSpendListData()
-  executeMainWeeklyResultListData()
-})
+executeSpendListData()
+executeMainWeeklyResultListData()
 </script>
 
 <template>
