@@ -12,6 +12,7 @@ const { comma } = useUi()
 
 useHead({
   title: t('pageTitle.realtimeSpend'),
+  meta: [{ name: 'description', content: t('pageDescription.realtimeSpend') }],
 })
 
 definePageMeta({

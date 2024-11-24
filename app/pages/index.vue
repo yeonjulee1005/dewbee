@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const config = useRuntimeConfig()
 
+const user = useSupabaseUser()
+
 const { fullPath } = useRoute()
 const { t } = useCustomLocale()
 const toast = useToast()
@@ -23,8 +25,6 @@ useHead({
 const selectSpendCategoryCode = ref('')
 const spendAmount = ref(0)
 const saveConfirmTrigger = ref(false)
-
-const computedLoginState = computed(() => userData.value)
 
 const { data: mainSpendList, execute: executeSpendListData } = useLazyAsyncData('mainSpendList', async () => {
   const startDateTimestampz = getWeeklyTimestampz(userData.value.endDate.code)?.gteDate ?? ''
@@ -107,7 +107,7 @@ const clearArithmometer = () => {
     class="w-full h-fit pb-2"
   >
     <div
-      v-if="computedLoginState"
+      v-if="user?.id"
       class="h-fit flex flex-col items-end gap-y-8 px-6 py-4"
     >
       <MainSetOption

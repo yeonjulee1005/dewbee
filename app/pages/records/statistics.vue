@@ -5,6 +5,7 @@ const { t } = useCustomLocale()
 
 useHead({
   title: t('pageTitle.statistics'),
+  meta: [{ name: 'description', content: t('pageDescription.statistics') }],
 })
 
 definePageMeta({

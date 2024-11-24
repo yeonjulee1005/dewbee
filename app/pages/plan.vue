@@ -5,6 +5,7 @@ const { t } = useCustomLocale()
 
 useHead({
   title: t('pageTitle.plan'),
+  meta: [{ name: 'description', content: t('pageDescription.plan') }],
 })
 
 const loginModalTrigger = ref(false)
