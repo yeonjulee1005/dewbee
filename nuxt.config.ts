@@ -64,7 +64,7 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    '/': { ssr: false },
+    '/': { prerender: true },
   },
   sourcemap: {
     server: true,
