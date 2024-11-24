@@ -42,9 +42,21 @@ const currentPage = defineModel('currentPage', {
       }"
     >
       <template #empty>
-        <p class="text-xl font-light text-neutral-800 dark:text-neutral-200 py-10">
+        <p
+          v-if="!pendingTableData"
+          class="text-xl font-light text-neutral-800 dark:text-neutral-200 py-10"
+        >
           {{ isRealtime ? $t('placeholder.noSpendRecords') : $t('placeholder.noResultRecords') }}
         </p>
+        <div
+          v-else
+          class="flex justify-center items-center min-h-[300px]"
+        >
+          <Icon
+            name="i-svg-spinners-pulse-multiple"
+            class="w-28 h-28"
+          />
+        </div>
       </template>
     </UTable>
     <UPagination

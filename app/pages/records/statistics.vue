@@ -11,7 +11,7 @@ definePageMeta({
   middleware: 'auth',
 })
 
-const { data: statisticsRealtimeSpendData } = await useAsyncData('statisticsRealtimeSpendData', async () => {
+const { data: statisticsRealtimeSpendData, pending: pendingStatisticsRealtimeSpendData } = await useAsyncData('statisticsRealtimeSpendData', async () => {
   const oneMonthAgo = subMonths(new Date(), 1).toISOString()
 
   const { data }: SerializeObject = await useFetch('/api/range', {
@@ -64,7 +64,7 @@ const { data: statisticsRealtimeSpendData } = await useAsyncData('statisticsReal
   deep: true,
 })
 
-const { data: statisticsDailyResultData } = await useAsyncData('statisticsDailyResultData', async () => {
+const { data: statisticsDailyResultData, pending: pendingStatisticsDailyResultData } = await useAsyncData('statisticsDailyResultData', async () => {
   const { data }: SerializeObject = await useFetch('/api/statistics', {
     query: {
       tableName: 'viewDailyResultList',
@@ -113,7 +113,7 @@ const { data: statisticsDailyResultData } = await useAsyncData('statisticsDailyR
   deep: true,
 })
 
-const { data: statisticsWeeklyResultData } = await useAsyncData('statisticsWeeklyResultData', async () => {
+const { data: statisticsWeeklyResultData, pending: pendingStatisticsWeeklyResultData } = await useAsyncData('statisticsWeeklyResultData', async () => {
   const { data }: SerializeObject = await useFetch('/api/statistics', {
     query: {
       tableName: 'viewWeeklyResultList',
@@ -164,7 +164,10 @@ const { data: statisticsWeeklyResultData } = await useAsyncData('statisticsWeekl
 </script>
 
 <template>
-  <div class="relative w-full h-fit flex flex-col justify-center gap-y-8 py-4 pb-6">
+  <div
+    v-if="!pendingStatisticsRealtimeSpendData && !pendingStatisticsDailyResultData && !pendingStatisticsWeeklyResultData"
+    class="relative w-full h-fit flex flex-col justify-center gap-y-8 py-4 pb-6"
+  >
     <ASubPageTitle
       :title="$t('pageTitle.statistics')"
       title-class="text-2xl font-semibold"
@@ -175,6 +178,7 @@ const { data: statisticsWeeklyResultData } = await useAsyncData('statisticsWeekl
         {{ $t('statistics.realtime') }}
       </p>
       <ChartSmoothLine
+        v-if="statisticsRealtimeSpendData?.chartDateLabel.length > 0"
         :statistics-type="'realtime'"
         :chart-date-label="statisticsRealtimeSpendData?.chartDateLabel"
         :chart-values-unit="statisticsRealtimeSpendData?.chartValuesUnit"
@@ -182,12 +186,28 @@ const { data: statisticsWeeklyResultData } = await useAsyncData('statisticsWeekl
         :chart-usd-value="statisticsRealtimeSpendData?.chartUsdValues"
         :chart-jpy-value="statisticsRealtimeSpendData?.chartJpyValues"
       />
+      <div
+        v-else
+        class="w-full flex justify-center"
+      >
+        <UCard
+          :ui="{
+            root: 'w-fit ring ring-neutral-400 dark:ring-neutral-600',
+            body: 'break-keep',
+          }"
+        >
+          <p class="text-center">
+            아직 실시간 지출 내역이 없습니다.
+          </p>
+        </UCard>
+      </div>
     </div>
     <div class="w-full flex flex-col gap-y-4 px-6">
       <p class="text-lg font-semibold">
         {{ $t('statistics.daily') }}
       </p>
       <ChartSmoothLine
+        v-if="statisticsDailyResultData?.chartDateLabel.length > 0"
         :statistics-type="'daily'"
         :chart-date-label="statisticsDailyResultData?.chartDateLabel"
         :chart-values-unit="statisticsDailyResultData?.chartValuesUnit"
@@ -195,12 +215,28 @@ const { data: statisticsWeeklyResultData } = await useAsyncData('statisticsWeekl
         :chart-usd-value="statisticsDailyResultData?.chartUsdValues"
         :chart-jpy-value="statisticsDailyResultData?.chartJpyValues"
       />
+      <div
+        v-else
+        class="w-full flex justify-center"
+      >
+        <UCard
+          :ui="{
+            root: 'w-fit ring ring-neutral-400 dark:ring-neutral-600',
+            body: 'break-keep',
+          }"
+        >
+          <p class="text-center">
+            아직 일일별 지출 내역이 없습니다.
+          </p>
+        </UCard>
+      </div>
     </div>
     <div class="w-full flex flex-col gap-y-4 px-6">
       <p class="text-lg font-semibold">
         {{ $t('statistics.weekly') }}
       </p>
       <ChartSmoothLine
+        v-if="statisticsWeeklyResultData?.chartDateLabel.length > 0"
         :statistics-type="'weekly'"
         :chart-date-label="statisticsWeeklyResultData?.chartDateLabel"
         :chart-values-unit="statisticsWeeklyResultData?.chartValuesUnit"
@@ -208,6 +244,30 @@ const { data: statisticsWeeklyResultData } = await useAsyncData('statisticsWeekl
         :chart-usd-value="statisticsWeeklyResultData?.chartUsdValues"
         :chart-jpy-value="statisticsWeeklyResultData?.chartJpyValues"
       />
+      <div
+        v-else
+        class="w-full flex justify-center"
+      >
+        <UCard
+          :ui="{
+            root: 'w-fit ring ring-neutral-400 dark:ring-neutral-600',
+            body: 'break-keep',
+          }"
+        >
+          <p class="text-center">
+            아직 주간별 지출 내역이 없습니다.
+          </p>
+        </UCard>
+      </div>
     </div>
+  </div>
+  <div
+    v-else
+    class="flex justify-center items-center h-screen"
+  >
+    <Icon
+      name="i-svg-spinners-pulse-multiple"
+      class="w-28 h-28"
+    />
   </div>
 </template>
