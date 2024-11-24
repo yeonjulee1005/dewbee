@@ -53,8 +53,6 @@ const { data: guestInquiryData, execute: executeGuestInquiryList, pending: pendi
       tableName: 'guestInquiry',
       startPage: pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true),
       endPage: pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false),
-      ascending: 'activated',
-      isAscending: false,
     },
     headers: useRequestHeaders(['cookie']),
   })
@@ -79,7 +77,6 @@ const { data: memberInquiryData, execute: executeMemberInquiryList, pending: pen
       startPage: pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true),
       endPage: pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false),
       ascending: 'activated',
-      isAscending: false,
     },
     headers: useRequestHeaders(['cookie']),
   })
@@ -105,7 +102,6 @@ const { data: userInquiryData, execute: executeUserInquiryList, pending: pending
       endPage: pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false),
       matchOpt: 'request_user_id',
       ascending: 'activated',
-      isAscending: false,
     },
     headers: useRequestHeaders(['cookie']),
   })
@@ -176,6 +172,7 @@ onMounted(async () => {
       >
         <template #guestInquiry>
           <InquiryList
+            v-if="!pendingGuestInquiryList"
             v-model:list-current-page="guestInquiryCurrentPage"
             list-type="adminGuest"
             :list-pending="pendingGuestInquiryList"
@@ -183,9 +180,19 @@ onMounted(async () => {
             :page-size="guestInquiryPageSize"
             @reply:admin-guest="replyInquiry"
           />
+          <div
+            v-else
+            class="flex justify-center items-center min-h-[300px]"
+          >
+            <Icon
+              name="i-svg-spinners-pulse-multiple"
+              class="w-28 h-28"
+            />
+          </div>
         </template>
         <template #memberInquiry>
           <InquiryList
+            v-if="!pendingMemberInquiryList"
             v-model:list-current-page="memberInquiryCurrentPage"
             list-type="adminMember"
             :list-pending="pendingMemberInquiryList"
@@ -193,10 +200,19 @@ onMounted(async () => {
             :page-size="memberInquiryPageSize"
             @move:chat-admin="moveToInquiryChat"
           />
+          <div
+            v-else
+            class="flex justify-center items-center min-h-[300px]"
+          >
+            <Icon
+              name="i-svg-spinners-pulse-multiple"
+              class="w-28 h-28"
+            />
+          </div>
         </template>
       </UTabs>
       <InquiryList
-        v-else
+        v-else-if="!pendingUserInquiryList"
         v-model:list-current-page="userInquiryCurrentPage"
         list-type="member"
         :list-pending="pendingUserInquiryList"
@@ -204,6 +220,15 @@ onMounted(async () => {
         :page-size="userInquiryPageSize"
         @move:chat-member="moveToInquiryChat"
       />
+      <div
+        v-else
+        class="flex justify-center items-center min-h-[300px]"
+      >
+        <Icon
+          name="i-svg-spinners-pulse-multiple"
+          class="w-28 h-28"
+        />
+      </div>
     </div>
     <InquiryGuestWrite v-else />
   </div>

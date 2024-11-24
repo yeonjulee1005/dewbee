@@ -25,7 +25,7 @@ const userType = ref('')
 const message = ref('')
 const composingTrigger = ref(false)
 
-const { data: inquiryChatData, refresh: refreshInquiryChatData } = useAsyncData('inquiryChatData', async () => {
+const { data: inquiryChatData, refresh: refreshInquiryChatData, pending: pendingInquiryChatData } = useAsyncData('inquiryChatData', async () => {
   const { data }: SerializeObject = await useFetch('/api/chat', {
     query: {
       schema: 'board',
@@ -151,6 +151,7 @@ onMounted(async () => {
       </p>
     </UCard>
     <div
+      v-if="!pendingInquiryChatData"
       ref="chatContainerRef"
       class="w-full h-fit overflow-y-scroll flex flex-col items-center gap-y-10 py-4 pb-20"
     >
@@ -165,6 +166,15 @@ onMounted(async () => {
           :created-at="chatList.created_at"
         />
       </div>
+    </div>
+    <div
+      v-else
+      class="flex justify-center items-center min-h-[300px]"
+    >
+      <Icon
+        name="i-svg-spinners-pulse-multiple"
+        class="w-28 h-28"
+      />
     </div>
     <UTextarea
       v-if="inquiryChatData?.activated || userData?.id === config.public.adminUid"
