@@ -14,20 +14,6 @@ export const useUserDataStore = defineStore('userDataStore', () => {
   const userCoreId = ref('')
   const currentLocalTimezoneOffset = ref(0)
 
-  watch(userData, () => {
-    if (userData.value) {
-      userCoreId.value = userData.value?.id ?? ''
-
-      settingLocalTimezoneProperties()
-    }
-  }, {
-    immediate: true,
-  })
-
-  const settingLocalTimezoneProperties = () => {
-    currentLocalTimezoneOffset.value = userData.value?.localTimezone.utc_offset ?? ''
-  }
-
   return {
     userCoreId,
     userData,
