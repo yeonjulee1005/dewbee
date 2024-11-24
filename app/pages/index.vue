@@ -11,7 +11,7 @@ const { comma } = useUi()
 const { getWeeklyTimestampz } = useLocalTimezone()
 
 const { userData } = storeToRefs(useUserDataStore())
-const { pendingUpdateData } = useLoadUserData()
+const { pendingUpdateData, executeUpdateData } = useLoadUserData()
 const { currencyCodeList, spendCategoryCodeList } = storeToRefs(useFilterDataStore())
 
 const { upsertData } = useUpdateComposable()
@@ -21,6 +21,10 @@ useCookie(`${config.public.supabase.cookieName}-redirect-path`).value = fullPath
 useHead({
   title: t('pageTitle.main'),
 })
+
+if (user.value?.id && !userData.value) {
+  executeUpdateData()
+}
 
 const selectSpendCategoryCode = ref('')
 const spendAmount = ref(0)
