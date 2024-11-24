@@ -12,6 +12,7 @@ const { windowSize } = storeToRefs(useWindowStore())
 
 useHead({
   title: t('pageTitle.login'),
+  meta: [{ name: 'description', content: t('pageDescription.login') }],
 })
 
 const loginButton = ref<{ provider: 'kakao' | 'google' | 'github' | 'linkedin_oidc', icon: string, text: string }[]>([

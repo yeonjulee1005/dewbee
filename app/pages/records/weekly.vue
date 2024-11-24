@@ -13,6 +13,7 @@ const { comma } = useUi()
 
 useHead({
   title: t('pageTitle.weeklySpend'),
+  meta: [{ name: 'description', content: t('pageDescription.weeklySpend') }],
 })
 
 definePageMeta({

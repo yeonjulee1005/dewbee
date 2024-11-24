@@ -7,6 +7,7 @@ const { windowSize } = storeToRefs(useWindowStore())
 
 useHead({
   title: t('pageTitle.familyService'),
+  meta: [{ name: 'description', content: t('pageDescription.familyService') }],
 })
 </script>
 

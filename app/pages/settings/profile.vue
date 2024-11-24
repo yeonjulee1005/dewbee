@@ -12,6 +12,7 @@ const { loadStorage, uploadStorage } = useFetchStorageComposable()
 
 useHead({
   title: t('pageTitle.profile'),
+  meta: [{ name: 'description', content: t('pageDescription.profile') }],
 })
 
 const limitType = ['image/jpeg', 'image/jpg', 'image/webp', 'image/png', 'image/svg+xml']

@@ -12,7 +12,8 @@ const { schemaUpsertData, schemaUpdateData } = useUpdateComposable()
 const { userData } = storeToRefs(useUserDataStore())
 
 useHead({
-  title: t('pageTitle.inquiry'),
+  title: t('pageTitle.chat'),
+  meta: [{ name: 'description', content: t('pageDescription.chat') }],
 })
 
 definePageMeta({
