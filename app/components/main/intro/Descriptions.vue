@@ -80,8 +80,7 @@ const { windowSize } = storeToRefs(useWindowStore())
       <NuxtImg
         :src="url(true, '/assets/dewbee-logo.webp')"
         class="rounded-full ring-4 ring-amber-500"
-        :width="windowSize > 340 ? 300 : 160"
-        :height="windowSize > 340 ? 300 : 160"
+        sizes="160px xs:300px"
         loading="lazy"
         placeholder
         format="webp"
