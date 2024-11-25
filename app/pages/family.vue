@@ -21,9 +21,12 @@ useHead({
       <div class="flex flex-col gap-y-6">
         <NuxtImg
           class="rounded-full ring-4 ring-amber-400/50"
-          :src="url(true, '/assets/dewbee_logo.svg')"
+          :src="url(true, '/assets/dewbee-logo.webp')"
           :width="windowSize > 340 ? 240 : 160"
           :height="windowSize > 340 ? 240 : 160"
+          loading="lazy"
+          placeholder
+          format="webp"
           alt="DewBee Logo"
         />
         <NuxtImg
@@ -31,6 +34,9 @@ useHead({
           :src="url(true, '/assets/dewdew_world_logo.png')"
           :width="windowSize > 340 ? 240 : 160"
           :height="windowSize > 340 ? 240 : 160"
+          loading="lazy"
+          placeholder
+          format="png"
           alt="Dewdew World Logo"
         />
       </div>
