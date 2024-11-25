@@ -1,6 +1,7 @@
 {
   "name": "DewBee",
-  "version": "1.3.0",
+  "packageManager": "bun@1.1.29",
+  "version": "1.3.1",
   "private": true,
   "author": {
     "name": "Dewdew",
@@ -16,7 +17,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest",
-    "vercel-build": "NITRO_PRESET=vercel nuxt build",
+    "vercel-build": "NITRO_PRESET=vercel-edge nuxt build",
     "upgrade:force": "nuxt upgrade --force",
     "supabase:login": "yarn supabase login",
     "supabase:type": "supabase gen types --lang=typescript --project-id biynqxysclkvwrscmupr --schema public > app/types/supabase.ts",
@@ -24,8 +25,8 @@
     "supabase:type-board": "supabase gen types --lang=typescript --project-id biynqxysclkvwrscmupr --schema board > app/types/supabaseBoard.ts"
   },
   "dependencies": {
-    "@nuxtjs/seo": "^2.0.0-rc.23",
-    "nuxt": "^3.13.2",
+    "@nuxtjs/seo": "2.0.2",
+    "nuxt": "3.13.2",
     "vue": "latest",
     "vue-router": "latest"
   },
