@@ -245,7 +245,10 @@ const tradeTerms = ref({
   <div class="w-dvw lg:w-[500px] flex flex-col gap-y-8 py-4 px-8">
     <NuxtImg
       class="w-40 cursor-pointer"
-      :src="url(true, '/assets/dewbee_logo.svg')"
+      :src="url(true, '/assets/dewbee-logo.webp')"
+      loading="lazy"
+      placeholder
+      format="webp"
       alt="DewBee Logo"
     />
     <div class="flex flex-col gap-y-4">
