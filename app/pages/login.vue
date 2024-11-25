@@ -71,9 +71,12 @@ const userLogin = async (provider: 'kakao' | 'google' | 'github' | 'linkedin_oid
   <div class="h-dvh w-full sm:w-[500px] flex flex-col items-center justify-center gap-y-6 px-6">
     <div class="flex flex-col items-center gap-y-3">
       <NuxtImg
-        :src="url(true, '/assets/dewbee_logo.svg')"
+        :src="url(true, '/assets/dewbee-logo.webp')"
         :height="180"
         :width="180"
+        loading="lazy"
+        placeholder
+        format="webp"
         alt="DewBee Logo"
       />
       <div class="text-2xl font-black">
