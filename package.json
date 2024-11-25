@@ -8,7 +8,7 @@
     "email": "yeonju.lee1005@kakao.com"
   },
   "scripts": {
-    "build": "nuxt build",
+    "build": "NITRO_PRESET=vercel-edge nuxt build",
     "dev": "nuxt dev --port 5000",
     "preview": "nuxt preview --port 5000",
     "postinstall": "nuxt prepare",
