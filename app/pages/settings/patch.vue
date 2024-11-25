@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { Octokit } from 'octokit'
-
 const { t } = useCustomLocale()
-const config = useRuntimeConfig()
 
 const { windowSize } = storeToRefs(useWindowStore())
 
@@ -14,34 +11,23 @@ useHead({
 const currentPage = ref(1)
 const pageSize = ref(5)
 
-const octokit = new Octokit({
-  auth: config.public.githubAccessToken,
-})
-
-const { data: githubReleaseData, execute: executeGithubReleaseData, pending: pendingGithubReleaseData } = useAsyncData(async () => {
-  const totalCount = await octokit.request('GET /repos/{owner}/{repo}/releases', {
-    owner: 'yeonjulee1005',
-    repo: 'dewbee',
+const { data: githubReleaseData, pending: pendingGithubReleaseData } = useLazyAsyncData(async () => {
+  const { data } = await useFetch('/api/patch', {
+    query: {
+      currentPage: currentPage.value,
+      pageSize: pageSize.value,
+    },
     headers: {
       'X-GitHub-Api-Version': '2022-11-28',
     },
   })
 
-  const data = await octokit.request('GET /repos/{owner}/{repo}/releases', {
-    owner: 'yeonjulee1005',
-    repo: 'dewbee',
-    page: currentPage.value,
-    per_page: pageSize.value,
-    headers: {
-      'X-GitHub-Api-Version': '2022-11-28',
-    },
-  })
-
-  return data
-    ? { releases: data.data, count: totalCount.data.length }
+  return data.value
+    ? { releases: data.value.data, count: data.value.count }
     : { releases: [], count: 0 }
 }, {
-  immediate: true,
+  dedupe: 'defer',
+  deep: true,
   watch: [currentPage],
 })
 
@@ -53,10 +39,6 @@ const parseMarkdown = (body: string) => {
     .replace(/^\s*-\s(.+)$/gm, '<li>$1</li>')
     .replace(/(?:\r\n|\r|\n)/g, '<br>')
 }
-
-onMounted(() => {
-  executeGithubReleaseData()
-})
 </script>
 
 <template>
