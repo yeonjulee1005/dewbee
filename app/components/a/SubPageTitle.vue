@@ -23,7 +23,7 @@ withDefaults(
     <USeparator
       size="md"
       :avatar="{
-        src: url(true, '/assets/dewbee-logo.webp'),
+        src: url(true, '/assets/dewbee_logo.webp'),
         size: avatarSize,
         alt: 'Avatar',
       }"

@@ -78,7 +78,7 @@ const { windowSize } = storeToRefs(useWindowStore())
     </div>
     <div class="flex justify-center items-center md:flex-1">
       <NuxtImg
-        :src="url(true, '/assets/dewbee-logo.webp')"
+        :src="url(true, '/assets/dewbee_logo.webp')"
         class="rounded-full ring-4 ring-amber-500"
         sizes="160px xs:300px"
         :width="windowSize > 340 ? 300 : 160"

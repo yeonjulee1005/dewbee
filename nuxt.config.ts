@@ -42,7 +42,7 @@ export default defineNuxtConfig({
   ],
   site: {
     name: 'DewBee',
-    url: process.env.NUXT_PUBLIC_SITE_URL ?? process.env.NUXT_ENV_VERCEL_URL ?? 'http://localhost:5000',
+    url: process.env.NUXT_PUBLIC_SITE_URL ?? process.env.NUXT_ENV_VERCEL_URL ?? 'http://localhost:4003',
   },
   colorMode: {
     preference: 'system',
@@ -54,7 +54,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       appVersion: JSON.stringify(packageJson.version),
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL ?? process.env.NUXT_ENV_VERCEL_URL ?? 'http://localhost:5000',
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL ?? process.env.NUXT_ENV_VERCEL_URL ?? 'http://localhost:4003',
       supabaseUrl: process.env.SUPABASE_URL ?? '',
       supabaseKey: process.env.SUPABASE_KEY ?? '',
       githubAccessToken: process.env.GITHUB_ACCESS_TOKEN ?? '',
@@ -129,7 +129,7 @@ export default defineNuxtConfig({
   socialShare: {
     styled: false,
     label: false,
-    baseUrl: process.env.NUXT_PUBLIC_SITE_URL ?? process.env.NUXT_ENV_VERCEL_URL ?? 'http://localhost:5000',
+    baseUrl: process.env.NUXT_PUBLIC_SITE_URL ?? process.env.NUXT_ENV_VERCEL_URL ?? 'http://localhost:4003',
   },
   stylelint: {
     lintOnStart: true,
