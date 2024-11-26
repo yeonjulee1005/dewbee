@@ -39,7 +39,7 @@ const loginButton = ref<{ provider: 'kakao' | 'google' | 'github' | 'linkedin_oi
 ])
 
 const getUrl = () => {
-  let url = config.public.siteUrl ?? 'http://localhost:5000/'
+  let url = config.public.siteUrl ?? 'http://localhost:4003/'
   url = url.includes('http') ? url : `https://${url}`
   url = url.charAt(url.length - 1) === '/' ? url : `${url}/`
   return url.concat('confirm')
@@ -71,7 +71,7 @@ const userLogin = async (provider: 'kakao' | 'google' | 'github' | 'linkedin_oid
   <div class="h-dvh w-full sm:w-[500px] flex flex-col items-center justify-center gap-y-6 px-6">
     <div class="flex flex-col items-center gap-y-3">
       <NuxtImg
-        :src="url(true, '/assets/dewbee-logo.webp')"
+        :src="url(true, '/assets/dewbee_logo.webp')"
         :height="180"
         :width="180"
         loading="lazy"
