@@ -238,7 +238,7 @@ const insertLogoutMenu = () => {
   }])
 }
 
-const computedAvatarUrl = computed(() => userData.value?.avatar_url ?? url(true, '/assets/dewbee-logo.webp'))
+const computedAvatarUrl = computed(() => userData.value?.avatar_url ?? url(true, '/assets/dewbee_logo.webp'))
 
 defineShortcuts(
   extractShortcuts(menuItems.value),
