@@ -17,8 +17,11 @@ export const useLoadFilterData = () => {
       headers: useRequestHeaders(['cookie']),
     })
 
-    currencyCodeList.value = data as unknown as FilterDatabase['filter']['Tables']['currency']['Row'][]
+    currencyCodeList.value = data.value as unknown as FilterDatabase['filter']['Tables']['currency']['Row'][]
+
+    return data
   }, {
+    dedupe: 'defer',
     immediate: true,
   })
 
@@ -30,8 +33,11 @@ export const useLoadFilterData = () => {
       headers: useRequestHeaders(['cookie']),
     })
 
-    planCodeList.value = data as unknown as FilterDatabase['filter']['Tables']['plan']['Row'][]
+    planCodeList.value = data.value as unknown as FilterDatabase['filter']['Tables']['plan']['Row'][]
+
+    return data
   }, {
+    dedupe: 'defer',
     immediate: true,
   })
 
@@ -43,8 +49,11 @@ export const useLoadFilterData = () => {
       headers: useRequestHeaders(['cookie']),
     })
 
-    spendCategoryCodeList.value = data as unknown as FilterDatabase['filter']['Tables']['spendCategory']['Row'][]
+    spendCategoryCodeList.value = data.value as unknown as FilterDatabase['filter']['Tables']['spendCategory']['Row'][]
+
+    return data
   }, {
+    dedupe: 'defer',
     immediate: true,
   })
 
@@ -56,8 +65,11 @@ export const useLoadFilterData = () => {
       headers: useRequestHeaders(['cookie']),
     })
 
-    endDateCodeList.value = data as unknown as FilterDatabase['filter']['Tables']['endDate']['Row'][]
+    endDateCodeList.value = data.value as unknown as FilterDatabase['filter']['Tables']['endDate']['Row'][]
+
+    return data
   }, {
+    dedupe: 'defer',
     immediate: true,
   })
 
@@ -69,15 +81,18 @@ export const useLoadFilterData = () => {
       headers: useRequestHeaders(['cookie']),
     })
 
-    localTimezone.value = data as unknown as FilterDatabase['filter']['Tables']['localTimezone']['Row'][]
+    localTimezone.value = data.value as unknown as FilterDatabase['filter']['Tables']['localTimezone']['Row'][]
+
+    return data
   }, {
+    dedupe: 'defer',
     immediate: true,
   })
 
   const executeFilterData = async () => {
+    await executeSpendCategoryCodeList()
     await executeCurrencyCodeList()
     await executePlanCodeList()
-    await executeSpendCategoryCodeList()
     await executeEndDateCodeList()
     await executeLocalTimezone()
   }

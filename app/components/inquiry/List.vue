@@ -123,18 +123,25 @@ const clickList = (list: any) => {
         <ANuxtTime :date-time="list.created_at" />
       </UCard>
     </div>
-    <UPagination
-      v-model:page="listCurrentPage"
-      class="w-fit flex justify-center mx-2 my-2"
-      color="neutral"
-      variant="subtle"
-      :sibling-count="1"
-      :size="windowSize < 340 ? 'xs' : 'lg'"
-      showo-edge
-      :items-per-page="pageSize"
-      :total="listData?.count"
-      show-edges
-      @update:page="(changedPage: number) => listCurrentPage = changedPage"
-    />
+    <ClientOnly>
+      <template #default>
+        <UPagination
+          v-model:page="listCurrentPage"
+          class="w-fit flex justify-center mx-2 my-2"
+          color="neutral"
+          variant="subtle"
+          :sibling-count="1"
+          :size="windowSize < 340 ? 'xs' : 'lg'"
+          showo-edge
+          :items-per-page="pageSize"
+          :total="listData?.count"
+          show-edges
+          @update:page="(changedPage: number) => listCurrentPage = changedPage"
+        />
+      </template>
+      <template #fallback>
+        <div class="w-[204px] h-[24px] sm:w-[276px] sm:h-[36px] rounded-lg ring ring-neutral-200 dark:ring-neutral-700 animate-pulse m-2" />
+      </template>
+    </ClientOnly>
   </div>
 </template>
