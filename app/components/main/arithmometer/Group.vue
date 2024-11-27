@@ -115,20 +115,31 @@ const computedSpendCategoryName = computed(() => {
           </p>
         </div>
         <div class="w-full flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
-          <div class="grid justify-items-center grid-cols-4 sm:grid-cols-3 gap-3">
-            <ATooltipButton
-              v-for="(currency, index) in spendCategoryCodeList"
-              :key="index"
-              use-leading
-              custom-class="w-fit"
-              button-size="xl"
-              :button-color="mainSpendCategoryCode === currency.code ? 'primary' : 'neutral'"
-              :button-variant="mainSpendCategoryCode === currency.code ? 'subtle' : 'outline'"
-              :icon-lead-name="currency?.icon_name ?? ''"
-              :icon-lead-class="windowSize > 340 ? 'w-11 h-11' : 'w-7 h-7'"
-              :tooltip-text="currency?.code_name ?? ''"
-              @click:button="selectCategory(currency?.code ?? '')"
-            />
+          <div class="grid justify-items-center grid-cols-4 sm:grid-cols-3 gap-3 min-h-[132px]">
+            <ClientOnly>
+              <template #default>
+                <ATooltipButton
+                  v-for="(currency, index) in spendCategoryCodeList"
+                  :key="index"
+                  use-leading
+                  custom-class="w-fit"
+                  button-size="xl"
+                  :button-color="mainSpendCategoryCode === currency.code ? 'primary' : 'neutral'"
+                  :button-variant="mainSpendCategoryCode === currency.code ? 'subtle' : 'outline'"
+                  :icon-lead-name="currency?.icon_name ?? ''"
+                  :icon-lead-class="windowSize > 340 ? 'w-11 h-11' : 'w-7 h-7'"
+                  :tooltip-text="currency?.code_name ?? ''"
+                  @click:button="selectCategory(currency?.code ?? '')"
+                />
+              </template>
+              <template #fallback>
+                <div
+                  v-for="index in spendCategoryCodeList.length"
+                  :key="index"
+                  class="w-[44px] h-[44px] sm:w-[60px] sm:h-[60px] rounded-lg ring ring-neutral-200 dark:ring-neutral-700 animate-pulse"
+                />
+              </template>
+            </ClientOnly>
           </div>
           <MainArithmometerDisplay
             :spend-category-code="mainSpendCategoryCode"

@@ -14,6 +14,7 @@ const { userData } = storeToRefs(useUserDataStore())
 const { pendingUpdateData, executeUpdateData } = useLoadUserData()
 const { currencyCodeList, spendCategoryCodeList } = storeToRefs(useFilterDataStore())
 
+const { fetchRangeData } = useFetchComposable()
 const { upsertData } = useUpdateComposable()
 
 useCookie(`${config.public.supabase.cookieName}-redirect-path`).value = fullPath
@@ -31,23 +32,19 @@ const spendAmount = ref(0)
 const saveConfirmTrigger = ref(false)
 
 const { data: mainSpendList, execute: executeSpendListData } = useLazyAsyncData('mainSpendList', async () => {
+  if (!userData.value) {
+    return { data: [], count: 0 }
+  }
+
   const startDateTimestampz = getWeeklyTimestampz(userData.value.endDate.code)?.gteDate ?? ''
   const endDateTimestampz = getWeeklyTimestampz(userData.value.endDate.code)?.lteDate ?? ''
 
-  const { data }: SerializeObject = await useFetch('/api/range', {
-    query: {
-      tableName: 'viewSpendList',
-      startDate: startDateTimestampz,
-      endDate: endDateTimestampz,
-    },
-    headers: useRequestHeaders(['cookie']),
-  })
+  const response = await fetchRangeData('viewSpendList', '*', 'created_at', endDateTimestampz, 'created_at', startDateTimestampz, true, 'update_user_id', userData.value.id)
 
-  return data.value && data.value.data && data.value.count
-    ? { data: data.value.data, count: data.value.count }
+  return response
+    ? response
     : { data: [], count: 0 }
 }, {
-  watch: [userData],
   dedupe: 'defer',
   deep: true,
 })
@@ -70,7 +67,6 @@ const { data: mainWeeklyResultList, pending: pendingMainWeeklyResultList } = use
     ? data.value.data
     : []
 }, {
-  watch: [userData],
   dedupe: 'defer',
   deep: true,
 })

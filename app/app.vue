@@ -2,6 +2,7 @@
 const appConfig = useAppConfig()
 const { width } = useWindowSize()
 
+const user = useSupabaseUser()
 const { t } = useCustomLocale()
 const { meta } = useRoute()
 
@@ -74,10 +75,12 @@ useSeoMeta({
   twitterCreator: '@dewdew',
 })
 
-if (import.meta.server) {
-  executeUpdateData()
-  executeFilterData()
-}
+onServerPrefetch(async () => {
+  if (user.value) {
+    await executeUpdateData()
+  }
+  await executeFilterData()
+})
 
 watchEffect(() => {
   if (import.meta.client) {

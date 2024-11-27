@@ -1,13 +1,7 @@
 export const useLoadUserData = () => {
-  const user = useSupabaseUser()
-
   const { userData, userCoreId, currentLocalTimezoneOffset } = storeToRefs(useUserDataStore())
 
   const { refresh: refreshUserData, execute: executeUpdateData, pending: pendingUpdateData } = useAsyncData('storeUserData', async () => {
-    if (!user.value?.id) {
-      return {}
-    }
-
     const { data } = await useFetch('/api/profiles', {
       headers: useRequestHeaders(['cookie']),
     })
