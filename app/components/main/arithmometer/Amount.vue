@@ -23,7 +23,7 @@ const mainSpendAmount = defineModel('mainSpendAmount', {
   default: 0,
 })
 
-const selectKeypadAccordion = ref('0')
+const selectKeypadAccordion = ref('')
 
 const keypadAccordion = [
   {
