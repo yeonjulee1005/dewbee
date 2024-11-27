@@ -110,18 +110,25 @@ const parseMarkdown = (body: string) => {
         class="w-28 h-28"
       />
     </div>
-    <UPagination
-      v-model:page="currentPage"
-      class="w-fit flex justify-center mx-2 my-2"
-      color="neutral"
-      variant="subtle"
-      :sibling-count="1"
-      :size="windowSize < 340 ? 'xs' : 'lg'"
-      :items-per-page="pageSize"
-      :total="githubReleaseData?.count"
-      show-edges
-      @update:page="(changedPage: number) => currentPage = changedPage"
-    />
+    <ClientOnly>
+      <template #default>
+        <UPagination
+          v-model:page="currentPage"
+          class="w-fit flex justify-center mx-2 my-2"
+          color="neutral"
+          variant="subtle"
+          :sibling-count="1"
+          :size="windowSize < 340 ? 'xs' : 'lg'"
+          :items-per-page="pageSize"
+          :total="githubReleaseData?.count"
+          show-edges
+          @update:page="(changedPage: number) => currentPage = changedPage"
+        />
+      </template>
+      <template #fallback>
+        <div class="w-[204px] h-[24px] sm:w-[276px] sm:h-[36px] rounded-lg ring ring-neutral-200 dark:ring-neutral-700 animate-pulse m-2" />
+      </template>
+    </ClientOnly>
   </div>
 </template>
 

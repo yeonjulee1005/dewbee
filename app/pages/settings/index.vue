@@ -62,26 +62,47 @@ const updateProfileData = async (payload: Database['public']['Tables']['profiles
 <template>
   <div class="relative h-fit flex flex-col justify-center items-center gap-y-8 pb-6">
     <ASubPageTitle :title="$t('pageTitle.settings')" />
-    <SettingCurrency
-      v-model:current-currency="currentCurrency"
-      :window-width="windowSize"
-      @click:currency-save="clickCurrencyButton"
-    />
+    <ClientOnly>
+      <template #default>
+        <SettingCurrency
+          v-model:current-currency="currentCurrency"
+          :window-width="windowSize"
+          @click:currency-save="clickCurrencyButton"
+        />
+      </template>
+      <template #fallback>
+        <UCard :ui="{ root: 'w-[calc(100%-3rem)] h-[310px] sm:h-[177px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }" />
+      </template>
+    </ClientOnly>
     <SettingTargetAmount
       v-model:target-amount="currentTargetAmount"
       :current-currency="currentCurrency"
       @click:save="updateTargetAmount"
     />
-    <SettingEndDate
-      v-model:current-end-date="currentEndDate"
-      :window-width="windowSize"
-      @click:save="clickEndDateButton"
-    />
-    <SettingLocalTimezone
-      v-model:current-local-timezone-id="currentLocalTimezoneId"
-      :window-width="windowSize"
-      @click:save="updateTimezone"
-    />
+    <ClientOnly>
+      <template #default>
+        <SettingEndDate
+          v-model:current-end-date="currentEndDate"
+          :window-width="windowSize"
+          @click:save="clickEndDateButton"
+        />
+      </template>
+      <template #fallback>
+        <UCard :ui="{ root: 'w-[calc(100%-3rem)] h-[310px] sm:h-[177px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }" />
+      </template>
+    </ClientOnly>
+    <ClientOnly>
+      <template #default>
+        <SettingLocalTimezone
+          v-model:current-local-timezone-id="currentLocalTimezoneId"
+          :window-width="windowSize"
+          @click:save="updateTimezone"
+        />
+      </template>
+      <template #fallback>
+        <UCard :ui="{ root: 'w-[calc(100%-3rem)] h-[310px] sm:h-[177px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }" />
+      </template>
+    </ClientOnly>
     <ULink
       class="w-full text-right px-6"
       to="/policy"

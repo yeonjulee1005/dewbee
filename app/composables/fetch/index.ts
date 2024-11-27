@@ -1,8 +1,8 @@
 // import { createClient } from '@supabase/supabase-js'
-// import type { PostgrestError } from '@supabase/supabase-js'
+import type { PostgrestError } from '@supabase/supabase-js'
 
 export const useFetchComposable = () => {
-  // const toast = useToast()
+  const toast = useToast()
   // const config = useRuntimeConfig()
   const client = useSupabaseClient()
 
@@ -126,33 +126,33 @@ export const useFetchComposable = () => {
   //   }
   // }
 
-  // const fetchRangeData = async (table: string, queryString: string, lessOpt: string, lessVal: string | number, greatOpt: string, greatVal: string | number, ascending?: boolean, matchOpt?: string, matchOptVal?: string | number | boolean) => {
-  //   if (matchOpt && matchOptVal) {
-  //     const { data, count, error }: SerializeObject = await client
-  //       .from(table)
-  //       .select(queryString, { count: 'exact' })
-  //       .eq('deleted', false)
-  //       .lte(lessOpt, lessVal)
-  //       .gte(greatOpt, greatVal)
-  //       .eq(matchOpt, matchOptVal)
-  //       .order('created_at', { ascending: ascending ?? true })
-  //     errorHandler('fetch range option Data', error)
+  const fetchRangeData = async (table: string, queryString: string, lessOpt: string, lessVal: string | number, greatOpt: string, greatVal: string | number, ascending?: boolean, matchOpt?: string, matchOptVal?: string | number | boolean) => {
+    if (matchOpt && matchOptVal) {
+      const { data, count, error }: SerializeObject = await client
+        .from(table)
+        .select(queryString, { count: 'exact' })
+        .eq('deleted', false)
+        .lte(lessOpt, lessVal)
+        .gte(greatOpt, greatVal)
+        .eq(matchOpt, matchOptVal)
+        .order('created_at', { ascending: ascending ?? true })
+      errorHandler('fetch range option Data', error)
 
-  //     return { data, count }
-  //   }
-  //   else {
-  //     const { data, count, error }: SerializeObject = await client
-  //       .from(table)
-  //       .select(queryString, { count: 'exact' })
-  //       .eq('deleted', false)
-  //       .lte(lessOpt, lessVal)
-  //       .gte(greatOpt, greatVal)
-  //       .order('created_at', { ascending: ascending ?? true })
-  //     errorHandler('fetch range option Data', error)
+      return { data, count }
+    }
+    else {
+      const { data, count, error }: SerializeObject = await client
+        .from(table)
+        .select(queryString, { count: 'exact' })
+        .eq('deleted', false)
+        .lte(lessOpt, lessVal)
+        .gte(greatOpt, greatVal)
+        .order('created_at', { ascending: ascending ?? true })
+      errorHandler('fetch range option Data', error)
 
-  //     return { data, count }
-  //   }
-  // }
+      return { data, count }
+    }
+  }
 
   // const schemaFetchOptionData = async (schema: string, table: string, queryString: string, matchOpt: string, matchOptVal: string | number | boolean, secondMatchOpt?: string, secondMatchOptVal?: string | number | boolean, thirdMatchOpt?: string, thirdMatchOptVal?: string | number | boolean) => {
   //   if (secondMatchOpt && thirdMatchOpt) {
@@ -519,11 +519,11 @@ export const useFetchComposable = () => {
   //   }
   // }
 
-  // const errorHandler = (fetchName: string, error: PostgrestError | null) => {
-  //   if (error) {
-  //     toast.add({ title: error.message, description: `at ${fetchName}`, color: 'error' })
-  //   }
-  // }
+  const errorHandler = (fetchName: string, error: PostgrestError | null) => {
+    if (error) {
+      toast.add({ title: error.message, description: `at ${fetchName}`, color: 'error' })
+    }
+  }
 
   const logout = async () => {
     await client.auth.signOut()
@@ -534,7 +534,7 @@ export const useFetchComposable = () => {
     // orderFetchData,
     // orderFetchData,
     // fetchPaginationData,
-    // fetchRangeData,
+    fetchRangeData,
     // schemaFetchOptionData,
     // schemaFetchOptionSortData,
     // schemaFetchOptionSingleData,

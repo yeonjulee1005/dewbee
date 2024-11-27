@@ -1,4 +1,9 @@
 export default defineAppConfig({
+  theme: {
+    screens: {
+      sm: '340px',
+    },
+  },
   toaster: {
     position: 'bottom-right' as const,
     expand: true,

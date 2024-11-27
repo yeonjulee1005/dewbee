@@ -68,7 +68,7 @@ const userLogin = async (provider: 'kakao' | 'google' | 'github' | 'linkedin_oid
 </script>
 
 <template>
-  <div class="h-dvh w-full sm:w-[500px] flex flex-col items-center justify-center gap-y-6 px-6">
+  <div class="h-dvh w-full sm:w-[564px] flex flex-col items-center justify-center gap-y-6 px-6">
     <div class="flex flex-col items-center gap-y-3">
       <NuxtImg
         :src="url(true, '/assets/dewbee_logo.webp')"
@@ -85,20 +85,27 @@ const userLogin = async (provider: 'kakao' | 'google' | 'github' | 'linkedin_oid
     </div>
     <USeparator />
     <div class="w-full flex flex-col sm:flex-row items-center justify-center gap-4">
-      <AButton
-        v-for="(button, index) in loginButton"
-        :key="index"
-        :custom-class="windowSize < 768 ? 'w-full flex items-center justify-center' : ''"
-        button-variant="soft"
-        button-size="xl"
-        color="neutral"
-        button-rounded="rounded-xl"
-        use-leading
-        :icon-lead-name="button.icon"
-        icon-lead-class="w-8 h-8"
-        :button-text="button.text"
-        @click="userLogin(button.provider)"
-      />
+      <ClientOnly>
+        <template #default>
+          <AButton
+            v-for="(button, index) in loginButton"
+            :key="index"
+            :custom-class="windowSize < 768 ? 'w-full flex items-center justify-center' : ''"
+            button-variant="soft"
+            button-size="xl"
+            color="neutral"
+            button-rounded="rounded-xl"
+            use-leading
+            :icon-lead-name="button.icon"
+            icon-lead-class="w-8 h-8"
+            :button-text="button.text"
+            @click="userLogin(button.provider)"
+          />
+        </template>
+        <template #fallback>
+          <UCard :ui="{ root: 'w-full h-[240px] md:h-[48px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }" />
+        </template>
+      </ClientOnly>
     </div>
     <ULink
       to="/policy"
