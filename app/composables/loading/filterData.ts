@@ -91,10 +91,10 @@ export const useLoadFilterData = () => {
 
   const executeFilterData = async () => {
     await executeSpendCategoryCodeList()
-    await executeCurrencyCodeList()
-    await executePlanCodeList()
     await executeEndDateCodeList()
+    await executeCurrencyCodeList()
     await executeLocalTimezone()
+    await executePlanCodeList()
   }
 
   return {

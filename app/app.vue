@@ -29,7 +29,7 @@ useHead({
   },
   link: [
     { rel: 'canonical', href: seoUrl },
-    { rel: 'manifest', href: '/manifest.webmanifest' },
+    { rel: 'manifest', href: '/site.webmanifest' },
     { rel: 'apple-touch-icon', sizes: '180x180', href: '/image/apple-touch-icon.png' },
     { rel: 'icon', type: 'image/svg+xml', href: '/image/favicon.svg' },
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -78,9 +78,9 @@ useSeoMeta({
 windowSize.value = width.value
 
 if (user.value) {
-  await executeUpdateData()
+  executeUpdateData()
 }
-await executeFilterData()
+executeFilterData()
 
 watch(width, () => {
   if (import.meta.client) {
