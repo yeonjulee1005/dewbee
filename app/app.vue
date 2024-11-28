@@ -95,6 +95,7 @@ watch(width, () => {
 
 <template>
   <UApp :toaster="appConfig.toaster">
+    <VitePwaManifest />
     <NuxtLayout>
       <NuxtLoadingIndicator
         color="repeating-linear-gradient(to right,##feeae2 0%,##dd5825 100%)"
