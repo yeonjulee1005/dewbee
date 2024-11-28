@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     'nuxt-time',
     '@vueuse/nuxt',
+    '@vite-pwa/nuxt',
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
     '@stefanobartoletti/nuxt-social-share',
@@ -63,9 +64,12 @@ export default defineNuxtConfig({
       adminUid: process.env.ADMIN_UID ?? '',
     },
   },
-  // routeRules: {
-  //   '/': { prerender: true },
-  // },
+  routeRules: {
+    '/guest': { prerender: true },
+    '/patch': { prerender: true },
+    '/login': { prerender: true },
+    '/family': { prerender: true },
+  },
   sourcemap: {
     server: true,
     client: true,
@@ -125,6 +129,35 @@ export default defineNuxtConfig({
     storesDirs: [
       './stores/**',
     ],
+  },
+  pwa: {
+    scope: '/',
+    base: '/',
+    injectRegister: 'auto',
+    registerType: 'autoUpdate',
+    workbox: {
+      navigateFallback: undefined,
+      sourcemap: true,
+      cleanupOutdatedCaches: true,
+      globPatterns: ['**/*.{js,json,css,html,txt,svg,png,ico,webp,woff,woff2,ttf,eot,otf,wasm}', '/'],
+      runtimeCaching: [{
+        urlPattern: '/',
+        handler: 'NetworkFirst',
+      }],
+    },
+    client: {
+      installPrompt: true,
+      periodicSyncForUpdates: 20,
+    },
+    devOptions: {
+      enabled: false,
+      suppressWarnings: true,
+      navigateFallbackAllowlist: [/^\/$/],
+      type: 'module',
+    },
+    manifest: {
+      theme_color: '#fdc6b1',
+    },
   },
   socialShare: {
     styled: false,

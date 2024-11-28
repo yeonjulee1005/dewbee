@@ -80,7 +80,14 @@ const { windowSize } = storeToRefs(useWindowStore())
         </div>
       </template>
       <template #fallback>
-        <UCard :ui="{ root: 'w-full h-[286px] sm:w-[360px] sm:h-[336px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }" />
+        <UCard :ui="{ root: 'w-full h-[286px] sm:w-[360px] sm:h-[336px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }">
+          <div class="flex justify-center items-center h-[260px]">
+            <Icon
+              name="i-svg-spinners-pulse-multiple"
+              class="w-28 h-28"
+            />
+          </div>
+        </UCard>
       </template>
     </ClientOnly>
     <div class="flex justify-center items-center md:flex-1">
