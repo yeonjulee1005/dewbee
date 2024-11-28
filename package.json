@@ -17,7 +17,6 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest",
-    "vercel-build": "NITRO_PRESET=vercel-edge nuxt build",
     "upgrade:force": "nuxt upgrade --force",
     "supabase:login": "yarn supabase login",
     "supabase:type": "supabase gen types --lang=typescript --project-id biynqxysclkvwrscmupr --schema public > app/types/supabase.ts",
@@ -26,7 +25,9 @@
   },
   "dependencies": {
     "@nuxtjs/seo": "2.0.2",
-    "nuxt": "3.13.2"
+    "nuxt": "3.13.2",
+    "vue": "latest",
+    "vue-router": "latest"
   },
   "devDependencies": {
     "@iconify-json/devicon": "^1.2.4",
@@ -54,7 +55,7 @@
     "date-fns-tz": "^3.2.0",
     "nuxt-time": "^1.0.2",
     "octokit": "^4.0.2",
-    "sass": "^1.80.5",
+    "sass": "^1.81.0",
     "stylelint": "^16.10.0",
     "stylelint-config-recommended-scss": "^14.1.0",
     "stylelint-config-recommended-vue": "^1.5.0",

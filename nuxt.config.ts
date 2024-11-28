@@ -63,10 +63,10 @@ export default defineNuxtConfig({
       adminUid: process.env.ADMIN_UID ?? '',
     },
   },
-  sourcemap: {
-    server: true,
-    client: true,
-  },
+  // sourcemap: {
+  //   server: true,
+  //   client: true,
+  // },
   future: {
     compatibilityVersion: 4,
   },
