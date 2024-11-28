@@ -64,7 +64,7 @@ export default defineNuxtConfig({
     },
   },
   sourcemap: {
-    server: true,
+    server: false,
     client: true,
   },
   future: {
@@ -79,7 +79,6 @@ export default defineNuxtConfig({
   },
   vite: {
     build: {
-      sourcemap: true,
       cssMinify: true,
       minify: 'terser',
       terserOptions: {
