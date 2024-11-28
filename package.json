@@ -1,6 +1,5 @@
 {
   "name": "DewBee",
-  "packageManager": "bun@1.1.29",
   "version": "1.6.2",
   "private": true,
   "author": {
@@ -17,7 +16,6 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest",
-    "vercel-build": "NITRO_PRESET=vercel-edge nuxt build",
     "upgrade:force": "nuxt upgrade --force",
     "supabase:login": "yarn supabase login",
     "supabase:type": "supabase gen types --lang=typescript --project-id biynqxysclkvwrscmupr --schema public > app/types/supabase.ts",
@@ -26,9 +24,7 @@
   },
   "dependencies": {
     "@nuxtjs/seo": "2.0.2",
-    "nuxt": "3.13.2",
-    "vue": "latest",
-    "vue-router": "latest"
+    "nuxt": "3.13.2"
   },
   "devDependencies": {
     "@iconify-json/devicon": "^1.2.4",
@@ -42,9 +38,9 @@
     "@nuxt/ui": "3.0.0-alpha.9",
     "@nuxtjs/color-mode": "^3.5.2",
     "@nuxtjs/device": "^3.2.4",
-    "@nuxtjs/i18n": "9.0.0",
+    "@nuxtjs/i18n": "^9.1.0",
     "@nuxtjs/stylelint-module": "^5.2.0",
-    "@nuxtjs/supabase": "^1.4.1",
+    "@nuxtjs/supabase": "1.4.3",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
     "@pinia/nuxt": "^0.7.0",
     "@stefanobartoletti/nuxt-social-share": "^1.2.0",
@@ -56,15 +52,19 @@
     "date-fns-tz": "^3.2.0",
     "nuxt-time": "^1.0.2",
     "octokit": "^4.0.2",
-    "sass": "^1.80.5",
+    "sass": "^1.81.0",
     "stylelint": "^16.10.0",
     "stylelint-config-recommended-scss": "^14.1.0",
     "stylelint-config-recommended-vue": "^1.5.0",
-    "supabase": "^1.207.9",
+    "supabase": "1.223.10",
     "typescript": "^5.6.3",
     "vite-plugin-eslint2": "^5.0.1",
     "vue-chartjs": "^5.3.2",
     "vue-dompurify-html": "^5.1.0",
     "yup": "^1.4.0"
+  },
+  "overrides": {
+    "@intlify/core-base": "10.0.5",
+    "@intlify/shared": "10.0.5"
   }
 }
