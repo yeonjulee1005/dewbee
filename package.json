@@ -1,7 +1,7 @@
 {
   "name": "DewBee",
   "packageManager": "bun@1.1.29",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "private": true,
   "author": {
     "name": "Dewdew",
