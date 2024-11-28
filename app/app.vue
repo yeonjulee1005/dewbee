@@ -78,9 +78,9 @@ useSeoMeta({
 windowSize.value = width.value
 
 if (user.value) {
-  await executeUpdateData()
+  executeUpdateData()
 }
-await executeFilterData()
+executeFilterData()
 
 watch(width, () => {
   if (import.meta.client) {
@@ -93,7 +93,6 @@ watch(width, () => {
 
 <template>
   <UApp :toaster="appConfig.toaster">
-    <VitePwaManifest />
     <NuxtLayout>
       <NuxtLoadingIndicator
         color="repeating-linear-gradient(to right,##feeae2 0%,##dd5825 100%)"

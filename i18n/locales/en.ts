@@ -302,16 +302,6 @@ export default {
       ],
     },
   },
-  pwa: {
-    readyPwa: 'Ready to use PWA!',
-    newContent: 'New content! Plz update!',
-    reload: 'Reload',
-    close: 'Close',
-    send: 'Send',
-    installPwa: 'Install PWA',
-    install: 'Install',
-    cancel: 'Cancel',
-  },
   modal: {
     confirmLogin: {
       title: 'Login is required!',
