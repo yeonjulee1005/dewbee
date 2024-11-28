@@ -15,6 +15,10 @@ useHead({
   meta: [{ name: 'description', content: t('pageDescription.profile') }],
 })
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const limitType = ['image/jpeg', 'image/jpg', 'image/webp', 'image/png', 'image/svg+xml']
 
 const imageInputs = ref<HTMLInputElement>()
