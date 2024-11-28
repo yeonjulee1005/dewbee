@@ -15,7 +15,6 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     'nuxt-time',
     '@vueuse/nuxt',
-    '@vite-pwa/nuxt',
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
     '@stefanobartoletti/nuxt-social-share',
@@ -79,6 +78,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   nitro: {
     preset: 'vercel',
+    compressPublicAssets: {
+      brotli: true,
+      gzip: true,
+    },
     prerender: {
       failOnError: false,
     },
@@ -128,32 +131,6 @@ export default defineNuxtConfig({
     storesDirs: [
       './stores/**',
     ],
-  },
-  pwa: {
-    scope: '/',
-    base: '/',
-    injectRegister: 'auto',
-    registerType: 'autoUpdate',
-    workbox: {
-      navigateFallback: undefined,
-      sourcemap: true,
-      cleanupOutdatedCaches: true,
-      globPatterns: ['**/*.{js,json,css,html,txt,svg,png,ico,webp,woff,woff2,ttf,eot,otf,wasm}', '/'],
-      runtimeCaching: [{
-        urlPattern: '/',
-        handler: 'NetworkFirst',
-      }],
-    },
-    client: {
-      installPrompt: true,
-      periodicSyncForUpdates: 20,
-    },
-    devOptions: {
-      enabled: false,
-      suppressWarnings: true,
-      navigateFallbackAllowlist: [/^\/$/],
-      type: 'module',
-    },
   },
   socialShare: {
     styled: false,
