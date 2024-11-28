@@ -75,14 +75,12 @@ useSeoMeta({
   twitterCreator: '@dewdew',
 })
 
-onServerPrefetch(async () => {
-  windowSize.value = width.value
+windowSize.value = width.value
 
-  if (user.value) {
-    await executeUpdateData()
-  }
-  await executeFilterData()
-})
+if (user.value) {
+  await executeUpdateData()
+}
+await executeFilterData()
 
 watch(width, () => {
   if (import.meta.client) {
