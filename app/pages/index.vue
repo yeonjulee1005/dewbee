@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const config = useRuntimeConfig()
 
+const user = useSupabaseUser()
+
 const { fullPath } = useRoute()
 const { t } = useCustomLocale()
 const toast = useToast()
@@ -9,7 +11,7 @@ const { comma } = useUi()
 const { getWeeklyTimestampz } = useLocalTimezone()
 
 const { userData } = storeToRefs(useUserDataStore())
-const { pendingUpdateData } = useLoadUserData()
+const { pendingUpdateData, executeUpdateData } = useLoadUserData()
 const { currencyCodeList, spendCategoryCodeList } = storeToRefs(useFilterDataStore())
 
 const { fetchRangeData } = useFetchComposable()
@@ -21,15 +23,19 @@ useHead({
   title: t('pageTitle.main'),
 })
 
-definePageMeta({
-  middleware: 'main',
-})
+if (user.value?.id && !userData.value) {
+  executeUpdateData()
+}
 
 const selectSpendCategoryCode = ref('')
 const spendAmount = ref(0)
 const saveConfirmTrigger = ref(false)
 
 const { data: mainSpendList, execute: executeSpendListData } = await useLazyAsyncData('mainSpendList', async () => {
+  if (!userData.value) {
+    return { data: [], count: 0 }
+  }
+
   const startDateTimestampz = getWeeklyTimestampz(userData.value.endDate.code)?.gteDate ?? ''
   const endDateTimestampz = getWeeklyTimestampz(userData.value.endDate.code)?.lteDate ?? ''
 
@@ -43,7 +49,11 @@ const { data: mainSpendList, execute: executeSpendListData } = await useLazyAsyn
   deep: true,
 })
 
-const { data: mainWeeklyResultList, pending: pendingMainWeeklyResultList } = await useLazyAsyncData('mainWeeklyResultList', async () => {
+const { data: mainWeeklyResultList, pending: pendingMainWeeklyResultList } = useLazyAsyncData('mainWeeklyResultList', async () => {
+  if (!userData.value) {
+    return []
+  }
+
   const { data }: SerializeObject = await useFetch('/api/pagination', {
     query: {
       tableName: 'viewWeeklyResultList',
@@ -96,12 +106,16 @@ const clearArithmometer = () => {
     v-if="!pendingUpdateData"
     class="w-full h-fit pb-2"
   >
-    <div class="h-fit flex flex-col items-end gap-y-8 px-6 py-4">
+    <div
+      v-if="user?.id"
+      class="h-fit flex flex-col items-end gap-y-8 px-6 py-4"
+    >
       <LazyMainSetOption
         :spend-list="mainSpendList?.data ?? []"
         :spend-count="mainSpendList?.count ?? 0"
         @execute:spend-list="executeSpendListData"
       />
+      <!-- v-if="userData?.plan.code === 'PNC002'" -->
       <LazyMainSuccessTable
         :table-data="mainWeeklyResultList"
         :pending-table-data="pendingMainWeeklyResultList"
@@ -116,17 +130,25 @@ const clearArithmometer = () => {
         @save:spend-amount="saveSpendAmount"
       />
       <AFooter />
-      <ModalConfirm
-        v-model:confirm-modal-trigger="saveConfirmTrigger"
-        :title="$t('modal.confirmSaveSpend.title')"
-        :description="$t('modal.confirmSaveSpend.description')"
-        @click:comfirm="saveProcess"
-      >
-        <p class="text-right text-lg font-light">
-          {{ $t('modal.confirmSaveSpend.exceedAmount', { amount: comma(spendAmount - userData?.weekly_target_amount), currency: $t(`currency.${userData?.currency?.code}`) }) }}
-        </p>
-      </ModalConfirm>
     </div>
+    <div
+      v-else
+      class="h-fit flex flex-col gap-y-6 px-6 py-4"
+    >
+      <MainIntroTitle />
+      <MainIntroDescriptions />
+      <AFooter />
+    </div>
+    <ModalConfirm
+      v-model:confirm-modal-trigger="saveConfirmTrigger"
+      :title="$t('modal.confirmSaveSpend.title')"
+      :description="$t('modal.confirmSaveSpend.description')"
+      @click:comfirm="saveProcess"
+    >
+      <p class="text-right text-lg font-light">
+        {{ $t('modal.confirmSaveSpend.exceedAmount', { amount: comma(spendAmount - userData?.weekly_target_amount), currency: $t(`currency.${userData?.currency?.code}`) }) }}
+      </p>
+    </ModalConfirm>
   </div>
   <div
     v-else

@@ -22,13 +22,7 @@
   },
   "icons": [
     {
-      "src": "/image/web-app-manifest-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/image/web-app-manifest-512x512.png",
+      "src": "icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -43,13 +37,13 @@
   ],
   "screenshots": [
     {
-    "src": "/image/wide.webp",
+    "src": "wide.webp",
     "sizes": "1800x1206",
     "type": "image/webp",
     "form_factor": "wide"
     },
     {
-      "src": "/image/narrow.webp",
+      "src": "narrow.webp",
       "sizes": "800x1652",
       "type": "image/webp",
       "form_factor": "narrow"

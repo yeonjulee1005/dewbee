@@ -65,7 +65,6 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    '/guest': { prerender: true },
     '/patch': { prerender: true },
     '/login': { prerender: true },
     '/family': { prerender: true },
@@ -154,9 +153,6 @@ export default defineNuxtConfig({
       suppressWarnings: true,
       navigateFallbackAllowlist: [/^\/$/],
       type: 'module',
-    },
-    manifest: {
-      theme_color: '#fdc6b1',
     },
   },
   socialShare: {
