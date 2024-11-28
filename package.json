@@ -62,5 +62,9 @@
     "vue-chartjs": "^5.3.2",
     "vue-dompurify-html": "^5.1.0",
     "yup": "^1.4.0"
+  },
+  "overrides": {
+    "@intlify/core-base": "10.0.5",
+    "@intlify/shared": "10.0.5"
   }
 }
