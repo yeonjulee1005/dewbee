@@ -282,9 +282,7 @@ watch(() => locale.value, () => {
   go(0)
 })
 
-onMounted(() => {
-  checkLoginState()
-})
+checkLoginState()
 </script>
 
 <template>

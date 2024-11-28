@@ -76,21 +76,26 @@ useSeoMeta({
 })
 
 onServerPrefetch(async () => {
+  windowSize.value = width.value
+
   if (user.value) {
     await executeUpdateData()
   }
   await executeFilterData()
 })
 
-watchEffect(() => {
+watch(width, () => {
   if (import.meta.client) {
     windowSize.value = width.value
   }
+}, {
+  immediate: true,
 })
 </script>
 
 <template>
   <UApp :toaster="appConfig.toaster">
+    <VitePwaManifest />
     <NuxtLayout>
       <NuxtLoadingIndicator
         color="repeating-linear-gradient(to right,##feeae2 0%,##dd5825 100%)"

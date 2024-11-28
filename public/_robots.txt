@@ -1,2 +1,4 @@
 User-agent: *
 Disallow: /cv.pdf
+
+Sitemap: https://dewbee.dewdew.world/sitemap.xml
