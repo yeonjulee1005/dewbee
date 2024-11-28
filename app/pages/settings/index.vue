@@ -71,7 +71,14 @@ const updateProfileData = async (payload: Database['public']['Tables']['profiles
         />
       </template>
       <template #fallback>
-        <UCard :ui="{ root: 'w-[calc(100%-3rem)] h-[310px] sm:h-[177px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }" />
+        <UCard :ui="{ root: 'w-[calc(100%-3rem)] h-[310px] sm:h-[177px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }">
+          <div class="flex justify-center items-center h-[150px]">
+            <Icon
+              name="i-svg-spinners-pulse-multiple"
+              class="w-28 h-28"
+            />
+          </div>
+        </UCard>
       </template>
     </ClientOnly>
     <SettingTargetAmount
@@ -88,7 +95,14 @@ const updateProfileData = async (payload: Database['public']['Tables']['profiles
         />
       </template>
       <template #fallback>
-        <UCard :ui="{ root: 'w-[calc(100%-3rem)] h-[310px] sm:h-[177px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }" />
+        <UCard :ui="{ root: 'w-[calc(100%-3rem)] h-[310px] sm:h-[177px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }">
+          <div class="flex justify-center items-center h-[150px]">
+            <Icon
+              name="i-svg-spinners-pulse-multiple"
+              class="w-28 h-28"
+            />
+          </div>
+        </UCard>
       </template>
     </ClientOnly>
     <ClientOnly>
@@ -100,7 +114,14 @@ const updateProfileData = async (payload: Database['public']['Tables']['profiles
         />
       </template>
       <template #fallback>
-        <UCard :ui="{ root: 'w-[calc(100%-3rem)] h-[310px] sm:h-[177px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }" />
+        <UCard :ui="{ root: 'w-[calc(100%-3rem)] h-[310px] sm:h-[177px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }">
+          <div class="flex justify-center items-center h-[150px]">
+            <Icon
+              name="i-svg-spinners-pulse-multiple"
+              class="w-28 h-28"
+            />
+          </div>
+        </UCard>
       </template>
     </ClientOnly>
     <ULink

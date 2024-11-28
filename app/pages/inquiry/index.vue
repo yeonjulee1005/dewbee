@@ -2,6 +2,7 @@
 import type { BoardDatabase } from '@/types/supabaseBoard'
 
 const { t } = useCustomLocale()
+const { fullPath } = useRoute()
 const toast = useToast()
 
 const config = useRuntimeConfig()
@@ -9,6 +10,8 @@ const config = useRuntimeConfig()
 const { schemaUpsertData, schemaUpdateData } = useUpdateComposable()
 
 const user = useSupabaseUser()
+
+useCookie(`${config.public.supabase.cookieName}-redirect-path`).value = fullPath
 
 useHead({
   title: t('pageTitle.inquiry'),
@@ -43,7 +46,7 @@ const pageCalc = (page: number, pageCount: number, firstRange: boolean): number 
     : (page * pageCount) - 1
 }
 
-const { data: guestInquiryData, execute: executeGuestInquiryList, pending: pendingGuestInquiryList } = useAsyncData('guestInquiryData', async () => {
+const { data: guestInquiryData, execute: executeGuestInquiryList, pending: pendingGuestInquiryList } = await useAsyncData('guestInquiryData', async () => {
   if (user.value?.id !== config.public.adminUid) {
     return { list: [], count: 0 }
   }
@@ -66,7 +69,7 @@ const { data: guestInquiryData, execute: executeGuestInquiryList, pending: pendi
   watch: [guestInquiryCurrentPage],
 })
 
-const { data: memberInquiryData, execute: executeMemberInquiryList, pending: pendingMemberInquiryList } = useAsyncData('memberInquiryData', async () => {
+const { data: memberInquiryData, execute: executeMemberInquiryList, pending: pendingMemberInquiryList } = await useAsyncData('memberInquiryData', async () => {
   if (user.value?.id !== config.public.adminUid) {
     return { list: [], count: 0 }
   }
@@ -90,7 +93,7 @@ const { data: memberInquiryData, execute: executeMemberInquiryList, pending: pen
   watch: [guestInquiryCurrentPage],
 })
 
-const { data: userInquiryData, execute: executeUserInquiryList, pending: pendingUserInquiryList } = useAsyncData('userInquiryData', async () => {
+const { data: userInquiryData, execute: executeUserInquiryList, pending: pendingUserInquiryList } = await useAsyncData('userInquiryData', async () => {
   if (!user.value || user.value.id === config.public.adminUid) {
     return { list: [], count: 0 }
   }

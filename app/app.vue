@@ -76,16 +76,20 @@ useSeoMeta({
 })
 
 onServerPrefetch(async () => {
+  windowSize.value = width.value
+
   if (user.value) {
     await executeUpdateData()
   }
   await executeFilterData()
 })
 
-watchEffect(() => {
+watch(width, () => {
   if (import.meta.client) {
     windowSize.value = width.value
   }
+}, {
+  immediate: true,
 })
 </script>
 
