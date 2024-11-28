@@ -31,7 +31,7 @@ const selectSpendCategoryCode = ref('')
 const spendAmount = ref(0)
 const saveConfirmTrigger = ref(false)
 
-const { data: mainSpendList, execute: executeSpendListData } = await useLazyAsyncData('mainSpendList', async () => {
+const { data: mainSpendList, execute: executeSpendListData } = await useAsyncData('mainSpendList', async () => {
   if (!userData.value) {
     return { data: [], count: 0 }
   }
@@ -46,14 +46,10 @@ const { data: mainSpendList, execute: executeSpendListData } = await useLazyAsyn
     : { data: [], count: 0 }
 }, {
   dedupe: 'defer',
-  deep: true,
+  immediate: true,
 })
 
-const { data: mainWeeklyResultList, pending: pendingMainWeeklyResultList } = useLazyAsyncData('mainWeeklyResultList', async () => {
-  if (!userData.value) {
-    return []
-  }
-
+const { data: mainWeeklyResultList, pending: pendingMainWeeklyResultList } = await useAsyncData('mainWeeklyResultList', async () => {
   const { data }: SerializeObject = await useFetch('/api/pagination', {
     query: {
       tableName: 'viewWeeklyResultList',
@@ -68,7 +64,7 @@ const { data: mainWeeklyResultList, pending: pendingMainWeeklyResultList } = use
     : []
 }, {
   dedupe: 'defer',
-  deep: true,
+  immediate: true,
 })
 
 const saveSpendAmount = async () => {
@@ -115,7 +111,6 @@ const clearArithmometer = () => {
         :spend-count="mainSpendList?.count ?? 0"
         @execute:spend-list="executeSpendListData"
       />
-      <!-- v-if="userData?.plan.code === 'PNC002'" -->
       <LazyMainSuccessTable
         :table-data="mainWeeklyResultList"
         :pending-table-data="pendingMainWeeklyResultList"

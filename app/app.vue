@@ -29,7 +29,7 @@ useHead({
   },
   link: [
     { rel: 'canonical', href: seoUrl },
-    { rel: 'manifest', href: '/site.webmanifest' },
+    { rel: 'manifest', href: '/manifest.webmanifest' },
     { rel: 'apple-touch-icon', sizes: '180x180', href: '/image/apple-touch-icon.png' },
     { rel: 'icon', type: 'image/svg+xml', href: '/image/favicon.svg' },
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -93,7 +93,6 @@ watch(width, () => {
 
 <template>
   <UApp :toaster="appConfig.toaster">
-    <VitePwaManifest />
     <NuxtLayout>
       <NuxtLoadingIndicator
         color="repeating-linear-gradient(to right,##feeae2 0%,##dd5825 100%)"

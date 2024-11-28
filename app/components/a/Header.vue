@@ -238,6 +238,8 @@ const insertLogoutMenu = () => {
   }])
 }
 
+const computedAvatarUrl = computed(() => userData.value?.avatar_url ?? url(true, '/assets/dewbee_logo.webp'))
+
 defineShortcuts(
   extractShortcuts(menuItems.value),
 )
@@ -301,7 +303,7 @@ checkLoginState()
         button-rounded="rounded-full"
         :image-size="36"
         :button-avatar="{
-          src: userData?.avatar_url ?? url(true, '/assets/dewbee_logo.webp'),
+          src: computedAvatarUrl,
           size: 'xl',
           alt: 'Avatar',
         }"
