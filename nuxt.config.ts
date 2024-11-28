@@ -63,11 +63,6 @@ export default defineNuxtConfig({
       adminUid: process.env.ADMIN_UID ?? '',
     },
   },
-  routeRules: {
-    '/patch': { prerender: true },
-    '/login': { prerender: true },
-    '/family': { prerender: true },
-  },
   sourcemap: {
     server: true,
     client: true,
@@ -88,7 +83,7 @@ export default defineNuxtConfig({
   },
   vite: {
     build: {
-      sourcemap: false,
+      sourcemap: true,
       cssMinify: true,
       minify: 'terser',
       terserOptions: {
