@@ -1,9 +1,13 @@
 <script setup lang="ts">
+const config = useRuntimeConfig()
 const { t } = useCustomLocale()
+const { fullPath } = useRoute()
 
 const { url } = useImageStorage()
 
 const { windowSize } = storeToRefs(useWindowStore())
+
+useCookie(`${config.public.supabase.cookieName}-redirect-path`).value = fullPath
 
 useHead({
   title: t('pageTitle.familyService'),

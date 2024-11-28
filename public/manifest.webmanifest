@@ -1,5 +1,5 @@
 {
-  "id": "/",
+  "id": "com.world.dewdew.dewbee",
   "name": "DewBee",
   "short_name": "DewBee",
   "description": "매주의 목표 소비금액을 손쉽게 관리하세요!",
@@ -12,12 +12,6 @@
   "dir": "ltr",
   "lang": "ko",
   "orientation": "portrait-primary",
-  "categories": [
-    "navigation",
-    "productivity",
-    "sports",
-    "travel"
-  ],
   "launch_handler": {
     "client_mode": "auto"
   },
@@ -42,5 +36,23 @@
   ],
   "theme_color": "#fdc6b1",
   "background_color": "#ffffff",
-  "display": "standalone"
+  "display": "standalone",
+  "categories": [
+    "productivity",
+    "utilities"
+  ],
+  "screenshots": [
+    {
+    "src": "/image/wide.webp",
+    "sizes": "1800x1206",
+    "type": "image/webp",
+    "form_factor": "wide"
+    },
+    {
+      "src": "/image/narrow.webp",
+      "sizes": "800x1652",
+      "type": "image/webp",
+      "form_factor": "narrow"
+    }
+  ]
 }

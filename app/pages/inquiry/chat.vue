@@ -26,7 +26,7 @@ const userType = ref('')
 const message = ref('')
 const composingTrigger = ref(false)
 
-const { data: inquiryChatData, refresh: refreshInquiryChatData, pending: pendingInquiryChatData } = useAsyncData('inquiryChatData', async () => {
+const { data: inquiryChatData, refresh: refreshInquiryChatData, pending: pendingInquiryChatData } = await useAsyncData('inquiryChatData', async () => {
   const { data }: SerializeObject = await useFetch('/api/chat', {
     query: {
       schema: 'board',
