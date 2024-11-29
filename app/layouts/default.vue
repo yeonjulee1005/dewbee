@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-dvw h-dvh lg:w-[800px] flex flex-col items-center overflow-y-scroll overflow-x-hidden">
+  <div class="relative w-dvw h-svh lg:w-[800px] flex flex-col items-center overflow-y-scroll overflow-x-hidden">
     <AHeader />
     <slot />
   </div>
