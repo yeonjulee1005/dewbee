@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { userAgent } = useDevice()
 const appConfig = useAppConfig()
 const { width } = useWindowSize()
 
@@ -36,25 +37,32 @@ useHead({
     { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/image/favicon-96x96.png' },
     { rel: 'alternate', type: 'application/rss+xml', href: '/rss.xml' },
   ],
-  script: [
-    {
-      hid: 'google-adsense',
-      src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9720546940719922',
-      crossorigin: 'anonymous',
-      defer: true,
-    },
-  ],
   meta: [
     { name: 'naver-site-verification', content: '6eb6da4d3753c139c41f5b5cf3ec61c8151e6922' },
-    { name: 'google-adsense-account', content: 'ca-pub-9720546940719922' },
     { property: 'imagetoolbar', content: 'no' },
   ],
 })
 
+if (!userAgent.includes('APP_Dewbee')) {
+  useHead({
+    script: [
+      {
+        hid: 'google-adsense',
+        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9720546940719922',
+        crossorigin: 'anonymous',
+        defer: true,
+      },
+    ],
+    meta: [
+      { name: 'google-adsense-account', content: 'ca-pub-9720546940719922' },
+    ],
+  })
+}
+
 useSeoMeta({
   charset: 'utf-16',
   formatDetection: 'telephone=no',
-  viewport: 'width=device-width, initial-scale=1, user-scalable=yes',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0',
   title: (meta.title as string) || seoTitle,
   author: 'Dewdew',
   description: (meta.description as string) || seoDescription,
