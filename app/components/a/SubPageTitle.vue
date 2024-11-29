@@ -16,7 +16,7 @@ withDefaults(
 </script>
 
 <template>
-  <div class="w-full flex flex-col gap-y-2.5 px-6">
+  <div class="w-full flex flex-col gap-y-2.5 px-6 mt-3">
     <p :class="titleClass">
       {{ title }}
     </p>
