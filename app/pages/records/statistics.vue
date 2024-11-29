@@ -167,7 +167,7 @@ const { data: statisticsWeeklyResultData, pending: pendingStatisticsWeeklyResult
 <template>
   <div
     v-if="!pendingStatisticsRealtimeSpendData && !pendingStatisticsDailyResultData && !pendingStatisticsWeeklyResultData"
-    class="relative w-full h-fit flex flex-col justify-center gap-y-8 py-4 pb-6"
+    class="relative w-full h-fit flex flex-col justify-center gap-y-8 pt-4 pb-6"
   >
     <ASubPageTitle
       :title="$t('pageTitle.statistics')"
