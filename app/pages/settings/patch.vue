@@ -46,7 +46,7 @@ const parseMarkdown = (body: string) => {
 </script>
 
 <template>
-  <div class="relative w-full h-[calc(100dvh-80px)] flex flex-col items-center overflow-y-scroll pb-6">
+  <div class="relative w-full h-[calc(100dvh-80px)] flex flex-col items-center overflow-y-scroll pt-4 pb-6">
     <ASubPageTitle :title="$t('pageTitle.patchNote')" />
     <div
       v-if="!pendingGithubReleaseData"

@@ -254,7 +254,7 @@ const successColorTranslate = (isSuccess: boolean) => {
 </script>
 
 <template>
-  <div class="relative w-full h-fit flex flex-col justify-center gap-y-8 py-4 pb-6">
+  <div class="relative w-full h-fit flex flex-col justify-center gap-y-8 pt-4 pb-6">
     <ASubPageTitle
       :title="$t('pageTitle.weeklySpend')"
       title-class="text-2xl font-semibold"
