@@ -63,21 +63,32 @@ export default defineNuxtConfig({
       adminUid: process.env.ADMIN_UID ?? '',
     },
   },
-  // sourcemap: {
-  //   server: true,
-  //   client: true,
-  // },
+  sourcemap: {
+    server: true,
+    client: true,
+  },
   future: {
     compatibilityVersion: 4,
   },
   compatibilityDate: '2024-04-03',
   nitro: {
     preset: 'vercel',
+    compressPublicAssets: {
+      brotli: true,
+      gzip: true,
+    },
     prerender: {
       failOnError: false,
     },
   },
   vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+        },
+      },
+    },
     build: {
       sourcemap: true,
       cssMinify: true,
