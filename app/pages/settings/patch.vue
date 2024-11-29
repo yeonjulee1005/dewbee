@@ -46,7 +46,7 @@ const parseMarkdown = (body: string) => {
 </script>
 
 <template>
-  <div class="relative w-full h-[calc(100dvh-80px)] flex flex-col items-center overflow-y-scroll pt-4 pb-6">
+  <div class="relative w-full flex flex-col items-center overflow-y-scroll pt-4 pb-6">
     <ASubPageTitle :title="$t('pageTitle.patchNote')" />
     <div
       v-if="!pendingGithubReleaseData"
@@ -118,11 +118,11 @@ const parseMarkdown = (body: string) => {
       <template #default>
         <UPagination
           v-model:page="currentPage"
-          class="w-fit flex justify-center mx-2 my-2"
+          class="w-full flex justify-center mx-2 my-2"
           color="neutral"
           variant="subtle"
-          :sibling-count="1"
-          :size="windowSize < 340 ? 'xs' : 'lg'"
+          :sibling-count="0"
+          :size="windowSize < 380 ? 'xs' : 'lg'"
           :items-per-page="pageSize"
           :total="githubReleaseData?.count"
           show-edges

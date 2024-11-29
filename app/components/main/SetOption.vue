@@ -79,72 +79,70 @@ const computedSpendSituation = computed(() => {
 </script>
 
 <template>
-  <div class="w-full flex flex-col items-end gap-y-4">
-    <UAccordion
-      :items="situationItem"
-      :ui="{ root: 'w-full flex justify-start', header: 'w-full flex-col items-end', trailingIcon: 'size-8' }"
-    >
-      <template #leading>
-        <Icon
-          :name="computedSpendSituation.icon"
-          :class="`w-8 h-8 ${computedSpendSituation.color}`"
-        />
-      </template>
-      <template #default>
-        <UBadge
-          class="ml-1.5"
-          :color="computedSpendSituation.theme ?? 'error'"
-          variant="subtle"
-          size="lg"
-          :label="computedSpendSituation.label"
-        />
-      </template>
-      <template #button>
-        <div class="w-fit flex flex-col items-end gap-y-1">
-          <div class="flex flex-col items-end my-2">
-            <div class="flex items-center gap-x-2 text-base sm:text-xl text-light break-keep mb-2">
-              <span>
-                {{ $t('main.setOption.thisWeekend') }}
-              </span>
-              <UBadge
-                :color="computedSpendSituation.theme ?? 'error'"
-                variant="outline"
-                size="lg"
-                :label="$t('text.count', { count: spendCount })"
-              />
-              <span>
-                {{ $t('main.setOption.records') }}
-              </span>
-            </div>
-            <p class="text-sm sm:text-lg break-keep leading-6">
-              {{ $t('main.setOption.currentSpendAmount', { amount: comma(userData?.weekly_target_amount ?? 0), currency: $t(`currency.${userData?.currency?.code}`) }) }}
-            </p>
-            <div class="flex items-center gap-x-2 text-sm sm:text-lg break-keep leading-6 mb-2">
-              <UBadge
-                :color="computedSpendSituation.theme ?? 'error'"
-                variant="outline"
-                size="lg"
-                :label="$t('main.setOption.nextWeekend', { endDate: $t(`date.${userData?.endDate.code}`) })"
-              />
-              <span>
-                {{ $t('main.setOption.chekable') }}
-              </span>
-            </div>
-            <AHelpPopover
-              icon-custom-class="h-5 w-5 text-neutral-600 dark:text-neutral-400"
-              :help-label="$t('button.help')"
-            >
-              <p
-                v-for="(text, index) in $tm('main.help')"
-                :key="index"
-                class="text-xs font-light text-neutral-600 dark:text-neutral-400 break-keep"
-              >
-                {{ $rt(text) }}
-              </p>
-            </AHelpPopover>
+  <UAccordion
+    :items="situationItem"
+    :ui="{ root: 'w-fit flex justify-start z-20', header: 'w-full min-w-[240px] flex-col items-end', trailingIcon: 'size-8' }"
+  >
+    <template #leading>
+      <Icon
+        :name="computedSpendSituation.icon"
+        :class="`w-8 h-8 ${computedSpendSituation.color}`"
+      />
+    </template>
+    <template #default>
+      <UBadge
+        class="ml-1.5"
+        :color="computedSpendSituation.theme ?? 'error'"
+        variant="subtle"
+        size="lg"
+        :label="computedSpendSituation.label"
+      />
+    </template>
+    <template #button>
+      <div class="w-fit flex flex-col items-end gap-y-1">
+        <div class="flex flex-col items-start my-2">
+          <div class="flex items-center gap-x-2 text-base sm:text-xl text-light break-keep mb-1">
+            <span>
+              {{ $t('main.setOption.thisWeekend') }}
+            </span>
+            <UBadge
+              :color="computedSpendSituation.theme ?? 'error'"
+              variant="outline"
+              size="lg"
+              :label="$t('text.count', { count: spendCount })"
+            />
+            <span>
+              {{ $t('main.setOption.records') }}
+            </span>
           </div>
+          <p class="text-sm sm:text-lg break-keep leading-7 mb-1">
+            {{ $t('main.setOption.currentSpendAmount', { amount: comma(userData?.weekly_target_amount ?? 0), currency: $t(`currency.${userData?.currency?.code}`) }) }}
+          </p>
+          <div class="flex items-center gap-x-2 text-sm sm:text-lg break-keep leading-6 mb-2">
+            <UBadge
+              :color="computedSpendSituation.theme ?? 'error'"
+              variant="outline"
+              size="lg"
+              :label="$t('main.setOption.nextWeekend', { endDate: $t(`date.${userData?.endDate.code}`) })"
+            />
+            <span>
+              {{ $t('main.setOption.chekable') }}
+            </span>
+          </div>
+          <AHelpPopover
+            icon-custom-class="h-5 w-5 text-neutral-600 dark:text-neutral-400"
+            :help-label="$t('button.help')"
+          >
+            <p
+              v-for="(text, index) in $tm('main.help')"
+              :key="index"
+              class="text-xs font-light text-neutral-600 dark:text-neutral-400 break-keep"
+            >
+              {{ $rt(text) }}
+            </p>
+          </AHelpPopover>
         </div>
-      </template>
-    </UAccordion>
-  </div>
+      </div>
+    </template>
+  </UAccordion>
 </template>

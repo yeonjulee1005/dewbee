@@ -135,7 +135,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="relative w-full h-full flex flex-col gap-y-8 overflow-hidden">
+  <div class="relative w-full h-dvh flex flex-col gap-y-8 pt-4 pb-6 overflow-hidden">
     <ASubPageTitle :title="$t('pageTitle.inquiry')" />
     <UCard
       :ui="{
@@ -154,7 +154,7 @@ onMounted(async () => {
     <div
       v-if="!pendingInquiryChatData"
       ref="chatContainerRef"
-      class="w-full h-fit overflow-y-scroll flex flex-col items-center gap-y-10 py-4 pb-20"
+      class="w-full h-full overflow-y-scroll flex flex-col items-center gap-y-10 pt-6 pb-20"
     >
       <div
         v-for="(chatList, index) in inquiryChatData?.inquiryMessageList"
