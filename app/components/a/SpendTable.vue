@@ -68,7 +68,7 @@ const currentPage = defineModel('currentPage', {
           color="neutral"
           variant="subtle"
           :sibling-count="1"
-          :size="windowSize < 340 ? 'xs' : 'lg'"
+          :size="windowSize < 380 ? 'xs' : 'lg'"
           showo-edge
           :items-per-page="pageSize"
           :total="totalCount"

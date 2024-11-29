@@ -202,7 +202,7 @@ export default {
     setOption: {
       thisWeekend: 'This week\'s spending is ',
       records: 'records!',
-      currentSpendAmount: 'You spent less than {amount}{currency},',
+      currentSpendAmount: 'Spent less than {amount}{currency},',
       nextWeekend: 'Next week {endDate}',
       chekable: 'Checkable!',
     },
