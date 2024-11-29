@@ -202,7 +202,7 @@ export default {
     setOption: {
       thisWeekend: '이번주 지출은 ',
       records: '이 있어요!',
-      currentSpendAmount: '{amount}{currency} 미만으로 지출했는지는,',
+      currentSpendAmount: '{amount}{currency} 보다 적게썼는지,',
       nextWeekend: '다음 주 {endDate}',
       chekable: '에 확인 가능해요!',
     },

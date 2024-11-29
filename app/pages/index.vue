@@ -104,7 +104,7 @@ const clearArithmometer = () => {
   >
     <div
       v-if="user?.id"
-      class="h-fit flex flex-col items-end gap-y-8 px-6 py-4"
+      class="h-fit flex flex-col items-start gap-y-8 px-6 py-4"
     >
       <LazyMainSetOption
         :spend-list="mainSpendList?.data ?? []"
