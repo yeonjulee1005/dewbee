@@ -286,7 +286,7 @@ checkLoginState()
 </script>
 
 <template>
-  <div class="sticky top-0 left-0 w-full flex justify-end items-center px-4 py-3 z-10">
+  <div class="fixed top-0 left-0 w-full flex justify-end items-center px-6 py-5 z-10">
     <UDropdownMenu
       v-model:open="dropdownMenuTrigger"
       :items="menuItems"
