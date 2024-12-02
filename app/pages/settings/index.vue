@@ -124,12 +124,20 @@ const updateProfileData = async (payload: Database['public']['Tables']['profiles
         </UCard>
       </template>
     </ClientOnly>
-    <ULink
-      class="w-full text-right px-6"
-      to="/policy"
-      target="_blank"
-    >
-      {{ $t('menu.policy') }}
-    </ULink>
+    <div class="w-full flex flex-wrap items-center justify-end gap-2 px-6">
+      <ULink
+        class="px-2.5 py-1.5"
+        to="/policy"
+        target="_blank"
+      >
+        {{ $t('menu.policy') }}
+      </ULink>
+      <USeparator
+        class="h-2 hidden sm:block"
+        orientation="vertical"
+        color="info"
+      />
+      <SettingWithdrawal />
+    </div>
   </div>
 </template>
