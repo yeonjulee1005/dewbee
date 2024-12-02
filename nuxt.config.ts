@@ -16,7 +16,7 @@ export default defineNuxtConfig({
     'nuxt-time',
     '@vueuse/nuxt',
     '@pinia/nuxt',
-    '@pinia-plugin-persistedstate/nuxt',
+    'pinia-plugin-persistedstate/nuxt',
     '@stefanobartoletti/nuxt-social-share',
   ],
   imports: {
