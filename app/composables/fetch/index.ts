@@ -376,17 +376,17 @@ export const useFetchComposable = () => {
   //   return data
   // }
 
-  // const fetchOptionData = async (table: string, queryString: string, matchOpt: string, matchOptVal: string | number | boolean) => {
-  //   const { data, error } = await client
-  //     .from(table)
-  //     .select(queryString)
-  //     .eq(matchOpt, matchOptVal)
-  //     .eq('deleted', false)
+  const fetchOptionData = async (table: string, queryString: string, matchOpt: string, matchOptVal: string | number | boolean) => {
+    const { data, error } = await client
+      .from(table)
+      .select(queryString)
+      .eq(matchOpt, matchOptVal)
+      .eq('deleted', false)
 
-  //   errorHandler('fetch OptionData', error)
+    errorHandler('fetch OptionData', error)
 
-  //   return data
-  // }
+    return data
+  }
 
   // const fetchOptionSingleData = async (table: string, queryString: string, matchOpt: string, matchOptVal: string | number | boolean) => {
   //   const { data, error } = await client
@@ -531,6 +531,7 @@ export const useFetchComposable = () => {
 
   return {
     // fetchData,
+    fetchOptionData,
     // orderFetchData,
     // orderFetchData,
     // fetchPaginationData,

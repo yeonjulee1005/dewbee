@@ -75,6 +75,7 @@ export default {
     send: 'Send',
     inquiry: 'Inquiry',
     leaveInquiry: 'Leave Inquiry',
+    withdrawal: 'Withdrawal',
   },
   text: {
     CYC001: 'KRW (₩)',
@@ -312,6 +313,10 @@ export default {
       description: 'You entered an amount that exceeds this week\'s target spend amount! Do you still want to save?',
       exceedAmount: 'Exceed Amount: {amount}{currency}',
     },
+    confirmWithdrawal: {
+      title: 'Need to confirm withdrawal!',
+      description: 'Withdrawing will delete all data. Do you still want to withdraw?',
+    },
   },
   validate: {
     imageUploadFormat: 'Image format is incorrect!',
@@ -355,6 +360,10 @@ export default {
     successSaveSettings: {
       title: 'Settings have been saved!',
       description: 'Saved settings: {setting}',
+    },
+    successWithdrawal: {
+      title: 'Withdrawal completed!',
+      description: 'Withdrawal has been completed.',
     },
   },
 }

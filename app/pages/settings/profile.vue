@@ -103,7 +103,7 @@ onMounted(() => {
 <template>
   <div class="relative w-full h-[calc(100dvh-80px)] flex flex-col items-center gap-y-12 overflow-y-scroll pt-4 pb-6">
     <ASubPageTitle :title="$t('pageTitle.profile')" />
-    <div class="w-full max-w-[400px] px-6">
+    <div class="w-full px-6">
       <UCard
         :ui="{
           root: 'ring ring-neutral-400 dark:ring-neutral-600',
