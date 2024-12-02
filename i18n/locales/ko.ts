@@ -75,6 +75,7 @@ export default {
     send: '보내기',
     inquiry: '문의하기',
     leaveInquiry: '문의 남기기',
+    withdrawal: '탈퇴하기',
   },
   text: {
     CYC001: '원화 (₩)',
@@ -312,6 +313,10 @@ export default {
       description: '이번주 목표 지출금액을 초과하는 금액을 입력했어요! 그래도 저장하시겠어요?',
       exceedAmount: '초과금액: {amount}{currency}',
     },
+    confirmWithdrawal: {
+      title: '탈퇴 확인이 필요해요!',
+      description: '탈퇴하시면 모든 데이터가 삭제됩니다. 그래도 탈퇴하시겠어요?',
+    },
   },
   validate: {
     imageUploadFormat: '이미지 형식이 올바르지 않아요!',
@@ -354,6 +359,10 @@ export default {
     successSaveSettings: {
       title: '설정을 저장했어요!',
       description: '저장한 설정: {setting}',
+    },
+    successWithdrawal: {
+      title: '탈퇴 완료',
+      description: '탈퇴가 완료되었습니다.',
     },
   },
 }
