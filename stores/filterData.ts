@@ -34,6 +34,6 @@ export const useFilterDataStore = defineStore('filterDataStore', () => {
   }
 }, {
   persist: {
-    storage: persistedState.localStorage,
+    storage: piniaPluginPersistedstate.localStorage(),
   },
 })

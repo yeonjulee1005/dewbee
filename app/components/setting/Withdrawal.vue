@@ -34,11 +34,11 @@ const deleteSpendList = async () => {
 }
 
 const deleteDailyResultList = async () => {
-  const response = await fetchOptionData('dailyResultList', '*', 'update_user_id', userData.value?.id) as unknown as Database['public']['Tables']['spendList']['Row'][]
+  const response = await fetchOptionData('dailyResultList', '*', 'update_user_id', userData.value?.id) as unknown as Database['public']['Tables']['dailyResultList']['Row'][]
 
-  const payload = response?.map((spend) => {
+  const payload = response?.map((dailyResult) => {
     return {
-      id: spend.id,
+      id: dailyResult.id,
       deleted: true,
     }
   })
@@ -47,11 +47,11 @@ const deleteDailyResultList = async () => {
 }
 
 const deleteWeeklyResultList = async () => {
-  const response = await fetchOptionData('weeklyResultList', '*', 'update_user_id', userData.value?.id) as unknown as Database['public']['Tables']['spendList']['Row'][]
+  const response = await fetchOptionData('weeklyResultList', '*', 'update_user_id', userData.value?.id) as unknown as Database['public']['Tables']['weeklyResultList']['Row'][]
 
-  const payload = response?.map((spend) => {
+  const payload = response?.map((weeklyResult) => {
     return {
-      id: spend.id,
+      id: weeklyResult.id,
       deleted: true,
     }
   })
