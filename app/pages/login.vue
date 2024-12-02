@@ -15,11 +15,16 @@ useHead({
   meta: [{ name: 'description', content: t('pageDescription.login') }],
 })
 
-const loginButton = ref<{ provider: 'kakao' | 'google' | 'github' | 'linkedin_oidc', icon: string, text: string }[]>([
+const loginButton = ref<{ provider: 'kakao' | 'apple' | 'google' | 'github' | 'linkedin_oidc', icon: string, text: string }[]>([
   {
     provider: 'kakao',
     icon: 'i-simple-icons-kakaotalk',
     text: 'Kakao',
+  },
+  {
+    provider: 'apple',
+    icon: 'i-simple-icons-apple',
+    text: 'Apple',
   },
   {
     provider: 'google',
@@ -45,7 +50,7 @@ const getUrl = () => {
   return url.concat('confirm')
 }
 
-const userLogin = async (provider: 'kakao' | 'google' | 'github' | 'linkedin_oidc') => {
+const userLogin = async (provider: 'kakao' | 'apple' | 'google' | 'github' | 'linkedin_oidc') => {
   track('Login Provider', { provider })
 
   if (provider === 'google' && navigator.userAgent.indexOf('NAVER(inapp;') === 0) {
@@ -53,6 +58,26 @@ const userLogin = async (provider: 'kakao' | 'google' | 'github' | 'linkedin_oid
     return
   }
 
+  switch (provider) {
+    case 'apple':
+      loginOauthApple(provider)
+      break
+    default:
+      loginOAuth(provider)
+      break
+  }
+}
+
+const loginOauthApple = async (provider: 'apple') => {
+  await auth.signInWithOAuth({
+    provider,
+    options: {
+      redirectTo: getUrl(),
+    },
+  })
+}
+
+const loginOAuth = async (provider: 'kakao' | 'google' | 'github' | 'linkedin_oidc') => {
   const { error } = await auth.signInWithOAuth({
     provider,
     options: {
