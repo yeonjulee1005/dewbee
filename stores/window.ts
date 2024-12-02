@@ -13,6 +13,6 @@ export const useWindowStore = defineStore('windowStore', () => {
   }
 }, {
   persist: {
-    storage: persistedState.localStorage,
+    storage: piniaPluginPersistedstate.localStorage(),
   },
 })
