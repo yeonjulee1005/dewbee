@@ -143,13 +143,15 @@ const moveToInquiryChat = (list: BoardDatabase['board']['Views']['viewInquiryCha
   navigateTo({ path: '/inquiry/chat', query: { channelCode: list.channel_code } })
 }
 
-executeGuestInquiryList()
-executeMemberInquiryList()
-executeUserInquiryList()
+onMounted(async () => {
+  await executeGuestInquiryList()
+  await executeMemberInquiryList()
+  await executeUserInquiryList()
+})
 </script>
 
 <template>
-  <div class="relative w-full h-fit flex flex-col justify-center gap-y-8 py-4 pb-6 mt-10">
+  <div class="relative w-full h-fit flex flex-col justify-center gap-y-8 py-4 pb-6">
     <ASubPageTitle :title="$t('pageTitle.inquiry')" />
     <div
       v-if="user?.id"
