@@ -135,7 +135,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="relative w-full h-dvh flex flex-col gap-y-8 pt-4 pb-6 overflow-hidden pt-14">
+  <div class="relative w-full h-dvh flex flex-col gap-y-8 pt-4 pb-6 overflow-hidden pt-14 mt-10">
     <ASubPageTitle :title="$t('pageTitle.inquiry')" />
     <UCard
       :ui="{
