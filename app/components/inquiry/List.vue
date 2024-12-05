@@ -92,8 +92,8 @@ const clickList = (list: any) => {
                 color="secondary"
               >
                 <UAvatar
-                  :src="(list as MemberInquiry)?.adminProfiles.avatar_url ?? ''"
-                  :alt="(list as MemberInquiry)?.adminProfiles.nickname ?? ''"
+                  :src="(list as MemberInquiry)?.adminProfiles?.avatar_url ?? ''"
+                  :alt="(list as MemberInquiry)?.adminProfiles?.nickname ?? ''"
                 />
               </UChip>
               <UChip
@@ -102,8 +102,8 @@ const clickList = (list: any) => {
                 color="success"
               >
                 <UAvatar
-                  :src="(list as MemberInquiry)?.requestUserProfiles.avatar_url ?? ''"
-                  :alt="(list as MemberInquiry)?.requestUserProfiles.nickname ?? ''"
+                  :src="(list as MemberInquiry)?.requestUserProfiles?.avatar_url ?? ''"
+                  :alt="(list as MemberInquiry)?.requestUserProfiles?.nickname ?? ''"
                 />
               </UChip>
             </UAvatarGroup>

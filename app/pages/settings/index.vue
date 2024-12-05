@@ -60,7 +60,7 @@ const updateProfileData = async (payload: Database['public']['Tables']['profiles
 </script>
 
 <template>
-  <div class="relative h-fit flex flex-col justify-center items-center gap-y-8 pt-4 pb-6">
+  <div class="relative w-full h-fit flex flex-col justify-center items-center gap-y-8 pt-4 pb-6 mt-10">
     <ASubPageTitle :title="$t('pageTitle.settings')" />
     <ClientOnly>
       <template #default>

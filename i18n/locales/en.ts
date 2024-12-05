@@ -194,11 +194,11 @@ export default {
   },
   main: {
     situation: {
-      excellent: 'Excellent compared to the target!',
-      good: 'Reasonable compared to the target!',
-      warning: 'Risky compared to the target!',
-      danger: 'Dangerous compared to the target!',
-      over: 'Exceeded the target!',
+      excellent: 'Excellent Spend!',
+      good: 'Reasonable Spend!',
+      warning: 'Risky Spend!',
+      danger: 'Dangerous Spend!',
+      over: 'Exceeded Spend!',
     },
     setOption: {
       thisWeekend: 'This week\'s spending is ',
@@ -208,7 +208,7 @@ export default {
       chekable: 'Checkable!',
     },
     require: {
-      category: 'Select a category!',
+      category: 'Select category!',
       amount: 'Amount is empty!',
     },
     arithmometer: 'Arithmometer',
