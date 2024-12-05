@@ -10,8 +10,10 @@ const { go } = useRouter()
 const { t, locale, setLocale } = useCustomLocale()
 const { url } = useImageStorage()
 
-const { userData, userCoreId } = storeToRefs(useUserDataStore())
 const { logout } = useFetchComposable()
+
+const { userData, userCoreId } = storeToRefs(useUserDataStore())
+const { mobileOperationSystem } = storeToRefs(useWindowStore())
 
 useCookie(`${config.public.supabase.cookieName}-redirect-path`).value = fullPath
 
@@ -286,7 +288,10 @@ checkLoginState()
 </script>
 
 <template>
-  <div class="fixed w-dvw lg:w-[800px] top-0 flex justify-end mt-10 px-6 py-5 z-10">
+  <div
+    class="fixed w-dvw lg:w-[800px] top-0 flex justify-end mt-10 px-6 py-5 z-10"
+    :class="{ 'mt-10': mobileOperationSystem === 'android' }"
+  >
     <UDropdownMenu
       v-model:open="dropdownMenuTrigger"
       :items="menuItems"
