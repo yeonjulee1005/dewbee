@@ -151,7 +151,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="relative w-full h-fit flex flex-col justify-center gap-y-8 py-4 pb-6">
+  <div class="relative w-full h-fit flex flex-col justify-center gap-y-8 py-4 pb-6 mt-10">
     <ASubPageTitle :title="$t('pageTitle.inquiry')" />
     <div
       v-if="user?.id"
