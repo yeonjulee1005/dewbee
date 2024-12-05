@@ -289,7 +289,7 @@ checkLoginState()
 
 <template>
   <div
-    class="fixed w-dvw lg:w-[800px] top-0 flex justify-end mt-10 px-6 py-5 z-10"
+    class="fixed w-dvw lg:w-[800px] top-0 flex justify-end px-6 py-5 z-10"
     :class="{ 'mt-10': mobileOperationSystem === 'android' }"
   >
     <UDropdownMenu
