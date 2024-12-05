@@ -128,7 +128,7 @@ const clearArithmometer = () => {
     </div>
     <div
       v-else
-      class="h-fit flex flex-col gap-y-6 px-6 py-4 mt-10"
+      class="h-fit flex flex-col gap-y-6 px-6 py-4 mt-12"
     >
       <MainIntroTitle />
       <MainIntroDescriptions />
