@@ -4,12 +4,12 @@ import type { FilterDatabase } from '@/types/supabaseFilter'
 const { t } = useCustomLocale()
 const toast = useToast()
 
-const { windowSize } = storeToRefs(useWindowStore())
-const { userData } = storeToRefs(useUserDataStore())
-const { currencyCodeList, endDateCodeList } = storeToRefs(useFilterDataStore())
-
 const { executeUpdateData } = useLoadUserData()
 const { updateData } = useUpdateComposable()
+
+const { windowSize, mobileOperationSystem } = storeToRefs(useWindowStore())
+const { userData } = storeToRefs(useUserDataStore())
+const { currencyCodeList, endDateCodeList } = storeToRefs(useFilterDataStore())
 
 useHead({
   title: t('pageTitle.settings'),
@@ -60,7 +60,10 @@ const updateProfileData = async (payload: Database['public']['Tables']['profiles
 </script>
 
 <template>
-  <div class="relative w-full h-fit flex flex-col justify-center items-center gap-y-8 pt-4 pb-6 mt-10">
+  <div
+    class="relative w-full h-fit flex flex-col justify-center items-center gap-y-8 pt-4 pb-6"
+    :class="{ 'mt-10': mobileOperationSystem === 'android' }"
+  >
     <ASubPageTitle :title="$t('pageTitle.settings')" />
     <ClientOnly>
       <template #default>

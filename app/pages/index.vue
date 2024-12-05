@@ -10,6 +10,7 @@ const toast = useToast()
 const { comma } = useUi()
 const { getWeeklyTimestampz } = useLocalTimezone()
 
+const { mobileOperationSystem } = storeToRefs(useWindowStore())
 const { userData } = storeToRefs(useUserDataStore())
 const { pendingUpdateData, executeUpdateData } = useLoadUserData()
 const { currencyCodeList, spendCategoryCodeList } = storeToRefs(useFilterDataStore())
@@ -104,7 +105,8 @@ const clearArithmometer = () => {
   >
     <div
       v-if="user?.id"
-      class="h-fit flex flex-col items-start gap-y-8 px-6 py-4 mt-10"
+      class="h-fit flex flex-col items-start gap-y-8 px-6 py-4"
+      :class="{ 'mt-10': mobileOperationSystem === 'android' }"
     >
       <LazyMainSetOption
         :spend-list="mainSpendList?.data ?? []"
@@ -128,7 +130,8 @@ const clearArithmometer = () => {
     </div>
     <div
       v-else
-      class="h-fit flex flex-col gap-y-6 px-6 py-4 mt-12"
+      class="h-fit flex flex-col gap-y-6 px-6 py-4"
+      :class="{ 'mt-12': mobileOperationSystem === 'android' }"
     >
       <MainIntroTitle />
       <MainIntroDescriptions />

@@ -3,7 +3,7 @@ const config = useRuntimeConfig()
 const { t } = useCustomLocale()
 const { fullPath } = useRoute()
 
-const { windowSize } = storeToRefs(useWindowStore())
+const { windowSize, mobileOperationSystem } = storeToRefs(useWindowStore())
 
 useCookie(`${config.public.supabase.cookieName}-redirect-path`).value = fullPath
 
@@ -46,7 +46,10 @@ const parseMarkdown = (body: string) => {
 </script>
 
 <template>
-  <div class="relative w-full flex flex-col items-center overflow-y-scroll pt-4 pb-6 mt-10">
+  <div
+    class="relative w-full flex flex-col items-center overflow-y-scroll pt-4 pb-6"
+    :class="{ 'mt-10': mobileOperationSystem === 'android' }"
+  >
     <ASubPageTitle :title="$t('pageTitle.patchNote')" />
     <div
       v-if="!pendingGithubReleaseData"
