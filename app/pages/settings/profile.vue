@@ -5,10 +5,11 @@ import type { FormSubmitEvent } from '#ui/types'
 const { t } = useCustomLocale()
 const toast = useToast()
 
-const { userData } = storeToRefs(useUserDataStore())
-
 const { updateData } = useUpdateComposable()
 const { loadStorage, uploadStorage } = useFetchStorageComposable()
+
+const { userData } = storeToRefs(useUserDataStore())
+const { mobileOperationSystem } = storeToRefs(useWindowStore())
 
 useHead({
   title: t('pageTitle.profile'),
@@ -101,7 +102,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative w-full h-full flex flex-col items-center gap-y-12 overflow-y-scroll pt-4 pb-6 mt-10">
+  <div
+    class="relative w-full h-full flex flex-col items-center gap-y-12 overflow-y-scroll pt-4 pb-6"
+    :class="{ 'mt-10': mobileOperationSystem === 'android' }"
+  >
     <ASubPageTitle :title="$t('pageTitle.profile')" />
     <div class="w-full px-6">
       <UCard

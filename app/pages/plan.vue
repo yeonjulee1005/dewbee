@@ -3,6 +3,8 @@ const user = useSupabaseUser()
 
 const { t } = useCustomLocale()
 
+const { mobileOperationSystem } = storeToRefs(useWindowStore())
+
 useHead({
   title: t('pageTitle.plan'),
   meta: [{ name: 'description', content: t('pageDescription.plan') }],
@@ -27,7 +29,10 @@ const clickPlan = async (option: string) => {
 </script>
 
 <template>
-  <div class="relative w-full h-fit flex flex-col justify-center gap-y-8 py-4 pb-6 mt-10">
+  <div
+    class="relative w-full h-fit flex flex-col justify-center gap-y-8 py-4 pb-6"
+    :class="{ 'mt-10': mobileOperationSystem === 'android' }"
+  >
     <ASubPageTitle :title="$t('pageTitle.plan')" />
     <div class="w-full flex flex-col items-center gap-y-10 px-6">
       <p class="w-full text-lg font-light break-keep">

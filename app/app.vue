@@ -7,7 +7,7 @@ const user = useSupabaseUser()
 const { t } = useCustomLocale()
 const { meta } = useRoute()
 
-const { windowSize } = storeToRefs(useWindowStore())
+const { windowSize, mobileOperationSystem } = storeToRefs(useWindowStore())
 
 const { executeUpdateData } = useLoadUserData()
 const { executeFilterData } = useLoadFilterData()
@@ -16,6 +16,8 @@ const seoTitle = 'DewBee - 주간 여유자금 관리 및 소비 내역 체크 �
 const seoDescription = 'DewBee는 여유자금을 효율적으로 관리하고 소비 내역을 주간 단위로 기록할 수 있는 개인 재무 관리 서비스입니다. 소비 습관을 개선하고 지출 패턴을 분석하여 더 나은 자산 관리를 도와줍니다.'
 const seoUrl = 'https://dewbee.dewdew.world'
 const seoImage = 'https://dewbee.dewdew.world/image/image_og.png'
+
+mobileOperationSystem.value = userAgent.includes('APP_Dewbee') ? 'ios' : userAgent.includes('APP_AOS_Dewbee') ? 'android' : ''
 
 useHead({
   title: (meta.title as string) ?? t('pageTitle.dewbee'),
@@ -43,7 +45,7 @@ useHead({
   ],
 })
 
-if (!userAgent.includes('APP_Dewbee')) {
+if (!mobileOperationSystem.value) {
   useHead({
     script: [
       {

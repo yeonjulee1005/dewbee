@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import type { FilterDatabase } from '@/types/supabaseFilter'
 
-export const useFilterDataStore = defineStore('filterDataStore', () => {
+export const useFilterDataStore = defineStore('useFilterDataStore', () => {
   /**
    * ! Pinia State !
    *

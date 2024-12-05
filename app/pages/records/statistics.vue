@@ -3,6 +3,8 @@ import { subMonths } from 'date-fns'
 
 const { t } = useCustomLocale()
 
+const { mobileOperationSystem } = storeToRefs(useWindowStore())
+
 useHead({
   title: t('pageTitle.statistics'),
   meta: [{ name: 'description', content: t('pageDescription.statistics') }],
@@ -167,7 +169,8 @@ const { data: statisticsWeeklyResultData, pending: pendingStatisticsWeeklyResult
 <template>
   <div
     v-if="!pendingStatisticsRealtimeSpendData && !pendingStatisticsDailyResultData && !pendingStatisticsWeeklyResultData"
-    class="relative w-full h-fit flex flex-col justify-center gap-y-8 pt-4 pb-6 mt-10"
+    class="relative w-full h-fit flex flex-col justify-center gap-y-8 pt-4 pb-6"
+    :class="{ 'mt-10': mobileOperationSystem === 'android' }"
   >
     <ASubPageTitle
       :title="$t('pageTitle.statistics')"
