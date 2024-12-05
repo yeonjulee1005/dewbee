@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { BoardDatabase } from '@/types/supabaseBoard'
 
+const user = useSupabaseUser()
+
 const { t } = useCustomLocale()
 const { fullPath } = useRoute()
 const toast = useToast()
@@ -9,7 +11,7 @@ const config = useRuntimeConfig()
 
 const { schemaUpsertData, schemaUpdateData } = useUpdateComposable()
 
-const user = useSupabaseUser()
+const { mobileOperationSystem } = storeToRefs(useWindowStore())
 
 useCookie(`${config.public.supabase.cookieName}-redirect-path`).value = fullPath
 
@@ -151,7 +153,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="relative w-full h-fit flex flex-col justify-center gap-y-8 py-4 pb-6 mt-10">
+  <div
+    class="relative w-full h-fit flex flex-col justify-center gap-y-8 py-4 pb-6"
+    :class="{ 'mt-10': mobileOperationSystem === 'android' }"
+  >
     <ASubPageTitle :title="$t('pageTitle.inquiry')" />
     <div
       v-if="user?.id"

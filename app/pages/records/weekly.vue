@@ -11,6 +11,8 @@ const UBadge = resolveComponent('UBadge')
 const { t, locale } = useCustomLocale()
 const { comma } = useUi()
 
+const { mobileOperationSystem } = storeToRefs(useWindowStore())
+
 useHead({
   title: t('pageTitle.weeklySpend'),
   meta: [{ name: 'description', content: t('pageDescription.weeklySpend') }],
@@ -254,7 +256,10 @@ const successColorTranslate = (isSuccess: boolean) => {
 </script>
 
 <template>
-  <div class="relative w-full h-fit flex flex-col justify-center gap-y-8 pt-4 pb-6 mt-10">
+  <div
+    class="relative w-full h-fit flex flex-col justify-center gap-y-8 pt-4 pb-6"
+    :class="{ 'mt-10': mobileOperationSystem === 'android' }"
+  >
     <ASubPageTitle
       :title="$t('pageTitle.weeklySpend')"
       title-class="text-2xl font-semibold"

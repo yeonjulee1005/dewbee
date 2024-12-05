@@ -3,6 +3,8 @@ const { t } = useCustomLocale()
 
 const { url } = useImageStorage()
 
+const { mobileOperationSystem } = storeToRefs(useWindowStore())
+
 useHead({
   title: t('pageTitle.policy'),
   meta: [{ name: 'description', content: t('pageDescription.policy') }],
@@ -242,7 +244,10 @@ const tradeTerms = ref({
 </script>
 
 <template>
-  <div class="w-dvw lg:w-[500px] flex flex-col gap-y-8 py-4 px-8">
+  <div
+    class="w-dvw lg:w-[500px] flex flex-col gap-y-8 py-4 px-8"
+    :class="{ 'mt-10': mobileOperationSystem === 'android' }"
+  >
     <NuxtImg
       class="w-40 cursor-pointer"
       :src="url(true, '/assets/dewbee_logo.webp')"
