@@ -10,6 +10,7 @@ const channelCode = query.channelCode as string
 const { schemaUpsertData, schemaUpdateData } = useUpdateComposable()
 
 const { userData } = storeToRefs(useUserDataStore())
+const { mobileOperationSystem } = storeToRefs(useWindowStore())
 
 useHead({
   title: t('pageTitle.chat'),
@@ -135,7 +136,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="relative w-full h-dvh flex flex-col gap-y-8 pt-4 pb-6 overflow-hidden pt-14 mt-10">
+  <div
+    class="relative w-full h-dvh flex flex-col gap-y-8 pt-4 pb-6 overflow-hidden pt-14"
+    :class="{ 'mt-10': mobileOperationSystem === 'android' }"
+  >
     <ASubPageTitle :title="$t('pageTitle.inquiry')" />
     <UCard
       :ui="{

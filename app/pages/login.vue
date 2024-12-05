@@ -8,7 +8,7 @@ const toast = useToast()
 const config = useRuntimeConfig()
 const { url } = useImageStorage()
 
-const { windowSize } = storeToRefs(useWindowStore())
+const { windowSize, mobileOperationSystem } = storeToRefs(useWindowStore())
 
 useHead({
   title: t('pageTitle.login'),
@@ -116,6 +116,7 @@ const loginOAuth = async (provider: 'kakao' | 'google' | 'github' | 'linkedin_oi
             v-for="(button, index) in loginButton"
             :key="index"
             :custom-class="windowSize < 768 ? 'w-full flex items-center justify-center' : ''"
+            :class="{ hidden: mobileOperationSystem === 'android' && button.provider === 'google' }"
             button-variant="soft"
             button-size="xl"
             color="neutral"
