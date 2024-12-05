@@ -101,7 +101,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative w-full h-full flex flex-col items-center gap-y-12 overflow-y-scroll pt-4 pb-6">
+  <div class="relative w-full h-full flex flex-col items-center gap-y-12 overflow-y-scroll pt-4 pb-6 mt-10">
     <ASubPageTitle :title="$t('pageTitle.profile')" />
     <div class="w-full px-6">
       <UCard

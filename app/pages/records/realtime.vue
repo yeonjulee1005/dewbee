@@ -187,7 +187,7 @@ const colorTranslate = (code: string) => {
 </script>
 
 <template>
-  <div class="relative w-full h-fit flex flex-col justify-center gap-y-8 pt-4 pb-6">
+  <div class="relative w-full h-fit flex flex-col justify-center gap-y-8 pt-4 pb-6 mt-10">
     <ASubPageTitle
       :title="$t('pageTitle.realtimeSpend')"
       title-class="text-2xl font-semibold"
