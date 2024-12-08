@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { domToPng } from 'modern-screenshot'
+import { domToWebp } from 'modern-screenshot'
 
 const { t } = useCustomLocale()
 const { url } = useImageStorage()
@@ -114,21 +114,27 @@ const { data: recentRecordWeeklyData, execute: _executeRecentRecordWeeklyData, p
 
 const saveImage = () => {
   if (shareCard.value) {
-    domToPng(shareCard.value, {
+    domToWebp(shareCard.value, {
       backgroundColor: '#ffffff00',
-      type: 'image/png',
     })
       .then((dataUrl) => {
-        const base64Image = 'data:image/png;base64,' + dataUrl.split(',')[1]
         const link = document.createElement('a')
-        link.download = 'my-image-name.png'
-        link.href = base64Image
+        link.download = `${userData.value.nickname}.webp`
+        link.href = dataUrl
         link.click()
+
+        URL.revokeObjectURL(link.href)
+
+        handleNativeSave(dataUrl)
       })
       .catch((error) => {
         console.error('Error capturing image:', error)
       })
   }
+}
+
+const handleNativeSave = (dataUrl: string) => {
+  console.log(dataUrl)
 }
 
 const getSummaryAmount = (currencyCode: string) => {
