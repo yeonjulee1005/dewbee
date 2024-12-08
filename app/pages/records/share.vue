@@ -119,9 +119,10 @@ const saveImage = () => {
       backgroundColor: '#ffffff00',
     })
       .then((dataUrl) => {
+        const base64Image = 'data:image/png;base64,' + dataUrl.split(',')[1]
         const link = document.createElement('a')
         link.download = 'my-image-name.png'
-        link.href = dataUrl
+        link.href = base64Image
         link.click()
       })
       .catch((error) => {
