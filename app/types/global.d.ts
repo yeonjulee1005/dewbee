@@ -4,6 +4,12 @@
 
 type SerializeObject = /* unresolved */ any
 
+interface Window {
+  saveAs: any
+}
+
+declare module 'file-saver'
+
 interface PlanList {
   title: string
   description: string
