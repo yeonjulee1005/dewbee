@@ -119,7 +119,10 @@ const saveImage = () => {
       backgroundColor: '#ffffff00',
     })
       .then((blob) => {
-        if (window.saveAs) {
+        if (mobileOperationSystem.value === 'ios' || mobileOperationSystem.value === 'android') {
+          window.open(blob, '_blank')
+        }
+        else if (window.saveAs) {
           console.log('window saveAs')
           window.saveAs(blob, 'my-node.png')
         }
