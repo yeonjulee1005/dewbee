@@ -6,6 +6,7 @@ export default {
     dailySpend: 'Daily Spend',
     weeklySpend: 'Weekly Spend',
     statistics: 'Statistics',
+    share: 'Share Results',
     plan: 'Plan',
     login: 'Login',
     settings: 'Settings',
@@ -21,6 +22,7 @@ export default {
     dailySpend: 'DewBee\'s Daily Spend page.',
     weeklySpend: 'DewBee\'s Weekly Spend page.',
     statistics: 'DewBee\'s Statistics page.',
+    share: 'You can download the results of your spare fund spending as an image.',
     plan: 'DewBee\'s Plan page.',
     login: 'DewBee Login page.',
     settings: 'Dewbee Settings page.',
@@ -50,6 +52,7 @@ export default {
       daily: 'Daily Spend',
       weekly: 'Weekly Spend',
       statistics: 'Statistics',
+      share: 'Share Results',
     },
     theme: {
       label: 'Theme',
@@ -76,6 +79,7 @@ export default {
     inquiry: 'Inquiry',
     leaveInquiry: 'Leave Inquiry',
     withdrawal: 'Withdrawal',
+    imageSave: 'Save as Image',
   },
   text: {
     CYC001: 'KRW (₩)',
@@ -231,6 +235,23 @@ export default {
     realtime: 'Realtime Spend',
     daily: 'Daily Spend (Tally Date Basis)',
     weekly: 'Weekly Spend (Tally Date Basis)',
+    noRealtime: 'No realtime spend records yet!',
+    noDaily: 'No daily spend records yet!',
+    noWeekly: 'No weekly spend records yet!',
+  },
+  share: {
+    title: '{nickname}\'s spending results!',
+    over: ' Exceeded!',
+    save: ' Saved!',
+    label: 'Category Spend Count',
+    noShare: 'No share records yet!',
+    situation: {
+      excellent: 'Excellent Spend! 😆',
+      good: 'Reasonable Spend! 🙂',
+      warning: 'Risky Spend! 😅',
+      danger: 'Dangerous Spend! 😖',
+      over: 'Exceeded Spend! 🥲',
+    },
   },
   plan: {
     list: [

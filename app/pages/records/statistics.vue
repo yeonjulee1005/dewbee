@@ -14,6 +14,47 @@ definePageMeta({
   middleware: 'auth',
 })
 
+const transformData = (transformPayload: Realtime[] | DailyResult[] | WeeklyResult[], statisticsType: 'realtime' | 'daily' | 'weekly') => {
+  const chartDateLabel = ref<string[]>([])
+  const chartValuesUnit = ref<string[]>([])
+
+  const chartKrwValues = ref<number[]>([])
+  const chartUsdValues = ref<number[]>([])
+  const chartJpyValues = ref<number[]>([])
+
+  const summaryKrwAmount = ref<number>(0)
+  const summaryUsdAmount = ref<number>(0)
+  const summaryJpyAmount = ref<number>(0)
+
+  transformPayload.forEach((item: DailyResult | Realtime | WeeklyResult) => {
+    switch (item.currency.code) {
+      case 'CYC001':
+        chartKrwValues.value.unshift(statisticsType === 'realtime' ? (item as Realtime).amount ?? 0 : (item as DailyResult).summary_amount ?? 0)
+        summaryKrwAmount.value += statisticsType === 'realtime' ? (item as Realtime).amount ?? 0 : (item as DailyResult).summary_amount ?? 0
+        chartUsdValues.value.unshift(0)
+        chartJpyValues.value.unshift(0)
+        break
+      case 'CYC002':
+        chartUsdValues.value.unshift(statisticsType === 'realtime' ? (item as Realtime).amount ?? 0 : (item as DailyResult).summary_amount ?? 0)
+        summaryUsdAmount.value += statisticsType === 'realtime' ? (item as Realtime).amount ?? 0 : (item as DailyResult).summary_amount ?? 0
+        chartKrwValues.value.unshift(0)
+        chartJpyValues.value.unshift(0)
+        break
+      case 'CYC003':
+        chartJpyValues.value.unshift(statisticsType === 'realtime' ? (item as Realtime).amount ?? 0 : (item as DailyResult).summary_amount ?? 0)
+        summaryJpyAmount.value += statisticsType === 'realtime' ? (item as Realtime).amount ?? 0 : (item as DailyResult).summary_amount ?? 0
+        chartKrwValues.value.unshift(0)
+        chartUsdValues.value.unshift(0)
+        break
+    }
+
+    chartDateLabel.value.unshift(item.created_at ?? '')
+    chartValuesUnit.value.unshift(item.currency.code ?? '')
+  })
+
+  return { chartDateLabel, chartKrwValues, chartUsdValues, chartJpyValues, chartValuesUnit, summaryKrwAmount, summaryUsdAmount, summaryJpyAmount }
+}
+
 const { data: statisticsRealtimeSpendData, pending: pendingStatisticsRealtimeSpendData } = await useAsyncData('statisticsRealtimeSpendData', async () => {
   const oneMonthAgo = subMonths(new Date(), 1).toISOString()
 
@@ -26,38 +67,9 @@ const { data: statisticsRealtimeSpendData, pending: pendingStatisticsRealtimeSpe
     },
     headers: useRequestHeaders(['cookie']),
     transform: (payload: SerializeObject) => {
-      const chartDateLabel = ref<string[]>([])
-      const chartValuesUnit = ref<string[]>([])
-
-      const chartKrwValues = ref<number[]>([])
-      const chartUsdValues = ref<number[]>([])
-      const chartJpyValues = ref<number[]>([])
-
       if (payload) {
-        payload.data.forEach((item: Realtime) => {
-          switch (item.currency.code) {
-            case 'CYC001':
-              chartKrwValues.value.push(item.amount ?? 0)
-              chartUsdValues.value.push(0)
-              chartJpyValues.value.push(0)
-              break
-            case 'CYC002':
-              chartUsdValues.value.push(item.amount ?? 0)
-              chartKrwValues.value.push(0)
-              chartJpyValues.value.push(0)
-              break
-            case 'CYC003':
-              chartJpyValues.value.push(item.amount ?? 0)
-              chartKrwValues.value.push(0)
-              chartUsdValues.value.push(0)
-              break
-          }
-
-          chartDateLabel.value.push(item.created_at ?? '')
-          chartValuesUnit.value.push(item.currency.code ?? '')
-        })
+        return transformData(payload.data, 'realtime')
       }
-      return { chartDateLabel, chartKrwValues, chartUsdValues, chartJpyValues, chartValuesUnit }
     },
   })
 
@@ -74,39 +86,9 @@ const { data: statisticsDailyResultData, pending: pendingStatisticsDailyResultDa
     },
     headers: useRequestHeaders(['cookie']),
     transform: (payload: SerializeObject) => {
-      const chartDateLabel = ref<string[]>([])
-      const chartValuesUnit = ref<string[]>([])
-
-      const chartKrwValues = ref<number[]>([])
-      const chartUsdValues = ref<number[]>([])
-      const chartJpyValues = ref<number[]>([])
-
       if (payload) {
-        payload.forEach((item: DailyResult) => {
-          switch (item.currency.code) {
-            case 'CYC001':
-              chartKrwValues.value.unshift(item.summary_amount ?? 0)
-              chartUsdValues.value.unshift(0)
-              chartJpyValues.value.unshift(0)
-              break
-            case 'CYC002':
-              chartUsdValues.value.unshift(item.summary_amount ?? 0)
-              chartKrwValues.value.unshift(0)
-              chartJpyValues.value.unshift(0)
-              break
-            case 'CYC003':
-              chartJpyValues.value.unshift(item.summary_amount ?? 0)
-              chartKrwValues.value.unshift(0)
-              chartUsdValues.value.unshift(0)
-              break
-          }
-
-          chartDateLabel.value.unshift(item.created_at ?? '')
-          chartValuesUnit.value.unshift(item.currency.code ?? '')
-        })
+        return transformData(payload, 'daily')
       }
-
-      return { chartDateLabel, chartKrwValues, chartUsdValues, chartJpyValues, chartValuesUnit }
     },
   })
 
@@ -123,39 +105,9 @@ const { data: statisticsWeeklyResultData, pending: pendingStatisticsWeeklyResult
     },
     headers: useRequestHeaders(['cookie']),
     transform: (payload: SerializeObject) => {
-      const chartDateLabel = ref<string[]>([])
-      const chartValuesUnit = ref<string[]>([])
-
-      const chartKrwValues = ref<number[]>([])
-      const chartUsdValues = ref<number[]>([])
-      const chartJpyValues = ref<number[]>([])
-
       if (payload) {
-        payload.forEach((item: DailyResult) => {
-          switch (item.currency.code) {
-            case 'CYC001':
-              chartKrwValues.value.unshift(item.summary_amount ?? 0)
-              chartUsdValues.value.unshift(0)
-              chartJpyValues.value.unshift(0)
-              break
-            case 'CYC002':
-              chartUsdValues.value.unshift(item.summary_amount ?? 0)
-              chartKrwValues.value.unshift(0)
-              chartJpyValues.value.unshift(0)
-              break
-            case 'CYC003':
-              chartJpyValues.value.unshift(item.summary_amount ?? 0)
-              chartKrwValues.value.unshift(0)
-              chartUsdValues.value.unshift(0)
-              break
-          }
-
-          chartDateLabel.value.unshift(item.created_at ?? '')
-          chartValuesUnit.value.unshift(item.currency.code ?? '')
-        })
+        return transformData(payload, 'weekly')
       }
-
-      return { chartDateLabel, chartKrwValues, chartUsdValues, chartJpyValues, chartValuesUnit }
     },
   })
 
@@ -196,12 +148,12 @@ const { data: statisticsWeeklyResultData, pending: pendingStatisticsWeeklyResult
       >
         <UCard
           :ui="{
-            root: 'w-fit ring ring-neutral-400 dark:ring-neutral-600',
-            body: 'break-keep',
+            root: 'w-full h-40 ring ring-neutral-400 dark:ring-neutral-600',
+            body: 'h-full flex items-center justify-center break-keep',
           }"
         >
           <p class="text-center">
-            아직 실시간 지출 내역이 없습니다.
+            {{ $t('statistics.noRealtime') }}
           </p>
         </UCard>
       </div>
@@ -225,12 +177,12 @@ const { data: statisticsWeeklyResultData, pending: pendingStatisticsWeeklyResult
       >
         <UCard
           :ui="{
-            root: 'w-fit ring ring-neutral-400 dark:ring-neutral-600',
-            body: 'break-keep',
+            root: 'w-full h-40 ring ring-neutral-400 dark:ring-neutral-600',
+            body: 'h-full flex items-center justify-center break-keep',
           }"
         >
           <p class="text-center">
-            아직 일일별 지출 내역이 없습니다.
+            {{ $t('statistics.noDaily') }}
           </p>
         </UCard>
       </div>
@@ -254,12 +206,12 @@ const { data: statisticsWeeklyResultData, pending: pendingStatisticsWeeklyResult
       >
         <UCard
           :ui="{
-            root: 'w-fit ring ring-neutral-400 dark:ring-neutral-600',
-            body: 'break-keep',
+            root: 'w-full h-40 ring ring-neutral-400 dark:ring-neutral-600',
+            body: 'h-full flex items-center justify-center break-keep',
           }"
         >
           <p class="text-center">
-            아직 주간별 지출 내역이 없습니다.
+            {{ $t('statistics.noWeekly') }}
           </p>
         </UCard>
       </div>

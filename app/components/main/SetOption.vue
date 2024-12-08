@@ -81,7 +81,11 @@ const computedSpendSituation = computed(() => {
 <template>
   <UAccordion
     :items="situationItem"
-    :ui="{ root: 'w-fit flex justify-start z-20', header: 'w-full min-w-[240px] flex-col items-end', trailingIcon: 'size-8' }"
+    :ui="{
+      root: 'w-fit flex justify-start z-20',
+      header: 'w-full min-w-[240px] flex-col items-end',
+      trailingIcon: 'size-8',
+    }"
   >
     <template #leading>
       <Icon
