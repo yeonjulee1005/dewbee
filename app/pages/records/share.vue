@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { domToWebp } from 'modern-screenshot'
+import { toPng } from 'html-to-image'
+import FileSaver from 'file-saver'
 
 const { t } = useCustomLocale()
 const { url } = useImageStorage()
@@ -114,18 +115,20 @@ const { data: recentRecordWeeklyData, execute: _executeRecentRecordWeeklyData, p
 
 const saveImage = () => {
   if (shareCard.value) {
-    domToWebp(shareCard.value, {
+    toPng(shareCard.value, {
       backgroundColor: '#ffffff00',
     })
-      .then((dataUrl) => {
-        const link = document.createElement('a')
-        link.download = `${userData.value.nickname}.webp`
-        link.href = dataUrl
-        link.click()
+      .then((blob) => {
+        if (window.saveAs) {
+          console.log('window saveAs')
+          window.saveAs(blob, 'my-node.png')
+        }
+        else {
+          console.log('FileSaver saveAs')
+          FileSaver.saveAs(blob, 'my-node.png')
+        }
 
-        URL.revokeObjectURL(link.href)
-
-        handleNativeSave(dataUrl)
+        handleNativeSave(blob)
       })
       .catch((error) => {
         console.error('Error capturing image:', error)
