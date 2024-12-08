@@ -6,6 +6,7 @@ export default {
     dailySpend: '일일별 지출내역',
     weeklySpend: '주간별 지출내역',
     statistics: '집계 통계',
+    share: '결과 공유',
     plan: '요금제',
     login: '로그인',
     settings: '설정',
@@ -21,6 +22,7 @@ export default {
     dailySpend: 'DewBee의 일일별 지출내역 페이지 입니다.',
     weeklySpend: 'DewBee의 주간별 지출내역 페이지 입니다.',
     statistics: 'DewBee의 집계 통계 페이지 입니다.',
+    share: '여유자금 지출 성과를 이미지로 다운로드 할 수 있는 페이지 입니다.',
     plan: 'DewBee의 요금제 입니다.',
     login: 'DewBee 로그인 페이지',
     settings: 'Dewbee 설정페이지',
@@ -50,6 +52,7 @@ export default {
       daily: '일일별 지출',
       weekly: '주간별 지출',
       statistics: '집계 통계',
+      share: '결과 공유',
     },
     theme: {
       label: '테마변경',
@@ -76,6 +79,7 @@ export default {
     inquiry: '문의하기',
     leaveInquiry: '문의 남기기',
     withdrawal: '탈퇴하기',
+    imageSave: '이미지로 저장하기',
   },
   text: {
     CYC001: '원화 (₩)',
@@ -231,6 +235,23 @@ export default {
     realtime: '실시간 지출내역',
     daily: '일간 집계내역 (집계일 기준)',
     weekly: '주간 집계내역 (집계일 기준)',
+    noRealtime: '아직 실시간 지출내역이 없어요!',
+    noDaily: '아직 일일별 지출내역이 없어요!',
+    noWeekly: '아직 주간별 지출내역이 없어요!',
+  },
+  share: {
+    title: '{nickname}의 지출 결과에요!',
+    over: ' 초과 했군요!',
+    save: ' 절약 했군요!',
+    label: '항목별 지출 건수',
+    noShare: '아직 공유할 내역이 없어요!',
+    situation: {
+      excellent: '완전 훌륭해요! 😆',
+      good: '좋은 지출습관이에요! 🙂',
+      warning: '조금 절약해보는건 어떨까요? 😅',
+      danger: '아슬아슬 한데요? 😖',
+      over: '실패했어요 🥲',
+    },
   },
   plan: {
     list: [

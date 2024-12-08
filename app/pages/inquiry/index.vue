@@ -80,8 +80,8 @@ const { data: memberInquiryData, execute: executeMemberInquiryList, pending: pen
     query: {
       schema: 'board',
       tableName: 'viewInquiryChannel',
-      startPage: pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true),
-      endPage: pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false),
+      startPage: pageCalc(memberInquiryCurrentPage.value, memberInquiryPageSize.value, true),
+      endPage: pageCalc(memberInquiryCurrentPage.value, memberInquiryPageSize.value, false),
       ascending: 'activated',
     },
     headers: useRequestHeaders(['cookie']),
@@ -92,7 +92,7 @@ const { data: memberInquiryData, execute: executeMemberInquiryList, pending: pen
     : { list: [], count: 0 }
 }, {
   immediate: true,
-  watch: [guestInquiryCurrentPage],
+  watch: [memberInquiryCurrentPage],
 })
 
 const { data: userInquiryData, execute: executeUserInquiryList, pending: pendingUserInquiryList } = await useAsyncData('userInquiryData', async () => {
@@ -104,8 +104,8 @@ const { data: userInquiryData, execute: executeUserInquiryList, pending: pending
     query: {
       schema: 'board',
       tableName: 'viewInquiryChannel',
-      startPage: pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, true),
-      endPage: pageCalc(guestInquiryCurrentPage.value, guestInquiryPageSize.value, false),
+      startPage: pageCalc(userInquiryCurrentPage.value, userInquiryPageSize.value, true),
+      endPage: pageCalc(userInquiryCurrentPage.value, userInquiryPageSize.value, false),
       matchOpt: 'request_user_id',
       ascending: 'activated',
     },
