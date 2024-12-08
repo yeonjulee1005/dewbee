@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toPng } from 'html-to-image'
+import { domToPng } from 'modern-screenshot'
 
 const { t } = useCustomLocale()
 const { url } = useImageStorage()
@@ -114,9 +114,9 @@ const { data: recentRecordWeeklyData, execute: _executeRecentRecordWeeklyData, p
 
 const saveImage = () => {
   if (shareCard.value) {
-    toPng(shareCard.value, {
-      cacheBust: true,
+    domToPng(shareCard.value, {
       backgroundColor: '#ffffff00',
+      type: 'image/png',
     })
       .then((dataUrl) => {
         const base64Image = 'data:image/png;base64,' + dataUrl.split(',')[1]
