@@ -208,6 +208,14 @@ const insertProPlanMenu = () => {
               navigateTo('/records/statistics')
             },
           },
+          {
+            label: t('menu.records.share'),
+            icon: 'i-lucide-share-2',
+            kbds: ['ctrl', 'meta', 'i'],
+            onSelect: () => {
+              navigateTo('/records/share')
+            },
+          },
         ],
       },
       // {
@@ -256,6 +264,7 @@ defineShortcuts({
   ctrl_t: () => navigateTo('/settings/theme'),
   ctrl_n: () => navigateTo('/settings/patch'),
   ctrl_meta_e: () => navigateTo('/records/daily'),
+  ctrl_meta_i: () => navigateTo('/records/share'),
   ctrl_meta_k: () => ccolorMode.preference = 'dark',
   ctrl_meta_l: () => ccolorMode.preference = 'light',
   ctrl_meta_p: () => navigateTo('/settings/profile'),

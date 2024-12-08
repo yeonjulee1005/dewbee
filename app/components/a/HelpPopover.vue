@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { isMobile } = useDevice()
+const { mobileOperationSystem } = storeToRefs(useWindowStore())
 
 const props = withDefaults(
   defineProps<{
@@ -33,7 +34,7 @@ const props = withDefaults(
 )
 
 const computedPopoverControl = computed(() => {
-  return isMobile ? 'click' : props.popoverMode
+  return isMobile || mobileOperationSystem.value === 'ios' || mobileOperationSystem.value === 'android' ? 'click' : props.popoverMode
 })
 </script>
 

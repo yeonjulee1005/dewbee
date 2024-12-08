@@ -21,6 +21,6 @@ export const useUserDataStore = defineStore('useUserDataStore', () => {
   }
 }, {
   persist: {
-    storage: piniaPluginPersistedstate.sessionStorage(),
+    storage: piniaPluginPersistedstate.localStorage(),
   },
 })
