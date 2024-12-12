@@ -79,7 +79,8 @@ export default {
     inquiry: 'Inquiry',
     leaveInquiry: 'Leave Inquiry',
     withdrawal: 'Withdrawal',
-    imageSave: 'Save as Image',
+    imageSave: 'Save Image',
+    imageShare: 'Share Image',
   },
   text: {
     CYC001: 'KRW (₩)',
@@ -251,6 +252,11 @@ export default {
       warning: 'Risky Spend! 😅',
       danger: 'Dangerous Spend! 😖',
       over: 'Exceeded Spend! 🥲',
+    },
+    result: {
+      title: 'Share your spending results!',
+      description: 'Long press the image to share with others!',
+      downloadDescription: 'Download the image to share with others!',
     },
   },
   plan: {
