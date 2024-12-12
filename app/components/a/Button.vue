@@ -80,6 +80,7 @@ withDefaults(
         v-if="imageUrl"
         :src="imageUrl"
         :width="imageSize"
+        alt="button image"
       />
     </template>
     <template
