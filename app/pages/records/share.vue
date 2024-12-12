@@ -218,7 +218,7 @@ const getSummaryAmount = (currencyCode: string) => {
                     }"
                   />
                 </UAvatarGroup>
-                <span class="text-xl sm:text-2xl font-bold break-keep">
+                <span class="text-md sm:text-xl font-bold break-keep">
                   {{ $t('share.title', { nickname: userData.nickname }) }}
                 </span>
               </div>
@@ -258,7 +258,15 @@ const getSummaryAmount = (currencyCode: string) => {
       fullscreen
       :title="$t('share.result.title')"
       :description="$t('share.result.description')"
-    />
+    >
+      <div class="w-full h-full flex justify-center items-center px-6">
+        <img
+          :src="shareImageUrl"
+          class="w-full h-auto"
+          alt="share image"
+        >
+      </div>
+    </ModalShareImage>
   </div>
 </template>
 
