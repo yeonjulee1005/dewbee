@@ -79,7 +79,8 @@ export default {
     inquiry: '문의하기',
     leaveInquiry: '문의 남기기',
     withdrawal: '탈퇴하기',
-    imageSave: '이미지로 저장하기',
+    imageSave: '이미지 저장하기',
+    imageShare: '이미지 공유하기',
   },
   text: {
     CYC001: '원화 (₩)',
@@ -251,6 +252,11 @@ export default {
       warning: '조금 절약해보는건 어떨까요? 😅',
       danger: '아슬아슬 한데요? 😖',
       over: '실패했어요 🥲',
+    },
+    result: {
+      title: '지출결과를 공유해보세요!',
+      description: '이미지를 길게 눌러서 다른 분들에게 자랑해요!',
+      downloadDescription: '이미지를 내려받아서 다른분들에게 자랑해요!',
     },
   },
   plan: {

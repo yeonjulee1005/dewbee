@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { toPng } from 'html-to-image'
-import FileSaver from 'file-saver'
+import { domToWebp, domToPng } from 'modern-screenshot'
+
+const { isMobileOrTablet, isSafari, userAgent } = useDevice()
 
 const { t } = useCustomLocale()
 const { url } = useImageStorage()
@@ -18,6 +19,12 @@ definePageMeta({
 })
 
 const shareCard = ref()
+
+const shareImageUrl = ref('')
+const shareImageModalTrigger = ref(false)
+const isShareDevice = computed(() => {
+  return userAgent.includes('APP_Dewbee') || userAgent.includes('APP_AOS_DewBee') || (isMobileOrTablet && isSafari)
+})
 
 const transformSpendListData = (dailyResultData: DailyResult[]) => {
   const chartDateLabel = ref<string[]>([])
@@ -113,34 +120,26 @@ const { data: recentRecordWeeklyData, execute: _executeRecentRecordWeeklyData, p
   deep: true,
 })
 
-const saveImage = () => {
-  if (shareCard.value) {
-    toPng(shareCard.value, {
+const saveImage = async () => {
+  if (isShareDevice.value) {
+    domToPng(shareCard.value, {
       backgroundColor: '#ffffff00',
+    }).then((dataUrl: any) => {
+      shareImageUrl.value = dataUrl
+      shareImageModalTrigger.value = true
     })
-      .then((blob) => {
-        if (mobileOperationSystem.value === 'ios' || mobileOperationSystem.value === 'android') {
-          window.open(blob, '_blank')
-        }
-        else if (window.saveAs) {
-          console.log('window saveAs')
-          window.saveAs(blob, 'my-node.png')
-        }
-        else {
-          console.log('FileSaver saveAs')
-          FileSaver.saveAs(blob, 'my-node.png')
-        }
-
-        handleNativeSave(blob)
-      })
-      .catch((error) => {
-        console.error('Error capturing image:', error)
-      })
   }
-}
-
-const handleNativeSave = (dataUrl: string) => {
-  console.log(dataUrl)
+  else {
+    domToWebp(shareCard.value, {
+      backgroundColor: '#ffffff00',
+    }).then((dataUrl: string) => {
+      const link = document.createElement('a')
+      link.download = `${userData.value.nickname}.webp`
+      link.href = dataUrl
+      link.click()
+      link.remove()
+    })
+  }
 }
 
 const getSummaryAmount = (currencyCode: string) => {
@@ -171,11 +170,18 @@ const getSummaryAmount = (currencyCode: string) => {
       v-if="recentRecordWeeklyData && !pendingRecentRecordWeeklyData"
       class="h-fit flex flex-col items-center gap-y-6 mt-10 px-6"
     >
-      <div class="w-full flex justify-end">
+      <div class="w-full flex flex-col items-end gap-y-4">
+        <p
+          v-if="!isShareDevice"
+          class="text-lg sm:text-xl text-right break-keep"
+        >
+          {{ $t('share.result.downloadDescription') }}
+        </p>
         <AButton
+          custom-class="w-fit"
           button-size="xl"
           button-variant="subtle"
-          :button-text="$t('button.imageSave')"
+          :button-text="isShareDevice ? $t('button.imageShare') : $t('button.imageSave')"
           @click="saveImage"
         />
       </div>
@@ -246,6 +252,13 @@ const getSummaryAmount = (currencyCode: string) => {
         {{ $t('share.noShare') }}
       </UCard>
     </div>
+    <ModalShareImage
+      v-model:share-image-modal-trigger="shareImageModalTrigger"
+      v-model:share-image-url="shareImageUrl"
+      fullscreen
+      :title="$t('share.result.title')"
+      :description="$t('share.result.description')"
+    />
   </div>
 </template>
 
