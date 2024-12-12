@@ -49,7 +49,7 @@ export default defineEventHandler(async (event) => {
           .lte('created_at', dailyResultData.at(0).created_at)
           .eq('deleted', false)
 
-        return { dailyResultData, spendListData }
+        return { dailyResultData, spendListData, created_at: weeklyResultData.created_at }
       }
       catch (error) {
         console.error(error)
