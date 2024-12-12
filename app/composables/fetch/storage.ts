@@ -17,11 +17,12 @@ export const useFetchStorageComposable = () => {
     return data.publicUrl
   }
 
-  const uploadStorage = async (storage: string, path: string, file: File) => {
+  const uploadStorage = async (storage: string, path: string, file: File | Blob, contentType?: string) => {
     const { error } = await client
       .storage
       .from(storage)
       .upload(path, file, {
+        contentType: contentType ?? 'text/plain;charset=UTF-8',
         cacheControl: '3600',
         upsert: true,
       })

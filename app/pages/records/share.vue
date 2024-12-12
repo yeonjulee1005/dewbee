@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { domToWebp, domToPng } from 'modern-screenshot'
 
-const { isMobileOrTablet, isSafari, userAgent } = useDevice()
+const { isMobileOrTablet, isSafari, isAndroid, userAgent } = useDevice()
 
 const { t } = useCustomLocale()
 const { url } = useImageStorage()
 
 const { userData } = storeToRefs(useUserDataStore())
 const { mobileOperationSystem } = storeToRefs(useWindowStore())
+
+const { loadStorage, uploadStorage } = useFetchStorageComposable()
 
 useHead({
   title: t('pageTitle.share'),
@@ -23,7 +25,7 @@ const shareCard = ref()
 const shareImageUrl = ref('')
 const shareImageModalTrigger = ref(false)
 const isShareDevice = computed(() => {
-  return userAgent.includes('APP_Dewbee') || userAgent.includes('APP_AOS_DewBee') || (isMobileOrTablet && isSafari)
+  return userAgent.includes('APP_Dewbee') || userAgent.includes('APP_AOS_DewBee') || (isMobileOrTablet && isSafari) || isAndroid
 })
 
 const transformSpendListData = (dailyResultData: DailyResult[]) => {
@@ -109,6 +111,7 @@ const { data: recentRecordWeeklyData, execute: _executeRecentRecordWeeklyData, p
         return {
           statistics,
           categoryCount,
+          created_at: payload.created_at,
         }
       }
     },
@@ -125,8 +128,7 @@ const saveImage = async () => {
     domToPng(shareCard.value, {
       backgroundColor: '#ffffff00',
     }).then((dataUrl: any) => {
-      shareImageUrl.value = dataUrl
-      shareImageModalTrigger.value = true
+      uploadAndDownloadImage(dataUrl)
     })
   }
   else {
@@ -140,6 +142,28 @@ const saveImage = async () => {
       link.remove()
     })
   }
+}
+
+const uploadAndDownloadImage = async (base64Data: string) => {
+  if (!base64Data) return new Blob([], { type: 'image/png' })
+
+  const base64ContentArray = base64Data.split(',')
+  const base64String = base64ContentArray[1] ?? ''
+  const mimeType = base64ContentArray[0]?.match(/:(.*?);/)?.[1] ?? 'image/webp'
+
+  const byteCharacters = atob(base64String)
+  const byteNumbers = new Array(byteCharacters.length).fill(0).map((_, i) => byteCharacters.charCodeAt(i))
+  const byteArray = new Uint8Array(byteNumbers)
+  const blob = new Blob([byteArray], { type: mimeType })
+
+  const fileName = userData.value?.id.split('-').at(-1).concat('_', recentRecordWeeklyData.value.created_at.split('T').at(0), '.png')
+
+  await uploadStorage('share', fileName, blob, 'Blob')
+
+  const imageUrl = await loadStorage('share', fileName)
+
+  shareImageUrl.value = imageUrl
+  shareImageModalTrigger.value = true
 }
 
 const getSummaryAmount = (currencyCode: string) => {
