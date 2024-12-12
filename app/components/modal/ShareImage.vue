@@ -17,11 +17,6 @@ const shareImageModalTrigger = defineModel('shareImageModalTrigger', {
   type: Boolean,
   default: false,
 })
-
-const shareImageUrl = defineModel('shareImageUrl', {
-  type: String,
-  default: '',
-})
 </script>
 
 <template>
@@ -42,13 +37,7 @@ const shareImageUrl = defineModel('shareImageUrl', {
     }"
   >
     <template #body>
-      <div class="w-full h-full flex justify-center items-center">
-        <NuxtImg
-          :src="shareImageUrl"
-          class="w-fit h-fit sm:w-2/3 sm:h-auto"
-          alt="share image"
-        />
-      </div>
+      <slot />
     </template>
   </UModal>
 </template>
