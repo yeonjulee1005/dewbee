@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { domToWebp, domToPng } from 'modern-screenshot'
 
-const { isMobileOrTablet, isSafari, isAndroid, userAgent } = useDevice()
+const { isMobileOrTablet, isSafari, isChrome, isAndroid, userAgent } = useDevice()
 
 const { t } = useCustomLocale()
 const { url } = useImageStorage()
@@ -125,11 +125,18 @@ const { data: recentRecordWeeklyData, execute: _executeRecentRecordWeeklyData, p
 
 const saveImage = async () => {
   if (isShareDevice.value) {
-    domToPng(shareCard.value, {
-      backgroundColor: '#ffffff00',
-    }).then((dataUrl: any) => {
-      uploadAndDownloadImage(dataUrl)
-    })
+    let imageUrl = ''
+    const maxAttempts = (isSafari || isChrome) ? 5 : 1
+
+    for (let i = 0; i < maxAttempts; i++) {
+      await domToPng(shareCard.value, {
+        backgroundColor: '#ffffff00',
+      }).then((dataUrl: string) => {
+        imageUrl = dataUrl
+      })
+    }
+
+    uploadAndDownloadImage(imageUrl)
   }
   else {
     domToWebp(shareCard.value, {
