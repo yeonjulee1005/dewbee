@@ -108,32 +108,32 @@ onMounted(() => {
   >
     <ASubPageTitle :title="$t('pageTitle.profile')" />
     <div class="w-full px-6">
-      <UCard
+      <DbCard
         :ui="{
           root: 'ring ring-neutral-400 dark:ring-neutral-600',
           body: 'p-4',
         }"
       >
-        <UForm
+        <DbForm
           :schema="schema"
           :state="formData"
           class="w-full mt-2 space-y-8"
           @submit="submitUpdateProfile"
         >
-          <UFormField
+          <DbFormField
             name="nickname"
             :label="$t('label.nickname')"
             required
             size="xl"
           >
-            <UInput
+            <DbInput
               v-model="formData.nickname"
               class="w-full"
               size="xl"
               :placeholder="$t('placeholder.nickname')"
             />
-          </UFormField>
-          <UFormField
+          </DbFormField>
+          <DbFormField
             name="avatar_url"
             :label="$t('label.avatar')"
             required
@@ -150,7 +150,7 @@ onMounted(() => {
               alt="Avatar"
               @click="imageInputs?.click()"
             />
-            <USkeleton
+            <DbSkeleton
               v-else
               class="rounded-2xl w-[140px] h-[140px]"
             />
@@ -160,13 +160,13 @@ onMounted(() => {
               class="hidden"
               @change="handleFileChange"
             >
-          </UFormField>
-          <UFormField
+          </DbFormField>
+          <DbFormField
             name="memo"
             :label="$t('label.memo')"
             size="xl"
           >
-            <UTextarea
+            <DbTextarea
               v-model="formData.memo"
               class="w-full"
               autoresize
@@ -179,16 +179,16 @@ onMounted(() => {
             <p class="text-right text-sm text-neutral-500 mt-1">
               {{ computedMemoContent }} / {{ maxMemoLength }}
             </p>
-          </UFormField>
-          <USeparator />
+          </DbFormField>
+          <DbSeparator />
           <AButton
             button-block
             button-size="xl"
             button-type="submit"
             :button-text="$t('button.save')"
           />
-        </UForm>
-      </UCard>
+        </DbForm>
+      </DbCard>
     </div>
   </div>
 </template>

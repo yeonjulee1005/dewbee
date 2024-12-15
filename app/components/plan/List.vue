@@ -29,7 +29,7 @@ const moveToPlanPage = (index: number) => {
 
 <template>
   <div class="w-full flex flex-col md:flex-row gap-6">
-    <UCard
+    <DbCard
       v-for="(list, index) in _list"
       :key="index"
       :ui="{
@@ -76,6 +76,6 @@ const moveToPlanPage = (index: number) => {
           </div>
         </div>
       </div>
-    </UCard>
+    </DbCard>
   </div>
 </template>

@@ -56,33 +56,33 @@ const computedMemoContent = computed(() => {
         {{ $rt(text) }}
       </p>
     </div>
-    <UForm
+    <DbForm
       :schema="schema"
       :state="inquiryData"
       class="w-full mt-2 space-y-8"
       @submit="submitGuestInquiry"
     >
-      <UFormField
+      <DbFormField
         name="email"
         :label="$t('label.email')"
         required
         size="xl"
       >
-        <UInput
+        <DbInput
           v-model="inquiryData.email"
           class="w-full"
           size="xl"
           :placeholder="$t('placeholder.email')"
         />
-      </UFormField>
-      <UFormField
+      </DbFormField>
+      <DbFormField
         name="message"
         :label="$t('label.message')"
         required
         :hint="`${computedMemoContent} / ${maxMemoLength}`"
         size="xl"
       >
-        <UTextarea
+        <DbTextarea
           v-model="inquiryData.message"
           class="w-full"
           autoresize
@@ -93,14 +93,14 @@ const computedMemoContent = computed(() => {
           size="xl"
           :placeholder="$t('placeholder.message')"
         />
-      </UFormField>
-      <USeparator />
+      </DbFormField>
+      <DbBSeparator />
       <AButton
         button-block
         button-size="xl"
         button-type="submit"
         :button-text="$t('button.leaveInquiry')"
       />
-    </UForm>
+    </DbForm>
   </div>
 </template>

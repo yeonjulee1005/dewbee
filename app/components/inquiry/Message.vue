@@ -24,7 +24,7 @@ const formatMessage = (message: string) => {
     class="flex flex-col gap-y-3 mx-0.5"
     :class="{ 'items-start': writeUserId !== userData?.id, 'items-end': writeUserId === userData?.id }"
   >
-    <UCard
+    <DbCard
       :ui="{
         root: `w-auto max-w-[300px] min-w-[140px] ${writeUserId !== userData?.id ? 'ring-neutral-200 dark:ring-neutral-800' : 'ring-amber-600 dark:ring-amber-400'} ${writeUserId !== userData?.id ? 'bg-white dark:bg-neutral-900' : 'bg-amber-400/50 dark:bg-amber-600/50'}`,
         body: 'p-4',
@@ -35,7 +35,7 @@ const formatMessage = (message: string) => {
         class="text-sm break-all"
         :class="{ 'text-left': writeUserId !== userData?.id, 'text-right': writeUserId === userData?.id }"
       />
-    </UCard>
+    </DbCard>
     <ANuxtTime
       class="text-xs text-neutral-400 dark:text-neutral-500"
       :date-time="createdAt"

@@ -79,7 +79,7 @@ const computedSpendSituation = computed(() => {
 </script>
 
 <template>
-  <UAccordion
+  <DbAccordion
     :items="situationItem"
     :ui="{
       root: 'w-fit flex justify-start z-20',
@@ -94,7 +94,7 @@ const computedSpendSituation = computed(() => {
       />
     </template>
     <template #default>
-      <UBadge
+      <DbBadge
         class="ml-1.5"
         :color="computedSpendSituation.theme ?? 'error'"
         variant="subtle"
@@ -109,7 +109,7 @@ const computedSpendSituation = computed(() => {
             <span>
               {{ $t('main.setOption.thisWeekend') }}
             </span>
-            <UBadge
+            <DbBadge
               :color="computedSpendSituation.theme ?? 'error'"
               variant="outline"
               size="lg"
@@ -123,7 +123,7 @@ const computedSpendSituation = computed(() => {
             {{ $t('main.setOption.currentSpendAmount', { amount: comma(userData?.weekly_target_amount ?? 0), currency: $t(`currency.${userData?.currency?.code}`) }) }}
           </p>
           <div class="flex items-center gap-x-2 text-sm sm:text-lg break-keep leading-6 mb-2">
-            <UBadge
+            <DbBadge
               :color="computedSpendSituation.theme ?? 'error'"
               variant="outline"
               size="lg"
@@ -148,5 +148,5 @@ const computedSpendSituation = computed(() => {
         </div>
       </div>
     </template>
-  </UAccordion>
+  </DbAccordion>
 </template>

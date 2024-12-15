@@ -6,6 +6,6 @@
     <p class="text-lg font-light break-keep mb-3">
       {{ $t('intro.subTitle') }}
     </p>
-    <USeparator />
+    <DbSeparator />
   </div>
 </template>

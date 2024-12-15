@@ -50,6 +50,7 @@ export default defineNuxtConfig({
   },
   ui: {
     fonts: false,
+    prefix: 'Db',
   },
   runtimeConfig: {
     public: {

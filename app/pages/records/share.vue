@@ -220,7 +220,7 @@ const getSummaryAmount = (currencyCode: string) => {
         ref="shareCard"
         class="w-full"
       >
-        <UCard
+        <DbCard
           :ui="{
             root: 'ring-animate w-full border-4 ring-0 rounded-xl bg-gradient-to-br from-amber-600/20 from-10% via-neutral-100/20 via-30% to-amber-300/20 to-90%',
             header: 'w-full',
@@ -230,8 +230,8 @@ const getSummaryAmount = (currencyCode: string) => {
           <div class="flex flex-col gap-y-5">
             <div class="flex flex-col sm:flex-row justify-between">
               <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-                <UAvatarGroup size="xl">
-                  <UAvatar
+                <DbAvatarGroup size="xl">
+                  <DbAvatar
                     :src="url(true, '/assets/dewbee_logo.webp')"
                     size="xl"
                     format="webp"
@@ -240,7 +240,7 @@ const getSummaryAmount = (currencyCode: string) => {
                       root: 'ring-3 ring-amber-400/40',
                     }"
                   />
-                  <UAvatar
+                  <DbAvatar
                     :src="userData.avatar_url"
                     size="xl"
                     :alt="userData.nickname"
@@ -248,7 +248,7 @@ const getSummaryAmount = (currencyCode: string) => {
                       root: 'ring-3 ring-amber-400/40',
                     }"
                   />
-                </UAvatarGroup>
+                </DbAvatarGroup>
                 <span class="text-md sm:text-xl font-bold break-keep">
                   {{ $t('share.title', { nickname: userData.nickname }) }}
                 </span>
@@ -261,27 +261,27 @@ const getSummaryAmount = (currencyCode: string) => {
                 :target-amount="userData.weekly_target_amount"
               />
             </div>
-            <USeparator color="primary" />
+            <DbSeparator color="primary" />
             <RecordsSpendCategory
               :category-count="recentRecordWeeklyData.categoryCount"
               :statistics="recentRecordWeeklyData.statistics"
             />
           </div>
-        </UCard>
+        </DbCard>
       </div>
     </div>
     <div
       v-else
       class="h-fit flex flex-col items-center mt-10 px-6"
     >
-      <UCard
+      <DbCard
         :ui="{
           root: 'w-full h-40 ring ring-neutral-400 dark:ring-neutral-600',
           body: 'h-full flex items-center justify-center break-keep',
         }"
       >
         {{ $t('share.noShare') }}
-      </UCard>
+      </DbCard>
     </div>
     <ModalShareImage
       v-model:share-image-modal-trigger="shareImageModalTrigger"

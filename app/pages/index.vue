@@ -108,11 +108,13 @@ const clearArithmometer = () => {
       class="h-fit flex flex-col items-start gap-y-8 px-6 py-4"
       :class="{ 'mt-10': mobileOperationSystem === 'android' }"
     >
-      <LazyMainSetOption
-        :spend-list="mainSpendList?.data ?? []"
-        :spend-count="mainSpendList?.count ?? 0"
-        @execute:spend-list="executeSpendListData"
-      />
+      <Suspense>
+        <LazyMainSetOption
+          :spend-list="mainSpendList?.data ?? []"
+          :spend-count="mainSpendList?.count ?? 0"
+          @execute:spend-list="executeSpendListData"
+        />
+      </Suspense>
       <LazyMainSuccessTable
         :table-data="mainWeeklyResultList"
         :pending-table-data="pendingMainWeeklyResultList"

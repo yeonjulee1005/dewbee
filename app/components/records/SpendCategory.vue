@@ -70,7 +70,7 @@ const colorTranslate = (code: string, type: 'text' | 'ring') => {
       {{ $t('share.label') }}
     </p>
     <div class="flex flex-wrap gap-3">
-      <UCard
+      <DbCard
         v-for="(item, index) in categoryCount"
         v-show="item.value !== 0"
         :key="index"
@@ -90,10 +90,10 @@ const colorTranslate = (code: string, type: 'text' | 'ring') => {
         <span class="text-sm sm:text-lg font-semibold">
           {{ item.value }}
         </span>
-      </UCard>
+      </DbCard>
     </div>
     <div class="flex flex-col sm:flex-row items-end gap-x-4">
-      <UCard :ui="{ root: 'w-full bg-transparent ring-2 rounded-xl ring-amber-500/40' }">
+      <DbCard :ui="{ root: 'w-full bg-transparent ring-2 rounded-xl ring-amber-500/40' }">
         <ChartSmoothLine
           v-if="statistics.chartDateLabel.length > 0"
           :statistics-type="'daily'"
@@ -103,7 +103,7 @@ const colorTranslate = (code: string, type: 'text' | 'ring') => {
           :chart-usd-value="statistics.chartUsdValues"
           :chart-jpy-value="statistics.chartJpyValues"
         />
-      </UCard>
+      </DbCard>
     </div>
   </div>
 </template>

@@ -33,7 +33,7 @@ const clickCancel = () => {
 </script>
 
 <template>
-  <UModal
+  <DbModal
     v-model:open="confirmModalTrigger"
     :title="title"
     :description="description"
@@ -68,5 +68,5 @@ const clickCancel = () => {
         />
       </div>
     </template>
-  </UModal>
+  </DbModal>
 </template>

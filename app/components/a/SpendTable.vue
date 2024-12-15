@@ -31,7 +31,7 @@ const currentPage = defineModel('currentPage', {
 
 <template>
   <div class="h-fit flex flex-col items-center px-6">
-    <UTable
+    <DbTable
       class="w-full"
       :data="tableData"
       :columns="tableColumns"
@@ -58,10 +58,10 @@ const currentPage = defineModel('currentPage', {
           />
         </div>
       </template>
-    </UTable>
+    </DbTable>
     <ClientOnly>
       <template #default>
-        <UPagination
+        <DbPagination
           v-if="usePagination"
           v-model:page="currentPage"
           class="w-fit flex justify-center mx-2 my-2"

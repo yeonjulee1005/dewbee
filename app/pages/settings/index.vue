@@ -74,14 +74,14 @@ const updateProfileData = async (payload: Database['public']['Tables']['profiles
         />
       </template>
       <template #fallback>
-        <UCard :ui="{ root: 'w-[calc(100%-3rem)] h-[310px] sm:h-[177px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }">
+        <DbCard :ui="{ root: 'w-[calc(100%-3rem)] h-[310px] sm:h-[177px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }">
           <div class="flex justify-center items-center h-[150px]">
             <Icon
               name="i-svg-spinners-pulse-multiple"
               class="w-28 h-28"
             />
           </div>
-        </UCard>
+        </DbCard>
       </template>
     </ClientOnly>
     <SettingTargetAmount
@@ -98,14 +98,14 @@ const updateProfileData = async (payload: Database['public']['Tables']['profiles
         />
       </template>
       <template #fallback>
-        <UCard :ui="{ root: 'w-[calc(100%-3rem)] h-[310px] sm:h-[177px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }">
+        <DbCard :ui="{ root: 'w-[calc(100%-3rem)] h-[310px] sm:h-[177px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }">
           <div class="flex justify-center items-center h-[150px]">
             <Icon
               name="i-svg-spinners-pulse-multiple"
               class="w-28 h-28"
             />
           </div>
-        </UCard>
+        </DbCard>
       </template>
     </ClientOnly>
     <ClientOnly>
@@ -117,25 +117,25 @@ const updateProfileData = async (payload: Database['public']['Tables']['profiles
         />
       </template>
       <template #fallback>
-        <UCard :ui="{ root: 'w-[calc(100%-3rem)] h-[310px] sm:h-[177px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }">
+        <DbCard :ui="{ root: 'w-[calc(100%-3rem)] h-[310px] sm:h-[177px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }">
           <div class="flex justify-center items-center h-[150px]">
             <Icon
               name="i-svg-spinners-pulse-multiple"
               class="w-28 h-28"
             />
           </div>
-        </UCard>
+        </DbCard>
       </template>
     </ClientOnly>
     <div class="w-full flex flex-wrap items-center justify-end gap-2 px-6">
-      <ULink
+      <DbLink
         class="px-2.5 py-1.5"
         to="/policy"
         target="_blank"
       >
         {{ $t('menu.policy') }}
-      </ULink>
-      <USeparator
+      </DbLink>
+      <DbSeparator
         class="h-2 hidden sm:block"
         orientation="vertical"
         color="info"

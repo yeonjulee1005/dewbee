@@ -20,7 +20,7 @@ const shareImageModalTrigger = defineModel('shareImageModalTrigger', {
 </script>
 
 <template>
-  <UModal
+  <DbModal
     v-model:open="shareImageModalTrigger"
     :title="title"
     :description="description"
@@ -39,5 +39,5 @@ const shareImageModalTrigger = defineModel('shareImageModalTrigger', {
     <template #body>
       <slot />
     </template>
-  </UModal>
+  </DbModal>
 </template>
