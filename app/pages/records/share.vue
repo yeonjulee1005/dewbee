@@ -126,7 +126,7 @@ const { data: recentRecordWeeklyData, execute: _executeRecentRecordWeeklyData, p
 const saveImage = async () => {
   // if (isShareDevice.value) {
   let imageUrl = ''
-  const maxAttempts = (isSafari || isChrome) ? 5 : 1
+  const maxAttempts = (isSafari || isChrome) ? 10 : 1
 
   for (let i = 0; i < maxAttempts; i++) {
     await domToPng(shareCard.value, {
