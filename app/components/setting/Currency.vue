@@ -19,7 +19,7 @@ const currentCurrency = defineModel('currentCurrency', {
 </script>
 
 <template>
-  <UCard
+  <DbCard
     :ui="{
       root: 'w-[calc(100%-3rem)] ring ring-neutral-400 dark:ring-neutral-600',
       body: 'p-4',
@@ -34,7 +34,7 @@ const currentCurrency = defineModel('currentCurrency', {
       </p>
     </template>
     <div :class="`w-full flex ${windowWidth > 400 ? 'flex-row items-center' : 'flex-col'} justify-end gap-3`">
-      <UButtonGroup
+      <DbButtonGroup
         :orientation="windowWidth > 400 ? 'horizontal' : 'vertical'"
         size="xl"
       >
@@ -48,7 +48,7 @@ const currentCurrency = defineModel('currentCurrency', {
           button-size="xl"
           @click="currentCurrency = currency"
         />
-      </UButtonGroup>
+      </DbButtonGroup>
       <AButton
         :custom-class="windowWidth > 400 ? '' : 'flex justify-center'"
         button-size="xl"
@@ -58,5 +58,5 @@ const currentCurrency = defineModel('currentCurrency', {
         @click="$emit('click:currency-save')"
       />
     </div>
-  </UCard>
+  </DbCard>
 </template>

@@ -301,13 +301,12 @@ checkLoginState()
     class="fixed w-dvw lg:w-[800px] top-0 flex justify-end px-6 py-5 z-10"
     :class="{ 'mt-10': mobileOperationSystem === 'android' }"
   >
-    <UDropdownMenu
+    <DbDropdownMenu
       v-model:open="dropdownMenuTrigger"
       :items="menuItems"
       size="xl"
       arrow
       :content="{ side: 'bottom', align: 'start' }"
-      class="min-w-48"
     >
       <AButton
         use-leading
@@ -323,6 +322,6 @@ checkLoginState()
         }"
         button-variant="outline"
       />
-    </UDropdownMenu>
+    </DbDropdownMenu>
   </div>
 </template>

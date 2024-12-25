@@ -102,7 +102,7 @@ watch(width, () => {
 </script>
 
 <template>
-  <UApp :toaster="appConfig.toaster">
+  <DbApp :toaster="appConfig.toaster">
     <NuxtLayout>
       <NuxtLoadingIndicator
         color="repeating-linear-gradient(to right,##feeae2 0%,##dd5825 100%)"
@@ -110,7 +110,7 @@ watch(width, () => {
       />
       <NuxtPage />
     </NuxtLayout>
-  </UApp>
+  </DbApp>
 </template>
 
 <style>

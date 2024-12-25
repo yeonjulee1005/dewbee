@@ -96,7 +96,7 @@ const computedSpendCategoryName = computed(() => {
 </script>
 
 <template>
-  <UCard
+  <DbCard
     :ui="{
       root: 'w-full ring-2',
       header: 'w-full',
@@ -192,5 +192,5 @@ const computedSpendCategoryName = computed(() => {
         </ol>
       </div>
     </template>
-  </UCard>
+  </DbCard>
 </template>

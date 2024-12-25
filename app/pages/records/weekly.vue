@@ -4,9 +4,9 @@ import { formatInTimeZone } from 'date-fns-tz'
 import { ko, enUS } from 'date-fns/locale'
 import type { TableColumn } from '@nuxt/ui'
 
-const UAvatar = resolveComponent('UAvatar')
-const UButton = resolveComponent('UButton')
-const UBadge = resolveComponent('UBadge')
+const DbAvatar = resolveComponent('DbAvatar')
+const DbButton = resolveComponent('DbButton')
+const DbBadge = resolveComponent('DbBadge')
 
 const { t, locale } = useCustomLocale()
 const { comma } = useUi()
@@ -59,7 +59,7 @@ const columns: TableColumn<WeeklyResult | DailyResult | Realtime>[] = [
     header: ({ column }) => {
       const isSorted = column.getIsSorted()
 
-      return h(UButton, {
+      return h(DbButton, {
         color: 'neutral',
         variant: 'ghost',
         label: t('label.isSuccess'),
@@ -74,7 +74,7 @@ const columns: TableColumn<WeeklyResult | DailyResult | Realtime>[] = [
     },
     cell: ({ row }) => {
       return h('div', { class: 'flex items-center justify-end font-light text-neutral-800 dark:text-neutral-200' }, [
-        h(UBadge, {
+        h(DbBadge, {
           variant: 'subtle',
           color: (row.original as WeeklyResult).is_success ? 'secondary' : 'error',
           class: successColorTranslate((row.original as WeeklyResult).is_success ?? false),
@@ -89,7 +89,7 @@ const columns: TableColumn<WeeklyResult | DailyResult | Realtime>[] = [
     header: ({ column }) => {
       const isSorted = column.getIsSorted()
 
-      return h(UButton, {
+      return h(DbButton, {
         color: 'neutral',
         variant: 'ghost',
         label: t('label.weeklySummary'),
@@ -120,7 +120,7 @@ const columns: TableColumn<WeeklyResult | DailyResult | Realtime>[] = [
     header: ({ column }) => {
       const isSorted = column.getIsSorted()
 
-      return h(UButton, {
+      return h(DbButton, {
         color: 'neutral',
         variant: 'ghost',
         label: t('label.weeklyTarget'),
@@ -149,7 +149,7 @@ const columns: TableColumn<WeeklyResult | DailyResult | Realtime>[] = [
     header: ({ column }) => {
       const isSorted = column.getIsSorted()
 
-      return h(UButton, {
+      return h(DbButton, {
         color: 'neutral',
         variant: 'ghost',
         label: t('label.targetBalance'),
@@ -181,7 +181,7 @@ const columns: TableColumn<WeeklyResult | DailyResult | Realtime>[] = [
     header: ({ column }) => {
       const isSorted = column.getIsSorted()
 
-      return h(UButton, {
+      return h(DbButton, {
         color: 'neutral',
         variant: 'ghost',
         label: t('label.spendRangeDate'),
@@ -211,7 +211,7 @@ const columns: TableColumn<WeeklyResult | DailyResult | Realtime>[] = [
     header: t('label.nickname'),
     cell: ({ row }) => {
       return h('div', { class: 'flex items-center justify-end gap-3 font-light text-neutral-800 dark:text-neutral-200' }, [
-        h(UAvatar, {
+        h(DbAvatar, {
           src: row.original.profiles.avatar_url,
           size: 'sm',
         }),

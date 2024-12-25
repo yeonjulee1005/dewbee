@@ -3,9 +3,9 @@ import { formatInTimeZone } from 'date-fns-tz'
 import { ko, enUS } from 'date-fns/locale'
 import type { TableColumn } from '@nuxt/ui'
 
-const UAvatar = resolveComponent('UAvatar')
-const UButton = resolveComponent('UButton')
-const UBadge = resolveComponent('UBadge')
+const DbAvatar = resolveComponent('DbAvatar')
+const DbButton = resolveComponent('DbButton')
+const DbBadge = resolveComponent('DbBadge')
 
 const { t, locale } = useCustomLocale()
 const { comma } = useUi()
@@ -55,7 +55,7 @@ const columns: TableColumn<Realtime | DailyResult | WeeklyResult>[] = [
     header: ({ column }) => {
       const isSorted = column.getIsSorted()
 
-      return h(UButton, {
+      return h(DbButton, {
         color: 'neutral',
         variant: 'ghost',
         label: t('label.amount'),
@@ -84,7 +84,7 @@ const columns: TableColumn<Realtime | DailyResult | WeeklyResult>[] = [
     header: ({ column }) => {
       const isSorted = column.getIsSorted()
 
-      return h(UButton, {
+      return h(DbButton, {
         color: 'neutral',
         variant: 'ghost',
         label: t('label.category'),
@@ -99,7 +99,7 @@ const columns: TableColumn<Realtime | DailyResult | WeeklyResult>[] = [
     },
     cell: ({ row }) => {
       return h('div', { class: 'min-w-[100px] flex items-center justify-center gap-2 font-light text-neutral-800 dark:text-neutral-200' }, [
-        h(UBadge, {
+        h(DbBadge, {
           icon: (row.original as Realtime).spendCategory.icon_name ?? '',
           variant: 'subtle',
           class: colorTranslate((row.original as Realtime).spendCategory.code),
@@ -113,7 +113,7 @@ const columns: TableColumn<Realtime | DailyResult | WeeklyResult>[] = [
     header: ({ column }) => {
       const isSorted = column.getIsSorted()
 
-      return h(UButton, {
+      return h(DbButton, {
         color: 'neutral',
         variant: 'ghost',
         label: t('label.createdAt'),
@@ -137,7 +137,7 @@ const columns: TableColumn<Realtime | DailyResult | WeeklyResult>[] = [
     header: t('label.nickname'),
     cell: ({ row }) => {
       return h('div', { class: 'flex items-center justify-end gap-3 font-light text-neutral-800 dark:text-neutral-200' }, [
-        h(UAvatar, {
+        h(DbAvatar, {
           src: row.original.profiles.avatar_url,
           size: 'sm',
         }),

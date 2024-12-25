@@ -39,7 +39,7 @@ const computedPopoverControl = computed(() => {
 </script>
 
 <template>
-  <UPopover
+  <DbPopover
     :mode="computedPopoverControl"
     :arrow="popoverArrow"
     :content="{ align: popoverAlign, side: popoverSide, sideOffset: 4 }"
@@ -57,5 +57,5 @@ const computedPopoverControl = computed(() => {
     <template #content>
       <slot />
     </template>
-  </UPopover>
+  </DbPopover>
 </template>

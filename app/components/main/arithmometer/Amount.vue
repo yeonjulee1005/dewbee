@@ -80,7 +80,7 @@ const updateInput = (value: number) => {
 
 <template>
   <div class="w-full flex flex-col items-end gap-y-4">
-    <UAccordion
+    <DbAccordion
       v-model="selectKeypadAccordion"
       :items="keypadAccordion"
       :ui="{ root: 'w-full flex justify-start', header: 'w-fit', item: 'w-full', label: 'text-xl', leadingIcon: 'size-6', trailingIcon: 'size-6' }"
@@ -115,17 +115,17 @@ const updateInput = (value: number) => {
               @click:subtract="(amount: number) => $emit('subtract:amount', amount)"
             />
           </div>
-          <USeparator />
+          <DbSeparator />
         </div>
       </template>
-    </UAccordion>
-    <UAccordion
+    </DbAccordion>
+    <DbAccordion
       :items="manualAccordion"
       :ui="{ header: 'w-fit', label: 'text-xl', leadingIcon: 'size-6', trailingIcon: 'size-6' }"
     >
       <template #manual>
         <div class="w-full flex justify-end">
-          <UInputNumber
+          <DbInputNumber
             v-model="mainSpendAmount"
             :min="0"
             :max="1000000000"
@@ -135,6 +135,6 @@ const updateInput = (value: number) => {
           />
         </div>
       </template>
-    </UAccordion>
+    </DbAccordion>
   </div>
 </template>

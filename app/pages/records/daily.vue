@@ -4,8 +4,8 @@ import { formatInTimeZone } from 'date-fns-tz'
 import { ko, enUS } from 'date-fns/locale'
 import type { TableColumn } from '@nuxt/ui'
 
-const UAvatar = resolveComponent('UAvatar')
-const UButton = resolveComponent('UButton')
+const DbAvatar = resolveComponent('DbAvatar')
+const DbButton = resolveComponent('DbButton')
 
 const { t, locale } = useCustomLocale()
 const { comma } = useUi()
@@ -55,7 +55,7 @@ const columns: TableColumn<DailyResult | WeeklyResult | Realtime>[] = [
     header: ({ column }) => {
       const isSorted = column.getIsSorted()
 
-      return h(UButton, {
+      return h(DbButton, {
         color: 'neutral',
         variant: 'ghost',
         label: t('label.dailySummary'),
@@ -84,7 +84,7 @@ const columns: TableColumn<DailyResult | WeeklyResult | Realtime>[] = [
     header: ({ column }) => {
       const isSorted = column.getIsSorted()
 
-      return h(UButton, {
+      return h(DbButton, {
         color: 'neutral',
         variant: 'ghost',
         label: t('label.createdAt'),
@@ -110,7 +110,7 @@ const columns: TableColumn<DailyResult | WeeklyResult | Realtime>[] = [
     header: t('label.nickname'),
     cell: ({ row }) => {
       return h('div', { class: 'flex items-center justify-end gap-3 font-light text-neutral-800 dark:text-neutral-200' }, [
-        h(UAvatar, {
+        h(DbAvatar, {
           src: row.original.profiles.avatar_url,
           size: 'sm',
         }),
