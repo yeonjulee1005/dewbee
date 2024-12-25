@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { domToPng } from 'modern-screenshot'
 
-const { isMobileOrTablet, isSafari, isChrome, isAndroid, userAgent } = useDevice()
+const { isMobileOrTablet, isSafari, isAndroid, userAgent } = useDevice()
+// const { isMobileOrTablet, isSafari, isChrome, isAndroid, userAgent } = useDevice()
 
 const { t } = useCustomLocale()
 const { url } = useImageStorage()
@@ -126,15 +127,15 @@ const { data: recentRecordWeeklyData, execute: _executeRecentRecordWeeklyData, p
 const saveImage = async () => {
   // if (isShareDevice.value) {
   let imageUrl = ''
-  const maxAttempts = (isSafari || isChrome) ? 10 : 1
+  // const maxAttempts = (isSafari || isChrome) ? 10 : 1
 
-  for (let i = 0; i < maxAttempts; i++) {
-    await domToPng(shareCard.value, {
-      backgroundColor: '#ffffff00',
-    }).then((dataUrl: string) => {
-      imageUrl = dataUrl
-    })
-  }
+  // for (let i = 0; i < maxAttempts; i++) {
+  await domToPng(shareCard.value, {
+    backgroundColor: '#ffffff00',
+  }).then((dataUrl: string) => {
+    imageUrl = dataUrl
+  })
+  // }
 
   uploadAndDownloadImage(imageUrl)
   // }
@@ -156,7 +157,7 @@ const uploadAndDownloadImage = async (base64Data: string) => {
 
   const base64ContentArray = base64Data.split(',')
   const base64String = base64ContentArray[1] ?? ''
-  const mimeType = base64ContentArray[0]?.match(/:(.*?);/)?.[1] ?? 'image/webp'
+  const mimeType = base64ContentArray[0]?.match(/:(.*?);/)?.[1] ?? 'image/png'
 
   const byteCharacters = atob(base64String)
   const byteNumbers = new Array(byteCharacters.length).fill(0).map((_, i) => byteCharacters.charCodeAt(i))
