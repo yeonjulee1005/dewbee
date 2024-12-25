@@ -64,6 +64,10 @@ export default defineNuxtConfig({
       adminUid: process.env.ADMIN_UID ?? '',
     },
   },
+  routeRules: {
+    '/': { prerender: true },
+    '/**': { isr: 3600 },
+  },
   sourcemap: {
     server: true,
     client: true,

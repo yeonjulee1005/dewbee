@@ -4,18 +4,23 @@ withDefaults(defineProps<{
   description?: string
   useClose?: boolean
   preventClose?: boolean
-  fullscreen?: boolean
+  fullScreen?: boolean
 }>(), {
   title: '',
   description: '',
   useClose: true,
   preventClose: false,
-  fullscreen: true,
+  fullScreen: true,
 })
 
 const shareImageModalTrigger = defineModel('shareImageModalTrigger', {
   type: Boolean,
   default: false,
+})
+
+const shareImageUrl = defineModel('shareImageUrl', {
+  type: String,
+  default: '',
 })
 </script>
 
@@ -24,7 +29,7 @@ const shareImageModalTrigger = defineModel('shareImageModalTrigger', {
     v-model:open="shareImageModalTrigger"
     :title="title"
     :description="description"
-    :fullscreen="fullscreen"
+    :fullscreen="fullScreen"
     :prevent-close="preventClose"
     :close="{
       color: 'primary',
@@ -37,7 +42,14 @@ const shareImageModalTrigger = defineModel('shareImageModalTrigger', {
     }"
   >
     <template #body>
-      <slot />
+      <div class="w-full h-full flex justify-center items-center px-6">
+        <NuxtImg
+          :src="shareImageUrl"
+          class="w-full h-auto"
+          loading="lazy"
+          alt="share image"
+        />
+      </div>
     </template>
   </DbModal>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { domToWebp, domToPng } from 'modern-screenshot'
+import { domToPng } from 'modern-screenshot'
 
 const { isMobileOrTablet, isSafari, isChrome, isAndroid, userAgent } = useDevice()
 
@@ -124,31 +124,31 @@ const { data: recentRecordWeeklyData, execute: _executeRecentRecordWeeklyData, p
 })
 
 const saveImage = async () => {
-  if (isShareDevice.value) {
-    let imageUrl = ''
-    const maxAttempts = (isSafari || isChrome) ? 5 : 1
+  // if (isShareDevice.value) {
+  let imageUrl = ''
+  const maxAttempts = (isSafari || isChrome) ? 5 : 1
 
-    for (let i = 0; i < maxAttempts; i++) {
-      await domToPng(shareCard.value, {
-        backgroundColor: '#ffffff00',
-      }).then((dataUrl: string) => {
-        imageUrl = dataUrl
-      })
-    }
-
-    uploadAndDownloadImage(imageUrl)
-  }
-  else {
-    domToWebp(shareCard.value, {
+  for (let i = 0; i < maxAttempts; i++) {
+    await domToPng(shareCard.value, {
       backgroundColor: '#ffffff00',
     }).then((dataUrl: string) => {
-      const link = document.createElement('a')
-      link.download = `${userData.value.nickname}.webp`
-      link.href = dataUrl
-      link.click()
-      link.remove()
+      imageUrl = dataUrl
     })
   }
+
+  uploadAndDownloadImage(imageUrl)
+  // }
+  // else {
+  //   domToWebp(shareCard.value, {
+  //     backgroundColor: '#ffffff00',
+  //   }).then((dataUrl: string) => {
+  //     const link = document.createElement('a')
+  //     link.download = `${userData.value.nickname}.webp`
+  //     link.href = dataUrl
+  //     link.click()
+  //     link.remove()
+  //   })
+  // }
 }
 
 const uploadAndDownloadImage = async (base64Data: string) => {
@@ -286,18 +286,10 @@ const getSummaryAmount = (currencyCode: string) => {
     <ModalShareImage
       v-model:share-image-modal-trigger="shareImageModalTrigger"
       v-model:share-image-url="shareImageUrl"
-      fullscreen
+      full-screen
       :title="$t('share.result.title')"
       :description="$t('share.result.description')"
-    >
-      <div class="w-full h-full flex justify-center items-center px-6">
-        <img
-          :src="shareImageUrl"
-          class="w-full h-auto"
-          alt="share image"
-        >
-      </div>
-    </ModalShareImage>
+    />
   </div>
 </template>
 
