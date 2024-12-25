@@ -141,7 +141,7 @@ onMounted(async () => {
     :class="{ 'mt-10': mobileOperationSystem === 'android' }"
   >
     <ASubPageTitle :title="$t('pageTitle.inquiry')" />
-    <UCard
+    <DbCard
       :ui="{
         root: 'w-fit ring ring-neutral-400 dark:ring-neutral-600 mx-6',
         body: 'p-3 sm:p-3 break-keep',
@@ -154,7 +154,7 @@ onMounted(async () => {
       >
         {{ $rt(text) }}
       </p>
-    </UCard>
+    </DbCard>
     <div
       v-if="!pendingInquiryChatData"
       ref="chatContainerRef"
@@ -181,7 +181,7 @@ onMounted(async () => {
         class="w-28 h-28"
       />
     </div>
-    <UTextarea
+    <DbTextarea
       v-if="inquiryChatData?.activated || userData?.id === config.public.adminUid"
       v-model="message"
       class="absolute bottom-0 w-full px-6 pb-4"
@@ -209,6 +209,6 @@ onMounted(async () => {
           />
         </div>
       </template>
-    </UTextarea>
+    </DbTextarea>
   </div>
 </template>

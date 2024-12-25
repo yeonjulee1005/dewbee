@@ -63,7 +63,7 @@ const parseMarkdown = (body: string) => {
         @click="navigateTo(release.html_url, { external: true, open: { target: 'blank' } })"
       >
         <div class="flex items-center gap-x-2">
-          <UAvatar
+          <DbAvatar
             size="3xl"
             :src="release.author.avatar_url"
           />
@@ -72,12 +72,12 @@ const parseMarkdown = (body: string) => {
               {{ release.author.login }}
             </span>
             <div class="flex items-center gap-x-3">
-              <UBadge
+              <DbBadge
                 variant="subtle"
                 color="warning"
                 :label="release.prerelease ? $t('label.prerelease') : $t('label.release')"
               />
-              <UBadge
+              <DbBadge
                 variant="subtle"
                 color="info"
                 :label="release.tag_name"
@@ -92,7 +92,7 @@ const parseMarkdown = (body: string) => {
           />
         </div>
         <div class="w-full flex justify-end gap-x-2">
-          <UBadge
+          <DbBadge
             variant="outline"
             :label="$t('label.releaseDate')"
           />
@@ -119,7 +119,7 @@ const parseMarkdown = (body: string) => {
     </div>
     <ClientOnly>
       <template #default>
-        <UPagination
+        <DbPagination
           v-model:page="currentPage"
           class="w-full flex justify-center mx-2 my-2"
           color="neutral"

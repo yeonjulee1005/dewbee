@@ -4,8 +4,8 @@ import { formatInTimeZone } from 'date-fns-tz'
 import { ko, enUS } from 'date-fns/locale'
 import type { TableColumn } from '@nuxt/ui'
 
-const UButton = resolveComponent('UButton')
-const UBadge = resolveComponent('UBadge')
+const DbButton = resolveComponent('DbButton')
+const DbBadge = resolveComponent('DbBadge')
 
 const { t, locale } = useCustomLocale()
 const { comma } = useUi()
@@ -27,7 +27,7 @@ const columns: TableColumn<WeeklyResult>[] = [
     header: ({ column }) => {
       const isSorted = column.getIsSorted()
 
-      return h(UButton, {
+      return h(DbButton, {
         color: 'neutral',
         variant: 'ghost',
         label: t('label.spendRangeDate'),
@@ -57,7 +57,7 @@ const columns: TableColumn<WeeklyResult>[] = [
     header: t('label.isSuccess'),
     cell: ({ row }) => {
       return h('div', { class: 'flex items-center justify-center font-light text-neutral-800 dark:text-neutral-200' }, [
-        h(UBadge, {
+        h(DbBadge, {
           variant: 'subtle',
           class: row.original.is_success ? 'text-emerald-700 dark:text-emerald-300' : 'text-rose-700 dark:text-rose-300',
           label: row.original.is_success ? t('text.success') : t('text.fail'),
@@ -70,7 +70,7 @@ const columns: TableColumn<WeeklyResult>[] = [
     header: ({ column }) => {
       const isSorted = column.getIsSorted()
 
-      return h(UButton, {
+      return h(DbButton, {
         color: 'neutral',
         variant: 'ghost',
         label: t('label.amount'),
@@ -98,14 +98,14 @@ const columns: TableColumn<WeeklyResult>[] = [
 </script>
 
 <template>
-  <UCard
+  <DbCard
     :ui="{
       root: 'w-full ring-2',
       header: 'w-full',
       body: 'p-0 sm:p-0 sm:py-2 py-2',
     }"
   >
-    <UTable
+    <DbTable
       class="w-full"
       :data="tableData"
       :columns="columns"
@@ -121,6 +121,6 @@ const columns: TableColumn<WeeklyResult>[] = [
           {{ $t('placeholder.noResultRecords') }}
         </p>
       </template>
-    </UTable>
-  </UCard>
+    </DbTable>
+  </DbCard>
 </template>

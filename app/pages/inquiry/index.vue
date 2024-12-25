@@ -170,7 +170,7 @@ onMounted(async () => {
           @click="clickInquiryButton"
         />
       </div>
-      <UTabs
+      <DbTabs
         v-if="user?.id === config.public.adminUid"
         class="w-full"
         size="xl"
@@ -219,7 +219,7 @@ onMounted(async () => {
             />
           </div>
         </template>
-      </UTabs>
+      </DbTabs>
       <InquiryList
         v-else-if="!pendingUserInquiryList"
         v-model:list-current-page="userInquiryCurrentPage"

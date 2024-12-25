@@ -63,7 +63,6 @@ const { data: statisticsRealtimeSpendData, pending: pendingStatisticsRealtimeSpe
       tableName: 'viewSpendList',
       startDate: oneMonthAgo,
       endDate: new Date().toISOString(),
-      isAscending: true,
     },
     headers: useRequestHeaders(['cookie']),
     transform: (payload: SerializeObject) => {
@@ -146,7 +145,7 @@ const { data: statisticsWeeklyResultData, pending: pendingStatisticsWeeklyResult
         v-else
         class="w-full flex justify-center"
       >
-        <UCard
+        <DbCard
           :ui="{
             root: 'w-full h-40 ring ring-neutral-400 dark:ring-neutral-600',
             body: 'h-full flex items-center justify-center break-keep',
@@ -155,7 +154,7 @@ const { data: statisticsWeeklyResultData, pending: pendingStatisticsWeeklyResult
           <p class="text-center">
             {{ $t('statistics.noRealtime') }}
           </p>
-        </UCard>
+        </DbCard>
       </div>
     </div>
     <div class="w-full flex flex-col gap-y-4 px-6">
@@ -175,7 +174,7 @@ const { data: statisticsWeeklyResultData, pending: pendingStatisticsWeeklyResult
         v-else
         class="w-full flex justify-center"
       >
-        <UCard
+        <DbCard
           :ui="{
             root: 'w-full h-40 ring ring-neutral-400 dark:ring-neutral-600',
             body: 'h-full flex items-center justify-center break-keep',
@@ -184,7 +183,7 @@ const { data: statisticsWeeklyResultData, pending: pendingStatisticsWeeklyResult
           <p class="text-center">
             {{ $t('statistics.noDaily') }}
           </p>
-        </UCard>
+        </DbCard>
       </div>
     </div>
     <div class="w-full flex flex-col gap-y-4 px-6">
@@ -204,7 +203,7 @@ const { data: statisticsWeeklyResultData, pending: pendingStatisticsWeeklyResult
         v-else
         class="w-full flex justify-center"
       >
-        <UCard
+        <DbCard
           :ui="{
             root: 'w-full h-40 ring ring-neutral-400 dark:ring-neutral-600',
             body: 'h-full flex items-center justify-center break-keep',
@@ -213,7 +212,7 @@ const { data: statisticsWeeklyResultData, pending: pendingStatisticsWeeklyResult
           <p class="text-center">
             {{ $t('statistics.noWeekly') }}
           </p>
-        </UCard>
+        </DbCard>
       </div>
     </div>
   </div>

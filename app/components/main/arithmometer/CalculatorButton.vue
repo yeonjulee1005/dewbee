@@ -17,7 +17,7 @@ defineEmits([
 </script>
 
 <template>
-  <UButtonGroup
+  <DbButtonGroup
     v-for="(button, index) in calculatorButton"
     :key="index"
   >
@@ -37,5 +37,5 @@ defineEmits([
       :button-text="'-'.concat(comma(button).toString())"
       @click="() => $emit('click:subtract', button)"
     />
-  </UButtonGroup>
+  </DbButtonGroup>
 </template>

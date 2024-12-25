@@ -25,7 +25,7 @@ const computedCurrencyTitle = computed(() => {
 </script>
 
 <template>
-  <UCard
+  <DbCard
     :ui="{
       root: 'w-[calc(100%-3rem)] ring ring-neutral-400 dark:ring-neutral-600',
       body: 'p-4',
@@ -40,7 +40,7 @@ const computedCurrencyTitle = computed(() => {
       </p>
     </template>
     <div class="w-full flex sm:flex-row flex-col justify-end items-center gap-3">
-      <UInputNumber
+      <DbInputNumber
         v-model="targetAmount"
         class="w-full"
         size="xl"
@@ -68,5 +68,5 @@ const computedCurrencyTitle = computed(() => {
         />
       </div>
     </div>
-  </UCard>
+  </DbCard>
 </template>

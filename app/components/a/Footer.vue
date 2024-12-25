@@ -18,27 +18,27 @@ const dewdew = ref({
       {{ copyright }}
     </p>
     <div class="flex justify-end items-center gap-x-4 mt-0.5">
-      <ULink
+      <DbLink
         :to="dewdewWorld.url"
         external
         target="_blank"
         inactive-class="text-sky-400 dark:text-sky-600"
       >
         {{ dewdewWorld.name }}
-      </ULink>
-      <USeparator
+      </DbLink>
+      <DbSeparator
         class="h-2"
         orientation="vertical"
         color="info"
       />
-      <ULink
+      <DbLink
         :to="dewdew.url"
         external
         target="_blank"
         inactive-class="text-sky-400 dark:text-sky-600"
       >
         {{ dewdew.name }}
-      </ULink>
+      </DbLink>
     </div>
   </div>
 </template>

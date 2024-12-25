@@ -12,7 +12,7 @@
           {{ $t('intro.plan.descriptionEnd') }}
         </span>
       </p>
-      <USeparator />
+      <DbSeparator />
     </div>
     <PlanList
       clickable
