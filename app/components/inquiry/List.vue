@@ -60,7 +60,7 @@ const clickList = (list: any) => {
       >
         {{ $t('placeholder.noInquiry') }}
       </p>
-      <UCard
+      <DbCard
         v-for="(list, index) in listData?.list"
         :key="index"
         :ui="{
@@ -85,34 +85,34 @@ const clickList = (list: any) => {
           class="w-full flex justify-between"
         >
           <div class="flex items-center gap-x-4">
-            <UAvatarGroup size="lg">
-              <UChip
+            <DbAvatarGroup size="lg">
+              <DbChip
                 :show="(list as MemberInquiry).admin_new_message ?? false"
                 inset
                 color="secondary"
               >
-                <UAvatar
+                <DbAvatar
                   :src="(list as MemberInquiry)?.adminProfiles?.avatar_url ?? ''"
                   :alt="(list as MemberInquiry)?.adminProfiles?.nickname ?? ''"
                 />
-              </UChip>
-              <UChip
+              </DbChip>
+              <DbChip
                 :show="(list as MemberInquiry).request_new_message ?? false"
                 inset
                 color="success"
               >
-                <UAvatar
+                <DbAvatar
                   :src="(list as MemberInquiry)?.requestUserProfiles?.avatar_url ?? ''"
                   :alt="(list as MemberInquiry)?.requestUserProfiles?.nickname ?? ''"
                 />
-              </UChip>
-            </UAvatarGroup>
+              </DbChip>
+            </DbAvatarGroup>
             <p class="text-lg font-semibold text-neutral-500 dark:text-neutral-400 break-words">
               {{ $t('inquiry.label.channelName', { channelName: (list as MemberInquiry).channel_code }) }}
             </p>
           </div>
           <div class="flex items-center gap-x-2">
-            <UBadge
+            <DbBadge
               :label="(list as MemberInquiry).activated ? $t('text.inquiring') : $t('text.inquiryCompleted')"
               variant="outline"
               :color="(list as MemberInquiry).activated ? 'secondary' : 'neutral'"
@@ -121,11 +121,11 @@ const clickList = (list: any) => {
           </div>
         </div>
         <ANuxtTime :date-time="list.created_at" />
-      </UCard>
+      </DbCard>
     </div>
     <ClientOnly>
       <template #default>
-        <UPagination
+        <DbPagination
           v-model:page="listCurrentPage"
           class="w-fit flex justify-center mx-2 my-2"
           color="neutral"

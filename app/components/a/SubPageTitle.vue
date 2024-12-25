@@ -20,7 +20,7 @@ withDefaults(
     <p :class="titleClass">
       {{ title }}
     </p>
-    <USeparator
+    <DbSeparator
       size="md"
       :avatar="{
         src: url(true, '/assets/dewbee_logo.webp'),

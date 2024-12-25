@@ -47,7 +47,7 @@ const calculateUtcOffset = (offset: number) => {
 </script>
 
 <template>
-  <UCard
+  <DbCard
     :ui="{
       root: 'w-[calc(100%-3rem)] ring ring-neutral-400 dark:ring-neutral-600',
       body: 'p-4',
@@ -66,7 +66,7 @@ const calculateUtcOffset = (offset: number) => {
       </p>
     </template>
     <div :class="`w-full flex ${windowWidth > 400 ? 'flex-row items-center' : 'flex-col'} justify-end gap-3`">
-      <USelectMenu
+      <DbSelectMenu
         v-model="selectedLocalTimezone"
         :items="computedTimezoneList"
         :class="locale === 'ko' ? 'w-full sm:w-64' : 'w-full sm:w-80'"
@@ -79,13 +79,13 @@ const calculateUtcOffset = (offset: number) => {
         @update:model-value="updateCurrentLocalTimezone"
       >
         <template #leading="{ modelValue }">
-          <UIcon :name="modelValue?.icon ?? 'i-lucide-globe'" />
+          <DbIcon :name="modelValue?.icon ?? 'i-lucide-globe'" />
         </template>
         <template #default="{ modelValue }">
           {{ $t(`timezone.${modelValue?.code}`) }}
         </template>
         <template #item="{ item }">
-          <UIcon :name="item?.icon ?? 'i-lucide-globe'" />
+          <DbIcon :name="item?.icon ?? 'i-lucide-globe'" />
           {{ $t(`timezone.${item?.code}`) }}
           <span class="text-xs font-light text-neutral-400 dark:text-neutral-600">
             {{ $t('text.utc', { offset: calculateUtcOffset(item.utc_offset ?? 0) }) }}
@@ -96,7 +96,7 @@ const calculateUtcOffset = (offset: number) => {
             {{ $t('placeholder.noSearch', { search: searchTerm }) }}
           </p>
         </template>
-      </USelectMenu>
+      </DbSelectMenu>
       <AButton
         :custom-class="windowWidth > 400 ? '' : 'flex justify-center'"
         button-size="xl"
@@ -106,5 +106,5 @@ const calculateUtcOffset = (offset: number) => {
         @click="$emit('click:save')"
       />
     </div>
-  </UCard>
+  </DbCard>
 </template>

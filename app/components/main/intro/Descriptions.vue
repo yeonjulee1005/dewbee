@@ -9,7 +9,7 @@ const { windowSize } = storeToRefs(useWindowStore())
     <ClientOnly>
       <template #default>
         <div class="md:w-auto w-full flex flex-col gap-y-4 md:flex-1">
-          <UCard
+          <DbCard
             :ui="{
               root: 'ring',
               body: 'p-4',
@@ -36,7 +36,7 @@ const { windowSize } = storeToRefs(useWindowStore())
                   {{ $t('intro.step1.title') }}
                 </p>
               </div>
-              <USeparator />
+              <DbSeparator />
               <div :class="`flex ${windowSize > 340 ? 'flex-row gap-x-2' : 'flex-col gap-y-2'} items-baseline`">
                 <AHelpPopover
                   :use-trailing="false"
@@ -53,7 +53,7 @@ const { windowSize } = storeToRefs(useWindowStore())
                   {{ $t('intro.step2.title') }}
                 </p>
               </div>
-              <USeparator />
+              <DbSeparator />
               <div :class="`flex ${windowSize > 340 ? 'flex-row gap-x-2' : 'flex-col gap-y-2'} items-baseline`">
                 <AHelpPopover
                   :use-trailing="false"
@@ -75,19 +75,19 @@ const { windowSize } = storeToRefs(useWindowStore())
                 </p>
               </div>
             </div>
-          </UCard>
+          </DbCard>
           <MainIntroLogin />
         </div>
       </template>
       <template #fallback>
-        <UCard :ui="{ root: 'w-full h-[286px] sm:w-[360px] sm:h-[336px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }">
+        <DbCard :ui="{ root: 'w-full h-[286px] sm:w-[360px] sm:h-[336px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }">
           <div class="flex justify-center items-center h-[260px]">
             <Icon
               name="i-svg-spinners-pulse-multiple"
               class="w-28 h-28"
             />
           </div>
-        </UCard>
+        </DbCard>
       </template>
     </ClientOnly>
     <div class="flex justify-center items-center md:flex-1">

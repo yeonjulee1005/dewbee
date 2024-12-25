@@ -50,6 +50,7 @@ export default defineNuxtConfig({
   },
   ui: {
     fonts: false,
+    prefix: 'Db',
   },
   runtimeConfig: {
     public: {
@@ -62,6 +63,10 @@ export default defineNuxtConfig({
       paypalSecret: process.env.PAYPAL_SECRET ?? '',
       adminUid: process.env.ADMIN_UID ?? '',
     },
+  },
+  routeRules: {
+    '/': { prerender: true },
+    '/**': { isr: 3600 },
   },
   sourcemap: {
     server: true,

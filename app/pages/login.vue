@@ -108,7 +108,7 @@ const loginOAuth = async (provider: 'kakao' | 'google' | 'github' | 'linkedin_oi
         {{ $t('pageTitle.login') }}
       </div>
     </div>
-    <USeparator />
+    <DbSeparator />
     <div class="w-full flex flex-col sm:flex-row items-center justify-center gap-4">
       <ClientOnly>
         <template #default>
@@ -129,15 +129,15 @@ const loginOAuth = async (provider: 'kakao' | 'google' | 'github' | 'linkedin_oi
           />
         </template>
         <template #fallback>
-          <UCard :ui="{ root: 'w-full h-[240px] md:h-[48px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }" />
+          <DbCard :ui="{ root: 'w-full h-[240px] md:h-[48px] ring ring-neutral-400 dark:ring-neutral-600 animate-pulse' }" />
         </template>
       </ClientOnly>
     </div>
-    <ULink
+    <DbLink
       to="/policy"
       target="_blank"
     >
       {{ $t('menu.policy') }}
-    </ULink>
+    </DbLink>
   </div>
 </template>
