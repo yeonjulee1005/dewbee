@@ -2,7 +2,6 @@
 import { domToPng } from 'modern-screenshot'
 
 const { isMobileOrTablet, isSafari, isAndroid, userAgent } = useDevice()
-// const { isMobileOrTablet, isSafari, isChrome, isAndroid, userAgent } = useDevice()
 
 const { t } = useCustomLocale()
 const { url } = useImageStorage()
@@ -26,7 +25,7 @@ const shareCard = ref()
 const shareImageUrl = ref('')
 const shareImageModalTrigger = ref(false)
 const isShareDevice = computed(() => {
-  return userAgent.includes('APP_Dewbee') || userAgent.includes('APP_AOS_DewBee') || (isMobileOrTablet && isSafari) || isAndroid
+  return userAgent.includes('APP_Dewbee') || userAgent.includes('APP_AOS_DewBee') || userAgent.includes('KAKAOTALK') || (isMobileOrTablet && isSafari) || isAndroid
 })
 
 const transformSpendListData = (dailyResultData: DailyResult[]) => {
@@ -125,31 +124,30 @@ const { data: recentRecordWeeklyData, execute: _executeRecentRecordWeeklyData, p
 })
 
 const saveImage = async () => {
-  // if (isShareDevice.value) {
   let imageUrl = ''
-  // const maxAttempts = (isSafari || isChrome) ? 10 : 1
 
-  // for (let i = 0; i < maxAttempts; i++) {
-  await domToPng(shareCard.value, {
-    backgroundColor: '#ffffff00',
-  }).then((dataUrl: string) => {
-    imageUrl = dataUrl
-  })
-  // }
+  if (isShareDevice.value) {
+    const maxAttempts = isSafari ? 2 : 1
 
-  uploadAndDownloadImage(imageUrl)
-  // }
-  // else {
-  //   domToWebp(shareCard.value, {
-  //     backgroundColor: '#ffffff00',
-  //   }).then((dataUrl: string) => {
-  //     const link = document.createElement('a')
-  //     link.download = `${userData.value.nickname}.webp`
-  //     link.href = dataUrl
-  //     link.click()
-  //     link.remove()
-  //   })
-  // }
+    for (let i = 0; i < maxAttempts; i++) {
+      imageUrl = await domToPng(shareCard.value, {
+        backgroundColor: '#ffffff00',
+      })
+    }
+
+    uploadAndDownloadImage(imageUrl)
+  }
+  else {
+    imageUrl = await domToPng(shareCard.value, {
+      backgroundColor: '#ffffff00',
+    })
+
+    const link = document.createElement('a')
+    link.download = `${userData.value.nickname}.webp`
+    link.href = imageUrl
+    link.click()
+    link.remove()
+  }
 }
 
 const uploadAndDownloadImage = async (base64Data: string) => {
