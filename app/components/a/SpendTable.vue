@@ -69,10 +69,9 @@ const currentPage = defineModel('currentPage', {
           variant="subtle"
           :sibling-count="1"
           :size="windowSize < 380 ? 'xs' : 'lg'"
-          showo-edge
+          :show-edges="false"
           :items-per-page="pageSize"
           :total="totalCount"
-          show-edges
           @update:page="(changedPage: number) => currentPage = changedPage"
         />
       </template>

@@ -47,7 +47,9 @@ const shareImageUrl = defineModel('shareImageUrl', {
           :src="shareImageUrl"
           class="w-full h-auto"
           loading="lazy"
-          alt="share image"
+          alt="board-image"
+          draggable="false"
+          @contextmenu.prevent
         />
       </div>
     </template>
