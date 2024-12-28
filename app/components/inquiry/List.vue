@@ -132,10 +132,9 @@ const clickList = (list: any) => {
           variant="subtle"
           :sibling-count="1"
           :size="windowSize < 380 ? 'xs' : 'lg'"
-          showo-edge
+          :show-edges="false"
           :items-per-page="pageSize"
           :total="listData?.count"
-          show-edges
           @update:page="(changedPage: number) => listCurrentPage = changedPage"
         />
       </template>
