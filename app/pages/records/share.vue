@@ -5,6 +5,7 @@ const { isMobileOrTablet, isSafari, isAndroid, userAgent } = useDevice()
 
 const { t } = useCustomLocale()
 const { url } = useImageStorage()
+const { genUid } = useUi()
 
 const { userData } = storeToRefs(useUserDataStore())
 const { mobileOperationSystem } = storeToRefs(useWindowStore())
@@ -126,28 +127,30 @@ const { data: recentRecordWeeklyData, execute: _executeRecentRecordWeeklyData, p
 const saveImage = async () => {
   let imageUrl = ''
 
-  if (isShareDevice.value) {
-    const maxAttempts = isSafari ? 2 : 1
+  // if (isShareDevice.value) {
+  const maxAttempts = 2
 
-    for (let i = 0; i < maxAttempts; i++) {
-      imageUrl = await domToPng(shareCard.value, {
-        backgroundColor: '#ffffff00',
-      })
-    }
-
-    uploadAndDownloadImage(imageUrl)
-  }
-  else {
-    imageUrl = await domToPng(shareCard.value, {
+  for (let i = 0; i < maxAttempts; i++) {
+    await domToPng(shareCard.value, {
       backgroundColor: '#ffffff00',
+    }).then((url) => {
+      imageUrl = url
     })
-
-    const link = document.createElement('a')
-    link.download = `${userData.value.nickname}.webp`
-    link.href = imageUrl
-    link.click()
-    link.remove()
   }
+
+  uploadAndDownloadImage(imageUrl)
+  // }
+  // else {
+  //   imageUrl = await domToPng(shareCard.value, {
+  //     backgroundColor: '#ffffff00',
+  //   })
+
+  //   const link = document.createElement('a')
+  //   link.download = `${userData.value.nickname}.webp`
+  //   link.href = imageUrl
+  //   link.click()
+  //   link.remove()
+  // }
 }
 
 const uploadAndDownloadImage = async (base64Data: string) => {
@@ -162,12 +165,13 @@ const uploadAndDownloadImage = async (base64Data: string) => {
   const byteArray = new Uint8Array(byteNumbers)
   const blob = new Blob([byteArray], { type: mimeType })
 
-  const fileName = userData.value?.id.split('-').at(-1).concat('_', recentRecordWeeklyData.value.created_at.split('T').at(0), '.png')
+  const fileName = userData.value?.id.split('-').at(-1).concat('_', recentRecordWeeklyData.value.created_at.split('T').at(0), '-', genUid(), '.png')
 
-  await uploadStorage('share', fileName, blob, 'Blob')
+  await uploadStorage('share', fileName, blob, 'blob')
 
   const imageUrl = await loadStorage('share', fileName)
 
+  console.log(imageUrl)
   shareImageUrl.value = imageUrl
   shareImageModalTrigger.value = true
 }
@@ -227,7 +231,7 @@ const getSummaryAmount = (currencyCode: string) => {
           }"
         >
           <div class="flex flex-col gap-y-5">
-            <div class="flex flex-col sm:flex-row justify-between">
+            <div class="flex flex-col sm:flex-row justify-between gap-y-4">
               <div class="flex flex-col sm:flex-row sm:items-center gap-4">
                 <DbAvatarGroup size="xl">
                   <DbAvatar
