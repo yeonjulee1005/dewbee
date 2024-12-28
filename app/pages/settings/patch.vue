@@ -124,11 +124,11 @@ const parseMarkdown = (body: string) => {
           class="w-full flex justify-center mx-2 my-2"
           color="neutral"
           variant="subtle"
-          :sibling-count="0"
+          :sibling-count="1"
           :size="windowSize < 380 ? 'xs' : 'lg'"
+          :show-edges="false"
           :items-per-page="pageSize"
           :total="githubReleaseData?.count"
-          show-edges
           @update:page="(changedPage: number) => currentPage = changedPage"
         />
       </template>

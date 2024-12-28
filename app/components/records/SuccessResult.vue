@@ -57,7 +57,7 @@ const computedSpendSituation = (summaryAmount: number, targetAmount: number) => 
 <template>
   <div
     v-if="userData.currency.code === currencyCode"
-    class="w-full sm:w-fit flex flex-col items-end gap-y-2"
+    class="w-full sm:w-fit flex flex-col items-end gap-y-0 sm:gap-y-2"
   >
     <p
       class="w-full sm:w-fit text-xl sm:text-2xl font-semibold break-keep"
@@ -67,17 +67,20 @@ const computedSpendSituation = (summaryAmount: number, targetAmount: number) => 
     </p>
     <p
       v-if="summaryAmount > targetAmount"
-      class="text-lg sm:text-xl font-semibold break-keep"
+      class="w-full text-lg sm:text-xl font-semibold break-keep"
     >
-      <span class="text-red-400 font-semibold">
+      <span class="text-2xl text-red-400 font-semibold">
         {{ comma(summaryAmount - targetAmount) }} {{ $t(`currency.${currencyCode}`) }}
       </span>
       <span>
         {{ $t('share.over') }}
       </span>
     </p>
-    <p v-else>
-      <span class="text-xl sm:text-2xl font-semibold break-keep text-blue-400">
+    <p
+      v-else
+      class="w-full"
+    >
+      <span class="text-2xl sm:text-2xl font-semibold break-keep text-blue-400">
         {{ comma(targetAmount - summaryAmount) }} {{ $t(`currency.${currencyCode}`) }}
       </span>
       <span class="text-sm sm:text-base break-keep">
