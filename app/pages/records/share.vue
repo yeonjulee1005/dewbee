@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { domToPng } from 'modern-screenshot'
+import { toPng } from 'html-to-image'
 
 const { isMobileOrTablet, isSafari, isAndroid, userAgent } = useDevice()
 
@@ -131,7 +131,7 @@ const saveImage = async () => {
   const maxAttempts = 2
 
   for (let i = 0; i < maxAttempts; i++) {
-    await domToPng(shareCard.value, {
+    await toPng(shareCard.value, {
       backgroundColor: '#ffffff00',
     }).then((url) => {
       imageUrl = url
